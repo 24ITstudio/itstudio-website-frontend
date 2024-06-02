@@ -4,11 +4,11 @@
 </template>
 
 <script>
-// import signUp from "./components/sign-up.vue";
+import signUp from "./components/sign-up.vue";
 import msagPage from "./components/msagPage.vue";
 export default {
   components: {
-    // signUp,
+    signUp,
     msagPage,
   },
 }
