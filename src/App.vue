@@ -1,12 +1,15 @@
 <template>
-<signUp></signUp>
+<!-- <signUp></signUp> -->
+<msagPage></msagPage>
 </template>
 
 <script>
 import signUp from "./components/sign-up.vue";
+import msagPage from "./components/msagPage.vue";
 export default {
   components: {
     signUp,
+    msagPage,
   },
 }
 </script>
