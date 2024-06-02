@@ -1,6 +1,6 @@
 <template>
     <div class="body">
-        <div class="putIn">
+        <div class="putIn" v-if="!showResult">
             <div class="head">
                 <a href="#"><img src="../assets/Go Back.png" alt=""></a>
                 <div class="text" style="display: inline-block;">信息填报</div>
