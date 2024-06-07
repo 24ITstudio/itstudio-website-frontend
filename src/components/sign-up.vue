@@ -2,7 +2,7 @@
     <div class="body">
         <div class="putIn" v-if="!showResult">
             <div class="head">
-                <a href="#"><img src="../assets/Go Back.png" alt=""></a>
+                <router-link to="/"><img src="../assets/Go Back.png" alt=""></router-link>
                 <div class="text" style="display: inline-block;">信息填报</div>
             </div>
             <form action="" @submit.prevent="submitForm">

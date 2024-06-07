@@ -1,17 +1,8 @@
 <template>
-<!-- <signUp></signUp> -->
-<msagPage></msagPage>
+  <router-view></router-view>
 </template>
 
 <script>
-import signUp from "./components/sign-up.vue";
-import msagPage from "./components/msagPage.vue";
-export default {
-  components: {
-    signUp,
-    msagPage,
-  },
-}
 </script>
 
 <style>
