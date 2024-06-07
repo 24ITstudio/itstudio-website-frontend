@@ -2,10 +2,10 @@
   <div class="box">
     <div class="shadow">
       <div class="back">
-        <a href="">
+        <router-link to="/">
           <img src="../assets/Arrow back.png" alt="" width="20px" />
           <p>返回</p>
-        </a>
+        </router-link>
       </div>
     </div>
     <div class="query">

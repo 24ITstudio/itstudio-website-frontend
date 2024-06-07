@@ -25,7 +25,9 @@
             </div>
             <div class="back_right">
                 <div class="goBack">
-                    <img src="../assets/Go Back.png" class="backImg" />
+                    <router-link to="/">
+                        <img src="../assets/Go Back.png" class="backImg" />
+                    </router-link>
                 </div>
                 <div class="right_board">
 
