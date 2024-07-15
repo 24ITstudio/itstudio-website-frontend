@@ -2,7 +2,8 @@ import { createRouter, createWebHistory } from 'vue-router'
 import signUp from "../components/sign-up.vue";
 import msagPage from "../components/msagPage.vue";
 import logQuery from "../components/log-query.vue";
-import homePage from "../components/homePage.vue"
+import homePage from "../components/homePage.vue";
+import introPage from "../components/introPage.vue"
 const routes = [
     {
         path: '/',
@@ -23,6 +24,11 @@ const routes = [
         path: '/log',
         name: 'log',
         component: logQuery,
+    },
+    {
+        path: '/intro',
+        name: 'intro',
+        component: introPage,
     }
 ]
 

@@ -2,7 +2,7 @@
 <template>
     <nav class="homenav">
         <div class="navtitle"><strong>爱特</strong>|OUR PROJECT</div>
-        <a href="home.html">基本概况</a>
+        <router-link to="/intro">基本概况</router-link>
         <a href="about.html">部门特色</a>
 
         <a href="album.html">成员组成</a>
