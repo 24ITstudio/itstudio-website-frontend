@@ -31,6 +31,10 @@ export default {
 </script>
 
 <style scoped>
+a {
+  text-decoration: none;
+}
+
 body,
 .box {
   position: relative;
@@ -47,6 +51,7 @@ body,
   width: 85vw;
   height: 100vh;
   background-color: #04132dcc;
+  transform: translateY(70px);
 }
 
 .back {
@@ -75,6 +80,7 @@ body,
   overflow: hidden;
   height: 24%;
   background-color: #29447385;
+  transform: translateY(70px);
 }
 
 .text p {
