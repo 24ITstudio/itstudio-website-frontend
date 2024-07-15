@@ -1,4 +1,5 @@
 <template>
+  <navHead></navHead>
   <div class="box">
     <div class="shadow">
       <div class="back">
@@ -20,6 +21,14 @@
   </div>
 </template>
 
+<script>
+import navHead from "./nav-head.vue"
+export default {
+  components: {
+    navHead,
+  },
+}
+</script>
 
 <style scoped>
 body,
