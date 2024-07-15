@@ -10,36 +10,18 @@
       </div>
     </div>
     <div class="query">
-      s
       <div class="text">
         <p>请输入手机号/邮箱/学号进行查询</p>
       </div>
       <div class="input">
         <div class="input1">
-          <input
-            type="text"
-            v-model="phoneNumber"
-            placeholder="请输入号码"
-            placeholder-class="place"
-          />
-          <a href=""
-            ><img
-              src="../assets/Group.png"
-              alt=""
-              title="点击发送"
-              :disabled="isSending"
-              @click="sendVerificationCode"
-          /></a>
+          <input type="text" v-model="phoneNumber" placeholder="请输入号码" placeholder-class="place" />
+          <a href=""><img src="../assets/Group.png" alt="" title="点击发送" :disabled="isSending"
+              @click="sendVerificationCode" /></a>
         </div>
         <div class="input2">
-          <input
-            type="text"
-            placeholder="请输入验证码"
-            placeholder-class="place"
-          />
-          <a href=""
-            ><img src="../assets/Group.png" alt="" title="点击发送"
-          /></a>
+          <input type="text" placeholder="请输入验证码" placeholder-class="place" />
+          <a href=""><img src="../assets/Group.png" alt="" title="点击发送" /></a>
         </div>
       </div>
     </div>
@@ -101,9 +83,11 @@ body,
   background-color: #04132dcc;
   transform: translateY(70px);
 }
+
 .query:hover {
   background-color: #29447385;
 }
+
 .back {
   position: relative;
   margin: 10px;
@@ -113,14 +97,17 @@ body,
   position: absolute;
   width: 20px;
 }
+
 .back p {
   padding-left: 20px;
   color: #808da5;
   font-size: 15px;
 }
+
 .back a {
   text-decoration: none;
 }
+
 .query {
   transition: all 0.4s;
   position: absolute;
@@ -129,10 +116,11 @@ body,
   width: 37%;
   border-radius: 17px;
   max-width: 100%;
-  overflow: hidden
+  overflow: hidden;
   height: 31%;
   transform: translateY(70px);
 }
+
 .text p {
   text-align: center;
   letter-spacing: 1.5px;
@@ -141,11 +129,13 @@ body,
   font-family: "Microsoft New Tai Lue";
   color: #fff;
 }
+
 .input {
   width: 82%;
   height: 100%;
   margin: 0 auto;
 }
+
 .input1,
 .input2 {
   position: relative;
@@ -155,6 +145,7 @@ body,
   height: 23%;
   margin-bottom: 10px;
 }
+
 .input1 img,
 .input2 img {
   position: absolute;
@@ -162,11 +153,13 @@ body,
   top: 13%;
   width: 40px;
 }
+
 @keyframes img {
   to {
     transform: scale(1.2);
   }
 }
+
 input {
   letter-spacing: 1.5px;
   color: white;
