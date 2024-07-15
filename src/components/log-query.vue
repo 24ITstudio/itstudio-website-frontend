@@ -1,4 +1,5 @@
 <template>
+  <navHead></navHead>
   <div class="box">
     <div class="shadow">
       <div class="back">
@@ -45,7 +46,11 @@
   </div>
 </template>
 <script>
+import navHead from "./nav-head.vue"
 export default {
+  components: {
+    navHead,
+  },
   data() {
     return {
       phoneNumber: "",
@@ -75,6 +80,10 @@ export default {
 </script>
 
 <style scoped>
+a {
+  text-decoration: none;
+}
+
 body,
 .box {
   position: relative;
@@ -90,6 +99,7 @@ body,
   width: 85vw;
   height: 100vh;
   background-color: #04132dcc;
+  transform: translateY(70px);
 }
 .query:hover {
   background-color: #29447385;
@@ -119,8 +129,9 @@ body,
   width: 37%;
   border-radius: 17px;
   max-width: 100%;
-  overflow: hidden;
+  overflow: hidden
   height: 31%;
+  transform: translateY(70px);
 }
 .text p {
   text-align: center;
