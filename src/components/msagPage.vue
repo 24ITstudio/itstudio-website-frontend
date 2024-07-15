@@ -1,7 +1,7 @@
 <template>
     <div class="back">
         <div class="head">
-            导航栏组件
+            <navHead></navHead>
         </div>
         <div class="content">
             <div class="back_left">
@@ -25,7 +25,9 @@
             </div>
             <div class="back_right">
                 <div class="goBack">
-                    <img src="../assets/Go Back.png" class="backImg" />
+                    <router-link to="/">
+                        <img src="../assets/Go Back.png" class="backImg" />
+                    </router-link>
                 </div>
                 <div class="right_board">
 
@@ -38,8 +40,12 @@
 </template>
 
 <script>
+import navHead from "./nav-head.vue"
 export default {
     name: "msagPage",
+    components: {
+        navHead,
+    },
     data() {
         return {
             content: '有什么想说的，就在这里留下吧~',
@@ -75,6 +81,10 @@ export default {
 
 
 <style scoped>
+.head {
+    height: 36px;
+}
+
 .back {
     background-color: beige;
     width: 100%;
