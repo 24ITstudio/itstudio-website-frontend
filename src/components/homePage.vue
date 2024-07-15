@@ -4,4 +4,5 @@
     <div><router-link to="/signUp">报名</router-link></div>
     <div><router-link to="/log">log</router-link></div>
     <div><router-link to="/letter">留言板</router-link></div>
+    <div><router-link to="/intro">基本概况</router-link></div>
 </template>

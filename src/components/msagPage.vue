@@ -46,7 +46,7 @@ export default {
             isPlaceholder: true
         }
     },
-    // 不输入内容的话，再次调用时失灵
+    // bug:不输入内容的话，再次调用时失灵
     methods: {
         clearPlaceholder() {
             if (this.isPlaceholder) {
@@ -93,26 +93,32 @@ export default {
     flex-direction: row;
 }
 
+.head {
+    color: white;
+}
+
 .back_left {
     background-color: #04132c;
     width: 30%;
-    height: 100%;
+    /* height: 100%; */
     margin-left: 0%;
     margin-right: 0%;
+    margin-top: -3.2%;
 }
 
 .left_board {
     background-color: #d9d9d9;
     width: 60%;
     height: 75%;
-    margin-left: 30%;
+    margin-left: 25%;
+    /* margin-right: 2%; */
     margin-top: 20%;
+
 
 
     /* width: 351px; */
     /* height: 695px; */
     /* margin-left: 137px; */
-
     /* margin: 150px 90px 235px 137px; */
     /* margin-top: 40px; */
 }
@@ -142,7 +148,7 @@ export default {
     margin-left: 10%;
     margin-right: 10%;
     height: 73%;
-    margin-top: 8%;
+    margin-top: 6%;
     /* border: 1px, solid, #04132c; */
 }
 
@@ -227,6 +233,9 @@ textarea:focus::placeholder {
     background-color: #d9d9d91a;
     width: 70%;
     height: 100%;
+    /* 右下部分单独 少一个背景虚化 */
+    /* filter: blur(10px); */
+    /* backdrop-filter: blur(100px); */
 }
 
 .goBack {
@@ -243,7 +252,7 @@ textarea:focus::placeholder {
 }
 
 .right_board {
-    border: 3px, solid, #04132c;
+    border: 0px, solid, #04132c;
     height: 85%;
 }
 </style>
