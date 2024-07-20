@@ -1,8 +1,8 @@
 <template>
     <nav class="homenav">
         <div class="navtitle"><img src="../assets/Home.svg" alt=""></div>
-        <a href="home.html">基本概况</a>
-        <a href="about.html">部门特色</a>
+        <router-link to="/intro">基本概况</router-link>
+        <router-link to="/feature">部门特色</router-link>
         <a href="album.html">成员组成</a>
         <a href="join.html">项目成果</a>
         <div class="navanim home"></div>

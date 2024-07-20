@@ -4,6 +4,7 @@ import msagPage from "../components/msagPage.vue";
 import logQuery from "../components/log-query.vue";
 import homePage from "../components/homePage.vue";
 import introPage from "../components/introPage.vue"
+import departFeature from "../components/departFeature.vue"
 const routes = [
     {
         path: '/',
@@ -29,7 +30,12 @@ const routes = [
         path: '/intro',
         name: 'intro',
         component: introPage,
-    }
+    },
+    {
+        path: '/feature',
+        name: 'feature',
+        component: departFeature,
+    },
 ]
 
 const router = createRouter({
