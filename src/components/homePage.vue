@@ -3,7 +3,7 @@
     <nav class="homenav">
         <div class="navtitle"><strong>爱特</strong>|OUR PROJECT</div>
         <router-link to="/intro">基本概况</router-link>
-        <router-link to="/intro">部门特色</router-link>
+        <router-link to="/feature">部门特色</router-link>
         <a href="album.html">成员组成</a>
         <a href="join.html">项目成果</a>
         <div class="navanim home"></div>
