@@ -7,20 +7,44 @@
             </div>
             <form action="" @submit.prevent="submitForm">
                 <div class="name fill">
-                    <img src="../assets/User.png" alt="" style="height: 30px;">
+                    <img src="../assets/User.png" alt="" style="height: 20px;">
                     <input type="text" v-model="name" placeholder="姓名" required>
                 </div>
+                <div class="depart fill">
+                    <img src="../assets/Flutter dash.png" alt="" style="height: 20px;">
+                    <select class="form-control" v-model="depart" required>
+                        <option value="" selected disabled hidden style="color: #808DA5;">请选择意向部门</option>
+                        <option value="程序开发">程序开发</option>
+                        <option value="Web开发">Web开发</option>
+                        <option value="游戏开发">游戏开发</option>
+                        <option value="APP开发">APP开发</option>
+                        <option value="UI设计">UI设计</option>
+                    </select>
+                </div>
                 <div class="stuId fill">
-                    <img src="../assets/Identification Documents.png" alt="" style="height: 30px;">
+                    <img src="../assets/Identification Documents.png" alt="" style="height: 20px;">
                     <input type="text" v-model="stuId" placeholder="学号" required>
                 </div>
+                <div class="stuMajor fill">
+                    <img src="../assets/Identification Documents.png" alt="" style="height: 20px;">
+                    <input type="text" v-model="stuMajor" placeholder="年级专业" required>
+                </div>
                 <div class="tele fill">
-                    <img src="../assets/Phone iphone.png" alt="" style="height: 30px;">
+                    <img src="../assets/Phone iphone.png" alt="" style="height: 20px;">
                     <input type="text" v-model="tele" placeholder="电话" required>
                 </div>
                 <div class="QQ fill">
-                    <img src="../assets/Flutter dash.png" alt="" style="height: 30px;">
+                    <img src="../assets/Flutter dash.png" alt="" style="height: 20px;">
                     <input type="text" v-model="qq" placeholder="QQ号" required>
+                </div>
+                <div class="mail fill">
+                    <img src="../assets/Flutter dash.png" alt="" style="height: 20px;">
+                    <input type="text" v-model="mail" placeholder="邮箱" required>
+                    <button type="submit" class="button small">发送<br />验证码</button>
+                </div>
+                <div class="code fill">
+                    <input type="text" v-model="code" placeholder="请输入验证码" required
+                        style="transform: translateX(10px);">
                 </div>
                 <input type="submit" class="button" value="提       交">
             </form>
@@ -45,14 +69,17 @@ export default {
         return {
             name: '',
             stuId: '',
+            stuMajor: '',
             tele: '',
             qq: '',
+            depart: '',
+            code: '',
             showResult: false,
         };
     },
     methods: {
         submitForm() {
-            if (this.name && this.stuId && this.tele && this.qq) {
+            if (this.name && this.stuId && this.tele && this.qq && this.stuMajor && this.depart && this.mail && this.code) {
                 // 表单验证通过，设置 showResult 为 true，显示结果  
                 this.showResult = true;
                 // 在这里可以添加将表单数据发送到服务器的代码  
@@ -61,6 +88,10 @@ export default {
                 this.stuId = '';
                 this.tele = '';
                 this.qq = '';
+                this.stuMajor = '';
+                this.mail = '';
+                this.depart = '';
+                this.code = '';
             }
         },
         back() {
@@ -131,7 +162,7 @@ input {
 .putIn form {
     width: 84.79%;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     flex-wrap: wrap;
     transform: translateY(-30px);
 }
@@ -139,7 +170,7 @@ input {
 .putIn form .fill {
     background-color: rgba(103, 110, 123, 0.09);
     width: 100%;
-    height: 45px;
+    height: 35px;
     margin-bottom: 30px;
     line-height: 45px;
     display: flex;
@@ -178,10 +209,58 @@ input {
     border: none;
     border-radius: 52px;
     background: var(--2, #04132D);
+    margin: 0 auto;
+}
+
+.mail {
+    width: 65% !important;
+}
+
+.code {
+    width: 32% !important;
+}
+
+.putIn form .mail .small {
+    background-color: rgba(241, 244, 248, 0.6);
+    color: #808DA5;
+    font-size: 12px;
+    width: 15%;
+    height: 30px;
+    line-height: 12px;
+    display: flex;
+    justify-content: center;
+    border-radius: 24px;
+    border: 2px solid #808DA5;
 }
 
 .putIn form .button:active {
     opacity: 0.7;
+}
+
+.name {
+    width: 40% !important;
+}
+
+.depart {
+    width: 55% !important;
+}
+
+select {
+    outline: none;
+    border: none;
+    background-color: transparent;
+    width: 80%;
+    height: 100%;
+    transform: translateX(-10px);
+    color: var(--2, #04132D);
+    font-weight: bold;
+    font-size: 18px;
+}
+
+option {
+    color: var(--2, #04132D);
+    font-weight: bold;
+    font-size: 18px;
 }
 
 .succeed {
