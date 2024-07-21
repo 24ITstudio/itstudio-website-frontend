@@ -1,7 +1,7 @@
 <template>
     <div class="back">
         <div class="head">
-            导航栏组件
+            <navHead :locate="540"></navHead>
         </div>
         <div class="content">
             <div class="back_left">
@@ -24,19 +24,24 @@
 
                     </div>
                     <div>
-                        
+
                     </div>
                 </div>
                 <div class="nav">
-                    
+
                 </div>
             </div>
         </div>
     </div>
 </template>
 <script>
+import navHead from './nav-head.vue'
+
 export default {
     name: "introPage",
+    components: {
+        navHead,
+    },
 }
 </script>
 
@@ -61,10 +66,10 @@ export default {
     width: 100%;
     height: 100%;
     background-color: rgba(226, 223, 223, 0.5); */
-    /* 背景颜色 */
-    /* filter: blur(10px); */
-    /* 调整虚化程度 */
-    /* z-index: 0; */
+/* 背景颜色 */
+/* filter: blur(10px); */
+/* 调整虚化程度 */
+/* z-index: 0; */
 /* } */
 
 .content {
@@ -76,11 +81,11 @@ export default {
     width: 100%;
 }
 
-.head{
+.head {
     color: white;
 }
 
-.back_left{
+.back_left {
     width: 31%;
     /* height: 57%; */
     margin-left: 13%;
@@ -90,16 +95,16 @@ export default {
 }
 
 
-.left_head{
+.left_head {
     color: white;
     font-weight: 700;
     font-size: 60px;
     margin-left: 1%;
-    
+
 }
 
 
-.left_content{
+.left_content {
     margin-top: 7%;
     height: 53%;
     color: white;
@@ -116,7 +121,7 @@ export default {
     height: 0;
 }
 
-.back_right{
+.back_right {
     background-color: #04132c;
     width: 40%;
     /* height: 100%; */
@@ -127,20 +132,16 @@ export default {
     flex-direction: row;
 }
 
-.swiper_total{
+.swiper_total {
     width: 90%;
     height: 65%;
     margin-top: 15%;
     background-image: url('../assets/introTry.png');
     margin-left: -20%;
-    
-}
-
-.swiper{
 
 }
 
-.nav{
+.nav {
     background-color: #e2dfdf;
     border-radius: 30px;
     height: 20%;

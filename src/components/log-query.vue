@@ -1,5 +1,5 @@
 <template>
-  <navHead></navHead>
+  <navHead :locate="-200"></navHead>
   <div class="box">
     <div class="shadow">
       <div class="back">

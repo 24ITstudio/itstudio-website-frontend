@@ -1,7 +1,7 @@
 <template>
     <div class="back">
         <div class="head">
-            <navHead></navHead>
+            <navHead :locate="-200"></navHead>
         </div>
         <div class="content">
             <div class="back_left">
