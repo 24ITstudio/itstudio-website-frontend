@@ -2,11 +2,13 @@
 <template>
     <nav class="homenav">
         <div class="navtitle"><strong>爱特</strong>|OUR PROJECT</div>
-        <router-link to="/intro">基本概况</router-link>
-        <router-link to="/feature">部门特色</router-link>
-        <a href="album.html">成员组成</a>
-        <a href="join.html">项目成果</a>
-        <div class="navanim home"></div>
+        <div class="navmain">
+            <router-link to="/intro">基本概况</router-link>
+            <router-link to="/feature">部门特色</router-link>
+            <a href="album.html">成员组成</a>
+            <a href="join.html">项目成果</a>
+            <div class="navanim home" style="left: -4000px;"></div>
+        </div>
         <div class="none"></div>
 
     </nav>
@@ -93,7 +95,8 @@
     font-size: 30px;
     font-weight: bolder;
     color: white;
-
+    z-index: 100;
+    position: fixed;
 
 }
 
@@ -102,10 +105,9 @@
     font-size: 130px;
     font-weight: 700;
     line-height: 28px;
-
     color: white;
     margin-top: 100px;
-
+    position: fixed;
 
 }
 
@@ -302,9 +304,10 @@ nav {
 }
 
 nav .navtitle {
-    padding-left: 50px;
+    padding-right: 50px;
     width: 25%;
     margin-right: 1.2%;
+    transform: translateX(70px);
 }
 
 nav .navtitle strong {
@@ -325,7 +328,15 @@ nav a {
     color: white;
     opacity: 1;
     transition: 0.5s;
-    padding-left: 100px;
+    padding-right: 100px;
+    transform: translateX(70px);
+}
+
+nav .navmain {
+    display: flex;
+    justify-content: space-around;
+    position: relative;
+    width: 1000px;
 }
 
 nav .navanim {
@@ -338,36 +349,27 @@ nav .navanim {
     left: 0px;
     transition: all .5s ease 0s;
     width: 120px;
+    height: 100%;
 }
 
-nav .home,
-a:nth-child(2):hover~.navanim {
+.navmain a:nth-child(1):hover~.navanim {
     width: 120px;
-    left: 540px;
+    left: 84px !important;
 }
 
-nav .about,
-a:nth-child(3):hover~.navanim {
+.navmain a:nth-child(2):hover~.navanim {
     width: 120px;
-    left: 786px;
+    left: 332px !important;
 }
 
-nav .blog,
-a:nth-child(4):hover~.navanim {
+.navmain a:nth-child(3):hover~.navanim {
     width: 120px;
-    left: 1037px;
+    left: 584px !important;
 }
 
-nav .album,
-a:nth-child(5):hover~.navanim {
+.navmain a:nth-child(4):hover~.navanim {
     width: 120px;
-    left: 1290px;
-}
-
-nav .join,
-a:nth-child(6):hover~.navanim {
-    width: 120px;
-    left: 1190px;
+    left: 834px !important;
 }
 
 nav .none {

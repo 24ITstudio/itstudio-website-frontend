@@ -4,7 +4,7 @@
     <!-- need: 点击不同留言后将之前的回复清除并带对应留言id提交 -->
     <div class="back">
         <div class="head">
-            <navHead :locate="-200"></navHead>
+            <navHead :locate="-4000"></navHead>
         </div>
         <div class="content">
             <div class="back_left">

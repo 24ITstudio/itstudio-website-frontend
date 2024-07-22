@@ -2,7 +2,7 @@
     <!-- change: 展示区头像名称去掉&添加日期（id）显示 -->
     <div class="back">
         <div class="head">
-            <navHead :locate="540"></navHead>
+            <navHead :locate="84"></navHead>
         </div>
         <div class="content">
             <div class="back_left">

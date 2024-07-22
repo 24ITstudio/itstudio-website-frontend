@@ -46,7 +46,7 @@ export default {
     position: relative;
     z-index: 100;
     width: 160px;
-    height: 700px;
+    height: 75vh;
     background-position: center;
     border-radius: 80px;
     transition: width 0.5s;
@@ -54,7 +54,7 @@ export default {
 }
 
 .expanded {
-    width: 700px;
+    width: 75vh;
 }
 
 .head {
