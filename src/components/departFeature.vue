@@ -1,6 +1,6 @@
 <template>
     <div class="main" @click="handleClickOutside">
-        <navHead :locate="262"></navHead>
+        <navHead :locate="332"></navHead>
         <div class="center">
             <deBox v-for="depart in departs" :key="depart.id" :index="depart.id" :activeIndex="activeIndex"
                 :url="depart.bgi" :title="depart.title" :intro="depart.intro" @update:activeIndex="updateActiveIndex"
