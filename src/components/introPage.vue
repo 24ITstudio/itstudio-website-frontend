@@ -1,7 +1,9 @@
 <template>
     <!-- change: 展示区头像名称去掉&添加日期（id）显示 -->
     <div class="back">
-        <div class="head">导航栏组件</div>
+        <div class="head">
+            <navHead :locate="540"></navHead>
+        </div>
         <div class="content">
             <div class="back_left">
                 <div class="left_head">爱特工作室</div>
@@ -47,6 +49,7 @@
 
 <script>
 import  Swiper, { Navigation } from 'swiper';
+import navHead from './nav-head.vue'
 // import Swiper from 'swiper/bundle';
 // import {Navigation} from 'swiper';
 // import SwiperCore, {Navigation} from 'swiper/core';
@@ -59,6 +62,9 @@ Swiper.use([Navigation]);
 
 export default {
     name: 'introPage',
+     components: {
+        navHead,
+    },
     data() {
         return {
             images: [
