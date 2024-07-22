@@ -200,7 +200,7 @@ export default {
 }
 
 .prev{
-    /* background-color: rgba(0, 0, 0, 0.5); */
+    /* background-color: rgba(69, 12, 12, 0.5); */
     /* color: white; */
     /* padding: 10px; */
     cursor: pointer;
