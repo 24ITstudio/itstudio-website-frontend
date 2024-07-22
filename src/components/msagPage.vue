@@ -1,4 +1,7 @@
 <template>
+    <!-- remain: 留言块静态位置待改(head&name删除/添加日期)-->
+    <!-- Q: traveller部分滚动条设置失败/点击但不输入内容后，二次调用clear函数会失效-->
+    <!-- need: 点击不同留言后将之前的回复清除并带对应留言id提交 -->
     <div class="back">
         <div class="head">
             <navHead :locate="-200"></navHead>

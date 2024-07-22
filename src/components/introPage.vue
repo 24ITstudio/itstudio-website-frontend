@@ -130,6 +130,28 @@ export default {
     margin-left: 16%;
     display: flex;
     flex-direction: row;
+    /* height: 5%; */
+    margin-top: 4%;
+    margin-left: 12%;
+    /* width: 20%; */
+
+}
+
+.prev{
+    /* background-color: rgba(69, 12, 12, 0.5); */
+    /* color: white; */
+    /* padding: 10px; */
+    cursor: pointer;
+    /* height: 10%; */
+    /* height: auto; */
+    /* width: ; */
+    /* display: none; */
+    /* background-image: url('../assets/left.png'); */
+}
+
+.prev img{
+    height: 60%;
+    /* bug 可识别区域大于箭头区域 */
 }
 
 .swiper_total {
