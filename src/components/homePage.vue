@@ -105,7 +105,7 @@
     line-height: 28px;
 
     color: white;
-    margin-top: 100px;
+    margin-top: 150px;
 
 
 }
