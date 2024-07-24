@@ -63,42 +63,40 @@
     </div>
 </template>
 
-<script>
-export default {
-    data() {
-        return {
-            name: '',
-            stuId: '',
-            stuMajor: '',
-            tele: '',
-            qq: '',
-            depart: '',
-            code: '',
-            showResult: false,
-        };
-    },
-    methods: {
-        submitForm() {
-            if (this.name && this.stuId && this.tele && this.qq && this.stuMajor && this.depart && this.mail && this.code) {
-                // 表单验证通过，设置 showResult 为 true，显示结果  
-                this.showResult = true;
-                // 在这里可以添加将表单数据发送到服务器的代码  
-                // ...  
-                this.name = '';
-                this.stuId = '';
-                this.tele = '';
-                this.qq = '';
-                this.stuMajor = '';
-                this.mail = '';
-                this.depart = '';
-                this.code = '';
-            }
-        },
-        back() {
-            this.showResult = false;
-        },
-    },
-};  
+<script setup>
+import { ref } from 'vue';
+
+const name = ref('');
+const stuId = ref('');
+const stuMajor = ref('');
+const tele = ref('');
+const qq = ref('');
+const depart = ref('');
+const mail = ref(''); // 确保包含mail  
+const code = ref('');
+const showResult = ref(false);
+
+function submitForm() {
+    if (name.value && stuId.value && tele.value && qq.value && stuMajor.value && depart.value && mail.value && code.value) {
+        showResult.value = true;
+        // 在这里可以添加将表单数据发送到服务器的代码  
+        // ...  
+
+        // 清空表单  
+        name.value = '';
+        stuId.value = '';
+        tele.value = '';
+        qq.value = '';
+        stuMajor.value = '';
+        mail.value = '';
+        depart.value = '';
+        code.value = '';
+    }
+}
+
+function back() {
+    showResult.value = false;
+}  
 </script>
 
 <style scoped>
