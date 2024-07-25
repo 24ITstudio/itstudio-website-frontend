@@ -40,7 +40,12 @@
                 <div class="mail fill">
                     <img src="../assets/Flutter dash.png" alt="" style="height: 20px;">
                     <input type="text" v-model="mail" placeholder="邮箱" required>
-                    <button type="submit" class="button small">发送<br />验证码</button>
+                    <div class="small" @click="getCode" v-if="second === 61">
+                        <el-icon>
+                            <Right />
+                        </el-icon>
+                    </div>
+                    <div class="count" v-else>{{ second + 's' }}</div>
                 </div>
                 <div class="code fill">
                     <input type="text" v-model="code" placeholder="请输入验证码" required
@@ -64,7 +69,9 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, onMounted, onUnmounted, computed } from 'vue';
+import axios from 'axios';
+import { ElNotification } from 'element-plus'
 
 const name = ref('');
 const stuId = ref('');
@@ -75,6 +82,9 @@ const depart = ref('');
 const mail = ref(''); // 确保包含mail  
 const code = ref('');
 const showResult = ref(false);
+const totalSec = ref(61);//验证码总秒数
+const second = ref(61);//当前秒数,开定时器，对second--
+let timer = null;
 
 function submitForm() {
     if (name.value && stuId.value && tele.value && qq.value && stuMajor.value && depart.value && mail.value && code.value) {
@@ -92,11 +102,60 @@ function submitForm() {
         depart.value = '';
         code.value = '';
     }
-}
+};
 
 function back() {
     showResult.value = false;
-}  
+};
+
+function getCode() {
+    const emailError = computed(() => {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(mail.value) ? 'true' : 'false';
+    });
+    if (emailError.value === 'true') {
+        console.log('发送验证码');
+        axios.post('api/code-send/', {
+            email: mail.value,
+        }).then(response => {
+            console.log(response.data)
+        })
+            .catch(error => {
+                console.log(error)
+            })
+        ElNotification.success({
+            title: '验证码已发送',
+            message: '请及时查看邮箱',
+            offset: 100,
+        })
+        if (!timer && second.value === totalSec.value) {
+            timer = setInterval(() => {
+                second.value--;
+                if (second.value <= 0) {
+                    clearInterval(timer);
+                    timer = null;
+                    second.value = totalSec.value;
+                }
+                console.log('别急，倒计时完就能再发送');
+            }, 1000)
+        }
+    }
+    else if (emailError.value === 'false') {
+        console.log('邮箱格式有问题');
+        ElNotification.error({
+            title: '邮箱格式错误',
+            message: '请检查输入是否正确',
+            offset: 100,
+        })
+    }
+};
+// 组件销毁时清理定时器  
+onUnmounted(() => {
+    if (timer) {
+        clearInterval(timer);
+        timer = null;
+    }
+});  
 </script>
 
 <style scoped>
@@ -127,7 +186,7 @@ input {
 
 .body .putIn {
     width: 33.9%;
-    height: 65.19%;
+    height: 68vh;
     background-color: #D9D9D9;
     position: absolute;
     top: 17.4%;
@@ -168,8 +227,8 @@ input {
 .putIn form .fill {
     background-color: rgba(103, 110, 123, 0.09);
     width: 100%;
-    height: 35px;
-    margin-bottom: 30px;
+    height: 3.6vh;
+    margin-bottom: 3vh;
     line-height: 45px;
     display: flex;
     align-items: center;
@@ -212,6 +271,7 @@ input {
 
 .mail {
     width: 65% !important;
+    position: relative;
 }
 
 .code {
@@ -221,14 +281,43 @@ input {
 .putIn form .mail .small {
     background-color: rgba(241, 244, 248, 0.6);
     color: #808DA5;
-    font-size: 12px;
-    width: 15%;
-    height: 30px;
-    line-height: 12px;
+    font-size: 20px;
+    font-weight: bold;
+    width: 2.8vh;
+    height: 2.5vh;
+    line-height: 2.5vh;
     display: flex;
     justify-content: center;
-    border-radius: 24px;
+    align-items: center;
+    border-radius: 14px;
     border: 2px solid #808DA5;
+    position: absolute;
+    right: 5px;
+}
+
+.putIn form .mail .count {
+    background-color: rgba(241, 244, 248, 0.6);
+    color: #808DA5;
+    font-size: 12px;
+    font-weight: bold;
+    width: 2.8vh;
+    height: 2.5vh;
+    line-height: 2.5vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 14px;
+    border: 2px solid #808DA5;
+    position: absolute;
+    right: 5px;
+}
+
+.small:active {
+    opacity: .7;
+}
+
+.small:hover {
+    cursor: pointer;
 }
 
 .putIn form .button:active {
