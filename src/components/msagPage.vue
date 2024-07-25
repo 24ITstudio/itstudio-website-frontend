@@ -2,7 +2,7 @@
     <!-- remain: 留言块静态位置待改(head&name删除/添加日期) -->
     <!-- Q: 点击但不输入内容后，二次调用clear函数会失效？/未发布内容是否临时保存到下次点击显示？-->
     <!-- need: submitTalk当parent为id时404/点击不同留言后将之前的回复清除并带对应留言id提交 -->
-    
+
     <div class="back">
         <div class="head">
             <navHead :locate="-4000"></navHead>
@@ -57,7 +57,7 @@
                 </div>
                 <div class="right_board">
                     <!-- <div class="inner_board"> -->
-                        <!-- <div @click="showContent('content2'); clearPlaceholder1" class="author_inner">
+                    <!-- <div @click="showContent('content2'); clearPlaceholder1" class="author_inner">
                             <div class="author_head_fixed">
                                 <img src="../assets/author_head.png" />
                             </div>
@@ -65,20 +65,20 @@
                                 <div class="author_name">
                                     游1234567
                                 </div> -->
-                                <!-- <div class="author_content">
+                    <!-- <div class="author_content">
                                     测试讨论内容留言板欢迎加入爱特工作室
                                     测试讨论内容留言板欢迎加入爱特工作室
                                     测试讨论内容留言板欢迎加入爱特工作室
                                     测试讨论内容留言板欢迎加入爱特工作室
                                     测试讨论内容留言板欢迎加入爱特工作室 -->
-                                    <!-- （可放90个中文字符） -->
-                                <!-- </div>
+                    <!-- （可放90个中文字符） -->
+                    <!-- </div>
                             </div> -->
 
-                            <!-- <div class="repay">
+                    <!-- <div class="repay">
 
                             </div> -->
-                        <!-- </div>
+                    <!-- </div>
                         <div class="traveller_total">
                             <div class="traveller_inner">
                                 <div class="traveller_head_fixed">
@@ -114,7 +114,7 @@
 
                     <div class="inner_board" v-for="item in total_Messages" :key="item.id">
                         <!-- <div @click="showContent('content2'); clearPlaceholder1" class="author_inner"> -->
-                        <div @click="() => { showContent('content2'); clearPlaceholder1; getParentID(item.id)}"
+                        <div @click="() => { showContent('content2'); clearPlaceholder1; getParentID(item.id) }"
                             class="author_inner">
                             <div class="author_head_fixed">
                                 <img src="../assets/author_head.png" />
@@ -148,7 +148,7 @@
                                     </div>
                                 </div>
                             </div> -->
-                            <div class="traveller_inner" v-for="child in item.children">
+                            <div class="traveller_inner" v-for="child in item.children" :key="child">
                                 <div class="traveller_head_fixed">
                                     <img src="../assets/traveller_head.png" />
                                 </div>
@@ -177,7 +177,7 @@
 
 <script>
 import navHead from "./nav-head.vue"
-import axios from 'axios'
+// import axios from 'axios'
 
 export default {
     name: "msagPage",
@@ -201,13 +201,13 @@ export default {
         this.getMessages();
     },
     methods: {
-        getMessages(){
+        getMessages() {
             var axios = require('axios');
             var config = {
                 method: 'get',
                 // url: 'http://127.0.0.1:4523/m1/4511878-4159176-default/bbs/',
                 // url: 'https://www.itstudio.club/bbs/',
-                url: '/api/bbs/',  
+                url: '/api/bbs/',
                 // url: 'https://itstudio.bai3401.eu.org/',  
                 // 正式 但内容为空不宜用于测试
                 headers: {
@@ -216,7 +216,7 @@ export default {
             };
 
             axios(config)
-                .then( response => {
+                .then(response => {
                     this.total_Messages = response.data;
                     // this.filterMessages();
                     console.log('获取信息成功', response.data);
@@ -225,15 +225,15 @@ export default {
                     if (error.response) {
                         // 服务器返回了状态码，但状态码不是 2xx
                         if (error.response.status === 404) {
-                            
+
                             console.error('信息获取失败: 资源未找到', error.response.status);
                         } else {
-                            
+
                             console.error('信息获取失败', error.response.status);
                         }
                     } else if (error.request) {
                         // 请求已发出，但没有收到响应
-                        
+
                         console.error('没有收到响应', error.request);
                     } else {
                         // 设置请求时发生错误
@@ -252,7 +252,7 @@ export default {
                 alert('还没有说点什么哇');
                 return;
             }
-            
+
             var axios = require('axios');
             var data = JSON.stringify({
                 "content": this.content1,
@@ -263,7 +263,7 @@ export default {
                 method: 'post',
                 // url: 'http://127.0.0.1:4523/m1/4511878-4159176-default/bbs/',
                 // url: 'https://www.itstudio.club/bbs/',
-                url: '/api/bbs/',    
+                url: '/api/bbs/',
 
                 headers: {
                     // 'User-Agent': 'Apifox/1.0.0 (https://apifox.com)',
@@ -274,12 +274,12 @@ export default {
 
             axios(config)
                 .then(response => {
-                    
+
                     if (response.status === 200) {
                         console.log('消息发布成功', response.status, this.content1);
                         // alert('竟然发布成功了？?');
                         this.content1 = '有什么想说的，就在这里留下吧~';
-                    } else if(response.status === 404) {
+                    } else if (response.status === 404) {
                         console.log('消息发布失败', response.status);
                         // alert('消息发布失败，id不存在');
                     }
@@ -290,26 +290,26 @@ export default {
                     if (error.response) {
                         // 服务器返回了状态码，但状态码不是 2xx
                         if (error.response.status === 404) {
-                           
+
                             console.error('信息获取失败: 资源未找到', error.response.status);
                         } else {
-                            
+
                             console.error('信息获取失败', error.response.status);
                         }
                     } else if (error.request) {
                         // 请求已发出，但没有收到响应
-                      
+
                         console.error('没有收到响应', error.request);
                     } else {
                         // 设置请求时发生错误
-                       
+
                         console.error('请求设置错误', error.message);
                     }
                 });
             window.location.reload();
             // alert('发布成功');
         },
-        getParentID(id){
+        getParentID(id) {
             this.parentID = id;
             this.parentID = parseInt(this.parentID, 10);
             console.log('getParentID结束 ', this.parentID, typeof this.parentID)
@@ -335,7 +335,7 @@ export default {
                 method: 'post',
                 // url: 'http://127.0.0.1:4523/m1/4511878-4159176-default/bbs/',
                 // url: 'https://www.itstudio.club/bbs/',
-                url: '/api/bbs/',    
+                url: '/api/bbs/',
                 headers: {
                     // 'User-Agent': 'Apifox/1.0.0 (https://apifox.com)',
                     'Content-Type': 'application/json'
@@ -731,9 +731,9 @@ textarea:focus::placeholder {
 }
 
 /* .repay { */
-    /* border: 1px, solid, black; */
-    /* background-image: url('../assets/repay.png'); */
-    /* height: 3%;
+/* border: 1px, solid, black; */
+/* background-image: url('../assets/repay.png'); */
+/* height: 3%;
     width: 3%;
     margin-top: 1%;
     margin-left: 87%; */
@@ -746,7 +746,7 @@ textarea:focus::placeholder {
     margin-left: 23%;
     margin-top: 3%;
     overflow: auto;
-    
+
 }
 
 .traveller_total::-webkit-scrollbar {
