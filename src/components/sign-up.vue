@@ -69,7 +69,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted, computed } from 'vue';
+import { ref, onUnmounted, computed } from 'vue';
 import axios from 'axios';
 import { ElNotification } from 'element-plus'
 
@@ -102,60 +102,67 @@ function submitForm() {
         depart.value = '';
         code.value = '';
     }
-};
+}
 
 function back() {
-    showResult.value = false;
-};
+    showResult.value = false
+}
 
-function getCode() {
-    const emailError = computed(() => {
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        return emailRegex.test(mail.value) ? 'true' : 'false';
-    });
-    if (emailError.value === 'true') {
-        console.log('发送验证码');
-        axios.post('api/code-send/', {
-            email: mail.value,
-        }).then(response => {
-            console.log(response.data)
-        })
-            .catch(error => {
-                console.log(error)
-            })
-        ElNotification.success({
-            title: '验证码已发送',
-            message: '请及时查看邮箱',
-            offset: 100,
-        })
-        if (!timer && second.value === totalSec.value) {
-            timer = setInterval(() => {
-                second.value--;
-                if (second.value <= 0) {
-                    clearInterval(timer);
-                    timer = null;
-                    second.value = totalSec.value;
-                }
-                console.log('别急，倒计时完就能再发送');
-            }, 1000)
+const emailError = computed(() => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return !emailRegex.test(mail.value); // 返回布尔值而不是字符串  
+})
+
+async function getCode() {
+    if (!emailError.value) { // 如果邮箱格式正确  
+        try {
+            console.log('发送验证码');
+            const response = await axios.post('api/code-send/', {
+                email: mail.value,
+            });
+            console.log(response.data);
+
+            ElNotification.success({
+                title: '验证码已发送',
+                message: '请及时查看邮箱',
+                offset: 100,
+            });
+
+            if (!timer && second.value === totalSec.value) {
+                timer = setInterval(() => {
+                    second.value--;
+                    if (second.value <= 0) {
+                        clearInterval(timer);
+                        timer = null;
+                        second.value = totalSec.value;
+                    }
+                    console.log('别急，倒计时完就能再发送');
+                }, 1000);
+            }
+        } catch (error) {
+            console.log(error);
+            ElNotification.error({
+                title: '发送失败',
+                message: '验证码发送失败，请重试',
+                offset: 100,
+            });
         }
-    }
-    else if (emailError.value === 'false') {
+    } else {
         console.log('邮箱格式有问题');
         ElNotification.error({
             title: '邮箱格式错误',
             message: '请检查输入是否正确',
             offset: 100,
-        })
+        });
     }
-};
+}
 // 组件销毁时清理定时器  
 onUnmounted(() => {
     if (timer) {
         clearInterval(timer);
         timer = null;
     }
-});  
+})
 </script>
 
 <style scoped>

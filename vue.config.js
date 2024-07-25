@@ -4,7 +4,7 @@
 //   lintOnSave: false
 // })
 module.exports = {
-  devServer: {
+  devServer: {//正式部署要改
     proxy: {
       '/api': {
         target: 'https://itstudio.bai3401.eu.org/api',
