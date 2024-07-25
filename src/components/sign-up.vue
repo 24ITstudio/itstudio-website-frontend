@@ -117,10 +117,6 @@ async function getCode() {
     if (!emailError.value) { // 如果邮箱格式正确  
         try {
             console.log('发送验证码');
-            const response = await axios.post('api/code-send/', {
-                email: mail.value,
-            });
-            console.log(response.data);
 
             ElNotification.success({
                 title: '验证码已发送',
@@ -129,6 +125,7 @@ async function getCode() {
             });
 
             if (!timer && second.value === totalSec.value) {
+                console.log('别急，倒计时完就能再发送')
                 timer = setInterval(() => {
                     second.value--;
                     if (second.value <= 0) {
@@ -136,9 +133,14 @@ async function getCode() {
                         timer = null;
                         second.value = totalSec.value;
                     }
-                    console.log('别急，倒计时完就能再发送');
                 }, 1000);
             }
+
+            const response = await axios.post('api/code-send/', {
+                email: mail.value,
+            });
+            console.log(response.data);
+
         } catch (error) {
             console.log(error);
             ElNotification.error({
