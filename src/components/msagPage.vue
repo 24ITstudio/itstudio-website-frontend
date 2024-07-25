@@ -1,7 +1,8 @@
 <template>
     <!-- remain: 留言块静态位置待改(head&name删除/添加日期) -->
-    <!-- Q: traveller部分滚动条设置失败/点击但不输入内容后，二次调用clear函数会失效-->
-    <!-- need: 点击不同留言后将之前的回复清除并带对应留言id提交 -->
+    <!-- Q: 点击但不输入内容后，二次调用clear函数会失效？/未发布内容是否临时保存到下次点击显示？-->
+    <!-- need: submitTalk当parent为id时404/点击不同留言后将之前的回复清除并带对应留言id提交 -->
+    
     <div class="back">
         <div class="head">
             <navHead :locate="-4000"></navHead>
@@ -55,29 +56,29 @@
                     </router-link>
                 </div>
                 <div class="right_board">
-                    <div class="inner_board">
-                        <div @click="showContent('content2'); clearPlaceholder1" class="author_inner">
+                    <!-- <div class="inner_board"> -->
+                        <!-- <div @click="showContent('content2'); clearPlaceholder1" class="author_inner">
                             <div class="author_head_fixed">
                                 <img src="../assets/author_head.png" />
                             </div>
                             <div class="author_right">
                                 <div class="author_name">
                                     游1234567
-                                </div>
-                                <div class="author_content">
+                                </div> -->
+                                <!-- <div class="author_content">
                                     测试讨论内容留言板欢迎加入爱特工作室
                                     测试讨论内容留言板欢迎加入爱特工作室
                                     测试讨论内容留言板欢迎加入爱特工作室
                                     测试讨论内容留言板欢迎加入爱特工作室
-                                    测试讨论内容留言板欢迎加入爱特工作室
+                                    测试讨论内容留言板欢迎加入爱特工作室 -->
                                     <!-- （可放90个中文字符） -->
-                                </div>
-                            </div>
+                                <!-- </div>
+                            </div> -->
 
                             <!-- <div class="repay">
 
                             </div> -->
-                        </div>
+                        <!-- </div>
                         <div class="traveller_total">
                             <div class="traveller_inner">
                                 <div class="traveller_head_fixed">
@@ -108,14 +109,64 @@
                                 </div>
                             </div>
                         </div>
+                    </div> -->
+
+
+                    <div class="inner_board" v-for="item in total_Messages" :key="item.id">
+                        <!-- <div @click="showContent('content2'); clearPlaceholder1" class="author_inner"> -->
+                        <div @click="() => { showContent('content2'); clearPlaceholder1; getParentID(item.id)}"
+                            class="author_inner">
+                            <div class="author_head_fixed">
+                                <img src="../assets/author_head.png" />
+                            </div>
+                            <div class="author_right">
+                                <div class="author_name">
+                                    游1234567
+                                </div>
+                                <div class="author_content">
+                                    {{ item.content }}
+                                    <!-- （可放90个中文字符） -->
+                                </div>
+                            </div>
+
+                            <!-- <div class="repay">
+
+                            </div> -->
+                        </div>
+
+                        <div class="traveller_total">
+                            <!-- <div class="traveller_inner">
+                                <div class="traveller_head_fixed">
+                                    <img src="../assets/traveller_head.png" />
+                                </div>
+                                <div class="traveller_right">
+                                    <div class="traveller_name_fixed">
+                                        游客
+                                    </div>
+                                    <div class="traveller_content">
+                                        测试留言内容留言板欢迎加入爱特工作室
+                                    </div>
+                                </div>
+                            </div> -->
+                            <div class="traveller_inner" v-for="child in item.children">
+                                <div class="traveller_head_fixed">
+                                    <img src="../assets/traveller_head.png" />
+                                </div>
+                                <div class="traveller_right">
+                                    <div class="traveller_name_fixed">
+                                        游客
+                                    </div>
+                                    <div class="traveller_content">
+                                        {{ child.content }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
                     </div>
-                    <div class="inner_board">
+                    <!-- <div class="inner_board">
 
-                    </div>
-                    <div class="inner_board">
-
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>
@@ -126,6 +177,8 @@
 
 <script>
 import navHead from "./nav-head.vue"
+import axios from 'axios'
+
 export default {
     name: "msagPage",
     components: {
@@ -135,12 +188,187 @@ export default {
         return {
             content1: '有什么想说的，就在这里留下吧~',
             content2: '有什么想说的，就在这里留下吧~',
+            parentID: null,   // 顶级留言设为null,评论则提供id
             isPlaceholder1: true,
             isPlaceholder2: true,
-            currentContent: 'content1'
+            currentContent: 'content1',
+            total_Messages: [],
+            top_Messages: [],
+            repay_Messages: [],
         }
     },
+    created() {
+        this.getMessages();
+    },
     methods: {
+        getMessages(){
+            var axios = require('axios');
+            var config = {
+                method: 'get',
+                // url: 'http://127.0.0.1:4523/m1/4511878-4159176-default/bbs/',
+                // url: 'https://www.itstudio.club/bbs/',
+                url: '/api/bbs/',  
+                // url: 'https://itstudio.bai3401.eu.org/',  
+                // 正式 但内容为空不宜用于测试
+                headers: {
+                    // 'User-Agent': 'Apifox/1.0.0 (https://apifox.com)'
+                }
+            };
+
+            axios(config)
+                .then( response => {
+                    this.total_Messages = response.data;
+                    // this.filterMessages();
+                    console.log('获取信息成功', response.data);
+                })
+                .catch(error => {
+                    if (error.response) {
+                        // 服务器返回了状态码，但状态码不是 2xx
+                        if (error.response.status === 404) {
+                            
+                            console.error('信息获取失败: 资源未找到', error.response.status);
+                        } else {
+                            
+                            console.error('信息获取失败', error.response.status);
+                        }
+                    } else if (error.request) {
+                        // 请求已发出，但没有收到响应
+                        
+                        console.error('没有收到响应', error.request);
+                    } else {
+                        // 设置请求时发生错误
+                        this.errorMessage = '信息获取失败: 请求设置错误';
+                        console.error('请求设置错误', error.message);
+                    }
+                });
+
+        },
+        // filterMessages(){
+        //     this.top_Messages = this.total_Messages.filter(item => item.id === null);
+        //     this.repay_Messages = this.total_Messages.filter(item => item.id !== null);
+        // },
+        submitMessage() {
+            if (this.content1.trim() === '有什么想说的，就在这里留下吧~') {
+                alert('还没有说点什么哇');
+                return;
+            }
+            
+            var axios = require('axios');
+            var data = JSON.stringify({
+                "content": this.content1,
+                "parent": null
+            });
+
+            var config = {
+                method: 'post',
+                // url: 'http://127.0.0.1:4523/m1/4511878-4159176-default/bbs/',
+                // url: 'https://www.itstudio.club/bbs/',
+                url: '/api/bbs/',    
+
+                headers: {
+                    // 'User-Agent': 'Apifox/1.0.0 (https://apifox.com)',
+                    'Content-Type': 'application/json'
+                },
+                data: data
+            };
+
+            axios(config)
+                .then(response => {
+                    
+                    if (response.status === 200) {
+                        console.log('消息发布成功', response.status, this.content1);
+                        // alert('竟然发布成功了？?');
+                        this.content1 = '有什么想说的，就在这里留下吧~';
+                    } else if(response.status === 404) {
+                        console.log('消息发布失败', response.status);
+                        // alert('消息发布失败，id不存在');
+                    }
+                    // console.log(JSON.stringify(response.data));
+                    // alert(JSON.stringify(response.data));
+                })
+                .catch(error => {
+                    if (error.response) {
+                        // 服务器返回了状态码，但状态码不是 2xx
+                        if (error.response.status === 404) {
+                           
+                            console.error('信息获取失败: 资源未找到', error.response.status);
+                        } else {
+                            
+                            console.error('信息获取失败', error.response.status);
+                        }
+                    } else if (error.request) {
+                        // 请求已发出，但没有收到响应
+                      
+                        console.error('没有收到响应', error.request);
+                    } else {
+                        // 设置请求时发生错误
+                       
+                        console.error('请求设置错误', error.message);
+                    }
+                });
+            window.location.reload();
+            // alert('发布成功');
+        },
+        getParentID(id){
+            this.parentID = id;
+            this.parentID = parseInt(this.parentID, 10);
+            console.log('getParentID结束 ', this.parentID, typeof this.parentID)
+        },
+        submitTalk() {
+            console.log('待上传回复: ', this.parentID, this.content2);
+            // console.log(typeof this.parentID);   // 返回number
+
+            if (this.content2.trim() === '有什么想说的，就在这里留下吧~') {
+                alert('还没有说点什么哇');
+                return;
+            }
+
+            var axios = require('axios');
+            var data = JSON.stringify({
+                "content": this.content2,
+                // "parent": 1
+                // "parent": null
+                "parent": parseInt(this.parentID, 10)
+            });
+
+            var config = {
+                method: 'post',
+                // url: 'http://127.0.0.1:4523/m1/4511878-4159176-default/bbs/',
+                // url: 'https://www.itstudio.club/bbs/',
+                url: '/api/bbs/',    
+                headers: {
+                    // 'User-Agent': 'Apifox/1.0.0 (https://apifox.com)',
+                    'Content-Type': 'application/json'
+                },
+                data: data
+            };
+
+            axios(config)
+                .then(response => {
+                    if (response.status === 200) {
+                        console.log('评论成功', response.status, this.content2);
+                        this.content2 = '有什么想说的，就在这里留下吧~';
+                    } else {
+                        console.log('状态码变为 ', response.status);
+                    }
+                })
+                .catch(error => {
+                    // console.error('错误响应数据:', error.response.data);
+                    if (error.response) {
+                        if (error.response.status === 404) {
+                            console.error('parentID不存在', error.response.data);
+                        } else {
+                            console.error('信息获取失败', error.response.status);
+                        }
+                    } else if (error.request) {
+                        console.error('无响应', error.request);
+                    } else {
+                        console.error('请求设置错误', error.message);
+                    }
+                });
+            window.location.reload();
+
+        },
         clearPlaceholder1() {
             if (this.isPlaceholder1) {
                 this.content1 = '';
@@ -174,15 +402,11 @@ export default {
         cancelAndSwitch() {
             this.content2 = '有什么想说的，就在这里留下吧~';
             this.isplaceholder2 = true;
-            this.showContent('content1'); // 切换到 content1 页面
+            this.showContent('content1');
         },
         checkInput() {
             this.isPlaceholder1 = this.content1 === '';
             this.isPlaceholder2 = this.content2 === '';
-        },
-        submitMessage() {
-            alert('发布成功');
-
         },
         showContent(content) {
             this.currentContent = content;
@@ -398,32 +622,12 @@ textarea:focus::placeholder {
 
 }
 
-/* textarea { */
-/* background-image: linear-gradient(to bottom, transparent 1.5em, #ccc 1.5em); */
-/* background-size: 100% 1.5em; */
-/* background-repeat: repeat-y; */
-/* } */
-
-/* .dotted-textarea {
-    width: 100%;
-    height: 350px;
-    padding: 10px;
-    border: none;
-    resize: none;
-    font-size: 16px;
-    line-height: 1.5;
-    background: repeating-linear-gradient(to bottom,
-            transparent,
-            transparent 28px,
-            #000 28px,
-            #000 29px);
-} */
-
 
 .back_right {
     background-color: #d9d9d91a;
     width: 70%;
-    height: 100%;
+    height: 95%;
+    margin-top: 2.3%;
     /* 右下部分单独 少一个背景虚化 */
     /* filter: blur(10px); */
     /* backdrop-filter: blur(100px); */
@@ -526,14 +730,14 @@ textarea:focus::placeholder {
     font-family: 'Microsoft New Tai Lue';
 }
 
-.repay {
-    border: 1px, solid, black;
+/* .repay { */
+    /* border: 1px, solid, black; */
     /* background-image: url('../assets/repay.png'); */
     /* height: 3%;
     width: 3%;
     margin-top: 1%;
     margin-left: 87%; */
-}
+/* } */
 
 .traveller_total {
     /* border: 1px, solid, greenyellow; */
@@ -541,24 +745,32 @@ textarea:focus::placeholder {
     width: 66%;
     margin-left: 23%;
     margin-top: 3%;
-    overflow: hidden;
+    overflow: auto;
+    
+}
+
+.traveller_total::-webkit-scrollbar {
+    display: none;
+    /* width: 0; */
+    /* height: 0; */
 }
 
 .traveller_inner {
     /* border: 1px, solid, blue; */
     height: 55%;
     /* width: 66%; */
-    /* margin-top: 2%; */
+    margin-top: 3%;
     /* margin-left: 23%; */
     display: flex;
     flex-direction: row;
     overflow: auto;
+    text-overflow: ellipsis;
 }
 
-.traveller_inner::-webkit-scrollbar {
+/* .traveller_inner::-webkit-scrollbar {
     width: 0;
     height: 0;
-}
+} */
 
 .traveller_head_fixed {
     /* border: 1px, solid, black; */
@@ -589,5 +801,11 @@ textarea:focus::placeholder {
     height: 80%;
     margin-top: 3%;
     font-size: 12px;
+    overflow: auto;
+}
+
+.traveller_content::-webkit-scrollbar {
+    width: 0;
+    height: 0;
 }
 </style>

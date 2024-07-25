@@ -1,5 +1,5 @@
 <template>
-    <!-- change: 展示区头像名称去掉&添加日期（id）显示 -->
+    <!-- 响应式没做 -->
     <div class="back">
         <div class="head">
             <navHead :locate="84"></navHead>
@@ -156,7 +156,7 @@ export default {
     /* background-color: greenyellow; */
     width: 89%;
     height: 65%;
-    margin-top: 20%;
+    margin-top: 23%;
     margin-left: -20%;
     /* margin-right: 30%; */
     overflow: hidden;
