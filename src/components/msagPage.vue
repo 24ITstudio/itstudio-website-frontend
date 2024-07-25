@@ -1,8 +1,9 @@
+/* eslint-disable */
 <template>
     <!-- remain: 留言块静态位置待改(head&name删除/添加日期) -->
     <!-- Q: 点击但不输入内容后，二次调用clear函数会失效？/未发布内容是否临时保存到下次点击显示？-->
     <!-- need: submitTalk当parent为id时404/点击不同留言后将之前的回复清除并带对应留言id提交 -->
-    
+
     <div class="back">
         <div class="head">
             <navHead :locate="-4000"></navHead>
@@ -57,7 +58,7 @@
                 </div>
                 <div class="right_board">
                     <!-- <div class="inner_board"> -->
-                        <!-- <div @click="showContent('content2'); clearPlaceholder1" class="author_inner">
+                    <!-- <div @click="showContent('content2'); clearPlaceholder1" class="author_inner">
                             <div class="author_head_fixed">
                                 <img src="../assets/author_head.png" />
                             </div>
@@ -65,20 +66,20 @@
                                 <div class="author_name">
                                     游1234567
                                 </div> -->
-                                <!-- <div class="author_content">
+                    <!-- <div class="author_content">
                                     测试讨论内容留言板欢迎加入爱特工作室
                                     测试讨论内容留言板欢迎加入爱特工作室
                                     测试讨论内容留言板欢迎加入爱特工作室
                                     测试讨论内容留言板欢迎加入爱特工作室
                                     测试讨论内容留言板欢迎加入爱特工作室 -->
-                                    <!-- （可放90个中文字符） -->
-                                <!-- </div>
+                    <!-- （可放90个中文字符） -->
+                    <!-- </div>
                             </div> -->
 
-                            <!-- <div class="repay">
+                    <!-- <div class="repay">
 
                             </div> -->
-                        <!-- </div>
+                    <!-- </div>
                         <div class="traveller_total">
                             <div class="traveller_inner">
                                 <div class="traveller_head_fixed">
@@ -148,7 +149,8 @@
                                     </div>
                                 </div>
                             </div> -->
-                            <div class="traveller_inner" v-for="child in item.children">
+                            <!-- // eslint-disable-next-line vue/require-v-for-key -->
+                            <div class="traveller_inner" v-for="child in item.children" :key="child">
                                 <div class="traveller_head_fixed">
                                     <img src="../assets/traveller_head.png" />
                                 </div>
@@ -177,7 +179,7 @@
 
 <script>
 import navHead from "./nav-head.vue"
-import axios from 'axios'
+// import axios from 'axios'
 
 export default {
     name: "msagPage",

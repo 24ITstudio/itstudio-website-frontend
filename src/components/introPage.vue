@@ -1,5 +1,8 @@
+
 <template>
+    <!-- bug: 轮播图罢工了 -->
     <!-- 响应式没做 -->
+     <!-- 发布的动画用element-plus重写 -->
     <div class="back">
         <div class="head">
             <navHead :locate="84"></navHead>
@@ -48,15 +51,18 @@
 </template>
 
 <script>
-import Swiper, { Navigation } from 'swiper';
+// import Swiper, { Navigation } from 'swiper';
 import navHead from './nav-head.vue'
-// import Swiper from 'swiper/bundle';
+import Swiper from 'swiper/bundle';
 // import {Navigation} from 'swiper';
 // import SwiperCore, {Navigation} from 'swiper/core';
-import 'swiper/swiper-bundle.css';
+// import 'swiper/swiper-bundle.css';
 // import 'swiper/css';
+// import {Swiper, SwiperSlide} from 'swiper/vue';
+import 'swiper/swiper-bundle.css';
+// import {Navigation} from 'swiper/modules/navigation/navigation.js';
 
-Swiper.use([Navigation]);
+// Swiper.use([Navigation]);
 // SwiperCore.use([Navigation]);
 
 
@@ -64,6 +70,8 @@ export default {
     name: 'introPage',
     components: {
         navHead,
+        // Swiper,
+        // SwiperSlide
     },
     data() {
         return {
