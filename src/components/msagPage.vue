@@ -341,7 +341,7 @@ export default {
                     if (error.response) {
                         if (error.response.status === 404) {
                             // this.errorMessage = '信息获取失败: 资源未找到 (404)';
-                            console.error('信息获取失败: 资源未找到', error.response.status);
+                            console.error('信息获取失败: 资源未找到', error.response);
                         } else {
                             // this.errorMessage = `信息获取失败: ${error.response.status}`;
                             console.error('信息获取失败', error.response.status);
