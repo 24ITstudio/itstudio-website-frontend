@@ -56,29 +56,29 @@
                     </router-link>
                 </div>
                 <div class="right_board">
-                    <div class="inner_board">
-                        <div @click="showContent('content2'); clearPlaceholder1" class="author_inner">
+                    <!-- <div class="inner_board"> -->
+                        <!-- <div @click="showContent('content2'); clearPlaceholder1" class="author_inner">
                             <div class="author_head_fixed">
                                 <img src="../assets/author_head.png" />
                             </div>
                             <div class="author_right">
                                 <div class="author_name">
                                     游1234567
-                                </div>
-                                <div class="author_content">
+                                </div> -->
+                                <!-- <div class="author_content">
                                     测试讨论内容留言板欢迎加入爱特工作室
                                     测试讨论内容留言板欢迎加入爱特工作室
                                     测试讨论内容留言板欢迎加入爱特工作室
                                     测试讨论内容留言板欢迎加入爱特工作室
-                                    测试讨论内容留言板欢迎加入爱特工作室
+                                    测试讨论内容留言板欢迎加入爱特工作室 -->
                                     <!-- （可放90个中文字符） -->
-                                </div>
-                            </div>
+                                <!-- </div>
+                            </div> -->
 
                             <!-- <div class="repay">
 
                             </div> -->
-                        </div>
+                        <!-- </div>
                         <div class="traveller_total">
                             <div class="traveller_inner">
                                 <div class="traveller_head_fixed">
@@ -109,7 +109,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
 
 
                     <div class="inner_board" v-for="item in total_Messages" :key="item.id">
@@ -133,8 +133,9 @@
 
                             </div> -->
                         </div>
+
                         <div class="traveller_total">
-                            <div class="traveller_inner">
+                            <!-- <div class="traveller_inner">
                                 <div class="traveller_head_fixed">
                                     <img src="../assets/traveller_head.png" />
                                 </div>
@@ -146,9 +147,7 @@
                                         测试留言内容留言板欢迎加入爱特工作室
                                     </div>
                                 </div>
-                            </div>
-
-
+                            </div> -->
                             <div class="traveller_inner" v-for="child in item.children">
                                 <div class="traveller_head_fixed">
                                     <img src="../assets/traveller_head.png" />
@@ -208,7 +207,8 @@ export default {
                 method: 'get',
                 // url: 'http://127.0.0.1:4523/m1/4511878-4159176-default/bbs/',
                 // url: 'https://www.itstudio.club/bbs/',
-                url: '/api/bbs/',    
+                url: '/api/bbs/',  
+                // url: 'https://itstudio.bai3401.eu.org/',  
                 // 正式 但内容为空不宜用于测试
                 headers: {
                     // 'User-Agent': 'Apifox/1.0.0 (https://apifox.com)'
@@ -222,7 +222,24 @@ export default {
                     console.log('获取信息成功', response.data);
                 })
                 .catch(error => {
-                    console.error('获取信息列表失败', error);
+                    if (error.response) {
+                        // 服务器返回了状态码，但状态码不是 2xx
+                        if (error.response.status === 404) {
+                            
+                            console.error('信息获取失败: 资源未找到', error.response.status);
+                        } else {
+                            
+                            console.error('信息获取失败', error.response.status);
+                        }
+                    } else if (error.request) {
+                        // 请求已发出，但没有收到响应
+                        
+                        console.error('没有收到响应', error.request);
+                    } else {
+                        // 设置请求时发生错误
+                        this.errorMessage = '信息获取失败: 请求设置错误';
+                        console.error('请求设置错误', error.message);
+                    }
                 });
 
         },
@@ -273,23 +290,23 @@ export default {
                     if (error.response) {
                         // 服务器返回了状态码，但状态码不是 2xx
                         if (error.response.status === 404) {
-                            this.errorMessage = '信息获取失败: 资源未找到 (404)';
+                           
                             console.error('信息获取失败: 资源未找到', error.response.status);
                         } else {
-                            this.errorMessage = `信息获取失败: ${error.response.status}`;
+                            
                             console.error('信息获取失败', error.response.status);
                         }
                     } else if (error.request) {
                         // 请求已发出，但没有收到响应
-                        this.errorMessage = '信息获取失败: 没有收到响应';
+                      
                         console.error('没有收到响应', error.request);
                     } else {
                         // 设置请求时发生错误
-                        this.errorMessage = '信息获取失败: 请求设置错误';
+                       
                         console.error('请求设置错误', error.message);
                     }
                 });
-            // window.location.reload();
+            window.location.reload();
             // alert('发布成功');
         },
         getParentID(id){
@@ -298,7 +315,7 @@ export default {
             console.log('getParentID结束 ', this.parentID, typeof this.parentID)
         },
         submitTalk() {
-            // console.log(this.parentID, this.content2);
+            console.log('待上传回复: ', this.parentID, this.content2);
             // console.log(typeof this.parentID);   // 返回number
 
             if (this.content2.trim() === '有什么想说的，就在这里留下吧~') {
@@ -331,31 +348,26 @@ export default {
                     if (response.status === 200) {
                         console.log('评论成功', response.status, this.content2);
                         this.content2 = '有什么想说的，就在这里留下吧~';
-                    } else if (response.status === 404) {
-                        console.log('parentID不存在', response.status);
                     } else {
-                        console.log('评论错误', response.status);
+                        console.log('状态码变为 ', response.status);
                     }
                 })
                 .catch(error => {
+                    // console.error('错误响应数据:', error.response.data);
                     if (error.response) {
                         if (error.response.status === 404) {
-                            // this.errorMessage = '信息获取失败: 资源未找到 (404)';
-                            console.error('信息获取失败: 资源未找到', error.response);
+                            console.error('parentID不存在', error.response.data);
                         } else {
-                            // this.errorMessage = `信息获取失败: ${error.response.status}`;
                             console.error('信息获取失败', error.response.status);
                         }
                     } else if (error.request) {
-                        // 请求已发出，但没有收到响应
-                        // this.errorMessage = '信息获取失败: 没有收到响应';
-                        console.error('没有收到响应', error.request);
+                        console.error('无响应', error.request);
                     } else {
-                        // 设置请求时发生错误
-                        // this.errorMessage = '信息获取失败: 请求设置错误';
                         console.error('请求设置错误', error.message);
                     }
                 });
+            window.location.reload();
+
         },
         clearPlaceholder1() {
             if (this.isPlaceholder1) {
@@ -610,32 +622,12 @@ textarea:focus::placeholder {
 
 }
 
-/* textarea { */
-/* background-image: linear-gradient(to bottom, transparent 1.5em, #ccc 1.5em); */
-/* background-size: 100% 1.5em; */
-/* background-repeat: repeat-y; */
-/* } */
-
-/* .dotted-textarea {
-    width: 100%;
-    height: 350px;
-    padding: 10px;
-    border: none;
-    resize: none;
-    font-size: 16px;
-    line-height: 1.5;
-    background: repeating-linear-gradient(to bottom,
-            transparent,
-            transparent 28px,
-            #000 28px,
-            #000 29px);
-} */
-
 
 .back_right {
     background-color: #d9d9d91a;
     width: 70%;
-    height: 100%;
+    height: 95%;
+    margin-top: 2.3%;
     /* 右下部分单独 少一个背景虚化 */
     /* filter: blur(10px); */
     /* backdrop-filter: blur(100px); */
@@ -738,14 +730,14 @@ textarea:focus::placeholder {
     font-family: 'Microsoft New Tai Lue';
 }
 
-.repay {
-    border: 1px, solid, black;
+/* .repay { */
+    /* border: 1px, solid, black; */
     /* background-image: url('../assets/repay.png'); */
     /* height: 3%;
     width: 3%;
     margin-top: 1%;
     margin-left: 87%; */
-}
+/* } */
 
 .traveller_total {
     /* border: 1px, solid, greenyellow; */
@@ -753,24 +745,32 @@ textarea:focus::placeholder {
     width: 66%;
     margin-left: 23%;
     margin-top: 3%;
-    overflow: hidden;
+    overflow: auto;
+    
+}
+
+.traveller_total::-webkit-scrollbar {
+    display: none;
+    /* width: 0; */
+    /* height: 0; */
 }
 
 .traveller_inner {
     /* border: 1px, solid, blue; */
     height: 55%;
     /* width: 66%; */
-    /* margin-top: 2%; */
+    margin-top: 3%;
     /* margin-left: 23%; */
     display: flex;
     flex-direction: row;
     overflow: auto;
+    text-overflow: ellipsis;
 }
 
-.traveller_inner::-webkit-scrollbar {
+/* .traveller_inner::-webkit-scrollbar {
     width: 0;
     height: 0;
-}
+} */
 
 .traveller_head_fixed {
     /* border: 1px, solid, black; */
@@ -801,5 +801,11 @@ textarea:focus::placeholder {
     height: 80%;
     margin-top: 3%;
     font-size: 12px;
+    overflow: auto;
+}
+
+.traveller_content::-webkit-scrollbar {
+    width: 0;
+    height: 0;
 }
 </style>
