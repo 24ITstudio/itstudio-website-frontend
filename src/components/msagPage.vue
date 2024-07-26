@@ -124,7 +124,6 @@ import navHead from "./nav-head.vue"
 // import axios from 'axios'
 import { ElNotification } from 'element-plus'
 
-
 export default {
     name: "msagPage",
     components: {
@@ -223,7 +222,7 @@ export default {
                 method: 'get',
                 // url: 'http://127.0.0.1:4523/m1/4511878-4159176-default/bbs/',
                 // url: 'https://www.itstudio.club/bbs/',
-                url: '/api/bbs/',  
+                url: '/api/bbs/',
                 // url: 'https://itstudio.bai3401.eu.org/',  
                 // 正式 但内容为空不宜用于测试
                 headers: {
@@ -232,7 +231,7 @@ export default {
             };
 
             axios(config)
-                .then( response => {
+                .then(response => {
                     this.total_Messages = response.data;
                     // this.filterMessages();
                     console.log('获取信息成功', response.data);
@@ -241,15 +240,15 @@ export default {
                     if (error.response) {
                         // 服务器返回了状态码，但状态码不是 2xx
                         if (error.response.status === 404) {
-                            
+
                             console.error('信息获取失败: 资源未找到', error.response.status);
                         } else {
-                            
+
                             console.error('信息获取失败', error.response.status);
                         }
                     } else if (error.request) {
                         // 请求已发出，但没有收到响应
-                        
+
                         console.error('没有收到响应', error.request);
                     } else {
                         // 设置请求时发生错误
@@ -268,7 +267,7 @@ export default {
                 alert('还没有说点什么哇');
                 return;
             }
-            
+
             var axios = require('axios');
             var data = JSON.stringify({
                 "content": this.content1,
@@ -279,7 +278,7 @@ export default {
                 method: 'post',
                 // url: 'http://127.0.0.1:4523/m1/4511878-4159176-default/bbs/',
                 // url: 'https://www.itstudio.club/bbs/',
-                url: '/api/bbs/',    
+                url: '/api/bbs/',
 
                 headers: {
                     // 'User-Agent': 'Apifox/1.0.0 (https://apifox.com)',
@@ -290,7 +289,7 @@ export default {
 
             axios(config)
                 .then(response => {
-                    
+
                     if (response.status === 200) {
                         console.log('消息发布成功', response.status, this.content1);
                         ElNotification.success({
@@ -321,18 +320,18 @@ export default {
                         }
                     } else if (error.request) {
                         // 请求已发出，但没有收到响应
-                      
+
                         console.error('没有收到响应', error.request);
                     } else {
                         // 设置请求时发生错误
-                       
+
                         console.error('请求设置错误', error.message);
                     }
                 });
             window.location.reload();
             // alert('发布成功');
         },
-        getParentID(id){
+        getParentID(id) {
             this.parentID = id;
             this.parentID = parseInt(this.parentID, 10);
             this.content2 = '有什么想说的，就在这里留下吧~';
@@ -360,7 +359,7 @@ export default {
                 method: 'post',
                 // url: 'http://127.0.0.1:4523/m1/4511878-4159176-default/bbs/',
                 // url: 'https://www.itstudio.club/bbs/',
-                url: '/api/bbs/',    
+                url: '/api/bbs/',
                 headers: {
                     // 'User-Agent': 'Apifox/1.0.0 (https://apifox.com)',
                     'Content-Type': 'application/json'
@@ -744,9 +743,9 @@ textarea:focus::placeholder {
 }
 
 /* .repay { */
-    /* border: 1px, solid, black; */
-    /* background-image: url('../assets/repay.png'); */
-    /* height: 3%;
+/* border: 1px, solid, black; */
+/* background-image: url('../assets/repay.png'); */
+/* height: 3%;
     width: 3%;
     margin-top: 1%;
     margin-left: 87%; */
@@ -759,7 +758,7 @@ textarea:focus::placeholder {
     margin-left: 23%;
     margin-top: 2%;
     overflow: auto;
-    
+
 }
 
 .traveller_total::-webkit-scrollbar {
