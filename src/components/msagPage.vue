@@ -1,9 +1,7 @@
-/* eslint-disable */
-<template>
-    <!-- remain: 留言块静态位置待改(head&name删除/添加日期) -->
-    <!-- Q: 点击但不输入内容后，二次调用clear函数会失效？/未发布内容是否临时保存到下次点击显示？-->
-    <!-- need: submitTalk当parent为id时404/点击不同留言后将之前的回复清除并带对应留言id提交 -->
 
+<template>
+    <!-- remain: 留言展示列表ui待改 -->
+    <!-- bug: 发布的动画用element-plus失效//左右缩放时"发布"文字超出-->
     <div class="back">
         <div class="head">
             <navHead :locate="-4000"></navHead>
@@ -34,8 +32,8 @@
                         </div>
                     </div>
                     <div class="board_content_1">
-                        <textarea ref="input" :placeholder="isPlaceholder2 ? '有什么想说的，就在这里留下吧~' : ''" v-model="content2"
-                            @focus="clearPlaceholder2" @blur="setPlaceholder2" @input="checkInput" rows="5">
+                        <textarea ref="input" v-model="content2" @focus="clearPlaceholder2" @blur="setPlaceholder2"
+                            @input="checkInput" rows="5">
                             有什么想说的，就在这里留下吧~
                         </textarea>
                     </div>
@@ -57,65 +55,9 @@
                     </router-link>
                 </div>
                 <div class="right_board">
-                    <!-- <div class="inner_board"> -->
-                    <!-- <div @click="showContent('content2'); clearPlaceholder1" class="author_inner">
-                            <div class="author_head_fixed">
-                                <img src="../assets/author_head.png" />
-                            </div>
-                            <div class="author_right">
-                                <div class="author_name">
-                                    游1234567
-                                </div> -->
-                    <!-- <div class="author_content">
-                                    测试讨论内容留言板欢迎加入爱特工作室
-                                    测试讨论内容留言板欢迎加入爱特工作室
-                                    测试讨论内容留言板欢迎加入爱特工作室
-                                    测试讨论内容留言板欢迎加入爱特工作室
-                                    测试讨论内容留言板欢迎加入爱特工作室 -->
-                    <!-- （可放90个中文字符） -->
-                    <!-- </div>
-                            </div> -->
-
-                    <!-- <div class="repay">
-
-                            </div> -->
-                    <!-- </div>
-                        <div class="traveller_total">
-                            <div class="traveller_inner">
-                                <div class="traveller_head_fixed">
-                                    <img src="../assets/traveller_head.png" />
-                                </div>
-                                <div class="traveller_right">
-                                    <div class="traveller_name_fixed">
-                                        游客
-                                    </div>
-                                    <div class="traveller_content">
-                                        测试留言内容留言板欢迎加入爱特工作室
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="traveller_inner">
-                                <div class="traveller_head_fixed">
-                                    <img src="../assets/traveller_head.png" />
-                                </div>
-                                <div class="traveller_right">
-                                    <div class="traveller_name_fixed">
-                                        游客
-                                    </div>
-                                    <div class="traveller_content">
-                                        测试滚动内容 留言板 欢迎加入爱特工作室
-                                        测试滚动内容 留言板 欢迎加入爱特工作室
-                                        测试滚动内容 留言板 欢迎加入爱特工作室
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div> -->
-
-
                     <div class="inner_board" v-for="item in total_Messages" :key="item.id">
                         <!-- <div @click="showContent('content2'); clearPlaceholder1" class="author_inner"> -->
-                        <div @click="() => { showContent('content2'); clearPlaceholder1; getParentID(item.id)}"
+                        <div @click="() => { showContent('content2'); clearPlaceholder1; getParentID(item.id);}"
                             class="author_inner">
                             <div class="author_head_fixed">
                                 <img src="../assets/author_head.png" />
@@ -180,6 +122,8 @@
 <script>
 import navHead from "./nav-head.vue"
 // import axios from 'axios'
+import { ElNotification } from 'element-plus'
+
 
 export default {
     name: "msagPage",
@@ -193,6 +137,9 @@ export default {
             parentID: null,   // 顶级留言设为null,评论则提供id
             isPlaceholder1: true,
             isPlaceholder2: true,
+            // isFocused: false,
+            hasInput: false,
+            // focusWithoutInput: false,
             currentContent: 'content1',
             total_Messages: [],
             top_Messages: [],
@@ -203,6 +150,73 @@ export default {
         this.getMessages();
     },
     methods: {
+        clearPlaceholder1() {
+            // this.isFocused = true;
+            if (this.isPlaceholder1 || this.content2 === '有什么想说的，就在这里留下吧~') {
+                this.content1 = '';
+                this.isPlaceholder1 = false;
+                // alert(this.isPlaceholder1,this.content1);
+            }
+            console.log("clear1")
+        },
+        // handleFocus() {
+        //     if (this.focusWithoutInput) {
+        //         this.content2 = '';
+        //         this.focusWithoutInput = false;
+        //     }
+        //     this.isFocused = true;
+        //     // this.updateMessage();
+        // },
+        clearPlaceholder2() {
+            // this.isFocused = true;
+            // console.log('clear前isPlaceholder2状态', this.isPlaceholder2)
+            if (this.isPlaceholder2 || this.content2 === '有什么想说的，就在这里留下吧~') {
+                this.content2 = '';
+                this.isPlaceholder2 = false;
+            }
+            // console.log("clear结束isPlaceholder2状态", this.isPlaceholder2)
+        },
+        setPlaceholder1() {
+            if (this.content1 === '') {
+                this.content1 = '有什么想说的，就在这里留下吧~';
+                this.isplaceholder1 = true;
+            }
+            console.log("set1")
+        },
+        // handleBlur() {
+        //     this.isFocused = false;
+        //     if (!this.hasInput) {
+        //         this.focusWithoutInput = true;
+        //     }
+
+        //     // this.updateMessage();
+        // },
+        setPlaceholder2() {
+            // console.log('set前content2 isPlaceholder2 hasInput', this.content2, this.isPlaceholder2, this.hasInput)
+            if (this.content2 === '' ) {
+                this.content2 = '有什么想说的，就在这里留下吧~';
+                this.isplaceholder2 = true;
+            }
+            // console.log("set结束content2 isPlaceholder2 hasInput", this.content2, this.isPlaceholder2, this.hasInput)
+        },
+        cancelAndSwitch() {
+            this.content2 = '有什么想说的，就在这里留下吧~';
+            this.isplaceholder2 = true;
+            this.showContent('content1');
+        },
+        checkInput() {
+            // this.hasInput = this.content2 !== '';
+            // this.focusWithoutInput = false;  // 有输入时，重置标志位
+            // this.updateMessage();
+            this.isPlaceholder1 = !(this.content1 !== '');
+            this.isPlaceholder2 = !(this.content2 !== '');
+            // this.hasInput = this.content2 !== '';
+
+
+        },
+        showContent(content) {
+            this.currentContent = content;
+        },
         getMessages(){
             var axios = require('axios');
             var config = {
@@ -279,11 +293,15 @@ export default {
                     
                     if (response.status === 200) {
                         console.log('消息发布成功', response.status, this.content1);
+                        ElNotification.success({
+                            title: '发布成功！',
+                            message: '继续逛逛吧~',
+                            offset: 100,
+                        });
                         // alert('竟然发布成功了？?');
                         this.content1 = '有什么想说的，就在这里留下吧~';
-                    } else if(response.status === 404) {
-                        console.log('消息发布失败', response.status);
-                        // alert('消息发布失败，id不存在');
+                    } else{
+                        console.log('出错了…');
                     }
                     // console.log(JSON.stringify(response.data));
                     // alert(JSON.stringify(response.data));
@@ -292,10 +310,13 @@ export default {
                     if (error.response) {
                         // 服务器返回了状态码，但状态码不是 2xx
                         if (error.response.status === 404) {
-                           
                             console.error('信息获取失败: 资源未找到', error.response.status);
+                            ElNotification.warning({
+                                title: '出错了',
+                                message: '请联系前端小白or后端大佬…',
+                                offset: 100,
+                            });
                         } else {
-                            
                             console.error('信息获取失败', error.response.status);
                         }
                     } else if (error.request) {
@@ -314,7 +335,9 @@ export default {
         getParentID(id){
             this.parentID = id;
             this.parentID = parseInt(this.parentID, 10);
-            console.log('getParentID结束 ', this.parentID, typeof this.parentID)
+            this.content2 = '有什么想说的，就在这里留下吧~';
+            this.isplaceholder2 = true;
+            // console.log('getParentID结束 ', this.parentID, typeof this.parentID, this.content2)
         },
         submitTalk() {
             console.log('待上传回复: ', this.parentID, this.content2);
@@ -349,6 +372,11 @@ export default {
                 .then(response => {
                     if (response.status === 200) {
                         console.log('评论成功', response.status, this.content2);
+                        ElNotification.success({
+                            title: '回复成功！',
+                            message: '继续逛逛吧~',
+                            offset: 100,
+                        });
                         this.content2 = '有什么想说的，就在这里留下吧~';
                     } else {
                         console.log('状态码变为 ', response.status);
@@ -358,6 +386,11 @@ export default {
                     // console.error('错误响应数据:', error.response.data);
                     if (error.response) {
                         if (error.response.status === 404) {
+                            ElNotification.warning({
+                                title: '出错了',
+                                message: '请联系前端小白or后端大佬…',
+                                offset: 100,
+                            });
                             console.error('parentID不存在', error.response.data);
                         } else {
                             console.error('信息获取失败', error.response.status);
@@ -371,48 +404,7 @@ export default {
             window.location.reload();
 
         },
-        clearPlaceholder1() {
-            if (this.isPlaceholder1) {
-                this.content1 = '';
-                this.isPlaceholder1 = false;
-                // alert(this.isPlaceholder1,this.content1);
-            }
-            console.log("clear")
-        },
-        clearPlaceholder2() {
-            if (this.isPlaceholder2) {
-                this.content2 = '';
-                this.isPlaceholder2 = false;
-
-            }
-            console.log("clear")
-        },
-        setPlaceholder1() {
-            if (this.content1 === '') {
-                this.content1 = '有什么想说的，就在这里留下吧~';
-                this.isplaceholder1 = true;
-            }
-            console.log("set")
-        },
-        setPlaceholder2() {
-            if (this.content2 === '') {
-                this.content2 = '有什么想说的，就在这里留下吧~';
-                this.isplaceholder2 = true;
-            }
-            console.log("set")
-        },
-        cancelAndSwitch() {
-            this.content2 = '有什么想说的，就在这里留下吧~';
-            this.isplaceholder2 = true;
-            this.showContent('content1');
-        },
-        checkInput() {
-            this.isPlaceholder1 = this.content1 === '';
-            this.isPlaceholder2 = this.content2 === '';
-        },
-        showContent(content) {
-            this.currentContent = content;
-        }
+        
     }
 
 };
@@ -556,36 +548,43 @@ textarea:focus::placeholder {
     display: flex;
     flex-direction: row;
     margin-top: 4%;
+    height: 10%;
 }
 
 .submitA {
     width: 28%;
-    height: 5%;
+    height: 45%;
     line-height: 3%;
     border-radius: 100px;
     margin-left: 30%;
     margin-top: 2%;
     background-color: #04132c;
+    display: flex;
+    justify-content: center;
 }
 
 .submitB {
-    /* border: 1px solid black; */
+    /* border: 1px solid rgb(216, 33, 33); */
     width: 28%;
-    height: 5%;
+    height: 45%;
     line-height: 3%;
     border-radius: 100px;
     margin-left: 5%;
     margin-top: 2%;
     background-color: #04132c;
+    display: flex;
+    justify-content: center;
 }
 
 .submitA .inner {
     background-color: transparent;
     color: #ffffff;
     height: 100%;
+    /* width: 100%; */
     border: none;
-    margin-left: 18%;
-    font-size: 12px;
+    /* margin-left: 18%; */
+    font-size: 1.7vh;
+    /* font-size: 12px; */
     font-weight: bold;
     font-family: "Microsoft New Tai Lue-Bold", Helvetica;
 }
@@ -594,9 +593,10 @@ textarea:focus::placeholder {
     background-color: transparent;
     color: #ffffff;
     height: 100%;
+    /* width: 100%; */
     border: none;
-    margin-left: 18%;
-    font-size: 12px;
+    /* margin-left: 18%; */
+    font-size: 1.7vh;
     font-weight: bold;
     font-family: "Microsoft New Tai Lue-Bold", Helvetica;
 
@@ -610,15 +610,19 @@ textarea:focus::placeholder {
     margin-left: 62%;
     margin-top: 2%;
     background-color: #04132c;
+    display: flex;
+    justify-content: center;
 }
 
 .submitC .inner {
     background-color: transparent;
     color: #ffffff;
     height: 100%;
+    width: 100%;
     border: none;
-    margin-left: 18%;
-    font-size: 12px;
+    /* margin-left: 18%; */
+    font-size: 1.7vh;
+    /* bug 左右缩放时"发布"文字超出 */
     font-weight: bold;
     font-family: "Microsoft New Tai Lue-Bold", Helvetica;
 
@@ -730,6 +734,13 @@ textarea:focus::placeholder {
     font-size: 13px;
     /* font-weight:normal; */
     font-family: 'Microsoft New Tai Lue';
+    overflow: auto;
+}
+
+.author_content::-webkit-scrollbar {
+    display: none;
+    /* width: 0; */
+    /* height: 0; */
 }
 
 /* .repay { */
@@ -746,7 +757,7 @@ textarea:focus::placeholder {
     height: 49%;
     width: 66%;
     margin-left: 23%;
-    margin-top: 3%;
+    margin-top: 2%;
     overflow: auto;
     
 }

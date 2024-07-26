@@ -1,8 +1,7 @@
 
 <template>
-    <!-- bug: 轮播图罢工了 -->
     <!-- 响应式没做 -->
-     <!-- 发布的动画用element-plus重写 -->
+    <!-- 展示图片待替换 -->
     <div class="back">
         <div class="head">
             <navHead :locate="84"></navHead>
@@ -38,11 +37,11 @@
                     </div> -->
                 </div>
                 <div class="swiper_button">
-                    <div class="prev">
-                        <img src="@/assets/left.png" alt="Previous" />
+                    <div>
+                        <img src="@/assets/left.png" alt="Previous" class="prev" />
                     </div>
-                    <div class="next">
-                        <img src="@/assets/right.png" alt="Next" />
+                    <div class="next1">
+                        <img src="@/assets/right.png" alt="Next" class="next" />
                     </div>
                 </div>
             </div>
@@ -132,7 +131,8 @@ export default {
 .left_head {
     color: white;
     font-weight: 700;
-    font-size: 60px;
+    font-size: 10vh;
+    /* font-size: 60px; */
     margin-left: 1%;
 }
 
@@ -207,34 +207,36 @@ export default {
 
 }
 
-.prev {
-    /* background-color: rgba(0, 0, 0, 0.5); */
+/* .prev { */
+    /* background-color: rgba(247, 243, 243, 0.5); */
     /* color: white; */
     /* padding: 10px; */
-    cursor: pointer;
+    /* cursor: pointer; */
     /* height: 10%; */
     /* height: auto; */
-    /* width: ; */
+    /* width: 15%; */
+    /* height: 15%; */
     /* display: none; */
     /* background-image: url('../assets/left.png'); */
-}
+/* } */
 
-.prev img {
+.prev  {
     height: 60%;
-    /* bug 可识别区域大于箭头区域 */
+    cursor: pointer;
 }
 
-.next {
-    color: white;
+.next1 {
+    /* color: white; */
     /* padding: 10px; */
-    cursor: pointer;
+    
     margin-left: 4%;
     /* display: none; */
     /* background-image: url('../assets/right.png'); */
 }
 
-.next img {
+.next  {
     height: 60%;
+    cursor: pointer;
 }
 
 .nav {
