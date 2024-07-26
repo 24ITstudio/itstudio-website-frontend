@@ -731,8 +731,8 @@ textarea:focus::placeholder {
     /* border: 1px, solid, black; */
     height: 70%;
     margin-top: 2%;
-    font-size: 13px;
-    /* font-weight:normal; */
+    font-size: 2vh;
+    font-weight: bold;
     font-family: 'Microsoft New Tai Lue';
     overflow: auto;
 }
@@ -813,7 +813,7 @@ textarea:focus::placeholder {
     /* border: 1px, solid, black; */
     height: 80%;
     margin-top: 3%;
-    font-size: 12px;
+    font-size: 1.7vh;
     overflow: auto;
 }
 
