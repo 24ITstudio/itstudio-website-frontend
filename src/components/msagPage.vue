@@ -151,7 +151,7 @@ export default {
     methods: {
         clearPlaceholder1() {
             // this.isFocused = true;
-            if (this.isPlaceholder1 || this.content2 === '有什么想说的，就在这里留下吧~') {
+            if (this.isPlaceholder1 || this.content1 === '有什么想说的，就在这里留下吧~') {
                 this.content1 = '';
                 this.isPlaceholder1 = false;
                 // alert(this.isPlaceholder1,this.content1);
