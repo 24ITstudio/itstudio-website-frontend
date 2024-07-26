@@ -1,6 +1,6 @@
 
 <template>
-    <!-- remain: 留言展示列表ui待改 -->
+    <!-- remain: 留言展示列表ui要调整/添加加载效果过渡展示/每次重新展示内容体验略差 -->
     <!-- bug: 发布的动画用element-plus失效//左右缩放时"发布"文字超出-->
     <div class="back">
         <div class="head">
@@ -54,64 +54,59 @@
                         <img src="../assets/Go Back.png" class="backImg" />
                     </router-link>
                 </div>
-                <div class="right_board">
-                    <div class="inner_board" v-for="item in total_Messages" :key="item.id">
-                        <!-- <div @click="showContent('content2'); clearPlaceholder1" class="author_inner"> -->
-                        <div @click="() => { showContent('content2'); clearPlaceholder1; getParentID(item.id);}"
-                            class="author_inner">
-                            <div class="author_head_fixed">
+                <LoadingSpinner v-if="isLoading" />
+                    <!-- Loading... -->
+                    <!-- <div class="spinner-border" role="status">
+                        <span class="sr-only">Loading...</span>
+                    </div> -->
+                    <!-- </LoadingSpinner> -->
+                    <!-- <div class="loading" v-if="isLoading">
+                        Loading...
+                    </div> -->
+                    <div class="right_board" v-if="!isLoading">
+                        <div class="inner_board" v-for="item in total_Messages" :key="item.id">
+                            <!-- <div @click="showContent('content2'); clearPlaceholder1" class="author_inner"> -->
+                            <div @click="() => { showContent('content2'); clearPlaceholder1; getParentID(item.id);}"
+                                class="author_inner">
+                                <!-- <div class="author_head_fixed">
                                 <img src="../assets/author_head.png" />
-                            </div>
-                            <div class="author_right">
-                                <div class="author_name">
-                                    游1234567
-                                </div>
-                                <div class="author_content">
-                                    {{ item.content }}
-                                    <!-- （可放90个中文字符） -->
-                                </div>
-                            </div>
-
-                            <!-- <div class="repay">
-
                             </div> -->
-                        </div>
-
-                        <div class="traveller_total">
-                            <!-- <div class="traveller_inner">
-                                <div class="traveller_head_fixed">
-                                    <img src="../assets/traveller_head.png" />
-                                </div>
-                                <div class="traveller_right">
-                                    <div class="traveller_name_fixed">
-                                        游客
+                                <div class="author_right">
+                                    <div class="author_name">
+                                        游1234567
                                     </div>
-                                    <div class="traveller_content">
-                                        测试留言内容留言板欢迎加入爱特工作室
+                                    <div class="author_time">
+                                        {{ item.datetime }}
                                     </div>
-                                </div>
-                            </div> -->
-                            <!-- // eslint-disable-next-line vue/require-v-for-key -->
-                            <div class="traveller_inner" v-for="child in item.children" :key="child">
-                                <div class="traveller_head_fixed">
-                                    <img src="../assets/traveller_head.png" />
-                                </div>
-                                <div class="traveller_right">
-                                    <div class="traveller_name_fixed">
-                                        游客
-                                    </div>
-                                    <div class="traveller_content">
-                                        {{ child.content }}
+                                    <div class="author_content">
+                                        {{ item.content }}
+                                        <!-- （可放90个中文字符） -->
                                     </div>
                                 </div>
                             </div>
-                        </div>
 
-                    </div>
-                    <!-- <div class="inner_board">
+                            <div class="traveller_total">
+                                <!-- // eslint-disable-next-line vue/require-v-for-key -->
+                                <div class="traveller_inner" v-for="child in item.children" :key="child">
+                                    <!-- <div class="traveller_head_fixed">
+                                    <img src="../assets/traveller_head.png" />
+                                </div> -->
+                                    <div class="traveller_right">
+                                        <div class="traveller_name_fixed">
+                                            游客
+                                        </div>
+                                        <div class="traveller_content">
+                                            {{ child.content }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <!-- <div class="inner_board">
 
                     </div> -->
-                </div>
+                    </div>
             </div>
         </div>
 
@@ -121,13 +116,16 @@
 
 <script>
 import navHead from "./nav-head.vue"
+import LoadingSpinner from "../components/LoadingSpinner.vue";
 // import axios from 'axios'
 import { ElNotification } from 'element-plus'
+// import { Warning } from '@element-plus/icons-vue/dist/types';
 
 export default {
     name: "msagPage",
     components: {
         navHead,
+        LoadingSpinner,
     },
     data() {
         return {
@@ -143,6 +141,7 @@ export default {
             total_Messages: [],
             top_Messages: [],
             repay_Messages: [],
+            isLoading: true,
         }
     },
     created() {
@@ -233,8 +232,14 @@ export default {
             axios(config)
                 .then(response => {
                     this.total_Messages = response.data;
-                    // this.filterMessages();
+                    this.total_Messages.forEach(message =>{
+                        message.datetime = new Date(message.datetime).toLocaleString()
+                    })
                     console.log('获取信息成功', response.data);
+                    // this.total_Messages.forEach(message => {
+                    //     console.log(message.datetime);
+                    // });
+
                 })
                 .catch(error => {
                     if (error.response) {
@@ -255,6 +260,9 @@ export default {
                         this.errorMessage = '信息获取失败: 请求设置错误';
                         console.error('请求设置错误', error.message);
                     }
+                })
+                .finally(() => {
+                    this.isLoading = false;  // 确保无论请求成功或失败，都将 loading 状态设为 false
                 });
 
         },
@@ -264,7 +272,14 @@ export default {
         // },
         submitMessage() {
             if (this.content1.trim() === '有什么想说的，就在这里留下吧~') {
-                alert('还没有说点什么哇');
+                // ElMessage.success('还没有说点什么哇');
+                // alert('还没有说点什么哇');
+                ElNotification({
+                    title: '嗯？',
+                    message: '还没有说点什么哇',
+                    type: 'warning',
+                    duration: 2000,
+                });
                 return;
             }
 
@@ -289,12 +304,19 @@ export default {
 
             axios(config)
                 .then(response => {
-
                     if (response.status === 200) {
-                        console.log('消息发布成功', response.status, this.content1);
-                        ElNotification.success({
-                            title: '发布成功！',
-                            message: '继续逛逛吧~',
+                        // console.log('消息发布成功', response.status, this.content1);
+                        // ElMessage.success({
+                        //     title: '发布成功！',
+                        //     message: '继续逛逛吧~',
+                        //     offset: 100,
+                        // });
+                        // ElMessage.success('发布成功，继续逛逛吧~')
+                        ElNotification({
+                            title: '发布成功',
+                            message: '继续逛逛吧',
+                            type: 'success',
+                            duration: 1500,
                             offset: 100,
                         });
                         // alert('竟然发布成功了？?');
@@ -310,9 +332,12 @@ export default {
                         // 服务器返回了状态码，但状态码不是 2xx
                         if (error.response.status === 404) {
                             console.error('信息获取失败: 资源未找到', error.response.status);
-                            ElNotification.warning({
+                            ElNotification({
                                 title: '出错了',
                                 message: '请联系前端小白or后端大佬…',
+                                // offset: 100,
+                                type: 'warning',
+                                duration: 3000,
                                 offset: 100,
                             });
                         } else {
@@ -327,8 +352,12 @@ export default {
 
                         console.error('请求设置错误', error.message);
                     }
+                }).finally(() => {
+                    new Promise(resolve => setTimeout(resolve, 1500))
+                        .then(() => {
+                            window.location.reload(); // 刷新页面
+                        });
                 });
-            window.location.reload();
             // alert('发布成功');
         },
         getParentID(id) {
@@ -343,7 +372,15 @@ export default {
             // console.log(typeof this.parentID);   // 返回number
 
             if (this.content2.trim() === '有什么想说的，就在这里留下吧~') {
-                alert('还没有说点什么哇');
+                // ElMessage.success('还没有说点什么哇');
+                ElNotification({
+                    title: '嗯？',
+                    message: '还没有说点什么哇',
+                    type: 'warning',
+                    duration: 2000,
+                    offset: 100,
+                });
+                // alert('还没有说点什么哇');
                 return;
             }
 
@@ -371,9 +408,11 @@ export default {
                 .then(response => {
                     if (response.status === 200) {
                         console.log('评论成功', response.status, this.content2);
-                        ElNotification.success({
+                        ElNotification({
                             title: '回复成功！',
                             message: '继续逛逛吧~',
+                            type: 'success',
+                            duration: 1500,
                             offset: 100,
                         });
                         this.content2 = '有什么想说的，就在这里留下吧~';
@@ -385,9 +424,11 @@ export default {
                     // console.error('错误响应数据:', error.response.data);
                     if (error.response) {
                         if (error.response.status === 404) {
-                            ElNotification.warning({
+                            ElNotification({
                                 title: '出错了',
                                 message: '请联系前端小白or后端大佬…',
+                                type: 'warning',
+                                duration: 3000,
                                 offset: 100,
                             });
                             console.error('parentID不存在', error.response.data);
@@ -399,9 +440,15 @@ export default {
                     } else {
                         console.error('请求设置错误', error.message);
                     }
+                }).finally(() => {
+                    new Promise(resolve => setTimeout(resolve, 1500))
+                        .then(() => {
+                            window.location.reload(); // 刷新页面
+                        });
+                    // setTimeout(() => {
+                    //     window.location.reload(); // 刷新页面
+                    // }, 3000); // 设置延迟，确保消息可见
                 });
-            window.location.reload();
-
         },
         
     }
@@ -412,7 +459,8 @@ export default {
 
 <style scoped>
 .head {
-    height: 36px;
+    /* height: 36px; */
+    height: 1%;
 }
 
 .back {
@@ -651,6 +699,15 @@ textarea:focus::placeholder {
 
 }
 
+.loading{
+    color: #ffffff;
+    margin-left: 20%;
+    height: 88%;
+        width: 85%;
+        margin-left: 10%;
+        margin-top: 1%;
+}
+
 .right_board {
     /* background-color: #ffffff; */
     /* border: 1px, solid, greenyellow; */
@@ -690,8 +747,8 @@ textarea:focus::placeholder {
     /* border: 1px, solid, rgb(40, 50, 26); */
     margin-top: 3%;
     margin-left: 9%;
-    height: 40%;
-    width: 80%;
+    height: 34%;
+    width: 89%;
     display: flex;
     flex-direction: row;
     cursor: pointer;
@@ -726,12 +783,16 @@ textarea:focus::placeholder {
     /* height: 20%; */
 }
 
+.author_time{
+    font-size: 1.5vh;
+}
+
 .author_content {
     /* border: 1px, solid, black; */
     height: 70%;
     margin-top: 2%;
-    font-size: 2vh;
-    font-weight: bold;
+    font-size: 1.8vh;
+    /* font-weight: bold; */
     font-family: 'Microsoft New Tai Lue';
     overflow: auto;
 }
@@ -754,10 +815,14 @@ textarea:focus::placeholder {
 .traveller_total {
     /* border: 1px, solid, greenyellow; */
     height: 49%;
-    width: 66%;
-    margin-left: 23%;
+    width: 100%;
+    /* margin-left: 10%; */
     margin-top: 2%;
     overflow: auto;
+    /* display: flex; */
+    /* flex-direction: column; */
+    /* justify-content: center; */
+    /* align-content: center; */
 
 }
 
@@ -769,26 +834,26 @@ textarea:focus::placeholder {
 
 .traveller_inner {
     /* border: 1px, solid, blue; */
-    height: 55%;
-    /* width: 66%; */
-    margin-top: 3%;
-    /* margin-left: 23%; */
+    height: 45%;
+    width: 80%;
+    margin-top: 2%;
+    margin-left: 15%;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     overflow: auto;
     text-overflow: ellipsis;
 }
 
-/* .traveller_inner::-webkit-scrollbar {
+.traveller_inner::-webkit-scrollbar {
     width: 0;
     height: 0;
-} */
+}
 
-.traveller_head_fixed {
+/* .traveller_head_fixed { */
     /* border: 1px, solid, black; */
     /* border-image: url('../assets/traveller_head.png'); */
-    width: 15%;
-}
+    /* width: 15%; */
+/* } */
 
 .traveller_head_fixed img {
     width: 100%;
@@ -802,6 +867,12 @@ textarea:focus::placeholder {
     /* 加和86% */
 }
 
+.traveller_right::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+    /* display: none; */
+}
+
 .traveller_name_fixed {
     /* border: 1px, solid, black; */
     font-family: 'Microsoft New Tai Lue';
@@ -811,6 +882,7 @@ textarea:focus::placeholder {
 .traveller_content {
     /* border: 1px, solid, black; */
     height: 80%;
+    /* width: 100%; */
     margin-top: 3%;
     font-size: 1.7vh;
     overflow: auto;
