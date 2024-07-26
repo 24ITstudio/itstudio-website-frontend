@@ -1,6 +1,6 @@
 
 <template>
-    <!-- remain:展示图片待替换 -->
+    <!-- remain: 展示图片待替换 -->
     <div class="back">
         <div class="head">
             <navHead :locate="84"></navHead>

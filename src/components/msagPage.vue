@@ -1,7 +1,6 @@
 
 <template>
-    <!-- remain: 留言展示列表ui要调整/添加加载效果过渡展示/每次重新展示内容体验略差 -->
-    <!-- bug: 发布的动画用element-plus失效//左右缩放时"发布"文字超出-->
+    <!-- bug: 左右缩放时"发布"文字超出-->
     <div class="back">
         <div class="head">
             <navHead :locate="-4000"></navHead>
@@ -279,6 +278,7 @@ export default {
                     message: '还没有说点什么哇',
                     type: 'warning',
                     duration: 2000,
+                    offset: 100,
                 });
                 return;
             }
@@ -335,7 +335,6 @@ export default {
                             ElNotification({
                                 title: '出错了',
                                 message: '请联系前端小白or后端大佬…',
-                                // offset: 100,
                                 type: 'warning',
                                 duration: 3000,
                                 offset: 100,
