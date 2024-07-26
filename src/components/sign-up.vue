@@ -23,11 +23,11 @@
                         <option value="UI设计">UI设计</option>
                     </select>
                 </div>
-                <!-- <div class="stuId fill">
+                <div class="stuId fill">
                     <span class="required-star">*</span>
                     <img src="../assets/Identification Documents.png" alt="" style="height: 20px;">
                     <input type="number" v-model="stuId" placeholder="学号" required>
-                </div> -->
+                </div>
                 <div class="stuMajor fill">
                     <span class="required-star">*</span>
                     <img src="../assets/Identification Documents.png" alt="" style="height: 20px;">
@@ -99,7 +99,7 @@ async function submitForm() {
     if (name.value && stuId.value && tele.value && stuMajor.value && depart.value && mail.value && code.value) {
         try {
             console.log('发送表单')
-            const response = await axios.post('api/enroll/', {
+            const response = await axios.post('/api/enroll/', {
                 name: name.value,
                 email: mail.value,
                 department: depart.value,
@@ -108,6 +108,7 @@ async function submitForm() {
                 content: reason.value,
                 phone: tele.value,
                 qq: qq.value,
+                uid: stuId.value,
             });
             console.log(response.data);
             if (response.status === 201) {
@@ -196,7 +197,7 @@ async function getCode() {
                 }, 1000);
             }
 
-            const response = await axios.post('api/code-send/', {
+            const response = await axios.post('/api/code-send/', {
                 email: mail.value,
             });
             console.log(response.data);
