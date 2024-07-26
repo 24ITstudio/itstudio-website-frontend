@@ -2,16 +2,18 @@
     <div class="body">
         <div class="putIn" v-if="!showResult">
             <div class="head">
-                <router-link to="/"><img src="../assets/Go Back.png" alt=""></router-link>
+                <router-link to="/"><img src="../assets/Go Back.png" alt="" style="height: 6vh;"></router-link>
                 <div class="text" style="display: inline-block;">信息填报</div>
             </div>
             <form action="" @submit.prevent="submitForm">
                 <div class="name fill">
                     <img src="../assets/User.png" alt="" style="height: 20px;">
                     <input type="text" v-model="name" placeholder="姓名" required>
+                    <span class="required-star">*</span>
                 </div>
                 <div class="depart fill">
-                    <img src="../assets/Flutter dash.png" alt="" style="height: 20px;">
+                    <span class="required-star">*</span>
+                    <img src="../assets/love.png" alt="" style="height: 20px;">
                     <select class="form-control" v-model="depart" required>
                         <option value="" selected disabled hidden style="color: #808DA5;">请选择意向部门</option>
                         <option value="程序开发">程序开发</option>
@@ -21,24 +23,28 @@
                         <option value="UI设计">UI设计</option>
                     </select>
                 </div>
-                <div class="stuId fill">
+                <!-- <div class="stuId fill">
+                    <span class="required-star">*</span>
                     <img src="../assets/Identification Documents.png" alt="" style="height: 20px;">
-                    <input type="text" v-model="stuId" placeholder="学号" required>
-                </div>
+                    <input type="number" v-model="stuId" placeholder="学号" required>
+                </div> -->
                 <div class="stuMajor fill">
+                    <span class="required-star">*</span>
                     <img src="../assets/Identification Documents.png" alt="" style="height: 20px;">
                     <input type="text" v-model="stuMajor" placeholder="年级专业" required>
                 </div>
                 <div class="tele fill">
+                    <span class="required-star">*</span>
                     <img src="../assets/Phone iphone.png" alt="" style="height: 20px;">
-                    <input type="text" v-model="tele" placeholder="电话" required>
+                    <input type="number" v-model="tele" placeholder="电话" required>
                 </div>
                 <div class="QQ fill">
                     <img src="../assets/Flutter dash.png" alt="" style="height: 20px;">
-                    <input type="text" v-model="qq" placeholder="QQ号" required>
+                    <input type="number" v-model="qq" placeholder="QQ号">
                 </div>
                 <div class="mail fill">
-                    <img src="../assets/Flutter dash.png" alt="" style="height: 20px;">
+                    <span class="required-star">*</span>
+                    <img src="../assets/mail.png" alt="" style="height: 20px;">
                     <input type="text" v-model="mail" placeholder="邮箱" required>
                     <div class="small" @click="getCode" v-if="second === 61">
                         <el-icon>
@@ -48,9 +54,11 @@
                     <div class="count" v-else>{{ second + 's' }}</div>
                 </div>
                 <div class="code fill">
-                    <input type="text" v-model="code" placeholder="请输入验证码" required
+                    <input type="number" v-model="code" placeholder="请输入验证码" required
                         style="transform: translateX(10px);">
                 </div>
+                <textarea name="textarea" id="myText" cols="80" rows="8" placeholder="为什么要加入爱特工作室(选填,不超过200字)"
+                    v-model="reason"> </textarea>
                 <input type="submit" class="button" value="提       交">
             </form>
         </div>
@@ -81,17 +89,69 @@ const qq = ref('');
 const depart = ref('');
 const mail = ref(''); // 确保包含mail  
 const code = ref('');
+const reason = ref('');
 const showResult = ref(false);
 const totalSec = ref(61);//验证码总秒数
 const second = ref(61);//当前秒数,开定时器，对second--
 let timer = null;
 
-function submitForm() {
-    if (name.value && stuId.value && tele.value && qq.value && stuMajor.value && depart.value && mail.value && code.value) {
+async function submitForm() {
+    if (name.value && stuId.value && tele.value && stuMajor.value && depart.value && mail.value && code.value) {
+        try {
+            console.log('发送表单')
+            const response = await axios.post('api/enroll/', {
+                name: name.value,
+                email: mail.value,
+                department: depart.value,
+                major: stuMajor.value,
+                code: code.value,
+                content: reason.value,
+                phone: tele.value,
+                qq: qq.value,
+            });
+            console.log(response.data);
+            if (response.status === 201) {
+                ElNotification.success({
+                    title: '提交成功！',
+                    message: '请等待后续通知~',
+                    offset: 100,
+                });
+            }
+        } catch (error) {
+            console.log(error);
+            if (error.response) {
+                if (error.response.status === 400) {
+                    ElNotification.warning({
+                        title: '参数错误',
+                        message: '这应该是给前端看的吧',
+                        offset: 100,
+                    });
+                }
+                if (error.response.status === 404) {
+                    ElNotification.warning({
+                        title: '邮箱无效',
+                        message: '该邮箱当前没有验证码',
+                        offset: 100,
+                    });
+                }
+                if (error.response.status === 410) {
+                    ElNotification.warning({
+                        title: '验证码过期',
+                        message: '验证码已过期',
+                        offset: 100,
+                    });
+                }
+                if (error.response.status === 503) {
+                    ElNotification.error({
+                        title: '报名截止',
+                        message: '报名已结束',
+                        offset: 100,
+                    });
+                }
+            }
+            return;
+        }
         showResult.value = true;
-        // 在这里可以添加将表单数据发送到服务器的代码  
-        // ...  
-
         // 清空表单  
         name.value = '';
         stuId.value = '';
@@ -148,10 +208,13 @@ async function getCode() {
                 message: '验证码发送失败，请重试',
                 offset: 100,
             });
+            clearInterval(timer);
+            timer = null;
+            second.value = totalSec.value;
         }
     } else {
         console.log('邮箱格式有问题');
-        ElNotification.error({
+        ElNotification.warning({
             title: '邮箱格式错误',
             message: '请检查输入是否正确',
             offset: 100,
@@ -195,10 +258,10 @@ input {
 
 .body .putIn {
     width: 33.9%;
-    height: 68vh;
+    height: 84vh;
     background-color: #D9D9D9;
     position: absolute;
-    top: 17.4%;
+    top: 8vh;
     left: 11.25%;
     display: flex;
     justify-content: center;
@@ -208,7 +271,7 @@ input {
 .putIn .head,
 .succeed .head {
     width: 84.79%;
-    height: 55px;
+    height: 5vh;
     margin-top: 8.23%;
     display: flex;
     margin-bottom: 9.5%;
@@ -217,7 +280,7 @@ input {
 .putIn .head .text {
     color: var(--2, #04132D);
     font-family: "Microsoft JhengHei UI";
-    font-size: 36px;
+    font-size: 4vh;
     font-style: normal;
     font-weight: 700;
     line-height: 55px;
@@ -243,6 +306,18 @@ input {
     align-items: center;
     border-radius: 24px;
     border: 2px solid #808DA5;
+    position: relative;
+}
+
+.putIn form .fill .required-star {
+    z-index: 100;
+    color: red;
+    font-size: 20px;
+    height: 3.6vh;
+    display: flex;
+    align-items: center;
+    position: absolute;
+    left: 40px;
 }
 
 .putIn form .fill input {
@@ -361,10 +436,10 @@ option {
 
 .succeed {
     width: 33.9%;
-    height: 65.19%;
+    height: 84vh;
     background-color: #D9D9D9;
     position: absolute;
-    top: 17.4%;
+    top: 8vh;
     left: 11.25%;
     display: flex;
     justify-content: center;
@@ -375,6 +450,7 @@ option {
     display: flex;
     flex-direction: column;
     margin: 0 auto;
+    margin-top: 60px;
 }
 
 .succeed .head .text {
@@ -407,5 +483,28 @@ option {
 .QR {
     margin: 0 auto;
     margin-top: 5%;
+}
+
+textarea {
+    resize: none;
+    border: 2px solid #808DA5;
+    border-radius: 8px;
+    margin-bottom: 5%;
+    color: var(--2, #04132D);
+    background-color: rgba(103, 110, 123, 0.09);
+    padding: 6px;
+    font-size: 16px;
+    height: 14vh;
+}
+
+textarea::placeholder {
+    color: #808DA5;
+    font-size: 14px;
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
 }
 </style>
