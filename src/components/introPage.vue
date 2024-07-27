@@ -1,6 +1,7 @@
 
 <template>
     <!-- remain: 展示图片待替换 -->
+    <!-- bug: 页面缩放右侧轮播图和切换按钮相对位置偏移 -->
     <div class="back">
         <div class="head">
             <navHead :locate="84"></navHead>
@@ -238,12 +239,12 @@ export default {
     cursor: pointer;
 }
 
-.nav {
+/* .nav {
     background-color: #e2dfdf;
     border-radius: 30px;
     height: 20%;
     width: 8%;
     margin-left: 17%;
     margin-top: 45%;
-}
+} */
 </style>
