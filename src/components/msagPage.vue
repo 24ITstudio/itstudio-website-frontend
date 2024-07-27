@@ -1,6 +1,7 @@
 
 <template>
-    <!-- bug: 左右缩放时"发布"文字超出-->
+    <!-- remain: 导航栏插件或许可以改为相对样式，缩放有点奇怪 -->
+    <!-- bug: 缩放时"发布"文字超出-->
     <div class="back">
         <div class="head">
             <navHead :locate="-4000"></navHead>
@@ -72,7 +73,7 @@
                             </div> -->
                                 <div class="author_right">
                                     <div class="author_name">
-                                        游1234567
+                                        留言
                                     </div>
                                     <div class="author_time">
                                         {{ item.datetime }}
@@ -480,9 +481,9 @@ export default {
     flex-direction: row;
 }
 
-.head {
+/* .head {
     color: white;
-}
+} */
 
 .back_left {
     background-color: #04132c;
@@ -521,7 +522,7 @@ export default {
 
 .text_1 {
     /* margin-left: 10px; */
-    font-size: 25px;
+    font-size: 4vh;
     font-family: "Microsoft New Tai Lue-Bold", Helvetica;
     font-weight: bold;
     /* color: #d9d9d9; */
@@ -573,6 +574,7 @@ textarea {
     padding: 0;
     margin: 0;
     font-family: inherit;
+    font-size: 1.9vh;
     overflow: hidden;
     box-sizing: border-box;
 
