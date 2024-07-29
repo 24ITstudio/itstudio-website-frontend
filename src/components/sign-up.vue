@@ -1,6 +1,6 @@
 <template>
     <div class="body">
-        <div class="putIn" v-if="!showResult">
+        <div class="putIn slide-in-blurred-left" v-if="!showResult">
             <div class="head">
                 <router-link to="/"><img src="../assets/Go Back.png" alt="" style="height: 6vh;"></router-link>
                 <div class="text" style="display: inline-block;">信息填报</div>
@@ -59,7 +59,7 @@
                 </div>
                 <textarea name="textarea" id="myText" cols="80" rows="8" placeholder="为什么要加入爱特工作室(选填,不超过200字)"
                     v-model="reason"> </textarea>
-                <input type="submit" class="button" value="提       交">
+                <input type="submit" :class="['button', { 'upShake': isDown }]" value="提       交" @click="blank">
             </form>
         </div>
         <div class="succeed" style="z-index: 1000;" v-if="showResult">
@@ -94,6 +94,7 @@ const showResult = ref(false);
 const totalSec = ref(61);//验证码总秒数
 const second = ref(61);//当前秒数,开定时器，对second--
 let timer = null;
+const isDown = ref(false);
 
 async function submitForm() {
     if (name.value && stuId.value && tele.value && stuMajor.value && depart.value && mail.value && code.value) {
@@ -123,8 +124,8 @@ async function submitForm() {
             if (error.response) {
                 if (error.response.status === 400) {
                     ElNotification.warning({
-                        title: '参数错误',
-                        message: '这应该是给前端看的吧',
+                        title: '重复报名',
+                        message: '该邮箱或者手机已经存在报名信息',
                         offset: 100,
                     });
                 }
@@ -164,7 +165,14 @@ async function submitForm() {
         code.value = '';
     }
 }
-
+function blank() {
+    if (!name.value || !stuId.value || !tele.value || !stuMajor.value || !depart.value || !mail.value || !code.value) {
+        isDown.value = true
+        setTimeout(() => {
+            isDown.value = false
+        }, 800)
+    }
+}
 function back() {
     showResult.value = false
 }
@@ -507,5 +515,127 @@ input[type="number"]::-webkit-outer-spin-button,
 input[type="number"]::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
+}
+
+.slide-in-blurred-left {
+    -webkit-animation: slide-in-blurred-left 0.6s cubic-bezier(0.230, 1.000, 0.320, 1.000) both;
+    animation: slide-in-blurred-left 0.6s cubic-bezier(0.230, 1.000, 0.320, 1.000) both;
+}
+
+@-webkit-keyframes slide-in-blurred-left {
+    0% {
+        -webkit-transform: translateX(-1000px) scaleX(2.5) scaleY(0.2);
+        transform: translateX(-1000px) scaleX(2.5) scaleY(0.2);
+        -webkit-transform-origin: 100% 50%;
+        transform-origin: 100% 50%;
+        -webkit-filter: blur(40px);
+        filter: blur(40px);
+        opacity: 0;
+    }
+
+    100% {
+        -webkit-transform: translateX(0) scaleY(1) scaleX(1);
+        transform: translateX(0) scaleY(1) scaleX(1);
+        -webkit-transform-origin: 50% 50%;
+        transform-origin: 50% 50%;
+        -webkit-filter: blur(0);
+        filter: blur(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slide-in-blurred-left {
+    0% {
+        -webkit-transform: translateX(-1000px) scaleX(2.5) scaleY(0.2);
+        transform: translateX(-1000px) scaleX(2.5) scaleY(0.2);
+        -webkit-transform-origin: 100% 50%;
+        transform-origin: 100% 50%;
+        -webkit-filter: blur(40px);
+        filter: blur(40px);
+        opacity: 0;
+    }
+
+    100% {
+        -webkit-transform: translateX(0) scaleY(1) scaleX(1);
+        transform: translateX(0) scaleY(1) scaleX(1);
+        -webkit-transform-origin: 50% 50%;
+        transform-origin: 50% 50%;
+        -webkit-filter: blur(0);
+        filter: blur(0);
+        opacity: 1;
+    }
+}
+
+.upShake {
+    -webkit-animation: shake-horizontal 0.8s cubic-bezier(0.455, 0.030, 0.515, 0.955) both;
+    animation: shake-horizontal 0.8s cubic-bezier(0.455, 0.030, 0.515, 0.955) both;
+}
+
+@-webkit-keyframes shake-horizontal {
+
+    0%,
+    100% {
+        -webkit-transform: translateX(0);
+        transform: translateX(0);
+    }
+
+    10%,
+    30%,
+    50%,
+    70% {
+        -webkit-transform: translateX(-10px);
+        transform: translateX(-10px);
+    }
+
+    20%,
+    40%,
+    60% {
+        -webkit-transform: translateX(10px);
+        transform: translateX(10px);
+    }
+
+    80% {
+        -webkit-transform: translateX(8px);
+        transform: translateX(8px);
+    }
+
+    90% {
+        -webkit-transform: translateX(-8px);
+        transform: translateX(-8px);
+    }
+}
+
+@keyframes shake-horizontal {
+
+    0%,
+    100% {
+        -webkit-transform: translateX(0);
+        transform: translateX(0);
+    }
+
+    10%,
+    30%,
+    50%,
+    70% {
+        -webkit-transform: translateX(-10px);
+        transform: translateX(-10px);
+    }
+
+    20%,
+    40%,
+    60% {
+        -webkit-transform: translateX(10px);
+        transform: translateX(10px);
+    }
+
+    80% {
+        -webkit-transform: translateX(8px);
+        transform: translateX(8px);
+    }
+
+    90% {
+        -webkit-transform: translateX(-8px);
+        transform: translateX(-8px);
+    }
 }
 </style>

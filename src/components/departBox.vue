@@ -3,7 +3,7 @@
         :style="{ backgroundImage: 'url(' + url + ')' }">
         <div :class="['head', { 'headup': isExpanded }]">{{ title }}</div>
         <div :class="['big', { 'bigup': isExpanded }]">{{ title }}</div>
-        <div :class="['main', { 'mainup': isExpanded }]">{{ intro }}</div>
+        <div :class="['main', { 'mainup': isExpanded }]" v-html="intro"></div>
     </div>
 </template>
 

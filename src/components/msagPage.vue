@@ -1,4 +1,3 @@
-
 <template>
     <!-- remain: 导航栏插件或许可以改为相对样式，缩放有点奇怪 -->
     <!-- bug: 缩放时"发布"文字超出-->
@@ -55,58 +54,58 @@
                     </router-link>
                 </div>
                 <LoadingSpinner v-if="isLoading" />
-                    <!-- Loading... -->
-                    <!-- <div class="spinner-border" role="status">
+                <!-- Loading... -->
+                <!-- <div class="spinner-border" role="status">
                         <span class="sr-only">Loading...</span>
                     </div> -->
-                    <!-- </LoadingSpinner> -->
-                    <!-- <div class="loading" v-if="isLoading">
+                <!-- </LoadingSpinner> -->
+                <!-- <div class="loading" v-if="isLoading">
                         Loading...
                     </div> -->
-                    <div class="right_board" v-if="!isLoading">
-                        <div class="inner_board" v-for="item in total_Messages" :key="item.id">
-                            <!-- <div @click="showContent('content2'); clearPlaceholder1" class="author_inner"> -->
-                            <div @click="() => { showContent('content2'); clearPlaceholder1; getParentID(item.id);}"
-                                class="author_inner">
-                                <!-- <div class="author_head_fixed">
+                <div class="right_board" v-if="!isLoading">
+                    <div class="inner_board" v-for="item in total_Messages" :key="item.id">
+                        <!-- <div @click="showContent('content2'); clearPlaceholder1" class="author_inner"> -->
+                        <div @click="() => { showContent('content2'); clearPlaceholder1; getParentID(item.id); }"
+                            class="author_inner">
+                            <!-- <div class="author_head_fixed">
                                 <img src="../assets/author_head.png" />
                             </div> -->
-                                <div class="author_right">
-                                    <div class="author_name">
-                                        留言
-                                    </div>
-                                    <div class="author_time">
-                                        {{ item.datetime }}
-                                    </div>
-                                    <div class="author_content">
-                                        {{ item.content }}
-                                        <!-- （可放90个中文字符） -->
-                                    </div>
+                            <div class="author_right">
+                                <div class="author_name">
+                                    留言
+                                </div>
+                                <div class="author_time">
+                                    {{ item.datetime }}
+                                </div>
+                                <div class="author_content">
+                                    {{ item.content }}
+                                    <!-- （可放90个中文字符） -->
                                 </div>
                             </div>
+                        </div>
 
-                            <div class="traveller_total">
-                                <!-- // eslint-disable-next-line vue/require-v-for-key -->
-                                <div class="traveller_inner" v-for="child in item.children" :key="child">
-                                    <!-- <div class="traveller_head_fixed">
+                        <div class="traveller_total">
+                            <!-- // eslint-disable-next-line vue/require-v-for-key -->
+                            <div class="traveller_inner" v-for="child in item.children" :key="child">
+                                <!-- <div class="traveller_head_fixed">
                                     <img src="../assets/traveller_head.png" />
                                 </div> -->
-                                    <div class="traveller_right">
-                                        <div class="traveller_name_fixed">
-                                            游客
-                                        </div>
-                                        <div class="traveller_content">
-                                            {{ child.content }}
-                                        </div>
+                                <div class="traveller_right">
+                                    <div class="traveller_name_fixed">
+                                        游客
+                                    </div>
+                                    <div class="traveller_content">
+                                        {{ child.content }}
                                     </div>
                                 </div>
                             </div>
-
                         </div>
-                        <!-- <div class="inner_board">
+
+                    </div>
+                    <!-- <div class="inner_board">
 
                     </div> -->
-                    </div>
+                </div>
             </div>
         </div>
 
@@ -191,7 +190,7 @@ export default {
         // },
         setPlaceholder2() {
             // console.log('set前content2 isPlaceholder2 hasInput', this.content2, this.isPlaceholder2, this.hasInput)
-            if (this.content2 === '' ) {
+            if (this.content2 === '') {
                 this.content2 = '有什么想说的，就在这里留下吧~';
                 this.isplaceholder2 = true;
             }
@@ -215,7 +214,7 @@ export default {
         showContent(content) {
             this.currentContent = content;
         },
-        getMessages(){
+        getMessages() {
             var axios = require('axios');
             var config = {
                 method: 'get',
@@ -232,7 +231,7 @@ export default {
             axios(config)
                 .then(response => {
                     this.total_Messages = response.data;
-                    this.total_Messages.forEach(message =>{
+                    this.total_Messages.forEach(message => {
                         message.datetime = new Date(message.datetime).toLocaleString()
                     })
                     console.log('获取信息成功', response.data);
@@ -322,7 +321,7 @@ export default {
                         });
                         // alert('竟然发布成功了？?');
                         this.content1 = '有什么想说的，就在这里留下吧~';
-                    } else{
+                    } else {
                         console.log('出错了…');
                     }
                     // console.log(JSON.stringify(response.data));
@@ -450,7 +449,7 @@ export default {
                     // }, 3000); // 设置延迟，确保消息可见
                 });
         },
-        
+
     }
 
 };
@@ -464,14 +463,25 @@ export default {
 }
 
 .back {
-    background-color: beige;
-    width: 100%;
     height: 100vh;
-    background-image: url('../assets/bg.jpg');
+    position: relative;
+    background: url("../assets/bg.jpg") no-repeat fixed;
     background-size: 100% 100%;
-    position: fixed;
-    display: flex;
-    flex-direction: column;
+    padding: 1px;
+    box-sizing: border-box;
+    position: relative;
+}
+
+.back:after {
+    content: "";
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    background: inherit;
+    filter: blur(5px);
+    z-index: 1;
 }
 
 .content {
@@ -700,13 +710,13 @@ textarea:focus::placeholder {
 
 }
 
-.loading{
+.loading {
     color: #ffffff;
     margin-left: 20%;
     height: 88%;
-        width: 85%;
-        margin-left: 10%;
-        margin-top: 1%;
+    width: 85%;
+    margin-left: 10%;
+    margin-top: 1%;
 }
 
 .right_board {
@@ -784,7 +794,7 @@ textarea:focus::placeholder {
     /* height: 20%; */
 }
 
-.author_time{
+.author_time {
     font-size: 1.5vh;
 }
 
@@ -851,9 +861,9 @@ textarea:focus::placeholder {
 }
 
 /* .traveller_head_fixed { */
-    /* border: 1px, solid, black; */
-    /* border-image: url('../assets/traveller_head.png'); */
-    /* width: 15%; */
+/* border: 1px, solid, black; */
+/* border-image: url('../assets/traveller_head.png'); */
+/* width: 15%; */
 /* } */
 
 .traveller_head_fixed img {
