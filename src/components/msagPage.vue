@@ -2,114 +2,117 @@
     <!-- remain: 导航栏插件或许可以改为相对样式，缩放有点奇怪 -->
     <!-- bug: 缩放时"发布"文字超出-->
     <div class="back">
-        <div class="head">
-            <navHead :locate="-4000"></navHead>
-        </div>
-        <div class="content">
-            <div class="back_left">
-
-                <div v-if="currentContent === 'content1'" class="left_board">
-                    <div class="board_head">
-                        <div class="text_1">
-                            留言板
-                        </div>
-                    </div>
-                    <div class="board_content">
-                        <textarea ref="input" :placeholder="isPlaceholder1 ? '有什么想说的，就在这里留下吧~' : ''" v-model="content1"
-                            @focus="clearPlaceholder1" @blur="setPlaceholder1" @input="checkInput" rows="9">
-                            有什么想说的，就在这里留下吧~
-                        </textarea>
-                    </div>
-                    <div class="submitC">
-                        <button class="inner" @click="submitMessage">发&nbsp;&nbsp;&nbsp;&nbsp;布</button>
-                    </div>
-                </div>
-                <div v-if="currentContent === 'content2'" class="left_board">
-                    <div class="board_head">
-                        <div class="text_1">
-                            回复游客
-                        </div>
-                    </div>
-                    <div class="board_content_1">
-                        <textarea ref="input" v-model="content2" @focus="clearPlaceholder2" @blur="setPlaceholder2"
-                            @input="checkInput" rows="5">
-                            有什么想说的，就在这里留下吧~
-                        </textarea>
-                    </div>
-                    <div class="submitButton">
-                        <div class="submitA">
-                            <button class="inner" @click="cancelAndSwitch">取&nbsp;&nbsp;&nbsp;&nbsp;消</button>
-                        </div>
-                        <div class="submitB">
-                            <button class="inner" @click="submitTalk">发&nbsp;&nbsp;&nbsp;&nbsp;布</button>
-                        </div>
-                    </div>
-                </div>
-
+        <div class="back_up">
+            <div class="head">
+                <navHead :locate="-4000"></navHead>
             </div>
-            <div class="back_right">
-                <div class="goBack">
-                    <router-link to="/">
-                        <img src="../assets/Go Back.png" class="backImg" />
-                    </router-link>
+            <div class="content">
+                <div class="back_left">
+
+                    <div v-if="currentContent === 'content1'" class="left_board">
+                        <div class="board_head">
+                            <div class="text_1">
+                                留言板
+                            </div>
+                        </div>
+                        <div class="board_content">
+                            <textarea ref="input" :placeholder="isPlaceholder1 ? '有什么想说的，就在这里留下吧~' : ''"
+                                v-model="content1" @focus="clearPlaceholder1" @blur="setPlaceholder1"
+                                @input="checkInput" rows="9">
+                            有什么想说的，就在这里留下吧~
+                        </textarea>
+                        </div>
+                        <div class="submitC">
+                            <button class="inner" @click="submitMessage">发&nbsp;&nbsp;&nbsp;&nbsp;布</button>
+                        </div>
+                    </div>
+                    <div v-if="currentContent === 'content2'" class="left_board">
+                        <div class="board_head">
+                            <div class="text_1">
+                                回复游客
+                            </div>
+                        </div>
+                        <div class="board_content_1">
+                            <textarea ref="input" v-model="content2" @focus="clearPlaceholder2" @blur="setPlaceholder2"
+                                @input="checkInput" rows="5">
+                            有什么想说的，就在这里留下吧~
+                        </textarea>
+                        </div>
+                        <div class="submitButton">
+                            <div class="submitA">
+                                <button class="inner" @click="cancelAndSwitch">取&nbsp;&nbsp;&nbsp;&nbsp;消</button>
+                            </div>
+                            <div class="submitB">
+                                <button class="inner" @click="submitTalk">发&nbsp;&nbsp;&nbsp;&nbsp;布</button>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
-                <LoadingSpinner v-if="isLoading" />
-                <!-- Loading... -->
-                <!-- <div class="spinner-border" role="status">
+                <div class="back_right">
+                    <div class="goBack">
+                        <router-link to="/">
+                            <img src="../assets/Go Back.png" class="backImg" />
+                        </router-link>
+                    </div>
+                    <LoadingSpinner v-if="isLoading" />
+                    <!-- Loading... -->
+                    <!-- <div class="spinner-border" role="status">
                         <span class="sr-only">Loading...</span>
                     </div> -->
-                <!-- </LoadingSpinner> -->
-                <!-- <div class="loading" v-if="isLoading">
+                    <!-- </LoadingSpinner> -->
+                    <!-- <div class="loading" v-if="isLoading">
                         Loading...
                     </div> -->
-                <div class="right_board" v-if="!isLoading">
-                    <div class="inner_board" v-for="item in total_Messages" :key="item.id">
-                        <!-- <div @click="showContent('content2'); clearPlaceholder1" class="author_inner"> -->
-                        <div @click="() => { showContent('content2'); clearPlaceholder1; getParentID(item.id); }"
-                            class="author_inner">
-                            <!-- <div class="author_head_fixed">
+                    <div class="right_board" v-if="!isLoading">
+                        <div class="inner_board" v-for="item in total_Messages" :key="item.id">
+                            <!-- <div @click="showContent('content2'); clearPlaceholder1" class="author_inner"> -->
+                            <div @click="() => { showContent('content2'); clearPlaceholder1; getParentID(item.id); }"
+                                class="author_inner">
+                                <!-- <div class="author_head_fixed">
                                 <img src="../assets/author_head.png" />
                             </div> -->
-                            <div class="author_right">
-                                <div class="author_name">
-                                    留言
-                                </div>
-                                <div class="author_time">
-                                    {{ item.datetime }}
-                                </div>
-                                <div class="author_content">
-                                    {{ item.content }}
-                                    <!-- （可放90个中文字符） -->
+                                <div class="author_right">
+                                    <div class="author_name">
+                                        留言
+                                    </div>
+                                    <div class="author_time">
+                                        {{ item.datetime }}
+                                    </div>
+                                    <div class="author_content">
+                                        {{ item.content }}
+                                        <!-- （可放90个中文字符） -->
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="traveller_total">
-                            <!-- // eslint-disable-next-line vue/require-v-for-key -->
-                            <div class="traveller_inner" v-for="child in item.children" :key="child">
-                                <!-- <div class="traveller_head_fixed">
+                            <div class="traveller_total">
+                                <!-- // eslint-disable-next-line vue/require-v-for-key -->
+                                <div class="traveller_inner" v-for="child in item.children" :key="child">
+                                    <!-- <div class="traveller_head_fixed">
                                     <img src="../assets/traveller_head.png" />
                                 </div> -->
-                                <div class="traveller_right">
-                                    <div class="traveller_name_fixed">
-                                        游客
-                                    </div>
-                                    <div class="traveller_content">
-                                        {{ child.content }}
+                                    <div class="traveller_right">
+                                        <div class="traveller_name_fixed">
+                                            游客
+                                        </div>
+                                        <div class="traveller_content">
+                                            {{ child.content }}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
 
-                    </div>
-                    <!-- <div class="inner_board">
+                        </div>
+                        <!-- <div class="inner_board">
 
                     </div> -->
+                    </div>
                 </div>
             </div>
+
+
         </div>
-
-
     </div>
 </template>
 
@@ -470,9 +473,13 @@ export default {
     padding: 1px;
     box-sizing: border-box;
     position: relative;
+    overflow: hidden;
+    /* backdrop-filter: blur(1000px); */
+        /* 背景模糊 */
+        /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); */
 }
 
-.back:after {
+/* .back:after {
     content: "";
     width: 100%;
     height: 100%;
@@ -482,6 +489,12 @@ export default {
     background: inherit;
     filter: blur(5px);
     z-index: 1;
+} */
+
+.back_up{
+    height: 100%;
+    width: 100%;
+    backdrop-filter: blur(10px);
 }
 
 .content {
@@ -489,6 +502,7 @@ export default {
     margin-top: 2%;
     display: flex;
     flex-direction: row;
+    z-index: 1;
 }
 
 /* .head {
