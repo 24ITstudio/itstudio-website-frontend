@@ -46,7 +46,7 @@
                     <span class="required-star">*</span>
                     <img src="../assets/mail.png" alt="" style="height: 20px;">
                     <input type="text" v-model="mail" placeholder="邮箱" required>
-                    <div class="small" @click="getCode" v-if="second === 61">
+                    <div class="small" @click="getCode" v-if="second === 61" title="获取验证码">
                         <el-icon>
                             <Right />
                         </el-icon>
@@ -187,12 +187,6 @@ async function getCode() {
         try {
             console.log('发送验证码');
 
-            ElNotification.success({
-                title: '验证码已发送',
-                message: '请及时查看邮箱',
-                offset: 100,
-            });
-
             if (!timer && second.value === totalSec.value) {
                 console.log('别急，倒计时完就能再发送')
                 timer = setInterval(() => {
@@ -209,6 +203,13 @@ async function getCode() {
                 email: mail.value,
             });
             console.log(response.data);
+            if (response.status === 200) {
+                ElNotification.success({
+                    title: '验证码已发送',
+                    message: '请及时查看邮箱',
+                    offset: 100,
+                });
+            }
 
         } catch (error) {
             console.log(error);

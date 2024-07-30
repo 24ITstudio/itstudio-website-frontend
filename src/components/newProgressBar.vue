@@ -11,16 +11,15 @@
         </div>
         <div class="main">
             <div class="top">
-                <div class="words">未报名</div>
-                <div class="words">报名中</div>
-                <div class="words">一审中</div>
-                <div class="words">面试中</div>
-                <div class="words">二审中</div>
-                <div class="words">成功录取</div>
+                <div :class="['words', { 'lightUp': up1 }]">未报名</div>
+                <div :class="['words', { 'lightUp': up1 && up2 }]">报名中</div>
+                <div :class="['words', { 'lightUp': up1 && up2 && up3 }]">一审中</div>
+                <div :class="['words', { 'lightUp': up1 && up2 && up3 && up4 }]">面试中</div>
+                <div :class="['words', { 'lightUp': up1 && up2 && up3 && up4 && up5 }]">二审中</div>
+                <div :class="['words', { 'lightUp': up1 && up2 && up3 && up4 && up5 && up6 }]">成功录取</div>
             </div>
             <div class="mid">
-                <div class="highlight">
-                    <img src="../assets/Line 14.png" alt="">
+                <div class="highlight scale-in-hor-left">
                 </div>
                 <div class="common">
                     <img src="../assets/Line 13.png" alt="">
@@ -29,10 +28,10 @@
             <div class="bottom">
                 <div class="words">&nbsp;&nbsp;&nbsp;&nbsp;</div>
                 <div class="words">&nbsp;&nbsp;&nbsp;&nbsp;</div>
-                <div class="words">一审失败</div>
-                <div class="words">面试失败</div>
-                <div class="words">二审失败</div>
-                <div class="words">未录取</div>
+                <div :class="['words', { 'lightDown': down1 }]">一审失败</div>
+                <div :class="['words', { 'lightDown': down2 }]">面试失败</div>
+                <div :class="['words', { 'lightDown': down3 }]">二审失败</div>
+                <div :class="['words', { 'lightDown': down4 }]">未录取</div>
             </div>
         </div>
     </div>
@@ -67,12 +66,11 @@ body,
     width: 85vw;
     height: 100vh;
     background-color: #04132dcc;
-    transform: translateY(70px);
 }
 
 .back {
     position: relative;
-    margin: 10px;
+    margin: 80px;
 }
 
 .back img {
@@ -109,7 +107,7 @@ body,
 
 .words {
     width: 40px;
-    color: white;
+    color: gray;
     font-size: 36px;
     font-family: Microsoft JhengHei UI;
     font-weight: 400;
@@ -118,22 +116,27 @@ body,
     padding-top: 30px;
 }
 
-.highlight {
-    position: relative;
+.lightUp {
+    color: #fff;
+    font-weight: 700;
 }
 
-.highlight img {
-    width: 100%;
+.lightDown {
+    color: rgb(169, 3, 3);
+    font-weight: 700;
+}
+
+.highlight {
+    position: absolute;
+    left: 0;
     height: 100%;
-    margin-left: -750%;
+    width: 16%;
+    background-color: #fff;
+    border-radius: 15px;
 }
 
 .common {
-    width: 78%;
-    height: 30px;
-    position: absolute;
-    margin-left: -36%;
-    margin-top: -34px;
+    height: 100%;
 }
 
 .common img {
@@ -148,5 +151,55 @@ body,
     justify-content: space-between;
     align-items: flex-start;
     display: inline-flex
+}
+
+.mid {
+    height: 30px;
+    width: 1209px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.scale-in-hor-left {
+    -webkit-animation: scale-in-hor-left 1s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+    animation: scale-in-hor-left 1s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+}
+
+@-webkit-keyframes scale-in-hor-left {
+    0% {
+        -webkit-transform: scaleX(0);
+        transform: scaleX(0);
+        -webkit-transform-origin: 0% 0%;
+        transform-origin: 0% 0%;
+        opacity: 1;
+    }
+
+    100% {
+        -webkit-transform: scaleX(1);
+        transform: scaleX(1);
+        -webkit-transform-origin: 0% 0%;
+        transform-origin: 0% 0%;
+        opacity: 1;
+    }
+}
+
+@keyframes scale-in-hor-left {
+    0% {
+        -webkit-transform: scaleX(0);
+        transform: scaleX(0);
+        -webkit-transform-origin: 0% 0%;
+        transform-origin: 0% 0%;
+        opacity: 1;
+    }
+
+    100% {
+        -webkit-transform: scaleX(1);
+        transform: scaleX(1);
+        -webkit-transform-origin: 0% 0%;
+        transform-origin: 0% 0%;
+        opacity: 1;
+    }
 }
 </style>

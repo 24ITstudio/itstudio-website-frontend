@@ -1,6 +1,6 @@
 <template>
   <navHead :locate="-4000"></navHead>
-  <div class="box">
+  <div class="box" v-if="!showResult">
     <div class="shadow">
       <div class="back">
         <router-link to="/">
@@ -15,66 +15,147 @@
       </div>
       <div class="input">
         <div class="input1">
-          <input
-            type="text"
-            v-model="phoneNumber"
-            placeholder="请输入邮箱地址"
-            placeholder-class="place"
-          />
-          <button>发送验证码</button>
+          <input type="text" v-model="mail" placeholder="请输入邮箱地址" placeholder-class="place" />
+          <div :class="['code', { 'upShake': isDown }]" @click="getCode" v-if="second === 61">发送验证码</div>
+          <div class="count" v-else>{{ second + 's' }}</div>
         </div>
         <div class="input2">
-          <input
-            type="text"
-            placeholder="请输入验证码"
-            placeholder-class="place"
-          />
-          <a href=""
-            ><img src="../assets/Group.png" alt="" title="点击查询"
-          /></a>
+          <input type="text" placeholder="请输入验证码" placeholder-class="place" v-model="code" />
+          <div class="search" @click="getProgress"><img src="../assets/Group.png" alt="" title="点击查询" /></div>
         </div>
       </div>
     </div>
   </div>
+  <progressBar v-if="showResult"></progressBar>
 </template>
-<script>
+<script setup>
+import { ref, onUnmounted, computed } from 'vue';
 import navHead from "./nav-head.vue";
-export default {
-  components: {
-    navHead,
-  },
-  data() {
-    return {
-      phoneNumber: "",
-      isSending: false,
-      timer: null,
-    };
-  },
-  methods: {
-    sendVerificationCode() {
-      if (!this.phoneNumber || !/^1[3-9]\d{9}$/.test(this.phoneNumber)) {
-        alert("请输入正确的手机号！");
-        return;
+import progressBar from "./newProgressBar.vue";
+import axios from 'axios';
+import { ElNotification } from 'element-plus'
+const mail = ref('');
+const code = ref('');
+const totalSec = ref(61);//验证码总秒数
+const second = ref(61);//当前秒数,开定时器，对second--
+let timer = null;
+const isDown = ref(false);
+const showResult = ref(false);
+
+const emailError = computed(() => {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return !emailRegex.test(mail.value); // 返回布尔值而不是字符串  
+})
+
+async function getCode() {
+  if (!emailError.value) { // 如果邮箱格式正确  
+    try {
+      console.log('发送验证码');
+
+      if (!timer && second.value === totalSec.value) {
+        console.log('别急，倒计时完就能再发送')
+        timer = setInterval(() => {
+          second.value--;
+          if (second.value <= 0) {
+            clearInterval(timer);
+            timer = null;
+            second.value = totalSec.value;
+          }
+        }, 1000);
       }
-      this.isSending = true;
-      this.timer = setTimeout(() => {
-        this.isSending = false;
-      }, 60000);
-      this.timer = setTimeout(() => {
-        console.log("验证码已发送至手机：", this.phoneNumber);
-        this.isSending = false;
-        clearTimeout(this.timer);
-        this.timer = null;
-      }, 1000);
-    },
-  },
-};
+
+      const response = await axios.post('/api/code-send/', {
+        email: mail.value,
+      });
+      console.log(response.data);
+      if (response.status === 200) {
+        ElNotification.success({
+          title: '验证码已发送',
+          message: '请及时查看邮箱',
+          offset: 100,
+        });
+      }
+    } catch (error) {
+      console.log(error);
+      ElNotification.error({
+        title: '发送失败',
+        message: '验证码发送失败，请重试',
+        offset: 100,
+      });
+      clearInterval(timer);
+      timer = null;
+      second.value = totalSec.value;
+    }
+  } else {
+    console.log('邮箱格式有问题')
+    ElNotification.warning({
+      title: '邮箱格式错误',
+      message: '请检查输入是否正确',
+      offset: 100,
+    })
+    isDown.value = true
+    setTimeout(() => {
+      isDown.value = false
+    }, 800)
+  }
+}
+
+async function getProgress() {
+  if (mail.value && code.value) {
+    try {
+      console.log('发送表单')
+      const response = await axios.post('/api/progress/', {
+        email: mail.value,
+        code: code.value,
+      });
+      console.log(response.data);
+      if (response.status === 200) {
+        ElNotification.success({
+          title: '查询成功',
+          message: '',
+          offset: 100,
+        });
+      }
+    } catch (error) {
+      console.log(error);
+      if (error.response) {
+        if (error.response.status === 400) {
+          ElNotification.warning({
+            title: '？？？',
+            message: '？？？',
+            offset: 100,
+          });
+        }
+        if (error.response.status === 404) {
+          ElNotification.warning({
+            title: '记录不存在',
+            message: '该邮箱当前似乎没有报名',
+            offset: 100,
+          });
+        }
+      }
+      return;
+    }
+    showResult.value = true;
+    // 清空表单  
+    mail.value = '';
+    code.value = '';
+  }
+}
+
+onUnmounted(() => {
+  if (timer) {
+    clearInterval(timer);
+    timer = null;
+  }
+})
 </script>
 
 <style scoped>
 a {
   text-decoration: none;
 }
+
 body,
 .box {
   position: relative;
@@ -93,6 +174,7 @@ body,
   background-color: #04132dcc;
   transform: translateY(70px);
 }
+
 .back {
   position: relative;
   margin: 10px;
@@ -108,6 +190,7 @@ body,
   color: #808da5;
   font-size: 15px;
 }
+
 .query {
   position: absolute;
   left: 33%;
@@ -126,11 +209,13 @@ body,
   font-family: "Microsoft New Tai Lue";
   color: #fff;
 }
+
 .input {
   width: 100%;
   height: 100%;
   margin: 0 auto;
 }
+
 .input1,
 .input2 {
   position: relative;
@@ -140,13 +225,23 @@ body,
   height: 23%;
   margin-bottom: 10px;
 }
-.input2 img {
+
+.search {
   position: absolute;
   right: 2%;
   top: 13%;
   width: 40px;
+  background-color: transparent;
+  border: none;
+  display: flex;
+  justify-content: center;
 }
-button {
+
+.search:active {
+  opacity: .6;
+}
+
+.code {
   position: absolute;
   right: 5%;
   top: 25%;
@@ -155,11 +250,41 @@ button {
   background-color: #29447385;
   border-radius: 37px;
   border: none;
-  color: wheat;
+  color: #FFF;
   cursor: pointer;
   font-size: 14px;
   background-color: #1c3869;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
+
+.count {
+  position: absolute;
+  right: 5%;
+  top: 25%;
+  width: 10%;
+  height: 50%;
+  background-color: #29447385;
+  border-radius: 37px;
+  border: none;
+  color: #FFF;
+  cursor: pointer;
+  font-size: 14px;
+  background-color: #1c3869;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.code:active {
+  opacity: .6;
+}
+
+.code:hover {
+  cursor: pointer;
+}
+
 input {
   letter-spacing: 1.5px;
   color: white;
@@ -178,51 +303,143 @@ input::-webkit-input-placeholder {
   font-size: 16px;
   color: #808da5;
 }
+
 .query {
   animation-duration: 1s;
   animation-name: slidein;
   animation-fill-mode: forwards;
   animation-iteration-count: 1;
 }
+
 @keyframes slidein {
   from {
     transform: translateY(-134px);
   }
+
   to {
     top: 23%;
     background-color: #29447385;
   }
 }
+
 @media (max-width: 376px) {
   .query {
     width: 80%;
     left: 11%;
   }
+
   .shadow {
     width: 100%;
     height: 100%;
   }
+
   .text p {
     font-size: 16px;
   }
+
   input::-webkit-input-placeholder {
     font-size: 14px;
   }
+
   input {
     font-size: 12px;
   }
+
   .input1,
   .input2 {
     width: 88%;
     right: 5%;
   }
+
   button {
     font-size: 12px;
     width: 30%;
     right: 2%;
   }
+
   .input2 img {
     top: 8%;
+  }
+
+  .code {
+    font-size: 8px;
+  }
+
+  .search img {
+    width: 32px;
+  }
+}
+
+.upShake {
+  -webkit-animation: shake-horizontal 0.8s cubic-bezier(0.455, 0.030, 0.515, 0.955) both;
+  animation: shake-horizontal 0.8s cubic-bezier(0.455, 0.030, 0.515, 0.955) both;
+}
+
+@-webkit-keyframes shake-horizontal {
+
+  0%,
+  100% {
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
+  }
+
+  10%,
+  30%,
+  50%,
+  70% {
+    -webkit-transform: translateX(-10px);
+    transform: translateX(-10px);
+  }
+
+  20%,
+  40%,
+  60% {
+    -webkit-transform: translateX(10px);
+    transform: translateX(10px);
+  }
+
+  80% {
+    -webkit-transform: translateX(8px);
+    transform: translateX(8px);
+  }
+
+  90% {
+    -webkit-transform: translateX(-8px);
+    transform: translateX(-8px);
+  }
+}
+
+@keyframes shake-horizontal {
+
+  0%,
+  100% {
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
+  }
+
+  10%,
+  30%,
+  50%,
+  70% {
+    -webkit-transform: translateX(-10px);
+    transform: translateX(-10px);
+  }
+
+  20%,
+  40%,
+  60% {
+    -webkit-transform: translateX(10px);
+    transform: translateX(10px);
+  }
+
+  80% {
+    -webkit-transform: translateX(8px);
+    transform: translateX(8px);
+  }
+
+  90% {
+    -webkit-transform: translateX(-8px);
+    transform: translateX(-8px);
   }
 }
 </style>
