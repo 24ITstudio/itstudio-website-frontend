@@ -11,16 +11,11 @@
     </div>
     <div class="query">
       <div class="text">
-        <p>请输入邮箱进行查询</p>
+        <p>请输入手机号/邮箱/姓名进行查询</p>
       </div>
       <div class="input">
-        <div class="input1">
-          <input type="text" v-model="mail" placeholder="请输入邮箱地址" placeholder-class="place" />
-          <div :class="['code', { 'upShake': isDown }]" @click="getCode" v-if="second === 61">发送验证码</div>
-          <div class="count" v-else>{{ second + 's' }}</div>
-        </div>
         <div class="input2">
-          <input type="text" placeholder="请输入验证码" placeholder-class="place" v-model="code" />
+          <input type="text" placeholder="请输入手机号/邮箱/姓名" placeholder-class="place" v-model="code" required />
           <div class="search" @click="getProgress"><img src="../assets/Group.png" alt="" title="点击查询" /></div>
         </div>
       </div>
@@ -29,110 +24,108 @@
   <progressBar v-if="showResult" :idx="idx"></progressBar>
 </template>
 <script setup>
-import { ref, onUnmounted, computed } from 'vue';
+import { ref, computed } from 'vue';
 import navHead from "./nav-head.vue";
 import progressBar from "./newProgressBar.vue";
 import axios from 'axios';
 import { ElNotification } from 'element-plus'
-const mail = ref('');
+const email = ref('');
 const code = ref('');
-const totalSec = ref(61);//验证码总秒数
-const second = ref(61);//当前秒数,开定时器，对second--
-let timer = null;
-const isDown = ref(false);
+const phone = ref('');
+// const qq = ref('');
+const name = ref('');
 const showResult = ref(false);
-const idx = ref(-1);
+const idx = ref(-5);
 
-const emailError = computed(() => {
+const isEmail = computed(() => {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  return !emailRegex.test(mail.value); // 返回布尔值而不是字符串  
+  return emailRegex.test(code.value); // 返回布尔值而不是字符串  
 })
 
-async function getCode() {
-  if (!emailError.value) { // 如果邮箱格式正确  
-    try {
-      console.log('发送验证码');
+const isPhone = computed(() => {
+  const phoneRegex = /^1[3-9]\d{9}$/;
+  return phoneRegex.test(code.value);
+})
 
-      if (!timer && second.value === totalSec.value) {
-        console.log('别急，倒计时完就能再发送')
-        timer = setInterval(() => {
-          second.value--;
-          if (second.value <= 0) {
-            clearInterval(timer);
-            timer = null;
-            second.value = totalSec.value;
-          }
-        }, 1000);
-      }
-
-      const response = await axios.post('/api/code-send/', {
-        email: mail.value,
-      });
-      console.log(response.data);
-      if (response.status === 200) {
-        ElNotification.success({
-          title: '验证码已发送',
-          message: '请及时查看邮箱',
-          offset: 100,
-        });
-      }
-    } catch (error) {
-      console.log(error);
-      ElNotification.error({
-        title: '发送失败',
-        message: '验证码发送失败，请重试',
-        offset: 100,
-      });
-      clearInterval(timer);
-      timer = null;
-      second.value = totalSec.value;
-    }
-  } else {
-    console.log('邮箱格式有问题')
-    ElNotification.warning({
-      title: '邮箱格式错误',
-      message: '请检查输入是否正确',
-      offset: 100,
-    })
-    isDown.value = true
-    setTimeout(() => {
-      isDown.value = false
-    }, 800)
-  }
-}
+const isName = computed(() => {
+  const nameRegex = /^[\u4e00-\u9fa5]+$/;
+  return nameRegex.test(code.value);
+})
 
 async function getProgress() {
-  if (mail.value && code.value) {
+  if (code.value) {
     try {
       console.log('发送表单')
-      const response = await axios.post('/api/progress/', {
-        email: mail.value,
-        code: code.value,
-      });
-      console.log(response.data);
-      if (response.status === 200) {
-        ElNotification.success({
-          title: '查询成功',
-          message: '',
+      if (isEmail.value) {
+        email.value = code.value
+        const response = await axios.post('/api/progress/', {
+          email: email.value,
+        });
+        console.log(response.data);
+        if (response.status === 200) {
+          ElNotification.success({
+            title: '查询成功',
+            message: '',
+            offset: 100,
+          });
+          idx.value = response.data.idx;
+          console.log(idx.value);
+        }
+      }
+      else if (isPhone.value) {
+        phone.value = Number(code.value)
+        const response = await axios.post('/api/progress/', {
+          phone: phone.value,
+        });
+        console.log(response.data);
+        if (response.status === 200) {
+          ElNotification.success({
+            title: '查询成功',
+            message: '',
+            offset: 100,
+          });
+          idx.value = response.data.idx;
+          console.log(idx.value);
+        }
+      }
+      else if (isName.value) {
+        name.value = code.value
+        const response = await axios.post('/api/progress/', {
+          name: name.value,
+        });
+        console.log(response.data);
+        if (response.status === 200) {
+          ElNotification.success({
+            title: '查询成功',
+            message: '',
+            offset: 100,
+          });
+          idx.value = response.data.idx;
+          console.log(idx.value);
+        }
+      }
+      else {
+        ElNotification.warning({
+          title: '无效数据',
+          message: '请使用手机号/邮箱/姓名进行查询',
           offset: 100,
         });
-        idx.value = response.data.idx;
-        console.log(idx.value);
+        return;
       }
     } catch (error) {
       console.log(error);
       if (error.response) {
         if (error.response.status === 400) {
           ElNotification.warning({
-            title: '？？？',
-            message: '？？？',
+            title: '无效数据',
+            message: '请使用手机号/邮箱/姓名进行查询',
             offset: 100,
           });
         }
         if (error.response.status === 404) {
           ElNotification.warning({
             title: '记录不存在',
-            message: '该邮箱当前似乎没有报名',
+            message: '该登记信息当前似乎没有报名',
             offset: 100,
           });
         }
@@ -141,17 +134,10 @@ async function getProgress() {
     }
     showResult.value = true;
     // 清空表单  
-    mail.value = '';
     code.value = '';
   }
 }
 
-onUnmounted(() => {
-  if (timer) {
-    clearInterval(timer);
-    timer = null;
-  }
-})
 </script>
 
 <style scoped>
@@ -200,7 +186,7 @@ body,
   top: 26%;
   width: 33%;
   border-radius: 17px;
-  height: 31%;
+  height: 20%;
   transform: translateY(70px);
 }
 
@@ -231,13 +217,18 @@ body,
 
 .search {
   position: absolute;
-  right: 2%;
-  top: 13%;
-  width: 40px;
+  right: 1%;
+  top: 8%;
+  width: 35px;
   background-color: transparent;
   border: none;
   display: flex;
   justify-content: center;
+  align-items: center;
+}
+
+.search img {
+  width: 100%;
 }
 
 .search:active {

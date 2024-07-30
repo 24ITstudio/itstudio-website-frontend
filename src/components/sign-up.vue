@@ -57,8 +57,8 @@
                     <input type="number" v-model="code" placeholder="请输入验证码" required
                         style="transform: translateX(10px);">
                 </div>
-                <textarea name="textarea" id="myText" cols="80" rows="8" placeholder="为什么要加入爱特工作室(选填,不超过200字)"
-                    v-model="reason"> </textarea>
+                <textarea name="textarea" id="myText" cols="80" rows="8" v-model="reason"
+                    placeholder="为什么要加入爱特工作室(选填,不超过200字)"></textarea>
                 <input type="submit" :class="['button', { 'upShake': isDown }]" value="提       交" @click="blank">
             </form>
         </div>
@@ -98,26 +98,63 @@ const isDown = ref(false);
 
 async function submitForm() {
     if (name.value && stuId.value && tele.value && stuMajor.value && depart.value && mail.value && code.value) {
+        const dataToSend = {};
+        if (qq.value) {
+            dataToSend.qq = qq;
+        }
+        if (reason.value) {
+            dataToSend.content = reason;
+        } else {
+            dataToSend.content = 'none'
+        }
+        dataToSend.name = name;
+        dataToSend.department = depart;
+        dataToSend.major = stuMajor;
+        dataToSend.code = code;
+        dataToSend.phone = tele;
+        dataToSend.uid = stuId;
+        dataToSend.email = mail;
         try {
             console.log('发送表单')
-            const response = await axios.post('/api/enroll/', {
-                name: name.value,
-                email: mail.value,
-                department: depart.value,
-                major: stuMajor.value,
-                code: code.value,
-                content: reason.value,
-                phone: tele.value,
-                qq: qq.value,
-                uid: stuId.value,
-            });
-            console.log(response.data);
-            if (response.status === 201) {
-                ElNotification.success({
-                    title: '提交成功！',
-                    message: '请等待后续通知~',
-                    offset: 100,
+            if (qq.value) {
+                const response = await axios.post('/api/enroll/', {
+                    name: dataToSend.name.value,
+                    department: dataToSend.department.value,
+                    major: dataToSend.major.value,
+                    code: dataToSend.code.value,
+                    phone: dataToSend.phone.value,
+                    uid: dataToSend.uid.value,
+                    qq: dataToSend.qq.value,
+                    content: dataToSend.content.value,
+                    email: dataToSend.email.value,
                 });
+                console.log(response.data);
+                if (response.status === 201) {
+                    ElNotification.success({
+                        title: '提交成功！',
+                        message: '请等待后续通知~',
+                        offset: 100,
+                    });
+                }
+            } else {
+                const response = await axios.post('/api/enroll/', {
+                    name: dataToSend.name.value,
+                    department: dataToSend.department.value,
+                    major: dataToSend.major.value,
+                    code: dataToSend.code.value,
+                    phone: dataToSend.phone.value,
+                    uid: dataToSend.uid.value,
+                    content: dataToSend.content.value,
+                    email: dataToSend.email.value,
+                });
+                console.log(response.data);
+                if (response.status === 201) {
+                    ElNotification.success({
+                        title: '提交成功！',
+                        message: '请等待后续通知~',
+                        offset: 100,
+                    });
+                }
             }
         } catch (error) {
             console.log(error);
@@ -125,7 +162,7 @@ async function submitForm() {
                 if (error.response.status === 400) {
                     ElNotification.warning({
                         title: '重复报名',
-                        message: '该邮箱或者手机已经存在报名信息',
+                        message: '邮箱/手机/学号已经存在报名信息或是验证码已失效',
                         offset: 100,
                     });
                 }
