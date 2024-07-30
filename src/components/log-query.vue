@@ -26,7 +26,7 @@
       </div>
     </div>
   </div>
-  <progressBar v-if="showResult"></progressBar>
+  <progressBar v-if="showResult" :idx="idx"></progressBar>
 </template>
 <script setup>
 import { ref, onUnmounted, computed } from 'vue';
@@ -40,7 +40,8 @@ const totalSec = ref(61);//验证码总秒数
 const second = ref(61);//当前秒数,开定时器，对second--
 let timer = null;
 const isDown = ref(false);
-const showResult = ref(false);
+const showResult = ref(true);
+const idx = ref(-1);
 
 const emailError = computed(() => {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -115,6 +116,8 @@ async function getProgress() {
           message: '',
           offset: 100,
         });
+        idx.value = response.data.idx;
+        console.log(idx.value);
       }
     } catch (error) {
       console.log(error);

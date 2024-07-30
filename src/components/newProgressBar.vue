@@ -19,10 +19,9 @@
                 <div :class="['words', { 'lightUp': up1 && up2 && up3 && up4 && up5 && up6 }]">成功录取</div>
             </div>
             <div class="mid">
-                <div class="highlight scale-in-hor-left">
+                <div class="highlight scale-in-hor-left" :style="{ width: locate + '%' }">
                 </div>
                 <div class="common">
-                    <img src="../assets/Line 13.png" alt="">
                 </div>
             </div>
             <div class="bottom">
@@ -37,13 +36,75 @@
     </div>
 </template>
 
-<script>
+<script setup>
 import navHead from './nav-head.vue';
-export default {
-    components: {
-        navHead,
-    },
-};
+import { defineProps, ref } from "vue";
+const props = defineProps({
+    idx: Number,
+});
+const idx = ref(props.idx);
+const locate = ref(18);
+const up1 = ref(0);
+const up2 = ref(0);
+const up3 = ref(0);
+const up4 = ref(0);
+const up5 = ref(0);
+const up6 = ref(0);
+const down1 = ref(0);
+const down2 = ref(0);
+const down3 = ref(0);
+const down4 = ref(0);
+console.log(idx.value);
+//18, 32, 46, 61, 76, 100
+if (idx.value >= -1) {
+    locate.value = 18;
+    up1.value = 1;
+    if (idx.value >= 0) {
+        locate.value = 32;
+        up2.value = 1;
+        if (idx.value >= 1) {
+            locate.value = 46;
+            up3.value = 1;
+            if (idx.value >= 2) {
+                locate.value = 61;
+                up4.value = 1;
+                if (idx.value >= 3) {
+                    locate.value = 76;
+                    up5.value = 1;
+                    if (idx.value >= 4) {
+                        locate.value = 100;
+                        up6.value = 1;
+                    }
+                }
+            }
+        }
+    }
+}
+if (idx.value === -2) {
+    locate.value = 61;
+    up1.value = 1;
+    up2.value = 1;
+    up3.value = 1;
+    down2.value = 1;
+}
+if (idx.value === -3) {
+    locate.value = 76;
+    up1.value = 1;
+    up2.value = 1;
+    up3.value = 1;
+    up4.value = 1;
+    down3.value = 1;
+}
+if (idx.value === -4) {
+    locate.value = 100;
+    up1.value = 1;
+    up2.value = 1;
+    up3.value = 1;
+    up4.value = 1;
+    up5.value = 1;
+    down4.value = 1;
+}
+
 </script>
 
 <style scoped>
@@ -137,13 +198,11 @@ body,
 
 .common {
     height: 100%;
-}
-
-.common img {
     width: 100%;
-    height: 100%;
-
+    background-color: rgba(152, 152, 152, 0.3);
+    border-radius: 15px;
 }
+
 
 .bottom {
     position: relative;
@@ -155,7 +214,7 @@ body,
 
 .mid {
     height: 30px;
-    width: 1209px;
+    width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
