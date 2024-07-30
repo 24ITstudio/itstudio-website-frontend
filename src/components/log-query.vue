@@ -40,7 +40,7 @@ const totalSec = ref(61);//验证码总秒数
 const second = ref(61);//当前秒数,开定时器，对second--
 let timer = null;
 const isDown = ref(false);
-const showResult = ref(true);
+const showResult = ref(false);
 const idx = ref(-1);
 
 const emailError = computed(() => {
