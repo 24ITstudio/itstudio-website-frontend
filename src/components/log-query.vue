@@ -32,7 +32,6 @@ import { ElNotification } from 'element-plus'
 const email = ref('');
 const code = ref('');
 const phone = ref('');
-// const qq = ref('');
 const name = ref('');
 const showResult = ref(false);
 const idx = ref(-5);
@@ -58,59 +57,28 @@ async function getProgress() {
       console.log('发送表单')
       if (isEmail.value) {
         email.value = code.value
-        const response = await axios.post('/api/progress/', {
-          email: email.value,
-        });
-        console.log(response.data);
-        if (response.status === 200) {
-          ElNotification.success({
-            title: '查询成功',
-            message: '',
-            offset: 100,
-          });
-          idx.value = response.data.idx;
-          console.log(idx.value);
-        }
       }
       else if (isPhone.value) {
         phone.value = Number(code.value)
-        const response = await axios.post('/api/progress/', {
-          phone: phone.value,
-        });
-        console.log(response.data);
-        if (response.status === 200) {
-          ElNotification.success({
-            title: '查询成功',
-            message: '',
-            offset: 100,
-          });
-          idx.value = response.data.idx;
-          console.log(idx.value);
-        }
       }
       else if (isName.value) {
         name.value = code.value
-        const response = await axios.post('/api/progress/', {
-          name: name.value,
-        });
-        console.log(response.data);
-        if (response.status === 200) {
-          ElNotification.success({
-            title: '查询成功',
-            message: '',
-            offset: 100,
-          });
-          idx.value = response.data.idx;
-          console.log(idx.value);
-        }
+        console.log(name.value)
       }
-      else {
-        ElNotification.warning({
-          title: '无效数据',
-          message: '请使用手机号/邮箱/姓名进行查询',
+      const response = await axios.post('/api/progress/', {
+        ...email.value ? { email: email.value } : {},
+        ...phone.value ? { phone: phone.value } : {},
+        ...name.value ? { name: name.value } : {},
+      });
+      console.log(response.data);
+      if (response.status === 200) {
+        ElNotification.success({
+          title: '查询成功',
+          message: '',
           offset: 100,
         });
-        return;
+        idx.value = response.data.idx;
+        console.log(idx.value);
       }
     } catch (error) {
       console.log(error);

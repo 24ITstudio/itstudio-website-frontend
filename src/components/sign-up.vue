@@ -98,63 +98,26 @@ const isDown = ref(false);
 
 async function submitForm() {
     if (name.value && stuId.value && tele.value && stuMajor.value && depart.value && mail.value && code.value) {
-        const dataToSend = {};
-        if (qq.value) {
-            dataToSend.qq = qq;
-        }
-        if (reason.value) {
-            dataToSend.content = reason;
-        } else {
-            dataToSend.content = 'none'
-        }
-        dataToSend.name = name;
-        dataToSend.department = depart;
-        dataToSend.major = stuMajor;
-        dataToSend.code = code;
-        dataToSend.phone = tele;
-        dataToSend.uid = stuId;
-        dataToSend.email = mail;
         try {
             console.log('发送表单')
-            if (qq.value) {
-                const response = await axios.post('/api/enroll/', {
-                    name: dataToSend.name.value,
-                    department: dataToSend.department.value,
-                    major: dataToSend.major.value,
-                    code: dataToSend.code.value,
-                    phone: dataToSend.phone.value,
-                    uid: dataToSend.uid.value,
-                    qq: dataToSend.qq.value,
-                    content: dataToSend.content.value,
-                    email: dataToSend.email.value,
+            const response = await axios.post('/api/enroll/', {
+                name: name.value,
+                department: depart.value,
+                major: stuMajor.value,
+                code: code.value,
+                phone: tele.value,
+                uid: stuId.value,
+                ...qq.value ? { qq: qq.value } : {},
+                ...reason.value ? { content: reason.value } : {},
+                email: mail.value,
+            });
+            console.log(response.data);
+            if (response.status === 201) {
+                ElNotification.success({
+                    title: '提交成功！',
+                    message: '请等待后续通知~',
+                    offset: 100,
                 });
-                console.log(response.data);
-                if (response.status === 201) {
-                    ElNotification.success({
-                        title: '提交成功！',
-                        message: '请等待后续通知~',
-                        offset: 100,
-                    });
-                }
-            } else {
-                const response = await axios.post('/api/enroll/', {
-                    name: dataToSend.name.value,
-                    department: dataToSend.department.value,
-                    major: dataToSend.major.value,
-                    code: dataToSend.code.value,
-                    phone: dataToSend.phone.value,
-                    uid: dataToSend.uid.value,
-                    content: dataToSend.content.value,
-                    email: dataToSend.email.value,
-                });
-                console.log(response.data);
-                if (response.status === 201) {
-                    ElNotification.success({
-                        title: '提交成功！',
-                        message: '请等待后续通知~',
-                        offset: 100,
-                    });
-                }
             }
         } catch (error) {
             console.log(error);
@@ -200,6 +163,7 @@ async function submitForm() {
         mail.value = '';
         depart.value = '';
         code.value = '';
+        reason.value = '';
     }
 }
 function blank() {
