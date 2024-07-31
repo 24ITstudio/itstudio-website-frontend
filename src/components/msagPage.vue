@@ -101,7 +101,7 @@
                                 </div> -->
                                     <div class="traveller_right">
                                         <div class="traveller_name_fixed">
-                                            游客
+                                            回复
                                         </div>
                                         <div class="traveller_content">
                                             {{ child.content }}
@@ -839,6 +839,7 @@ textarea:focus::placeholder {
 
 .author_time {
     font-size: 1.5vh;
+    color:#8d8989;
 }
 
 .author_content {
