@@ -1,33 +1,33 @@
-
 <template>
     <!-- remain: 展示图片待替换 -->
     <!-- bug: 页面缩放右侧轮播图和切换按钮相对位置偏移 -->
     <div class="back">
-        <div class="head">
-            <navHead :locate="84"></navHead>
-        </div>
-        <div class="content">
-            <div class="back_left">
-                <div class="left_head">爱特工作室</div>
-                <div class="left_content">
-                    &nbsp;&nbsp;&nbsp;&nbsp;爱特工作室是中国海洋大学的校级社团，以开发为主，拥有程序设计、web开发、UI设计、app开发、游戏开发五大部门。欢迎加入爱特工作室！！！<br>
-                    &nbsp;&nbsp;&nbsp;&nbsp;中国海洋大学（Ocean University of China,
-                    OUC）位于山东省青岛市，是中华人民共和国教育部直属的综合性全国重点大学，位列国家“双一流”
-                    “985工程”
-                    “211工程”，入选“2011计划” “111计划”
-                    “强基计划”、卓越工程师教育培养计划、卓越农林人才教育培养计划、国家大学生创新性实验计划、国家建设高水平大学公派研究生项目、新工科研究与实践项目、中国政府奖学金来华留学生接收院校，为中欧精英大学联盟、北极大学、国际南极学院、国际涉海大学·联盟成员，全国首批博士、硕士学位授予单位。学校前身是创办于1924年的私立青岛大学。1930年，在省立山东大学和私立青岛大学基础上成立国立青岛大学。后历经国立山东大学、山东大学时期，1958年山东大学主体迁往济南，以留青的海洋系、水产系、地质系、生物系等为基础，于1959年3月成立山东海洋学院。1960年被国家确定为全国13所重点综合性大学之一。1988年更名为青岛海洋大学。2002年更名为中国海洋大学。
-                    截至2023年12月，学校有崂山、鱼山、浮山、西海岸4个校区，占地5200余亩；设有1个学部、20个学院和1个基础教学中心，开设本科招生专业74个；拥有博士后流动站17个、博士学位授权一级学科17个、博士专业学位授权类别4个、硕士学位授权一级学科34个、硕士专业学位授权类别25个；有教职工4048人，其中专任教师2167人；在校生35400余人，其中本科生17200余人、硕士研究生14500余人、博士研究生3400余人、外国留学生330余人。
-                </div>
+        <div class="back_up">
+            <div class="head">
+                <navHead :locate="84"></navHead>
             </div>
-            <div class="back_right">
-                <div class="swiper-container">
-                    <div class="swiper-wrapper">
-                        <!-- <img src="@/assets/introTry_0.png" /> -->
-                        <div class="swiper-slide" v-for="(image, index) in images" :key="index">
-                            <img :src="image" alt="Image Slide" />
-                        </div>
+            <div class="content">
+                <div class="back_left">
+                    <div class="left_head scale-in-bl">爱特工作室</div>
+                    <div class="left_content">
+                        &nbsp;&nbsp;&nbsp;&nbsp;爱特工作室是中国海洋大学的校级社团，以开发为主，拥有程序设计、web开发、UI设计、app开发、游戏开发五大部门。欢迎加入爱特工作室！！！<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;中国海洋大学（Ocean University of China,
+                        OUC）位于山东省青岛市，是中华人民共和国教育部直属的综合性全国重点大学，位列国家“双一流”
+                        “985工程”
+                        “211工程”，入选“2011计划” “111计划”
+                        “强基计划”、卓越工程师教育培养计划、卓越农林人才教育培养计划、国家大学生创新性实验计划、国家建设高水平大学公派研究生项目、新工科研究与实践项目、中国政府奖学金来华留学生接收院校，为中欧精英大学联盟、北极大学、国际南极学院、国际涉海大学·联盟成员，全国首批博士、硕士学位授予单位。学校前身是创办于1924年的私立青岛大学。1930年，在省立山东大学和私立青岛大学基础上成立国立青岛大学。后历经国立山东大学、山东大学时期，1958年山东大学主体迁往济南，以留青的海洋系、水产系、地质系、生物系等为基础，于1959年3月成立山东海洋学院。1960年被国家确定为全国13所重点综合性大学之一。1988年更名为青岛海洋大学。2002年更名为中国海洋大学。
+                        截至2023年12月，学校有崂山、鱼山、浮山、西海岸4个校区，占地5200余亩；设有1个学部、20个学院和1个基础教学中心，开设本科招生专业74个；拥有博士后流动站17个、博士学位授权一级学科17个、博士专业学位授权类别4个、硕士学位授权一级学科34个、硕士专业学位授权类别25个；有教职工4048人，其中专任教师2167人；在校生35400余人，其中本科生17200余人、硕士研究生14500余人、博士研究生3400余人、外国留学生330余人。
                     </div>
-                    <!-- <div class="swiper_button">
+                </div>
+                <div class="back_right">
+                    <div class="swiper-container scale-in-center">
+                        <div class="swiper-wrapper ">
+                            <!-- <img src="@/assets/introTry_0.png" /> -->
+                            <div class="swiper-slide" v-for="(image, index) in images" :key="index">
+                                <img :src="image" alt="Image Slide" />
+                            </div>
+                        </div>
+                        <!-- <div class="swiper_button">
                         <div class="prev">
                             <img src="@/assets/left.png" alt="Previous" />
                         </div>
@@ -35,13 +35,14 @@
                             <img src="@/assets/right.png" alt="Next" />
                         </div>
                     </div> -->
-                </div>
-                <div class="swiper_button">
-                    <div>
-                        <img src="@/assets/left.png" alt="Previous" class="prev" />
                     </div>
-                    <div class="next1">
-                        <img src="@/assets/right.png" alt="Next" class="next" />
+                    <div class="swiper_button">
+                        <div>
+                            <img src="@/assets/left.png" alt="Previous" class="prev" />
+                        </div>
+                        <div class="next1">
+                            <img src="@/assets/right.png" alt="Next" class="next" />
+                        </div>
                     </div>
                 </div>
             </div>
@@ -108,6 +109,12 @@ export default {
     position: fixed;
     display: flex;
     flex-direction: column;
+}
+
+.back_up {
+    height: 100%;
+    width: 100%;
+    backdrop-filter: blur(10px);
 }
 
 .content {
@@ -225,6 +232,10 @@ export default {
     cursor: pointer;
 }
 
+.prev:active{
+    animation: pulsate-bck 1s ease;
+}
+
 .next1 {
     /* color: white; */
     /* padding: 10px; */
@@ -239,12 +250,120 @@ export default {
     cursor: pointer;
 }
 
-/* .nav {
-    background-color: #e2dfdf;
-    border-radius: 30px;
-    height: 20%;
-    width: 8%;
-    margin-left: 17%;
-    margin-top: 45%;
+.next:active {
+    animation: pulsate-bck 1s ease;
+}
+
+.scale-in-bl {
+    -webkit-animation: scale-in-bl 1s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+    animation: scale-in-bl 1s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+}
+
+@-webkit-keyframes scale-in-bl {
+    0% {
+        -webkit-transform: scale(0);
+        transform: scale(0);
+        -webkit-transform-origin: 0% 100%;
+        transform-origin: 0% 100%;
+        opacity: 1;
+    }
+
+    100% {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+        -webkit-transform-origin: 0% 100%;
+        transform-origin: 0% 100%;
+        opacity: 1;
+    }
+}
+
+@keyframes scale-in-bl {
+    0% {
+        -webkit-transform: scale(0);
+        transform: scale(0);
+        -webkit-transform-origin: 0% 100%;
+        transform-origin: 0% 100%;
+        opacity: 1;
+    }
+
+    100% {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+        -webkit-transform-origin: 0% 100%;
+        transform-origin: 0% 100%;
+        opacity: 1;
+    }
+}
+
+.scale-in-center {
+    -webkit-animation: scale-in-center 1s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+    animation: scale-in-center 1s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+}
+
+@-webkit-keyframes scale-in-center {
+    0% {
+        -webkit-transform: scale(0);
+        transform: scale(0);
+        opacity: 1;
+    }
+
+    100% {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes scale-in-center {
+    0% {
+        -webkit-transform: scale(0);
+        transform: scale(0);
+        opacity: 1;
+    }
+
+    100% {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* .pulsate-bck {
+    -webkit-animation: pulsate-bck 0.5s ease-in-out both;
+    animation: pulsate-bck 0.5s ease-in-out both;
 } */
+
+@-webkit-keyframes pulsate-bck {
+    0% {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+    }
+
+    50% {
+        -webkit-transform: scale(0.7);
+        transform: scale(0.7);
+    }
+
+    100% {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+    }
+}
+
+@keyframes pulsate-bck {
+    0% {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+    }
+
+    50% {
+        -webkit-transform: scale(0.7);
+        transform: scale(0.7);
+    }
+
+    100% {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+    }
+}
 </style>

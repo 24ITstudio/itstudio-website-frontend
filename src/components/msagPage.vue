@@ -8,45 +8,52 @@
             </div>
             <div class="content">
                 <div class="back_left">
-
-                    <div v-if="currentContent === 'content1'" class="left_board">
-                        <div class="board_head">
-                            <div class="text_1">
-                                留言板
+                    <!-- <transition name="fade"> -->
+                        <div v-if="currentContent === 'content1'" 
+                            class="left_board slide-in-blurred-left">
+                            <div class="board_head">
+                                <div class="text_1">
+                                    留言板
+                                </div>
                             </div>
-                        </div>
-                        <div class="board_content">
-                            <textarea ref="input" :placeholder="isPlaceholder1 ? '有什么想说的，就在这里留下吧~' : ''"
-                                v-model="content1" @focus="clearPlaceholder1" @blur="setPlaceholder1"
-                                @input="checkInput" rows="9">
+                            <div class="board_content">
+                                <textarea ref="input" :placeholder="isPlaceholder1 ? '有什么想说的，就在这里留下吧~' : ''"
+                                    v-model="content1" @focus="clearPlaceholder1" @blur="setPlaceholder1"
+                                    @input="checkInput" rows="9">
                             有什么想说的，就在这里留下吧~
                         </textarea>
-                        </div>
-                        <div class="submitC">
-                            <button class="inner" @click="submitMessage">发&nbsp;&nbsp;&nbsp;&nbsp;布</button>
-                        </div>
-                    </div>
-                    <div v-if="currentContent === 'content2'" class="left_board">
-                        <div class="board_head">
-                            <div class="text_1">
-                                回复游客
+                            </div>
+                            <div class="submitC">
+                                <button class="inner pulsate-bck"
+                                    @click="submitMessage">发&nbsp;&nbsp;&nbsp;&nbsp;布</button>
                             </div>
                         </div>
-                        <div class="board_content_1">
-                            <textarea ref="input" v-model="content2" @focus="clearPlaceholder2" @blur="setPlaceholder2"
-                                @input="checkInput" rows="5">
+                    <!-- </transition> -->
+                    <!-- <transition name="fade"> -->
+                        <div v-if="currentContent === 'content2'" :key="contentKey" class="left_board slide-in-blurred-left">
+                            <div class="board_head">
+                                <div class="text_1">
+                                    回复留言
+                                </div>
+                            </div>
+                            <div class="board_content_1">
+                                <textarea ref="input" v-model="content2" @focus="clearPlaceholder2"
+                                    @blur="setPlaceholder2" @input="checkInput" rows="5">
                             有什么想说的，就在这里留下吧~
                         </textarea>
-                        </div>
-                        <div class="submitButton">
-                            <div class="submitA">
-                                <button class="inner" @click="cancelAndSwitch">取&nbsp;&nbsp;&nbsp;&nbsp;消</button>
                             </div>
-                            <div class="submitB">
-                                <button class="inner" @click="submitTalk">发&nbsp;&nbsp;&nbsp;&nbsp;布</button>
+                            <div class="submitButton">
+                                <div class="submitA">
+                                    <button class="inner pulsate-bck"
+                                        @click="cancelAndSwitch">取&nbsp;&nbsp;&nbsp;&nbsp;消</button>
+                                </div>
+                                <div class="submitB">
+                                    <button class="inner pulsate-bck"
+                                        @click="submitTalk">发&nbsp;&nbsp;&nbsp;&nbsp;布</button>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    <!-- </transition> -->
 
                 </div>
                 <div class="back_right">
@@ -68,7 +75,7 @@
                         <div class="inner_board" v-for="item in total_Messages" :key="item.id">
                             <!-- <div @click="showContent('content2'); clearPlaceholder1" class="author_inner"> -->
                             <div @click="() => { showContent('content2'); clearPlaceholder1; getParentID(item.id); }"
-                                class="author_inner">
+                                class="author_inner pulsate-bck">
                                 <!-- <div class="author_head_fixed">
                                 <img src="../assets/author_head.png" />
                             </div> -->
@@ -122,7 +129,9 @@ import LoadingSpinner from "../components/LoadingSpinner.vue";
 // import axios from 'axios'
 import { ElNotification } from 'element-plus'
 // import { Warning } from '@element-plus/icons-vue/dist/types';
+// import { ref } from 'vue';
 
+// const contentKey = ref(0);
 export default {
     name: "msagPage",
     components: {
@@ -144,6 +153,7 @@ export default {
             top_Messages: [],
             repay_Messages: [],
             isLoading: true,
+            contentKey: 0,
         }
     },
     created() {
@@ -215,7 +225,11 @@ export default {
 
         },
         showContent(content) {
-            this.currentContent = content;
+            setTimeout(() =>{
+                this.currentContent = content;
+                this.contentKey++;
+            }, 0);
+            // this.currentContent = content;
         },
         getMessages() {
             var axios = require('axios');
@@ -659,6 +673,11 @@ textarea:focus::placeholder {
     /* font-size: 12px; */
     font-weight: bold;
     font-family: "Microsoft New Tai Lue-Bold", Helvetica;
+    cursor: pointer;
+}
+
+.submitA .inner:active{
+    animation: pulsate-bck 1s ease;
 }
 
 .submitB .inner {
@@ -671,7 +690,12 @@ textarea:focus::placeholder {
     font-size: 1.7vh;
     font-weight: bold;
     font-family: "Microsoft New Tai Lue-Bold", Helvetica;
+    cursor: pointer;
 
+}
+
+.submitB .inner:active {
+    animation: pulsate-bck 0.3s ease;
 }
 
 .submitC {
@@ -694,21 +718,21 @@ textarea:focus::placeholder {
     border: none;
     /* margin-left: 18%; */
     font-size: 1.7vh;
-    /* bug 左右缩放时"发布"文字超出 */
     font-weight: bold;
     font-family: "Microsoft New Tai Lue-Bold", Helvetica;
+    cursor: pointer;
 
 }
 
+.submitC .inner:active {
+    animation: pulsate-bck 1s ease;
+}
 
 .back_right {
     background-color: #d9d9d91a;
     width: 70%;
     height: 95%;
     margin-top: 2.3%;
-    /* 右下部分单独 少一个背景虚化 */
-    /* filter: blur(10px); */
-    /* backdrop-filter: blur(100px); */
 }
 
 .goBack {
@@ -779,6 +803,11 @@ textarea:focus::placeholder {
     cursor: pointer;
 }
 
+.author_inner:active {
+    animation: pulsate-bck 0.4s ease;
+    /* animation: slide-in-blurred-left 0.4s ease; */
+}
+
 .author_head_fixed {
     /* border: 1px, solid, black; */
     /* border-image: url('../assets/author_head.png'); */
@@ -824,18 +853,7 @@ textarea:focus::placeholder {
 
 .author_content::-webkit-scrollbar {
     display: none;
-    /* width: 0; */
-    /* height: 0; */
 }
-
-/* .repay { */
-/* border: 1px, solid, black; */
-/* background-image: url('../assets/repay.png'); */
-/* height: 3%;
-    width: 3%;
-    margin-top: 1%;
-    margin-left: 87%; */
-/* } */
 
 .traveller_total {
     /* border: 1px, solid, greenyellow; */
@@ -844,17 +862,11 @@ textarea:focus::placeholder {
     /* margin-left: 10%; */
     margin-top: 2%;
     overflow: auto;
-    /* display: flex; */
-    /* flex-direction: column; */
-    /* justify-content: center; */
-    /* align-content: center; */
 
 }
 
 .traveller_total::-webkit-scrollbar {
     display: none;
-    /* width: 0; */
-    /* height: 0; */
 }
 
 .traveller_inner {
@@ -917,4 +929,98 @@ textarea:focus::placeholder {
     width: 0;
     height: 0;
 }
+
+/* 动画部分 */
+/* 留言板从左侧飞出（同报名） */
+.slide-in-blurred-left {
+    -webkit-animation: slide-in-blurred-left 0.6s cubic-bezier(0.230, 1.000, 0.320, 1.000) both;
+    animation: slide-in-blurred-left 0.6s cubic-bezier(0.230, 1.000, 0.320, 1.000) both;
+}
+
+@-webkit-keyframes slide-in-blurred-left {
+    0% {
+        -webkit-transform: translateX(-1000px) scaleX(2.5) scaleY(0.2);
+        transform: translateX(-1000px) scaleX(2.5) scaleY(0.2);
+        -webkit-transform-origin: 100% 50%;
+        transform-origin: 100% 50%;
+        -webkit-filter: blur(40px);
+        filter: blur(40px);
+        opacity: 0;
+    }
+
+    100% {
+        -webkit-transform: translateX(0) scaleY(1) scaleX(1);
+        transform: translateX(0) scaleY(1) scaleX(1);
+        -webkit-transform-origin: 50% 50%;
+        transform-origin: 50% 50%;
+        -webkit-filter: blur(0);
+        filter: blur(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slide-in-blurred-left {
+    0% {
+        -webkit-transform: translateX(-1000px) scaleX(2.5) scaleY(0.2);
+        transform: translateX(-1000px) scaleX(2.5) scaleY(0.2);
+        -webkit-transform-origin: 100% 50%;
+        transform-origin: 100% 50%;
+        -webkit-filter: blur(40px);
+        filter: blur(40px);
+        opacity: 0;
+    }
+
+    100% {
+        -webkit-transform: translateX(0) scaleY(1) scaleX(1);
+        transform: translateX(0) scaleY(1) scaleX(1);
+        -webkit-transform-origin: 50% 50%;
+        transform-origin: 50% 50%;
+        -webkit-filter: blur(0);
+        filter: blur(0);
+        opacity: 1;
+    }
+}
+
+/* 点击效果 */
+/* .pulsate-bck {
+    -webkit-animation: pulsate-bck 0.5s ease-in-out both;
+    animation: pulsate-bck 0.5s ease-in-out both;
+} */
+
+@-webkit-keyframes pulsate-bck {
+    0% {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+    }
+
+    50% {
+        -webkit-transform: scale(0.9);
+        transform: scale(0.9);
+    }
+
+    100% {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+    }
+}
+
+@keyframes pulsate-bck {
+    0% {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+    }
+
+    50% {
+        -webkit-transform: scale(0.9);
+        transform: scale(0.9);
+    }
+
+    100% {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+    }
+}
+
+
+
 </style>
