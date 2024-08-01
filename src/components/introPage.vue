@@ -9,7 +9,7 @@
             <div class="content">
                 <div class="back_left">
                     <div class="left_head scale-in-bl">爱特工作室</div>
-                    <div class="left_content">
+                    <div class="left_content scale-in-tl">
                         &nbsp;&nbsp;&nbsp;&nbsp;爱特工作室是中国海洋大学的校级社团，以开发为主，拥有程序设计、web开发、UI设计、app开发、游戏开发五大部门。欢迎加入爱特工作室！！！<br>
                         &nbsp;&nbsp;&nbsp;&nbsp;中国海洋大学（Ocean University of China,
                         OUC）位于山东省青岛市，是中华人民共和国教育部直属的综合性全国重点大学，位列国家“双一流”
@@ -144,6 +144,7 @@ export default {
 }
 
 .left_content {
+    /* background-color: greenyellow; */
     margin-top: 7%;
     height: 53%;
     color: white;
@@ -151,12 +152,23 @@ export default {
     font-family: 'Microsoft New Tai Lue';
     overflow: auto;
     position: relative;
+    /* animation: scroll 10s linear infinite; */
 }
 
 .left_content::-webkit-scrollbar {
     width: 0;
     height: 0;
 }
+
+/* @keyframes scroll {
+    0% {
+        transform: translateY(100%);
+    }
+
+    100% {
+        transform: translateY(-100%);
+    }
+} */
 
 .back_right {
     background-color: #04132c;
@@ -176,28 +188,6 @@ export default {
     /* margin-right: 30%; */
     overflow: hidden;
 }
-
-/* .swiper-wrapper{  */
-/* background-color: blue; */
-
-/* width: auto; */
-/* display: flex; */
-/* flex-direction: column; */
-/* overflow: hidden; */
-/* }  */
-
-/* .swiper-wrapper img{
-    width: auto;
-    height: auto;
-} */
-
-/* .swiper-slide {  */
-/* background-color: greenyellow; */
-/* border: 1px, solid, #04132c; */
-/* width: 10%; */
-/* height: 10%; */
-/* width: auto; */
-/* }  */
 
 .swiper-slide img {
     height: 100%;
@@ -291,6 +281,47 @@ export default {
         transform: scale(1);
         -webkit-transform-origin: 0% 100%;
         transform-origin: 0% 100%;
+        opacity: 1;
+    }
+}
+
+.scale-in-tl {
+    -webkit-animation: scale-in-tl 1s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+    animation: scale-in-tl 1s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+}
+
+@-webkit-keyframes scale-in-tl {
+    0% {
+        -webkit-transform: scale(0);
+        transform: scale(0);
+        -webkit-transform-origin: 0% 0%;
+        transform-origin: 0% 0%;
+        opacity: 1;
+    }
+
+    100% {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+        -webkit-transform-origin: 0% 0%;
+        transform-origin: 0% 0%;
+        opacity: 1;
+    }
+}
+
+@keyframes scale-in-tl {
+    0% {
+        -webkit-transform: scale(0);
+        transform: scale(0);
+        -webkit-transform-origin: 0% 0%;
+        transform-origin: 0% 0%;
+        opacity: 1;
+    }
+
+    100% {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+        -webkit-transform-origin: 0% 0%;
+        transform-origin: 0% 0%;
         opacity: 1;
     }
 }
