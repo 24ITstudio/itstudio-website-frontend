@@ -264,7 +264,7 @@ onUnmounted(() => {
 </script>
 
 <style scoped>
-@media (min-width: 769px) {
+@media (min-width: 1025px) {
 
     * {
         margin: 0;
@@ -713,7 +713,7 @@ onUnmounted(() => {
     }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
     * {
         margin: 0;
         padding: 0;
@@ -1025,6 +1025,7 @@ onUnmounted(() => {
         padding: 6px;
         font-size: 16px;
         height: 14vh;
+        width: 100%;
     }
 
     textarea::placeholder {
