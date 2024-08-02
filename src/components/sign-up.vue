@@ -1,6 +1,6 @@
 <template>
     <div class="body">
-        <div class="putIn slide-in-blurred-left" v-if="!showResult">
+        <div class="putIn slide-in-blurred-left" v-if="!showResult && isOn">
             <div class="head">
                 <router-link to="/"><img src="../assets/Go Back.png" alt="" style="height: 6vh;"></router-link>
                 <div class="text" style="display: inline-block;">信息填报</div>
@@ -46,23 +46,19 @@
                     <span class="required-star">*</span>
                     <img src="../assets/mail.png" alt="" style="height: 20px;">
                     <input type="text" v-model="mail" placeholder="邮箱" required>
-                    <div class="small" @click="getCode" v-if="second === 61" title="获取验证码">
-                        <el-icon>
-                            <Right />
-                        </el-icon>
-                    </div>
-                    <div class="count" v-else>{{ second + 's' }}</div>
                 </div>
                 <div class="code fill">
                     <input type="number" v-model="code" placeholder="请输入验证码" required
                         style="transform: translateX(10px);">
+                    <div class="small" @click="getCode" v-if="second === 61" title="获取验证码">获取邮箱验证码</div>
+                    <div class="count" v-else>{{ second + 's重新发送' }}</div>
                 </div>
                 <textarea name="textarea" id="myText" cols="80" rows="8" v-model="reason"
                     placeholder="为什么要加入爱特工作室(选填,不超过200字)"></textarea>
                 <input type="submit" :class="['button', { 'upShake': isDown }]" value="提       交" @click="blank">
             </form>
         </div>
-        <div class="succeed" style="z-index: 1000;" v-if="showResult">
+        <div class="succeed" style="z-index: 1000;" v-if="showResult && isOn">
             <div class="head">
                 <a href="#" style="position: fixed;"><img src="../assets/Go Back.png" @click='back' alt=""></a>
                 <div class="msg">
@@ -70,6 +66,16 @@
                     <div class="pic"><img src="../assets/happy.gif" alt="" style="height:200px;"></div>
                     <div class="tip">加群关注后续</div>
                     <div class="QR"><img src="../assets/code.png" alt="" style="height: 200px;"></div>
+                </div>
+            </div>
+        </div>
+        <div class="isOver" v-if="!isOn">
+            <div class="head">
+                <router-link to="/"><img src="../assets/Go Back.png" alt="" style="height: 6vh;"></router-link>
+                <div class="text" style="display: inline-block;">:(</div>
+                <div class="mainText">
+                    <div>报名已结束</div>
+                    <div>谢谢参与</div>
                 </div>
             </div>
         </div>
@@ -95,6 +101,22 @@ const totalSec = ref(61);//验证码总秒数
 const second = ref(61);//当前秒数,开定时器，对second--
 let timer = null;
 const isDown = ref(false);
+const isOn = ref(true);
+
+try {
+    console.log('查询报名是否过期')
+    const response = axios.get('/api/ddl/')
+    console.log(response.data)
+    if (response.status === 200) {
+        console.log('报名仍在继续')
+    }
+} catch (error) {
+    if (error.response.status === 499) {
+        console.log('报名已经过期')
+        isOn.value = false
+    }
+}
+
 
 async function submitForm() {
     if (name.value && stuId.value && tele.value && stuMajor.value && depart.value && mail.value && code.value) {
@@ -242,402 +264,900 @@ onUnmounted(() => {
 </script>
 
 <style scoped>
-* {
-    margin: 0;
-    padding: 0;
-}
+@media (min-width: 769px) {
 
-body {
-    margin: 0;
-}
-
-input {
-    outline: none;
-    border: 0;
-    background-color: transparent;
-}
-
-.body {
-    background-color: transparent;
-    background-image: url(../assets/background.png);
-    background-size: 100%;
-    display: flex;
-    position: relative;
-    height: 100vh;
-    width: 100vw;
-}
-
-.body .putIn {
-    width: 33.9%;
-    height: 84vh;
-    background-color: #D9D9D9;
-    position: absolute;
-    top: 8vh;
-    left: 11.25%;
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-}
-
-.putIn .head,
-.succeed .head {
-    width: 84.79%;
-    height: 5vh;
-    margin-top: 8.23%;
-    display: flex;
-    margin-bottom: 9.5%;
-}
-
-.putIn .head .text {
-    color: var(--2, #04132D);
-    font-family: "Microsoft JhengHei UI";
-    font-size: 4vh;
-    font-style: normal;
-    font-weight: 700;
-    line-height: 55px;
-    height: 55px;
-    margin-left: 28px;
-}
-
-.putIn form {
-    width: 84.79%;
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    transform: translateY(-30px);
-}
-
-.putIn form .fill {
-    background-color: rgba(103, 110, 123, 0.09);
-    width: 100%;
-    height: 3.6vh;
-    margin-bottom: 3vh;
-    line-height: 45px;
-    display: flex;
-    align-items: center;
-    border-radius: 24px;
-    border: 2px solid #808DA5;
-    position: relative;
-}
-
-.putIn form .fill .required-star {
-    z-index: 100;
-    color: red;
-    font-size: 20px;
-    height: 3.6vh;
-    display: flex;
-    align-items: center;
-    position: absolute;
-    left: 40px;
-}
-
-.putIn form .fill input {
-    line-height: 45px;
-    color: var(--2, #04132D);
-    font-family: "Microsoft JhengHei UI";
-    font-size: 18px;
-    font-style: normal;
-    font-weight: 700;
-}
-
-.putIn form .fill input::placeholder {
-    color: #808DA5;
-}
-
-.putIn form .fill img {
-    margin-left: 15px;
-    margin-right: 20px;
-}
-
-.putIn form .button {
-    color: #FFF;
-    font-family: "Microsoft JhengHei UI";
-    font-size: 32px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
-    height: 50px;
-    width: 60%;
-    border: none;
-    border-radius: 52px;
-    background: var(--2, #04132D);
-    margin: 0 auto;
-}
-
-.mail {
-    width: 65% !important;
-    position: relative;
-}
-
-.code {
-    width: 32% !important;
-}
-
-.putIn form .mail .small {
-    background-color: rgba(241, 244, 248, 0.6);
-    color: #808DA5;
-    font-size: 20px;
-    font-weight: bold;
-    width: 2.8vh;
-    height: 2.5vh;
-    line-height: 2.5vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 14px;
-    border: 2px solid #808DA5;
-    position: absolute;
-    right: 5px;
-}
-
-.putIn form .mail .count {
-    background-color: rgba(241, 244, 248, 0.6);
-    color: #808DA5;
-    font-size: 12px;
-    font-weight: bold;
-    width: 2.8vh;
-    height: 2.5vh;
-    line-height: 2.5vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 14px;
-    border: 2px solid #808DA5;
-    position: absolute;
-    right: 5px;
-}
-
-.small:active {
-    opacity: .7;
-}
-
-.small:hover {
-    cursor: pointer;
-}
-
-.putIn form .button:active {
-    opacity: 0.7;
-}
-
-.name {
-    width: 40% !important;
-}
-
-.depart {
-    width: 55% !important;
-}
-
-select {
-    outline: none;
-    border: none;
-    background-color: transparent;
-    width: 80%;
-    height: 100%;
-    transform: translateX(-10px);
-    color: var(--2, #04132D);
-    font-weight: bold;
-    font-size: 18px;
-}
-
-option {
-    color: var(--2, #04132D);
-    font-weight: bold;
-    font-size: 18px;
-}
-
-.succeed {
-    width: 33.9%;
-    height: 84vh;
-    background-color: #D9D9D9;
-    position: absolute;
-    top: 8vh;
-    left: 11.25%;
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-}
-
-.succeed .head .msg {
-    display: flex;
-    flex-direction: column;
-    margin: 0 auto;
-    margin-top: 60px;
-}
-
-.succeed .head .text {
-    color: #000;
-    font-family: "Microsoft YaHei UI";
-    font-size: 36px;
-    font-style: normal;
-    font-weight: 400;
-    margin: 0 auto;
-    margin-top: 13.07%;
-}
-
-.succeed .head .pic {
-    height: 200px;
-    margin: 0 auto;
-    margin-top: 22px;
-}
-
-.tip {
-    color: #000;
-    font-family: "Microsoft YaHei UI";
-    font-size: 20px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-    margin: 0 auto;
-    margin-top: 5%;
-}
-
-.QR {
-    margin: 0 auto;
-    margin-top: 5%;
-}
-
-textarea {
-    resize: none;
-    border: 2px solid #808DA5;
-    border-radius: 8px;
-    margin-bottom: 5%;
-    color: var(--2, #04132D);
-    background-color: rgba(103, 110, 123, 0.09);
-    padding: 6px;
-    font-size: 16px;
-    height: 14vh;
-}
-
-textarea::placeholder {
-    color: #808DA5;
-    font-size: 14px;
-}
-
-input[type="number"]::-webkit-outer-spin-button,
-input[type="number"]::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-}
-
-.slide-in-blurred-left {
-    -webkit-animation: slide-in-blurred-left 0.6s cubic-bezier(0.230, 1.000, 0.320, 1.000) both;
-    animation: slide-in-blurred-left 0.6s cubic-bezier(0.230, 1.000, 0.320, 1.000) both;
-}
-
-@-webkit-keyframes slide-in-blurred-left {
-    0% {
-        -webkit-transform: translateX(-1000px) scaleX(2.5) scaleY(0.2);
-        transform: translateX(-1000px) scaleX(2.5) scaleY(0.2);
-        -webkit-transform-origin: 100% 50%;
-        transform-origin: 100% 50%;
-        -webkit-filter: blur(40px);
-        filter: blur(40px);
-        opacity: 0;
+    * {
+        margin: 0;
+        padding: 0;
     }
 
-    100% {
-        -webkit-transform: translateX(0) scaleY(1) scaleX(1);
-        transform: translateX(0) scaleY(1) scaleX(1);
-        -webkit-transform-origin: 50% 50%;
-        transform-origin: 50% 50%;
-        -webkit-filter: blur(0);
-        filter: blur(0);
-        opacity: 1;
-    }
-}
-
-@keyframes slide-in-blurred-left {
-    0% {
-        -webkit-transform: translateX(-1000px) scaleX(2.5) scaleY(0.2);
-        transform: translateX(-1000px) scaleX(2.5) scaleY(0.2);
-        -webkit-transform-origin: 100% 50%;
-        transform-origin: 100% 50%;
-        -webkit-filter: blur(40px);
-        filter: blur(40px);
-        opacity: 0;
+    body {
+        margin: 0;
     }
 
-    100% {
-        -webkit-transform: translateX(0) scaleY(1) scaleX(1);
-        transform: translateX(0) scaleY(1) scaleX(1);
-        -webkit-transform-origin: 50% 50%;
-        transform-origin: 50% 50%;
-        -webkit-filter: blur(0);
-        filter: blur(0);
-        opacity: 1;
-    }
-}
-
-.upShake {
-    -webkit-animation: shake-horizontal 0.8s cubic-bezier(0.455, 0.030, 0.515, 0.955) both;
-    animation: shake-horizontal 0.8s cubic-bezier(0.455, 0.030, 0.515, 0.955) both;
-}
-
-@-webkit-keyframes shake-horizontal {
-
-    0%,
-    100% {
-        -webkit-transform: translateX(0);
-        transform: translateX(0);
+    input {
+        outline: none;
+        border: 0;
+        background-color: transparent;
     }
 
-    10%,
-    30%,
-    50%,
-    70% {
-        -webkit-transform: translateX(-10px);
+    .body {
+        background-color: transparent;
+        background-image: url(../assets/background.png);
+        background-repeat: no-repeat;
+        background-size: 100% 100%;
+        display: flex;
+        position: relative;
+        height: 100vh;
+        width: 100vw;
+    }
+
+    .body .putIn {
+        width: 33.9%;
+        height: 84vh;
+        background-color: #D9D9D9;
+        position: absolute;
+        top: 8vh;
+        left: 11.25%;
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .putIn .head,
+    .succeed .head,
+    .isOver .head {
+        width: 84.79%;
+        height: 5vh;
+        margin-top: 8.23%;
+        display: flex;
+        margin-bottom: 9.5%;
+    }
+
+    .putIn .head .text {
+        color: var(--2, #04132D);
+        font-family: "Microsoft JhengHei UI";
+        font-size: 4vh;
+        font-style: normal;
+        font-weight: 700;
+        line-height: 55px;
+        height: 55px;
+        margin-left: 28px;
+    }
+
+    .isOver .head .text {
+        color: var(--2, #04132D);
+        font-family: "Microsoft JhengHei UI";
+        font-size: 4vh;
+        font-style: normal;
+        font-weight: 700;
+        line-height: 55px;
+        height: 55px;
+        margin-left: 28px;
+    }
+
+    .putIn form {
+        width: 84.79%;
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        transform: translateY(-30px);
+    }
+
+    .putIn form .fill {
+        background-color: rgba(103, 110, 123, 0.09);
+        width: 100%;
+        height: 3.6vh;
+        margin-bottom: 2vh;
+        line-height: 45px;
+        display: flex;
+        align-items: center;
+        border-radius: 24px;
+        border: 2px solid #808DA5;
+        position: relative;
+    }
+
+    .putIn form .fill .required-star {
+        z-index: 100;
+        color: red;
+        font-size: 20px;
+        height: 3.6vh;
+        display: flex;
+        align-items: center;
+        position: absolute;
+        left: 40px;
+    }
+
+    .putIn form .fill input {
+        line-height: 45px;
+        color: var(--2, #04132D);
+        font-family: "Microsoft JhengHei UI";
+        font-size: 18px;
+        font-style: normal;
+        font-weight: 700;
+    }
+
+    .putIn form .fill input::placeholder {
+        color: #808DA5;
+    }
+
+    .putIn form .fill img {
+        margin-left: 15px;
+        margin-right: 20px;
+    }
+
+    .putIn form .button {
+        color: #FFF;
+        font-family: "Microsoft JhengHei UI";
+        font-size: 32px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: normal;
+        height: 50px;
+        width: 60%;
+        border: none;
+        border-radius: 52px;
+        background: var(--2, #04132D);
+        margin: 0 auto;
+    }
+
+    .code {
+        position: relative;
+        padding-left: 0.5vw;
+    }
+
+    .putIn form .code .small {
+        background-color: #808DA5;
+        color: white;
+        font-size: 14px;
+        font-weight: bold;
+        font-family: "Microsoft JhengHei UI";
+        width: 8vw;
+        height: 3.6vh;
+        line-height: 2.5vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 24px;
+        border: 2px solid #808DA5;
+        position: absolute;
+        right: -2px;
+    }
+
+    .putIn form .code .count {
+        background-color: #808DA5;
+        color: white;
+        font-size: 14px;
+        font-weight: bold;
+        font-family: "Microsoft JhengHei UI";
+        width: 8vw;
+        height: 3.6vh;
+        line-height: 2.5vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 24px;
+        border: 2px solid #808DA5;
+        position: absolute;
+        right: -2px;
+    }
+
+    .small:active {
+        opacity: .7;
+        transform: scale(0.98);
+    }
+
+    .small:hover {
+        cursor: pointer;
+    }
+
+    .putIn form .button:active {
+        opacity: 0.7;
+    }
+
+    .name {
+        width: 40% !important;
+    }
+
+    .depart {
+        width: 55% !important;
+    }
+
+    select {
+        outline: none;
+        border: none;
+        background-color: transparent;
+        width: 80%;
+        height: 100%;
         transform: translateX(-10px);
+        color: var(--2, #04132D);
+        font-weight: bold;
+        font-size: 18px;
     }
 
-    20%,
-    40%,
-    60% {
-        -webkit-transform: translateX(10px);
-        transform: translateX(10px);
+    option {
+        color: var(--2, #04132D);
+        font-weight: bold;
+        font-size: 18px;
     }
 
-    80% {
-        -webkit-transform: translateX(8px);
-        transform: translateX(8px);
+    .succeed {
+        width: 33.9%;
+        height: 84vh;
+        background-color: #D9D9D9;
+        position: absolute;
+        top: 8vh;
+        left: 11.25%;
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
     }
 
-    90% {
-        -webkit-transform: translateX(-8px);
-        transform: translateX(-8px);
+    .isOver {
+        width: 33.9%;
+        height: 84vh;
+        background-color: #D9D9D9;
+        position: absolute;
+        top: 8vh;
+        left: 11.25%;
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        position: relative;
+    }
+
+    .mainText {
+        position: absolute;
+        height: 10vh;
+        top: 45%;
+        left: 30%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+
+    .mainText div {
+        color: var(--2, #04132D);
+        font-family: "Microsoft JhengHei UI";
+        font-size: 4vh;
+        font-style: normal;
+        font-weight: 700;
+        width: 14vw;
+        display: flex;
+        justify-content: center;
+    }
+
+    .succeed .head .msg {
+        display: flex;
+        flex-direction: column;
+        margin: 0 auto;
+        margin-top: 60px;
+    }
+
+    .succeed .head .text {
+        color: #000;
+        font-family: "Microsoft YaHei UI";
+        font-size: 36px;
+        font-style: normal;
+        font-weight: 400;
+        margin: 0 auto;
+        margin-top: 13.07%;
+    }
+
+    .succeed .head .pic {
+        height: 200px;
+        margin: 0 auto;
+        margin-top: 22px;
+    }
+
+    .tip {
+        color: #000;
+        font-family: "Microsoft YaHei UI";
+        font-size: 20px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+        margin: 0 auto;
+        margin-top: 5%;
+    }
+
+    .QR {
+        margin: 0 auto;
+        margin-top: 5%;
+    }
+
+    textarea {
+        resize: none;
+        border: 2px solid #808DA5;
+        border-radius: 8px;
+        margin-bottom: 5%;
+        color: var(--2, #04132D);
+        background-color: rgba(103, 110, 123, 0.09);
+        padding: 6px;
+        font-size: 16px;
+        height: 14vh;
+    }
+
+    textarea::placeholder {
+        color: #808DA5;
+        font-size: 14px;
+    }
+
+    input[type="number"]::-webkit-outer-spin-button,
+    input[type="number"]::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    .slide-in-blurred-left {
+        -webkit-animation: slide-in-blurred-left 0.6s cubic-bezier(0.230, 1.000, 0.320, 1.000) both;
+        animation: slide-in-blurred-left 0.6s cubic-bezier(0.230, 1.000, 0.320, 1.000) both;
+    }
+
+    @-webkit-keyframes slide-in-blurred-left {
+        0% {
+            -webkit-transform: translateX(-1000px) scaleX(2.5) scaleY(0.2);
+            transform: translateX(-1000px) scaleX(2.5) scaleY(0.2);
+            -webkit-transform-origin: 100% 50%;
+            transform-origin: 100% 50%;
+            -webkit-filter: blur(40px);
+            filter: blur(40px);
+            opacity: 0;
+        }
+
+        100% {
+            -webkit-transform: translateX(0) scaleY(1) scaleX(1);
+            transform: translateX(0) scaleY(1) scaleX(1);
+            -webkit-transform-origin: 50% 50%;
+            transform-origin: 50% 50%;
+            -webkit-filter: blur(0);
+            filter: blur(0);
+            opacity: 1;
+        }
+    }
+
+    @keyframes slide-in-blurred-left {
+        0% {
+            -webkit-transform: translateX(-1000px) scaleX(2.5) scaleY(0.2);
+            transform: translateX(-1000px) scaleX(2.5) scaleY(0.2);
+            -webkit-transform-origin: 100% 50%;
+            transform-origin: 100% 50%;
+            -webkit-filter: blur(40px);
+            filter: blur(40px);
+            opacity: 0;
+        }
+
+        100% {
+            -webkit-transform: translateX(0) scaleY(1) scaleX(1);
+            transform: translateX(0) scaleY(1) scaleX(1);
+            -webkit-transform-origin: 50% 50%;
+            transform-origin: 50% 50%;
+            -webkit-filter: blur(0);
+            filter: blur(0);
+            opacity: 1;
+        }
+    }
+
+    .upShake {
+        -webkit-animation: shake-horizontal 0.8s cubic-bezier(0.455, 0.030, 0.515, 0.955) both;
+        animation: shake-horizontal 0.8s cubic-bezier(0.455, 0.030, 0.515, 0.955) both;
+    }
+
+    @-webkit-keyframes shake-horizontal {
+
+        0%,
+        100% {
+            -webkit-transform: translateX(0);
+            transform: translateX(0);
+        }
+
+        10%,
+        30%,
+        50%,
+        70% {
+            -webkit-transform: translateX(-10px);
+            transform: translateX(-10px);
+        }
+
+        20%,
+        40%,
+        60% {
+            -webkit-transform: translateX(10px);
+            transform: translateX(10px);
+        }
+
+        80% {
+            -webkit-transform: translateX(8px);
+            transform: translateX(8px);
+        }
+
+        90% {
+            -webkit-transform: translateX(-8px);
+            transform: translateX(-8px);
+        }
+    }
+
+    @keyframes shake-horizontal {
+
+        0%,
+        100% {
+            -webkit-transform: translateX(0);
+            transform: translateX(0);
+        }
+
+        10%,
+        30%,
+        50%,
+        70% {
+            -webkit-transform: translateX(-10px);
+            transform: translateX(-10px);
+        }
+
+        20%,
+        40%,
+        60% {
+            -webkit-transform: translateX(10px);
+            transform: translateX(10px);
+        }
+
+        80% {
+            -webkit-transform: translateX(8px);
+            transform: translateX(8px);
+        }
+
+        90% {
+            -webkit-transform: translateX(-8px);
+            transform: translateX(-8px);
+        }
     }
 }
 
-@keyframes shake-horizontal {
-
-    0%,
-    100% {
-        -webkit-transform: translateX(0);
-        transform: translateX(0);
+@media (max-width: 768px) {
+    * {
+        margin: 0;
+        padding: 0;
     }
 
-    10%,
-    30%,
-    50%,
-    70% {
-        -webkit-transform: translateX(-10px);
+    body {
+        margin: 0;
+    }
+
+    input {
+        outline: none;
+        border: 0;
+        background-color: transparent;
+    }
+
+    .body {
+        background-color: transparent;
+        background-color: #04132D;
+        ;
+        background-size: 100%;
+        display: flex;
+        position: relative;
+        height: 100vh;
+        width: 100vw;
+    }
+
+    .body .putIn {
+        width: 100vw;
+        height: 100vh;
+        background-color: #D9D9D9;
+        position: absolute;
+        top: 0;
+        left: 0;
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .putIn .head,
+    .succeed .head,
+    .isOver .head {
+        width: 84.79%;
+        height: 5vh;
+        margin-top: 8.23%;
+        display: flex;
+        margin-bottom: 9.5%;
+    }
+
+    .putIn .head .text {
+        color: var(--2, #04132D);
+        font-family: "Microsoft JhengHei UI";
+        font-size: 4vh;
+        font-style: normal;
+        font-weight: 700;
+        line-height: 55px;
+        height: 55px;
+        margin-left: 28px;
+    }
+
+    .isOver .head .text {
+        color: var(--2, #04132D);
+        font-family: "Microsoft JhengHei UI";
+        font-size: 4vh;
+        font-style: normal;
+        font-weight: 700;
+        line-height: 55px;
+        height: 55px;
+        margin-left: 28px;
+    }
+
+    .putIn form {
+        width: 84.79%;
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        transform: translateY(-30px);
+    }
+
+    .putIn form .fill {
+        background-color: rgba(103, 110, 123, 0.09);
+        width: 100%;
+        height: 3.6vh;
+        margin-bottom: 2vh;
+        line-height: 45px;
+        display: flex;
+        align-items: center;
+        border-radius: 24px;
+        border: 2px solid #808DA5;
+        position: relative;
+    }
+
+    .putIn form .fill .required-star {
+        z-index: 100;
+        color: red;
+        font-size: 14px;
+        height: 3.6vh;
+        display: flex;
+        align-items: center;
+        position: absolute;
+        left: 40px;
+    }
+
+    .putIn form .fill input {
+        line-height: 45px;
+        color: var(--2, #04132D);
+        font-family: "Microsoft JhengHei UI";
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 700;
+    }
+
+    .putIn form .fill input::placeholder {
+        color: #808DA5;
+    }
+
+    .putIn form .fill img {
+        margin-left: 15px;
+        margin-right: 20px;
+    }
+
+    .putIn form .button {
+        color: #FFF;
+        font-family: "Microsoft JhengHei UI";
+        font-size: 28px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: normal;
+        height: 50px;
+        width: 60%;
+        border: none;
+        border-radius: 52px;
+        background: var(--2, #04132D);
+        margin: 0 auto;
+    }
+
+    .code {
+        position: relative;
+        padding-left: 0.5vw;
+    }
+
+    .putIn form .code .small {
+        background-color: #808DA5;
+        color: white;
+        font-size: 12px;
+        font-weight: bold;
+        font-family: "Microsoft JhengHei UI";
+        width: 90px;
+        height: 3.6vh;
+        line-height: 2.5vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 24px;
+        border: 2px solid #808DA5;
+        position: absolute;
+        right: -2px;
+    }
+
+    .putIn form .code .count {
+        background-color: #808DA5;
+        color: white;
+        font-size: 12px;
+        font-weight: bold;
+        font-family: "Microsoft JhengHei UI";
+        width: 90px;
+        height: 3.6vh;
+        line-height: 2.5vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 24px;
+        border: 2px solid #808DA5;
+        position: absolute;
+        right: -2px;
+    }
+
+    .small:active {
+        opacity: .7;
+        transform: scale(0.98);
+    }
+
+    .small:hover {
+        cursor: pointer;
+    }
+
+    .putIn form .button:active {
+        opacity: 0.7;
+    }
+
+    select {
+        outline: none;
+        border: none;
+        background-color: transparent;
+        width: 100%;
+        height: 100%;
         transform: translateX(-10px);
+        color: var(--2, #04132D);
+        font-weight: bold;
+        font-size: 12px;
     }
 
-    20%,
-    40%,
-    60% {
-        -webkit-transform: translateX(10px);
-        transform: translateX(10px);
+    option {
+        color: var(--2, #04132D);
+        font-weight: bold;
+        font-size: 12px;
     }
 
-    80% {
-        -webkit-transform: translateX(8px);
-        transform: translateX(8px);
+    .succeed {
+        width: 100vw;
+        height: 100vh;
+        background-color: #D9D9D9;
+        position: absolute;
+        top: 0;
+        left: 0;
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
     }
 
-    90% {
-        -webkit-transform: translateX(-8px);
-        transform: translateX(-8px);
+    .isOver {
+        width: 100vw;
+        height: 100vh;
+        background-color: #D9D9D9;
+        position: absolute;
+        top: 0;
+        left: 0;
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        position: relative;
+    }
+
+    .mainText {
+        position: absolute;
+        height: 10vh;
+        top: 45%;
+        left: 35%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+
+    .mainText div {
+        color: var(--2, #04132D);
+        font-family: "Microsoft JhengHei UI";
+        font-size: 24px;
+        font-style: normal;
+        font-weight: 700;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+
+    .succeed .head .msg {
+        display: flex;
+        flex-direction: column;
+        margin: 0 auto;
+        margin-top: 60px;
+    }
+
+    .succeed .head .text {
+        color: #000;
+        font-family: "Microsoft YaHei UI";
+        font-size: 36px;
+        font-style: normal;
+        font-weight: 400;
+        margin: 0 auto;
+        margin-top: 13.07%;
+    }
+
+    .succeed .head .pic {
+        height: 100px;
+        margin: 0 auto;
+        margin-top: 22px;
+    }
+
+    .succeed .head .pic img {
+        height: 100px !important;
+    }
+
+    .tip {
+        color: #000;
+        font-family: "Microsoft YaHei UI";
+        font-size: 20px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+        margin: 0 auto;
+        margin-top: 5%;
+    }
+
+    .QR {
+        margin: 0 auto;
+        margin-top: 5%;
+    }
+
+    .QR img {
+        height: 150px !important;
+    }
+
+    textarea {
+        resize: none;
+        border: 2px solid #808DA5;
+        border-radius: 8px;
+        margin-bottom: 5%;
+        color: var(--2, #04132D);
+        background-color: rgba(103, 110, 123, 0.09);
+        padding: 6px;
+        font-size: 16px;
+        height: 14vh;
+    }
+
+    textarea::placeholder {
+        color: #808DA5;
+        font-size: 14px;
+    }
+
+    input[type="number"]::-webkit-outer-spin-button,
+    input[type="number"]::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    .slide-in-blurred-left {
+        -webkit-animation: slide-in-blurred-left 0.6s cubic-bezier(0.230, 1.000, 0.320, 1.000) both;
+        animation: slide-in-blurred-left 0.6s cubic-bezier(0.230, 1.000, 0.320, 1.000) both;
+    }
+
+    @-webkit-keyframes slide-in-blurred-left {
+        0% {
+            -webkit-transform: translateX(-1000px) scaleX(2.5) scaleY(0.2);
+            transform: translateX(-1000px) scaleX(2.5) scaleY(0.2);
+            -webkit-transform-origin: 100% 50%;
+            transform-origin: 100% 50%;
+            -webkit-filter: blur(40px);
+            filter: blur(40px);
+            opacity: 0;
+        }
+
+        100% {
+            -webkit-transform: translateX(0) scaleY(1) scaleX(1);
+            transform: translateX(0) scaleY(1) scaleX(1);
+            -webkit-transform-origin: 50% 50%;
+            transform-origin: 50% 50%;
+            -webkit-filter: blur(0);
+            filter: blur(0);
+            opacity: 1;
+        }
+    }
+
+    @keyframes slide-in-blurred-left {
+        0% {
+            -webkit-transform: translateX(-1000px) scaleX(2.5) scaleY(0.2);
+            transform: translateX(-1000px) scaleX(2.5) scaleY(0.2);
+            -webkit-transform-origin: 100% 50%;
+            transform-origin: 100% 50%;
+            -webkit-filter: blur(40px);
+            filter: blur(40px);
+            opacity: 0;
+        }
+
+        100% {
+            -webkit-transform: translateX(0) scaleY(1) scaleX(1);
+            transform: translateX(0) scaleY(1) scaleX(1);
+            -webkit-transform-origin: 50% 50%;
+            transform-origin: 50% 50%;
+            -webkit-filter: blur(0);
+            filter: blur(0);
+            opacity: 1;
+        }
+    }
+
+    .upShake {
+        -webkit-animation: shake-horizontal 0.8s cubic-bezier(0.455, 0.030, 0.515, 0.955) both;
+        animation: shake-horizontal 0.8s cubic-bezier(0.455, 0.030, 0.515, 0.955) both;
+    }
+
+    @-webkit-keyframes shake-horizontal {
+
+        0%,
+        100% {
+            -webkit-transform: translateX(0);
+            transform: translateX(0);
+        }
+
+        10%,
+        30%,
+        50%,
+        70% {
+            -webkit-transform: translateX(-10px);
+            transform: translateX(-10px);
+        }
+
+        20%,
+        40%,
+        60% {
+            -webkit-transform: translateX(10px);
+            transform: translateX(10px);
+        }
+
+        80% {
+            -webkit-transform: translateX(8px);
+            transform: translateX(8px);
+        }
+
+        90% {
+            -webkit-transform: translateX(-8px);
+            transform: translateX(-8px);
+        }
+    }
+
+    @keyframes shake-horizontal {
+
+        0%,
+        100% {
+            -webkit-transform: translateX(0);
+            transform: translateX(0);
+        }
+
+        10%,
+        30%,
+        50%,
+        70% {
+            -webkit-transform: translateX(-10px);
+            transform: translateX(-10px);
+        }
+
+        20%,
+        40%,
+        60% {
+            -webkit-transform: translateX(10px);
+            transform: translateX(10px);
+        }
+
+        80% {
+            -webkit-transform: translateX(8px);
+            transform: translateX(8px);
+        }
+
+        90% {
+            -webkit-transform: translateX(-8px);
+            transform: translateX(-8px);
+        }
     }
 }
 </style>
