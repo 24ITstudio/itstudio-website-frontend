@@ -138,7 +138,7 @@ export default {
 .left_head {
     color: white;
     font-weight: 700;
-    font-size: 10vh;
+    font-size: 5.5vw;
     /* font-size: 60px; */
     margin-left: 1%;
 }
@@ -149,6 +149,7 @@ export default {
     height: 53%;
     color: white;
     font-weight: 400;
+    font-size: 1vw;
     font-family: 'Microsoft New Tai Lue';
     overflow: auto;
     position: relative;
@@ -181,8 +182,8 @@ export default {
 
 .swiper-container {
     /* background-color: greenyellow; */
-    width: 89%;
-    height: 65%;
+    width: 35vw;
+    height: 32vw;
     margin-top: 23%;
     margin-left: -20%;
     /* margin-right: 30%; */
