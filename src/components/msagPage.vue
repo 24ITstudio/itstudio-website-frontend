@@ -1,5 +1,4 @@
 <template>
-    <!-- remain: 导航栏插件或许可以改为相对样式，缩放有点奇怪 -->
     <!-- bug: 缩放时"发布"文字超出-->
     <div class="back">
         <div class="back_up">
@@ -9,50 +8,52 @@
             <div class="content">
                 <div class="back_left">
                     <!-- <transition name="fade"> -->
-                        <div v-if="currentContent === 'content1'" 
-                            class="left_board slide-in-blurred-left">
-                            <div class="board_head">
-                                <div class="text_1">
-                                    留言板
-                                </div>
-                            </div>
-                            <div class="board_content">
-                                <textarea ref="input" :placeholder="isPlaceholder1 ? '有什么想说的，就在这里留下吧~' : ''"
-                                    v-model="content1" @focus="clearPlaceholder1" @blur="setPlaceholder1"
-                                    @input="checkInput" rows="9">
-                            有什么想说的，就在这里留下吧~
-                        </textarea>
-                            </div>
-                            <div class="submitC">
-                                <button class="inner pulsate-bck"
-                                    @click="submitMessage">发&nbsp;&nbsp;&nbsp;&nbsp;布</button>
+                    <div v-if="currentContent === 'content1'" class="left_board slide-in-blurred-left">
+                        <div class="board_head">
+                            <div class="text_1">
+                                留言
                             </div>
                         </div>
+                        <div class="board_content">
+                            <textarea ref="input" :placeholder="isPlaceholder1 ? '有什么想说的，就在这里留下吧~' : ''"
+                                v-model="content1" @focus="clearPlaceholder1" @blur="setPlaceholder1"
+                                @input="checkInput" rows="9">
+                            有什么想说的，就在这里留下吧~
+                        </textarea>
+                        </div>
+                        <div class="submitC_1">
+                            <button class="inner pulsate-bck" @click="submitMessage"><img src="../assets/submit.png"/></button>
+                        </div>
+                        <div class="submitC">
+                            <button class="inner pulsate-bck" @click="submitMessage">发&nbsp;&nbsp;&nbsp;&nbsp;布</button>
+                        </div>
+                    </div>
                     <!-- </transition> -->
                     <!-- <transition name="fade"> -->
-                        <div v-if="currentContent === 'content2'" :key="contentKey" class="left_board slide-in-blurred-left">
-                            <div class="board_head">
-                                <div class="text_1">
-                                    回复留言
-                                </div>
-                            </div>
-                            <div class="board_content_1">
-                                <textarea ref="input" v-model="content2" @focus="clearPlaceholder2"
-                                    @blur="setPlaceholder2" @input="checkInput" rows="5">
-                            有什么想说的，就在这里留下吧~
-                        </textarea>
-                            </div>
-                            <div class="submitButton">
-                                <div class="submitA">
-                                    <button class="inner pulsate-bck"
-                                        @click="cancelAndSwitch">取&nbsp;&nbsp;&nbsp;&nbsp;消</button>
-                                </div>
-                                <div class="submitB">
-                                    <button class="inner pulsate-bck"
-                                        @click="submitTalk">发&nbsp;&nbsp;&nbsp;&nbsp;布</button>
-                                </div>
+                    <div v-if="currentContent === 'content2'" :key="contentKey"
+                        class="left_board slide-in-blurred-left">
+                        <div class="board_head">
+                            <div class="text_1">
+                                回复
                             </div>
                         </div>
+                        <div class="board_content_1">
+                            <textarea ref="input" v-model="content2" @focus="clearPlaceholder2" @blur="setPlaceholder2"
+                                @input="checkInput" rows="5">
+                            有什么想说的，就在这里留下吧~
+                        </textarea>
+                        </div>
+                        <div class="submitButton">
+                            <div class="submitA">
+                                <button class="inner pulsate-bck"
+                                    @click="cancelAndSwitch">取&nbsp;&nbsp;&nbsp;&nbsp;消</button>
+                            </div>
+                            <div class="submitB">
+                                <button class="inner pulsate-bck"
+                                    @click="submitTalk">发&nbsp;&nbsp;&nbsp;&nbsp;布</button>
+                            </div>
+                        </div>
+                    </div>
                     <!-- </transition> -->
 
                 </div>
@@ -474,6 +475,452 @@ export default {
 
 
 <style scoped>
+@media screen and (orientation: portrait) {
+.back {
+        height: 100vh;
+        position: relative;
+        background: url("../assets/bg.jpg") no-repeat fixed;
+        background-size: 100% 100%;
+        padding: 1px;
+        box-sizing: border-box;
+        position: relative;
+        overflow: hidden;
+    }
+
+.back_up {
+        height: 100%;
+        width: 100%;
+        backdrop-filter: blur(10px);
+    }
+
+.content {
+    height: 95%;
+    margin-top: 2%;
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+    z-index: 1;
+}
+
+.back_left {
+    /* background-color: #5ed210; */
+    width: 90%;
+    height: 8%;
+    /* margin-left: 10%; */
+    /* margin-right: 10%; */
+    /* margin-bottom: 3%; */
+    /* margin-top: -3.2%; */
+}
+
+.left_board {
+    background-color: #d9d9d9;
+    /* width: 80%; */
+    height: 100%;
+    width: 100%;
+    /* margin-left: 25%; */
+    display: flex;
+    flex-direction: row;
+    border-radius: 15px;
+    /* justify-content: center; */
+    /* margin-right: 2%; */
+    /* margin-top: 25%; */
+}
+
+.board_head{
+    /* display: none; */
+    /* background-color: #b01515; */
+    /* display: flex; */
+    /* flex-direction: row; */
+    /* align-items: center; */
+    /* justify-content: center; */
+    width: 10%;
+    /* margin-left: 20%; */
+    /* border-radius: 15px; */
+}
+
+/* .text_1{ */
+    /* line-height: 100%; */
+    /* text-align: center; */
+/* } */
+
+.board_content {
+
+    display: flex;
+    /* justify-content: center;
+    align-items: center; */
+    /* height: 40%; */
+    margin-left: 10%;
+    /* margin-right: 10%; */
+    height: 100%;
+    /* width: 90%; */
+
+    /* margin-top: 6%; */
+    /* border: 1px, solid, #16c461; */
+}
+
+.board_content textarea{
+    border: none;
+    /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
+    resize: none;
+    outline: none;
+    background-color: transparent;
+    /* width: 100%; */
+    border: 1px, solid, #16c461;
+}
+
+.submitC{
+    display: none;
+}
+
+.submitC_1 {
+    /* width: 28%; */
+    height: 57%;
+    line-height: 3%;
+    /* border-radius: 100px; */
+    /* margin-left: 62%; */
+    margin-top: 2%;
+    /* border: none; */
+    /* background-color: #04132c; */
+    display: flex;
+    justify-content: center;
+}
+
+.submitC_1 .inner{
+    border: none;
+    background-color: transparent;
+}
+
+.submitC_1 .inner img{
+    height: 100%;
+}
+
+.board_content_1 {
+    display: flex;
+    /* justify-content: center;
+    align-items: center; */
+    /* height: 40%; */
+    /* margin-left: 10%; */
+    margin-right: 10%;
+    height: 100%;
+
+    /* margin-top: 6%; */
+    /* border: 1px, solid, #04132c; */
+}
+
+.board_content_1 textarea {
+    border: none;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    resize: none;
+    outline: none;
+}
+
+.submitButton {
+    /* border: 1px solid rebeccapurple; */
+    display: flex;
+    flex-direction: row;
+    /* justify-content: center; */
+    margin-top: 2%;
+    height: 10%;
+}
+
+/* .placeholder {
+    color: #999;
+} */
+
+.back_right {
+    /* background-color: #d9d9d91a; */
+    width: 100%;
+    height: 82%;
+    /* margin-top: 15%; */
+}
+
+.goBack {
+    /* background-color: violet; */
+    margin-left: 2%;
+    margin-top: 2%;
+}
+
+.backImg {
+    height: 6%;
+    width: 6%;
+}
+
+.loading {
+    color: #ffffff;
+    margin-left: 20%;
+    height: 88%;
+    width: 85%;
+    margin-left: 10%;
+    /* margin-top: 26%; */
+}
+
+.right_board {
+    /* background-color: #ffffff; */
+    /* border: 1px, solid, greenyellow; */
+    height: 88%;
+    width: 100%;
+    /* margin-left: 3%; */
+    margin-top: 1%;
+    display: flex;
+    flex-wrap: wrap;
+    overflow: auto;
+    justify-content: center;
+}
+
+.right_board::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+}
+
+.inner_board {
+    background-color: #ffffff;
+    width: 80%;
+    height: 40%;
+    border-radius: 40px;
+    /* margin-left: 1%; */
+    /* margin-right: 6%; */
+    margin-top: 5%;
+}
+
+.inner_board:first-child {
+    margin-top: 0;
+}
+
+/* .inner_board:nth-child(2) {
+    margin-top: 0;
+} */
+
+.author_inner {
+    /* border: 1px, solid, rgb(40, 50, 26); */
+    margin-top: 3%;
+    margin-left: 9%;
+    height: 34%;
+    width: 89%;
+    display: flex;
+    flex-direction: row;
+    cursor: pointer;
+}
+
+.author_inner:active {
+    animation: pulsate-bck 0.4s ease;
+    /* animation: slide-in-blurred-left 0.4s ease; */
+}
+
+.author_head_fixed {
+    /* border: 1px, solid, black; */
+    /* border-image: url('../assets/author_head.png'); */
+    /* height: 20%; */
+    width: 17%;
+}
+
+.author_head_fixed img {
+    /* height: 100%; */
+    width: 100%;
+
+}
+
+.author_right {
+    display: flex;
+    flex-direction: column;
+    width: 79%;
+    margin-left: 3%;
+    /* 加和为82% */
+}
+
+.author_name {
+    /* border: 1px, solid, black; */
+    margin-top: 1px;
+    font-weight: 700;
+    font-family: 'Microsoft New Tai Lue';
+    /* height: 20%; */
+}
+
+.author_time {
+    font-size: 1.5vh;
+    color: #8d8989;
+}
+
+.author_content {
+    /* border: 1px, solid, black; */
+    height: 70%;
+    margin-top: 2%;
+    font-size: 1.8vh;
+    /* font-weight: bold; */
+    font-family: 'Microsoft New Tai Lue';
+    overflow: auto;
+}
+
+.author_content::-webkit-scrollbar {
+    display: none;
+}
+
+.traveller_total {
+    /* border: 1px, solid, greenyellow; */
+    height: 49%;
+    width: 100%;
+    /* margin-left: 10%; */
+    margin-top: 2%;
+    overflow: auto;
+
+}
+
+.traveller_total::-webkit-scrollbar {
+    display: none;
+}
+
+.traveller_inner {
+    /* border: 1px, solid, blue; */
+    height: 45%;
+    width: 80%;
+    margin-top: 2%;
+    margin-left: 15%;
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
+    text-overflow: ellipsis;
+}
+
+.traveller_inner::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+}
+
+/* .traveller_head_fixed { */
+/* border: 1px, solid, black; */
+/* border-image: url('../assets/traveller_head.png'); */
+/* width: 15%; */
+/* } */
+
+.traveller_head_fixed img {
+    width: 100%;
+}
+
+.traveller_right {
+    display: flex;
+    flex-direction: column;
+    width: 82%;
+    margin-left: 4%;
+    /* 加和86% */
+}
+
+.traveller_right::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+    /* display: none; */
+}
+
+.traveller_name_fixed {
+    /* border: 1px, solid, black; */
+    font-family: 'Microsoft New Tai Lue';
+    font-weight: 700;
+}
+
+.traveller_content {
+    /* border: 1px, solid, black; */
+    height: 80%;
+    /* width: 100%; */
+    margin-top: 3%;
+    font-size: 1.7vh;
+    overflow: auto;
+}
+
+.traveller_content::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+}
+
+/* 动画部分 */
+/* 留言板从左侧飞出（同报名） */
+.slide-in-blurred-left {
+    -webkit-animation: slide-in-blurred-left 0.6s cubic-bezier(0.230, 1.000, 0.320, 1.000) both;
+    animation: slide-in-blurred-left 0.6s cubic-bezier(0.230, 1.000, 0.320, 1.000) both;
+}
+
+@-webkit-keyframes slide-in-blurred-left {
+    0% {
+        -webkit-transform: translateX(-1000px) scaleX(2.5) scaleY(0.2);
+        transform: translateX(-1000px) scaleX(2.5) scaleY(0.2);
+        -webkit-transform-origin: 100% 50%;
+        transform-origin: 100% 50%;
+        -webkit-filter: blur(40px);
+        filter: blur(40px);
+        opacity: 0;
+    }
+
+    100% {
+        -webkit-transform: translateX(0) scaleY(1) scaleX(1);
+        transform: translateX(0) scaleY(1) scaleX(1);
+        -webkit-transform-origin: 50% 50%;
+        transform-origin: 50% 50%;
+        -webkit-filter: blur(0);
+        filter: blur(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slide-in-blurred-left {
+    0% {
+        -webkit-transform: translateX(-1000px) scaleX(2.5) scaleY(0.2);
+        transform: translateX(-1000px) scaleX(2.5) scaleY(0.2);
+        -webkit-transform-origin: 100% 50%;
+        transform-origin: 100% 50%;
+        -webkit-filter: blur(40px);
+        filter: blur(40px);
+        opacity: 0;
+    }
+
+    100% {
+        -webkit-transform: translateX(0) scaleY(1) scaleX(1);
+        transform: translateX(0) scaleY(1) scaleX(1);
+        -webkit-transform-origin: 50% 50%;
+        transform-origin: 50% 50%;
+        -webkit-filter: blur(0);
+        filter: blur(0);
+        opacity: 1;
+    }
+}
+
+/* 点击效果 */
+/* .pulsate-bck {
+    -webkit-animation: pulsate-bck 0.5s ease-in-out both;
+    animation: pulsate-bck 0.5s ease-in-out both;
+} */
+
+@-webkit-keyframes pulsate-bck {
+    0% {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+    }
+
+    50% {
+        -webkit-transform: scale(0.9);
+        transform: scale(0.9);
+    }
+
+    100% {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+    }
+}
+
+@keyframes pulsate-bck {
+    0% {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+    }
+
+    50% {
+        -webkit-transform: scale(0.9);
+        transform: scale(0.9);
+    }
+
+    100% {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+    }
+}
+}
+@media screen and (orientation: landscape) {
 .head {
     /* height: 36px; */
     height: 1%;
@@ -488,22 +935,7 @@ export default {
     box-sizing: border-box;
     position: relative;
     overflow: hidden;
-    /* backdrop-filter: blur(1000px); */
-        /* 背景模糊 */
-        /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); */
 }
-
-/* .back:after {
-    content: "";
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    left: 0;
-    top: 0;
-    background: inherit;
-    filter: blur(5px);
-    z-index: 1;
-} */
 
 .back_up{
     height: 100%;
@@ -518,10 +950,6 @@ export default {
     flex-direction: row;
     z-index: 1;
 }
-
-/* .head {
-    color: white;
-} */
 
 .back_left {
     background-color: #04132c;
@@ -539,14 +967,6 @@ export default {
     margin-left: 25%;
     /* margin-right: 2%; */
     margin-top: 25%;
-
-
-
-    /* width: 351px; */
-    /* height: 695px; */
-    /* margin-left: 137px; */
-    /* margin: 150px 90px 235px 137px; */
-    /* margin-top: 40px; */
 }
 
 .board_head {
@@ -726,6 +1146,10 @@ textarea:focus::placeholder {
 
 .submitC .inner:active {
     animation: pulsate-bck 1s ease;
+}
+
+.submitC_1{
+    display: none;
 }
 
 .back_right {
@@ -1021,7 +1445,5 @@ textarea:focus::placeholder {
         transform: scale(1);
     }
 }
-
-
-
+}
 </style>

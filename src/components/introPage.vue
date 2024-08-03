@@ -435,8 +435,6 @@ export default {
 }
 
 
-
-
 @media screen and (orientation: landscape) {
 .back {
     /* background-color: beige; */
