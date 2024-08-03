@@ -47,6 +47,7 @@ export default {
     z-index: 100;
     width: 160px;
     height: 75vh;
+
     background-position: center;
     border-radius: 80px;
     transition: width 0.5s;

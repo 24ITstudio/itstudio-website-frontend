@@ -8,8 +8,24 @@
             </div>
             <div class="content">
                 <div class="back_left scale-in-bl_0">
-                    <div class="left_head scale-in-bl">爱特工作室</div>
-                    <div class="intro_hidden ">简介</div>
+                    <div class="left_head scale-in-bl" :class="{'blur': showIntro}">爱特工作室</div>
+                    <div class="intro_hidden " :class="{ 'blur': showIntro }" @click="showIntro = true">
+                        简介&gt;
+                    </div>
+                    <div v-if="showIntro" class="mobile_intro scale-in-center" @click="hideIntro">
+                        <div class="mobile_intro_inner" @click.stop>
+                            <div class="close" @click="hideIntro">&lt;返回</div>
+                            <div class="mobile_content">
+                                &nbsp;&nbsp;&nbsp;&nbsp;爱特工作室是中国海洋大学的校级社团，以开发为主，拥有程序设计、web开发、UI设计、app开发、游戏开发五大部门。欢迎加入爱特工作室！！！<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;中国海洋大学（Ocean University of China,
+                                OUC）位于山东省青岛市，是中华人民共和国教育部直属的综合性全国重点大学，位列国家“双一流”
+                                “985工程”
+                                “211工程”，入选“2011计划” “111计划”
+                                “强基计划”、卓越工程师教育培养计划、卓越农林人才教育培养计划、国家大学生创新性实验计划、国家建设高水平大学公派研究生项目、新工科研究与实践项目、中国政府奖学金来华留学生接收院校，为中欧精英大学联盟、北极大学、国际南极学院、国际涉海大学·联盟成员，全国首批博士、硕士学位授予单位。学校前身是创办于1924年的私立青岛大学。1930年，在省立山东大学和私立青岛大学基础上成立国立青岛大学。后历经国立山东大学、山东大学时期，1958年山东大学主体迁往济南，以留青的海洋系、水产系、地质系、生物系等为基础，于1959年3月成立山东海洋学院。1960年被国家确定为全国13所重点综合性大学之一。1988年更名为青岛海洋大学。2002年更名为中国海洋大学。
+                                截至2023年12月，学校有崂山、鱼山、浮山、西海岸4个校区，占地5200余亩；设有1个学部、20个学院和1个基础教学中心，开设本科招生专业74个；拥有博士后流动站17个、博士学位授权一级学科17个、博士专业学位授权类别4个、硕士学位授权一级学科34个、硕士专业学位授权类别25个；有教职工4048人，其中专任教师2167人；在校生35400余人，其中本科生17200余人、硕士研究生14500余人、博士研究生3400余人、外国留学生330余人。
+                            </div>
+                        </div>
+                    </div>
                     <div class="left_content scale-in-tl">
                         &nbsp;&nbsp;&nbsp;&nbsp;爱特工作室是中国海洋大学的校级社团，以开发为主，拥有程序设计、web开发、UI设计、app开发、游戏开发五大部门。欢迎加入爱特工作室！！！<br>
                         &nbsp;&nbsp;&nbsp;&nbsp;中国海洋大学（Ocean University of China,
@@ -20,7 +36,7 @@
                         截至2023年12月，学校有崂山、鱼山、浮山、西海岸4个校区，占地5200余亩；设有1个学部、20个学院和1个基础教学中心，开设本科招生专业74个；拥有博士后流动站17个、博士学位授权一级学科17个、博士专业学位授权类别4个、硕士学位授权一级学科34个、硕士专业学位授权类别25个；有教职工4048人，其中专任教师2167人；在校生35400余人，其中本科生17200余人、硕士研究生14500余人、博士研究生3400余人、外国留学生330余人。
                     </div>
                 </div>
-                <div class="back_right">
+                <div class="back_right" v-if="!showIntro">
                     <div class="swiper-container scale-in-center">
                         <div class="swiper-wrapper ">
                             <div class="swiper-slide" v-for="(image, index) in images" :key="index">
@@ -81,8 +97,13 @@ export default {
                 require('@/assets/introTry_2.png'),
                 require('@/assets/introTry_3.png'),
             ],
-            intro_content: "爱特工作室是中国海洋大学的校级社团，以开发为主，拥有程序设计、web开发、UI设计、app开发、游戏开发五大部门。欢迎加入爱特工作室！！！中国海洋大学（Ocean University of China,OUC）位于山东省青岛市，是中华人民共和国教育部直属的综合性全国重点大学，位列国家“双一流”“985工程”“211工程”，入选“2011计划” “111计划”“强基计划”、卓越工程师教育培养计划、卓越农林人才教育培养计划、国家大学生创新性实验计划、国家建设高水平大学公派研究生项目、新工科研究与实践项目、中国政府奖学金来华留学生接收院校，为中欧精英大学联盟、北极大学、国际南极学院、国际涉海大学·联盟成员，全国首批博士、硕士学位授予单位。学校前身是创办于1924年的私立青岛大学。1930年，在省立山东大学和私立青岛大学基础上成立国立青岛大学。后历经国立山东大学、山东大学时期，1958年山东大学主体迁往济南，以留青的海洋系、水产系、地质系、生物系等为基础，于1959年3月成立山东海洋学院。1960年被国家确定为全国13所重点综合性大学之一。1988年更名为青岛海洋大学。2002年更名为中国海洋大学。截至2023年12月，学校有崂山、鱼山、浮山、西海岸4个校区，占地5200余亩；设有1个学部、20个学院和1个基础教学中心，开设本科招生专业74个；拥有博士后流动站17个、博士学位授权一级学科17个、博士专业学位授权类别4个、硕士学位授权一级学科34个、硕士专业学位授权类别25个；有教职工4048人，其中专任教师2167人；在校生35400余人，其中本科生17200余人、硕士研究生14500余人、博士研究生3400余人、外国留学生330余人。",
+            showIntro: false,
         };
+    },
+    methods:{
+        hideIntro(){
+            this.showIntro = false;
+        }
     },
     mounted() {
         new Swiper('.swiper-container', {
@@ -160,12 +181,76 @@ export default {
     height: 45%;
     margin-top: 7%;
     margin-left: 2%;
+    cursor: pointer;
+}
 
+.intro_hidden:active{
+    animation: pulsate-bck 1s ease;
 }
 
 .left_content {
     /* background-color: #2b65ca; */
     display: none;
+}
+
+.mobile_intro {
+    position: fixed;
+    /* top: 0; */
+    /* left: 0; */
+    margin-top: 10%;
+
+    /* width: 100%; */
+    /* height: 50%; */
+    /* background: rgba(0, 0, 0, 0.5); */
+    display: flex;
+    /* justify-content: center; */
+    /* align-items: center; */
+}
+
+.mobile_intro_inner {
+    /* background-color: white; */
+    margin-left: -5%;
+    padding: 20px;
+    border-radius: 10px;
+    position: relative;
+    z-index: 10;
+    height: 70%;
+    overflow: auto;
+    /* display: flex; */
+    /* flex-direction: column; */
+}
+
+.mobile_intro_inner::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+}
+
+.close {
+    /* background-color: greenyellow; */
+    color: white;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    font-size: 3.2vw;
+    cursor: pointer;
+}
+
+.close:active {
+    animation: pulsate-bck 1s ease;
+}
+
+.mobile_content{
+    font-size: 3.3vw;
+    color: white;
+    margin-top: 4%;
+}
+
+.left_head.blur {
+    filter: blur(5px);
+}
+
+.intro_hidden.blur {
+    filter: blur(5px);
 }
 
 .back_right {
@@ -308,10 +393,10 @@ export default {
     }
 }
 
-/* .pulsate-bck {
+.pulsate-bck {
     -webkit-animation: pulsate-bck 0.5s ease-in-out both;
     animation: pulsate-bck 0.5s ease-in-out both;
-} */
+}
 
 @-webkit-keyframes pulsate-bck {
     0% {
