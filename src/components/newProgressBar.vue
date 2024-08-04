@@ -118,7 +118,9 @@ body,
     width: 100vw;
     height: 100vh;
     background: url(../assets/bg.jpg);
-    background-size: 100%;
+    background-size: 100% 100%;
+    display: flex;
+    align-items: center;
 }
 
 .shadow {
@@ -131,7 +133,8 @@ body,
 
 .back {
     position: relative;
-    margin: 80px;
+    margin-top: 80px;
+    margin-left: 40px;
 }
 
 .back img {
