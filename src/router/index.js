@@ -5,6 +5,7 @@ import logQuery from "../components/log-query.vue";
 import homePage from "../components/homePage.vue";
 import introPage from "../components/introPage.vue"
 import departFeature from "../components/departFeature.vue"
+import numberPage from "../components/numberPage.vue";
 const routes = [
     {
         path: '/',
@@ -36,6 +37,11 @@ const routes = [
         name: 'feature',
         component: departFeature,
     },
+    {
+        path: '/number',
+        name: 'number',
+        component: numberPage,
+    }
 ]
 
 const router = createRouter({
