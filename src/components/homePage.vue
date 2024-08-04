@@ -5,7 +5,7 @@
         <div class="navmain">
             <router-link to="/intro">基本概况</router-link>
             <router-link to="/feature">部门特色</router-link>
-            <a href="album.html">成员组成</a>
+            <router-link to="/number">成员组成</router-link>
             <a href="join.html">项目成果</a>
             <div class="navanim home" style="left: -4000px;"></div>
         </div>
