@@ -42,17 +42,17 @@ export default {
 </script>
 
 <style scoped>
-@media (min-width: 1025px) {
-    .container {
-        position: relative;
-        z-index: 100;
-        width: 160px;
-        height: 75vh;
-        background-position: center;
-        border-radius: 80px;
-        transition: width 0.5s;
-        margin-left: 20px;
-    }
+.container {
+    position: relative;
+    z-index: 100;
+    width: 160px;
+    height: 75vh;
+
+    background-position: center;
+    border-radius: 80px;
+    transition: width 0.5s;
+    margin-left: 20px;
+}
 
     .expanded {
         width: 75vh;
