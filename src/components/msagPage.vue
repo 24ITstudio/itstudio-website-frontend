@@ -17,12 +17,12 @@
                         <div class="board_content">
                             <textarea ref="input" :placeholder="isPlaceholder1 ? '有什么想说的，就在这里留下吧~' : ''"
                                 v-model="content1" @focus="clearPlaceholder1" @blur="setPlaceholder1"
-                                @input="checkInput" rows="9">
-                            有什么想说的，就在这里留下吧~
-                        </textarea>
+                                @input="checkInput" rows="9" class="textarea_1">
+                            </textarea>
                         </div>
                         <div class="submitC_1">
-                            <button class="inner pulsate-bck" @click="submitMessage"><img src="../assets/submit.png"/></button>
+                            <button class="inner pulsate-bck" @click="submitMessage"><img
+                                    src="../assets/submit.png" /></button>
                         </div>
                         <div class="submitC">
                             <button class="inner pulsate-bck" @click="submitMessage">发&nbsp;&nbsp;&nbsp;&nbsp;布</button>
@@ -41,12 +41,20 @@
                             <textarea ref="input" v-model="content2" @focus="clearPlaceholder2" @blur="setPlaceholder2"
                                 @input="checkInput" rows="5">
                             有什么想说的，就在这里留下吧~
-                        </textarea>
+                            </textarea>
                         </div>
                         <div class="submitButton">
+                            <div class="submitA_1">
+                                <button class="inner pulsate-bck" @click="cancelAndSwitch"><img
+                                        src="../assets/Go Back.png" /></button>
+                            </div>
                             <div class="submitA">
                                 <button class="inner pulsate-bck"
                                     @click="cancelAndSwitch">取&nbsp;&nbsp;&nbsp;&nbsp;消</button>
+                            </div>
+                            <div class="submitB_1">
+                                <button class="inner pulsate-bck" @click="submitTalk"><img
+                                        src="../assets/submit.png" /></button>
                             </div>
                             <div class="submitB">
                                 <button class="inner pulsate-bck"
@@ -506,6 +514,9 @@ export default {
     /* background-color: #5ed210; */
     width: 90%;
     height: 8%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
     /* margin-left: 10%; */
     /* margin-right: 10%; */
     /* margin-bottom: 3%; */
@@ -529,44 +540,42 @@ export default {
 .board_head{
     /* display: none; */
     /* background-color: #b01515; */
-    /* display: flex; */
+    display: flex;
     /* flex-direction: row; */
-    /* align-items: center; */
-    /* justify-content: center; */
-    width: 10%;
-    /* margin-left: 20%; */
+    align-items: center;
+    justify-content: center;
+    width: 5%;
+    margin-left: 3%;
     /* border-radius: 15px; */
+    /* border: 1px, solid, #ab226f; */
 }
 
-/* .text_1{ */
-    /* line-height: 100%; */
-    /* text-align: center; */
-/* } */
+.text_1{ 
+    text-align: center;
+}
 
 .board_content {
-
     display: flex;
-    /* justify-content: center;
-    align-items: center; */
-    /* height: 40%; */
-    margin-left: 10%;
-    /* margin-right: 10%; */
-    height: 100%;
-    /* width: 90%; */
-
-    /* margin-top: 6%; */
-    /* border: 1px, solid, #16c461; */
+    margin-left: 3%;
+    /* height: 100%; */
+    width: 74%;
+    /* border: 1px, solid, #2253e4; */
 }
 
-.board_content textarea{
+.board_content .textarea_1{
     border: none;
-    /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
     resize: none;
     outline: none;
     background-color: transparent;
-    /* width: 100%; */
-    border: 1px, solid, #16c461;
+    width: 100%;
+    /* margin-top: 2%; */
+    /* border: 1px, solid, #16c461; */
+    color: black;
 }
+
+/* .textarea_1::placeholder {
+    color: gray;
+} */
 
 .submitC{
     display: none;
@@ -574,44 +583,57 @@ export default {
 
 .submitC_1 {
     /* width: 28%; */
-    height: 57%;
-    line-height: 3%;
+    height: 100%;
+
+    /* width: 20%; */
+    /* line-height: 3%; */
     /* border-radius: 100px; */
     /* margin-left: 62%; */
-    margin-top: 2%;
+    /* margin-top: 3.3%; */
+    /* text-align: center; */
     /* border: none; */
     /* background-color: #04132c; */
-    display: flex;
-    justify-content: center;
+    /* display: flex; */
+    /* justify-content: center; */
+    /* border: 1px, solid, #16c461; */
 }
 
 .submitC_1 .inner{
+    height: 100%;
+    /* width: 100%; */
     border: none;
+    /* text-align: center; */
     background-color: transparent;
+    /* border: 1px, solid, #b016c4; */
 }
 
 .submitC_1 .inner img{
-    height: 100%;
+    height: 8vw;
+    width: 8vw;
+    /* border: 1px, solid, #1fc1d6; */
+}
+
+.submitC_1 .inner img:active{
+    animation: pulsate-bck 1s ease;
 }
 
 .board_content_1 {
     display: flex;
-    /* justify-content: center;
-    align-items: center; */
-    /* height: 40%; */
-    /* margin-left: 10%; */
-    margin-right: 10%;
-    height: 100%;
-
-    /* margin-top: 6%; */
-    /* border: 1px, solid, #04132c; */
+    margin-left: 3%;
+    /* height: 100%; */
+    width: 74%;
+    /* border: 1px, solid, #2253e4; */
 }
 
 .board_content_1 textarea {
     border: none;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     resize: none;
     outline: none;
+    background-color: transparent;
+    width: 100%;
+    /* margin-top: 2%; */
+    /* border: 1px, solid, #16c461; */
+    color: black;
 }
 
 .submitButton {
@@ -619,9 +641,73 @@ export default {
     display: flex;
     flex-direction: row;
     /* justify-content: center; */
-    margin-top: 2%;
-    height: 10%;
+    /* margin-top: 2%; */
+    /* height: 10%; */
 }
+
+.submitButton {
+    /* border: 1px solid rebeccapurple; */
+    display: flex;
+    flex-direction: row;
+    /* margin-top: 4%; */
+    /* height: 10%; */
+}
+
+.submitA {
+    display: none;
+}
+
+.submitB {
+    display: none;
+}
+
+.submitA_1{
+    height: 100%;
+}
+
+.submitA_1 .inner {
+    height: 100%;
+    /* width: 100%; */
+    border: none;
+    /* text-align: center; */
+    background-color: transparent;
+    /* border: 1px, solid, #b016c4; */
+}
+
+.submitA_1 .inner img {
+    height: 8vw;
+    width: 8vw;
+    /* border: 1px, solid, #1fc1d6; */
+}
+
+.submitA_1 .inner img:active {
+    animation: pulsate-bck 1s ease;
+}
+
+.submitB_1{
+    height: 100%;
+}
+
+
+.submitB_1 .inner {
+    height: 100%;
+    /* width: 100%; */
+    border: none;
+    /* text-align: center; */
+    background-color: transparent;
+    /* border: 1px, solid, #b016c4; */
+}
+
+.submitB_1 .inner img {
+    height: 8vw;
+    width: 8vw;
+    /* border: 1px, solid, #1fc1d6; */
+}
+
+.submitB_1 .inner img:active {
+    animation: pulsate-bck 1s ease;
+}
+
 
 /* .placeholder {
     color: #999;
@@ -647,11 +733,10 @@ export default {
 
 .loading {
     color: #ffffff;
-    margin-left: 20%;
+    /* margin-left: 20%; */
     height: 88%;
     width: 85%;
     margin-left: 10%;
-    /* margin-top: 26%; */
 }
 
 .right_board {
@@ -803,11 +888,10 @@ export default {
     /* 加和86% */
 }
 
-.traveller_right::-webkit-scrollbar {
+/* .traveller_right::-webkit-scrollbar {
     width: 0;
     height: 0;
-    /* display: none; */
-}
+} */
 
 .traveller_name_fixed {
     /* border: 1px, solid, black; */
@@ -1057,6 +1141,10 @@ textarea:focus::placeholder {
     height: 10%;
 }
 
+.submitA_1{
+    display: none;
+}
+
 .submitA {
     width: 28%;
     height: 45%;
@@ -1067,6 +1155,10 @@ textarea:focus::placeholder {
     background-color: #04132c;
     display: flex;
     justify-content: center;
+}
+
+.submitB_1{
+    display: none
 }
 
 .submitB {
@@ -1332,7 +1424,6 @@ textarea:focus::placeholder {
 .traveller_right::-webkit-scrollbar {
     width: 0;
     height: 0;
-    /* display: none; */
 }
 
 .traveller_name_fixed {
