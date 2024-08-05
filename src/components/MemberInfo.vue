@@ -29,10 +29,9 @@ export default {
 } */
 .info {
   position: relative;
-  width: 13%;
-  height: 38%;
+  width: 18%;
+  height: 42%;
   background-color: #d9d9d9eb;
-  opacity: 1;
   padding: 40px;
   border-radius: 18px;
   margin: 0 auto;
@@ -47,27 +46,29 @@ export default {
 img {
   height: 100%;
   width: 100%;
-  border-radius: 25px;
+  border-radius: 20px;
 }
 
 .name {
-  margin-left: 29.5%;
-  margin-top: 36px;
+  /* margin-left: 33%; */
+  text-align: center;
+  margin-top: 28px;
   color: black;
   font-size: 24px;
   font-family: Microsoft New Tai Lue;
   font-weight: 700;
-  word-wrap: break-word
+  word-wrap: break-word;
 }
 
 .department {
   margin-top: 12px;
-  margin-left: 28%;
+  /* margin-left: 31%; */
+  text-align: center;
   color: black;
   font-size: 16px;
   font-family: Microsoft New Tai Lue;
   font-weight: 700;
-  word-wrap: break-word
+  word-wrap: break-word;
 }
 
 .back {
@@ -79,19 +80,35 @@ img {
 }
 
 .liuyan {
-  margin-top: 33px;
+  text-align: center;
+  margin-top: 15px;
   color: black;
   font-size: 16px;
   font-family: Microsoft New Tai Lue;
   font-weight: 400;
-  word-wrap: break-word
+  word-wrap: break-word;
 }
 
 button {
-  margin-left: -5%;
+  margin: 0 auto;
   cursor: pointer;
   border-radius: 10px;
   border: 1px solid rgb(178, 176, 176);
-  background-color: #fafbfb85;
+  background-color: #f1f8f885;
+}
+button:hover {
+  background-color: rgba(217, 217, 217, 0.1);
+}
+@media (max-width: 430px) {
+  .info {
+    position: relative;
+    width: 45%;
+    height: 34%;
+    background-color: #d9d9d9eb;
+    opacity: 1;
+    padding: 40px;
+    border-radius: 18px;
+    margin: 0 auto;
+  }
 }
 </style>
