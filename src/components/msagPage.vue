@@ -17,7 +17,7 @@
                         <div class="board_content">
                             <textarea ref="input" :placeholder="isPlaceholder1 ? '有什么想说的，就在这里留下吧~' : ''"
                                 v-model="content1" @focus="clearPlaceholder1" @blur="setPlaceholder1"
-                                @input="checkInput" rows="9" class="textarea_1">
+                                @input="checkInput" rows="9" class="textarea_1" >
                             </textarea>
                         </div>
                         <div class="submitC_1">
@@ -39,7 +39,7 @@
                         </div>
                         <div class="board_content_1">
                             <textarea ref="input" v-model="content2" @focus="clearPlaceholder2" @blur="setPlaceholder2"
-                                @input="checkInput" rows="5">
+                                @input="checkInput" rows="5" >
                             有什么想说的，就在这里留下吧~
                             </textarea>
                         </div>
@@ -584,7 +584,7 @@ export default {
 .submitC_1 {
     /* width: 28%; */
     height: 100%;
-
+    /* cursor: pointer; */
     /* width: 20%; */
     /* line-height: 3%; */
     /* border-radius: 100px; */
@@ -760,7 +760,9 @@ export default {
 .inner_board {
     background-color: #ffffff;
     width: 80%;
-    height: 40%;
+    /* height: 40%; */
+    height: auto;
+    /* word-wrap: break-word; */
     border-radius: 40px;
     /* margin-left: 1%; */
     /* margin-right: 6%; */
@@ -779,8 +781,8 @@ export default {
     /* border: 1px, solid, rgb(40, 50, 26); */
     margin-top: 3%;
     margin-left: 9%;
-    height: 34%;
-    width: 89%;
+    /* height: 34%; */
+    width: 78%;
     display: flex;
     flex-direction: row;
     cursor: pointer;
@@ -791,23 +793,23 @@ export default {
     /* animation: slide-in-blurred-left 0.4s ease; */
 }
 
-.author_head_fixed {
+/* .author_head_fixed { */
     /* border: 1px, solid, black; */
     /* border-image: url('../assets/author_head.png'); */
     /* height: 20%; */
-    width: 17%;
-}
+    /* width: 17%; */
+/* } */
 
-.author_head_fixed img {
+/* .author_head_fixed img { */
     /* height: 100%; */
-    width: 100%;
+    /* width: 100%; */
 
-}
+/* } */
 
 .author_right {
     display: flex;
     flex-direction: column;
-    width: 79%;
+    width: 100%;
     margin-left: 3%;
     /* 加和为82% */
 }
@@ -827,7 +829,7 @@ export default {
 
 .author_content {
     /* border: 1px, solid, black; */
-    height: 70%;
+    /* height: 70%; */
     margin-top: 2%;
     font-size: 1.8vh;
     /* font-weight: bold; */
@@ -841,11 +843,15 @@ export default {
 
 .traveller_total {
     /* border: 1px, solid, greenyellow; */
-    height: 49%;
-    width: 100%;
-    /* margin-left: 10%; */
+    /* height: 80%; */
+    max-height: 20vh;
+    /* width: 100%; */
+    width: 90%;
+    margin-left: 4%;
     margin-top: 2%;
+    margin-bottom: 2%;
     overflow: auto;
+
 
 }
 
@@ -855,10 +861,10 @@ export default {
 
 .traveller_inner {
     /* border: 1px, solid, blue; */
-    height: 45%;
-    width: 80%;
+    /* height: 45%; */
+    width: 85%;
     margin-top: 2%;
-    margin-left: 15%;
+    margin-left: 12%;
     display: flex;
     flex-direction: column;
     overflow: auto;
@@ -1276,7 +1282,7 @@ textarea:focus::placeholder {
 .right_board {
     /* background-color: #ffffff; */
     /* border: 1px, solid, greenyellow; */
-    height: 88%;
+    height: 87%;
     width: 85%;
     margin-left: 10%;
     margin-top: 1%;
@@ -1375,7 +1381,7 @@ textarea:focus::placeholder {
 .traveller_total {
     /* border: 1px, solid, greenyellow; */
     height: 49%;
-    width: 100%;
+    width: 90%;
     /* margin-left: 10%; */
     margin-top: 2%;
     overflow: auto;
@@ -1388,20 +1394,20 @@ textarea:focus::placeholder {
 
 .traveller_inner {
     /* border: 1px, solid, blue; */
-    height: 45%;
+    /* height: 45%; */
     width: 80%;
     margin-top: 2%;
-    margin-left: 15%;
+    margin-left: 20%;
     display: flex;
     flex-direction: column;
-    overflow: auto;
-    text-overflow: ellipsis;
+    /* overflow: auto; */
+    /* text-overflow: ellipsis; */
 }
 
-.traveller_inner::-webkit-scrollbar {
+/* .traveller_inner::-webkit-scrollbar {
     width: 0;
     height: 0;
-}
+} */
 
 /* .traveller_head_fixed { */
 /* border: 1px, solid, black; */
@@ -1409,22 +1415,23 @@ textarea:focus::placeholder {
 /* width: 15%; */
 /* } */
 
-.traveller_head_fixed img {
+/* .traveller_head_fixed img {
     width: 100%;
-}
+} */
 
 .traveller_right {
     display: flex;
     flex-direction: column;
-    width: 82%;
+    width: 87%;
     margin-left: 4%;
     /* 加和86% */
+    /* overflow: auto; */
 }
 
-.traveller_right::-webkit-scrollbar {
+/* .traveller_right::-webkit-scrollbar {
     width: 0;
     height: 0;
-}
+} */
 
 .traveller_name_fixed {
     /* border: 1px, solid, black; */
@@ -1434,17 +1441,18 @@ textarea:focus::placeholder {
 
 .traveller_content {
     /* border: 1px, solid, black; */
-    height: 80%;
+    /* height: 80%; */
+    height: auto;
     /* width: 100%; */
-    margin-top: 3%;
+    margin-top: 2%;
     font-size: 1.7vh;
-    overflow: auto;
+    /* overflow: auto; */
 }
 
-.traveller_content::-webkit-scrollbar {
+/* .traveller_content::-webkit-scrollbar {
     width: 0;
     height: 0;
-}
+} */
 
 /* 动画部分 */
 /* 留言板从左侧飞出（同报名） */
