@@ -2,23 +2,43 @@
   <navHead :locate="-4000"></navHead>
   <div class="department-container">
     <div class="tabs">
-      <button v-for="department in departments" :key="department.id" @click="selectDepartment(department)"
-        :class="{ active: department.id === selectedDepartmentId }">
+      <button
+        v-for="department in departments"
+        :key="department.id"
+        @click="selectDepartment(department)"
+        :class="{ active: department.id === selectedDepartmentId }"
+      >
         {{ department.name }}
       </button>
     </div>
     <div class="members-list">
       <div class="back">
-        <img src="../assets/Go Back.png" alt="" width="31px" />
+        <router-link to="/"
+          ><img src="../assets/Go Back.png" alt="" width="31px"
+        /></router-link>
       </div>
       <div v-if="selectedDepartment" class="member-con">
-        <div v-for="member in selectedDepartment.members" :key="member.id" class="member">
-          <img :src="member.photo" alt="Member Photo" @click="showMemberInfo(member)" class="photo" />
+        <div
+          v-for="member in selectedDepartment.members"
+          :key="member.id"
+          class="member"
+        >
+          <img
+            :src="member.photo"
+            alt="Member Photo"
+            @click="showMemberInfo(member)"
+            class="photo"
+          />
           <span @click="showMemberInfo(member)">{{ member.name }}</span>
         </div>
       </div>
     </div>
-    <MemberInfo class="detial" v-if="showingInfo" :member="infoMember" @close="closeInfo" />
+    <MemberInfo
+      class="detial"
+      v-if="showingInfo"
+      :member="infoMember"
+      @close="closeInfo"
+    />
   </div>
 </template>
 
@@ -27,31 +47,31 @@ import MemberInfo from "./MemberInfo.vue";
 import navHead from "./nav-head.vue";
 //import img from "../assets/introTry_0.png";
 //程序
-import cxcqx from '../assets/cxcqx.png';
-import cxsaq from '../assets/cxsaq.png';
-import cxpcx from '../assets/cxpcx.png';
-import cxyj from '../assets/cxyj.png';
-import cxrcf from '../assets/cxrcf.png';
-import cxlrj from '../assets/cxlrj.png';
-import cxlcm from '../assets/cxlcm.png';
+import cxcqx from "../assets/cxcqx.png";
+import cxsaq from "../assets/cxsaq.png";
+import cxpcx from "../assets/cxpcx.png";
+import cxyj from "../assets/cxyj.png";
+import cxrcf from "../assets/cxrcf.png";
+import cxlrj from "../assets/cxlrj.png";
+import cxlcm from "../assets/cxlcm.png";
 //web
-import webldr from '../assets/webldr.png';
-import webljt from '../assets/webljt.png';
-import webhmy from '../assets/webhmy.png';
-import webhy from '../assets/webhy.png';
-import webyjy from '../assets/webyjy.png';
+import webldr from "../assets/webldr.png";
+import webljt from "../assets/webljt.png";
+import webhmy from "../assets/webhmy.png";
+import webhy from "../assets/webhy.png";
+import webyjy from "../assets/webyjy.png";
 //游戏
 //游戏
-import yxyqk from '../assets/yxyqk.png';
-import yxlx from '../assets/yxlx.png';
-import yxzky from '../assets/yxzky.png';
-import yxhlx from '../assets/yxhlx.png';
+import yxyqk from "../assets/yxyqk.png";
+import yxlx from "../assets/yxlx.png";
+import yxzky from "../assets/yxzky.png";
+import yxhlx from "../assets/yxhlx.png";
 //APP
-import appxqr from '../assets/appxqr.png';
-import appljt from '../assets/appljt.png';
+import appxqr from "../assets/appxqr.png";
+import appljt from "../assets/appljt.png";
 //UI
-import uilyy from '../assets/uilyy.png';
-import uipyl from '../assets/uipyl.png';
+import uilyy from "../assets/uilyy.png";
+import uipyl from "../assets/uipyl.png";
 export default {
   components: {
     MemberInfo,
@@ -65,53 +85,151 @@ export default {
           id: 1,
           name: "程序部",
           members: [
-            { name: '陈祺新', photo: cxcqx, department: '23级程序部', message: '你好' },
-            { name: '孙安琪', photo: cxsaq, department: '23级程序部', message: '∀ε＞0，|me-fw|＜ε' },
-            { name: '彭传喜', photo: cxpcx, department: '23级程序部', message: '逸一时，误一世，忆旧亦疚罢己龄。' },
-            { name: '任程枫', photo: cxrcf, department: '23级程序部', message: 'I am iron man' },
-            { name: '    袁  健', photo: cxyj, department: '23级程序部', message: '...' },
             {
-              name: '李仁杰', photo: cxlrj, department: '23级程序部', message: '技术立身'
+              name: "陈祺新",
+              photo: cxcqx,
+              department: "23级程序部",
+              message: "你好",
             },
-            { name: '蔺春名', photo: cxlcm, department: '23级程序部', message: 'It is better to be Socrates dissatisfied than a fool satisfied.' },
+            {
+              name: "孙安琪",
+              photo: cxsaq,
+              department: "23级程序部",
+              message: "∀ε＞0，|me-fw|＜ε",
+            },
+            {
+              name: "彭传喜",
+              photo: cxpcx,
+              department: "23级程序部",
+              message: "逸一时，误一世，忆旧亦疚罢己龄。",
+            },
+            {
+              name: "任程枫",
+              photo: cxrcf,
+              department: "23级程序部",
+              message: "I am iron man",
+            },
+            {
+              name: "    袁  健",
+              photo: cxyj,
+              department: "23级程序部",
+              message: "...",
+            },
+            {
+              name: "李仁杰",
+              photo: cxlrj,
+              department: "23级程序部",
+              message: "技术立身",
+            },
+            {
+              name: "蔺春名",
+              photo: cxlcm,
+              department: "23级程序部",
+              message:
+                "It is better to be Socrates dissatisfied than a fool satisfied.",
+            },
           ],
         },
         {
           id: 2,
           name: "web部",
           members: [
-            { name: '李德儒', photo: webldr, department: '23级web部', message: '什么比七个工作日更不爽？第八个（debug）' },
-            { name: '李佳潼', photo: webljt, department: '23级web部', message: 'web人很好的捏' },
-            { name: '    何  瑶', photo: webhy, department: '23级web部', message: '小小世界开心至上！' },
-            { name: '姚佳瑜', photo: webyjy, department: '23级web部', message: '好好学习，天天向上' },
-            { name: '黄明宇', photo: webhmy, department: '23级web部', message: '长期素食导致的' },
+            {
+              name: "李德儒",
+              photo: webldr,
+              department: "23级web部",
+              message: "什么比七个工作日更不爽？第八个（debug）",
+            },
+            {
+              name: "李佳潼",
+              photo: webljt,
+              department: "23级web部",
+              message: "web人很好的捏",
+            },
+            {
+              name: "    何  瑶",
+              photo: webhy,
+              department: "23级web部",
+              message: "小小世界开心至上！",
+            },
+            {
+              name: "姚佳瑜",
+              photo: webyjy,
+              department: "23级web部",
+              message: "好好学习，天天向上",
+            },
+            {
+              name: "黄明宇",
+              photo: webhmy,
+              department: "23级web部",
+              message: "长期素食导致的",
+            },
           ],
         },
         {
           id: 3,
           name: "游戏部",
           members: [
-            { name: '袁庆康', photo: yxyqk, department: '23级游戏部', message: '究极缝补匠' },
-            { name: '    赖 欣', photo: yxlx, department: '23级游戏部', message: '拯救世界!' },
-            { name: '张开元', photo: yxzky, department: '23级游戏部', message: '无' },
-            { name: '黄乐煊', photo: yxhlx, department: '23级游戏部', message: 'DONE AND DUSTED.' },
+            {
+              name: "袁庆康",
+              photo: yxyqk,
+              department: "23级游戏部",
+              message: "究极缝补匠",
+            },
+            {
+              name: "    赖 欣",
+              photo: yxlx,
+              department: "23级游戏部",
+              message: "拯救世界!",
+            },
+            {
+              name: "张开元",
+              photo: yxzky,
+              department: "23级游戏部",
+              message: "无",
+            },
+            {
+              name: "黄乐煊",
+              photo: yxhlx,
+              department: "23级游戏部",
+              message: "DONE AND DUSTED.",
+            },
           ],
         },
         {
           id: 4,
           name: "APP部",
           members: [
-            { name: '徐启睿', photo: appxqr, department: '23级APP部', message: '尽力而为，随遇而安' },
-            { name: '李佳潼', photo: appljt, department: '23级APP部', message: 'app人很好的捏' },
+            {
+              name: "徐启睿",
+              photo: appxqr,
+              department: "23级APP部",
+              message: "尽力而为，随遇而安",
+            },
+            {
+              name: "李佳潼",
+              photo: appljt,
+              department: "23级APP部",
+              message: "app人很好的捏",
+            },
           ],
         },
         {
           id: 5,
           name: "UI部",
           members: [
-            { name: '李瑜玥', photo: uilyy, department: '23级UI部', message: '要smile面对ddl ◝(　ﾟ∀ ﾟ )◟' },
-            { name: '潘奕霖', photo: uipyl, department: '23级UI部', message: 'Man! What can I say!' },
-
+            {
+              name: "李瑜玥",
+              photo: uilyy,
+              department: "23级UI部",
+              message: "要smile面对ddl ◝(　ﾟ∀ ﾟ )◟",
+            },
+            {
+              name: "潘奕霖",
+              photo: uipyl,
+              department: "23级UI部",
+              message: "Man! What can I say!",
+            },
           ],
         },
       ],
@@ -189,8 +307,6 @@ export default {
 }
 
 .members-list {
-  display: flex;
-  flex-direction: row;
   position: relative;
   padding-top: 4.8%;
   margin-left: 31%;
@@ -204,6 +320,7 @@ export default {
 
 .member-con {
   margin-left: 6%;
+  margin-top: 3%;
 }
 
 /* .Memberpart {
@@ -228,12 +345,12 @@ export default {
   align-items: center;
   gap: 14px;
   flex-shrink: 0;  */
-  margin-top: 5%;
+  margin-top: 3%;
   margin-left: 37px;
   margin-right: 52px;
   display: inline-block;
-  width: 117px;
-  height: 117px;
+  width: 90px;
+  height: 90px;
   text-align: center;
   cursor: pointer;
 }
@@ -241,13 +358,20 @@ export default {
 .photo {
   width: 100%;
   height: 100%;
-  border-radius: 30px;
+  border-radius: 20px;
   margin-bottom: 14px;
 }
-
+img {
+  transition: all 0.6s;
+}
+img:hover {
+  transform: scale(1.1);
+}
+.photo:hover {
+  box-shadow: 10px 10px 20px 1px rgb(67, 54, 56);
+}
 span {
   color: #fff;
-
   font-family: "Microsoft New Tai Lue";
   font-size: 24px;
   font-style: normal;
@@ -267,5 +391,34 @@ span {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+@media (max-width: 430px) {
+  .tabs {
+    padding-top: 16%;
+    width: 25%;
+    font-size: 15px;
+    margin-right: 0;
+  }
+  .tabs button {
+    font-size: 20px;
+  }
+  .members-list {
+    padding-top: 15%;
+    margin-left: 25%;
+    width: 80%;
+  }
+  .member-con {
+    margin-top: 7%;
+  }
+  .member {
+    width: 60px;
+    height: 60px;
+    margin-left: 10%;
+    margin-right: 0;
+  }
+  span {
+    font-size: 15px;
+  }
 }
 </style>
