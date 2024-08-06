@@ -1,5 +1,5 @@
 <template>
-    <!-- bug: 缩放时"发布"文字超出-->
+    <!-- bug: 横竖版切换点 "取消"和"发布"文字样式有点超出-->
     <div class="back">
         <div class="back_up">
             <div class="head">
@@ -17,7 +17,7 @@
                         <div class="board_content">
                             <textarea ref="input" :placeholder="isPlaceholder1 ? '有什么想说的，就在这里留下吧~' : ''"
                                 v-model="content1" @focus="clearPlaceholder1" @blur="setPlaceholder1"
-                                @input="checkInput" rows="9" class="textarea_1" >
+                                @input="checkInput" rows="9" class="textarea_1">
                             </textarea>
                         </div>
                         <div class="submitC_1">
@@ -39,7 +39,7 @@
                         </div>
                         <div class="board_content_1">
                             <textarea ref="input" v-model="content2" @focus="clearPlaceholder2" @blur="setPlaceholder2"
-                                @input="checkInput" rows="5" >
+                                @input="checkInput" rows="5">
                             有什么想说的，就在这里留下吧~
                             </textarea>
                         </div>
@@ -80,7 +80,7 @@
                     <!-- <div class="loading" v-if="isLoading">
                         Loading...
                     </div> -->
-                    <div class="right_board" v-if="!isLoading">
+                    <div class="right_board slide-in-blurred-bottom" v-if="!isLoading">
                         <div class="inner_board" v-for="item in total_Messages" :key="item.id">
                             <!-- <div @click="showContent('content2'); clearPlaceholder1" class="author_inner"> -->
                             <div @click="() => { showContent('content2'); clearPlaceholder1; getParentID(item.id); }"
@@ -110,7 +110,10 @@
                                 </div> -->
                                     <div class="traveller_right">
                                         <div class="traveller_name_fixed">
-                                            回复
+                                            <div class="traveller_name_fixed_1">回复</div>
+                                            <div class="traveller_time">
+                                                {{ formateTime(child.datetime) }}
+                                            </div>
                                         </div>
                                         <div class="traveller_content">
                                             {{ child.content }}
@@ -240,6 +243,11 @@ export default {
             }, 0);
             // this.currentContent = content;
         },
+        formateTime(time){
+            if(!time) return '';
+            let date = new Date(time);
+            return date.toLocaleString('zh-CN', { month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' });
+        },
         getMessages() {
             var axios = require('axios');
             var config = {
@@ -247,8 +255,6 @@ export default {
                 // url: 'http://127.0.0.1:4523/m1/4511878-4159176-default/bbs/',
                 // url: 'https://www.itstudio.club/bbs/',
                 url: '/api/bbs/',
-                // url: 'https://itstudio.bai3401.eu.org/',  
-                // 正式 但内容为空不宜用于测试
                 headers: {
                     // 'User-Agent': 'Apifox/1.0.0 (https://apifox.com)'
                 }
@@ -258,7 +264,7 @@ export default {
                 .then(response => {
                     this.total_Messages = response.data;
                     this.total_Messages.forEach(message => {
-                        message.datetime = new Date(message.datetime).toLocaleString()
+                        message.datetime = new Date(message.datetime).toLocaleString(); 
                     })
                     console.log('获取信息成功', response.data);
                     // this.total_Messages.forEach(message => {
@@ -899,10 +905,22 @@ export default {
     height: 0;
 } */
 
-.traveller_name_fixed {
+.traveller_name_fixed_1 {
     /* border: 1px, solid, black; */
     font-family: 'Microsoft New Tai Lue';
     font-weight: 700;
+}
+
+.traveller_name_fixed{
+    display: flex;
+    flex-direction: row;
+}
+
+.traveller_time {
+    font-size: 1.5vh;
+    color: #8d8989;
+    margin-top: 3.5%;
+    margin-left: 2%;
 }
 
 .traveller_content {
@@ -1009,6 +1027,56 @@ export default {
         transform: scale(1);
     }
 }
+
+.slide-in-blurred-bottom {
+    -webkit-animation: slide-in-blurred-bottom 1s cubic-bezier(0.230, 1.000, 0.320, 1.000) both;
+    animation: slide-in-blurred-bottom 1s cubic-bezier(0.230, 1.000, 0.320, 1.000) both;
+}
+
+@-webkit-keyframes slide-in-blurred-bottom {
+    0% {
+        -webkit-transform: translateY(1000px) scaleY(2.5) scaleX(0.2);
+        transform: translateY(1000px) scaleY(2.5) scaleX(0.2);
+        -webkit-transform-origin: 50% 100%;
+        transform-origin: 50% 100%;
+        -webkit-filter: blur(40px);
+        filter: blur(40px);
+        opacity: 0;
+    }
+
+    100% {
+        -webkit-transform: translateY(0) scaleY(1) scaleX(1);
+        transform: translateY(0) scaleY(1) scaleX(1);
+        -webkit-transform-origin: 50% 50%;
+        transform-origin: 50% 50%;
+        -webkit-filter: blur(0);
+        filter: blur(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slide-in-blurred-bottom {
+    0% {
+        -webkit-transform: translateY(1000px) scaleY(2.5) scaleX(0.2);
+        transform: translateY(1000px) scaleY(2.5) scaleX(0.2);
+        -webkit-transform-origin: 50% 100%;
+        transform-origin: 50% 100%;
+        -webkit-filter: blur(40px);
+        filter: blur(40px);
+        opacity: 0;
+    }
+
+    100% {
+        -webkit-transform: translateY(0) scaleY(1) scaleX(1);
+        transform: translateY(0) scaleY(1) scaleX(1);
+        -webkit-transform-origin: 50% 50%;
+        transform-origin: 50% 50%;
+        -webkit-filter: blur(0);
+        filter: blur(0);
+        opacity: 1;
+    }
+}
+
 }
 @media screen and (orientation: landscape) {
 .head {
@@ -1433,10 +1501,22 @@ textarea:focus::placeholder {
     height: 0;
 } */
 
-.traveller_name_fixed {
+.traveller_name_fixed_1 {
     /* border: 1px, solid, black; */
     font-family: 'Microsoft New Tai Lue';
     font-weight: 700;
+}
+
+.traveller_name_fixed {
+    display: flex;
+    flex-direction: row;
+}
+
+.traveller_time{
+    font-size: 1.5vh;
+    color: #8d8989;
+    margin-top: 2.6%;
+    margin-left: 2%;
 }
 
 .traveller_content {
@@ -1544,5 +1624,56 @@ textarea:focus::placeholder {
         transform: scale(1);
     }
 }
+
+.slide-in-blurred-bottom {
+    -webkit-animation: slide-in-blurred-bottom 1s cubic-bezier(0.230, 1.000, 0.320, 1.000) both;
+    animation: slide-in-blurred-bottom 1s cubic-bezier(0.230, 1.000, 0.320, 1.000) both;
 }
+
+@-webkit-keyframes slide-in-blurred-bottom {
+    0% {
+        -webkit-transform: translateY(1000px) scaleY(2.5) scaleX(0.2);
+        transform: translateY(1000px) scaleY(2.5) scaleX(0.2);
+        -webkit-transform-origin: 50% 100%;
+        transform-origin: 50% 100%;
+        -webkit-filter: blur(40px);
+        filter: blur(40px);
+        opacity: 0;
+    }
+
+    100% {
+        -webkit-transform: translateY(0) scaleY(1) scaleX(1);
+        transform: translateY(0) scaleY(1) scaleX(1);
+        -webkit-transform-origin: 50% 50%;
+        transform-origin: 50% 50%;
+        -webkit-filter: blur(0);
+        filter: blur(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slide-in-blurred-bottom {
+    0% {
+        -webkit-transform: translateY(1000px) scaleY(2.5) scaleX(0.2);
+        transform: translateY(1000px) scaleY(2.5) scaleX(0.2);
+        -webkit-transform-origin: 50% 100%;
+        transform-origin: 50% 100%;
+        -webkit-filter: blur(40px);
+        filter: blur(40px);
+        opacity: 0;
+    }
+
+    100% {
+        -webkit-transform: translateY(0) scaleY(1) scaleX(1);
+        transform: translateY(0) scaleY(1) scaleX(1);
+        -webkit-transform-origin: 50% 50%;
+        transform-origin: 50% 50%;
+        -webkit-filter: blur(0);
+        filter: blur(0);
+        opacity: 1;
+    }
+}
+}
+
+
 </style>
