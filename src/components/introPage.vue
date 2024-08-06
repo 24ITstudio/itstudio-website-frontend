@@ -1,6 +1,5 @@
 <template>
     <!-- remain: 展示图片待替换 -->
-    <!-- bug: 页面缩放右侧轮播图和切换按钮相对位置偏移 -->
     <div class="back">
         <div class="back_up">
             <div class="head">
