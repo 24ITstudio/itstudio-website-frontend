@@ -7,7 +7,6 @@
             </div>
             <div class="content">
                 <div class="back_left">
-                    <!-- <transition name="fade"> -->
                     <div v-if="currentContent === 'content1'" class="left_board slide-in-blurred-left">
                         <div class="board_head">
                             <div class="text_1">
@@ -28,8 +27,7 @@
                             <button class="inner pulsate-bck" @click="submitMessage">发&nbsp;&nbsp;&nbsp;&nbsp;布</button>
                         </div>
                     </div>
-                    <!-- </transition> -->
-                    <!-- <transition name="fade"> -->
+                    
                     <div v-if="currentContent === 'content2'" :key="contentKey"
                         class="left_board slide-in-blurred-left">
                         <div class="board_head">
@@ -62,7 +60,6 @@
                             </div>
                         </div>
                     </div>
-                    <!-- </transition> -->
 
                 </div>
                 <div class="back_right">
@@ -72,14 +69,6 @@
                         </router-link>
                     </div>
                     <LoadingSpinner v-if="isLoading" />
-                    <!-- Loading... -->
-                    <!-- <div class="spinner-border" role="status">
-                        <span class="sr-only">Loading...</span>
-                    </div> -->
-                    <!-- </LoadingSpinner> -->
-                    <!-- <div class="loading" v-if="isLoading">
-                        Loading...
-                    </div> -->
                     <div class="right_board slide-in-blurred-bottom" v-if="!isLoading">
                         <div class="inner_board" v-for="item in total_Messages" :key="item.id">
                             <!-- <div @click="showContent('content2'); clearPlaceholder1" class="author_inner"> -->
@@ -97,7 +86,6 @@
                                     </div>
                                     <div class="author_content">
                                         {{ item.content }}
-                                        <!-- （可放90个中文字符） -->
                                     </div>
                                 </div>
                             </div>
@@ -121,15 +109,10 @@
                                     </div>
                                 </div>
                             </div>
-
                         </div>
-                        <!-- <div class="inner_board">
-
-                    </div> -->
                     </div>
                 </div>
             </div>
-
 
         </div>
     </div>
@@ -138,9 +121,7 @@
 <script>
 import navHead from "./nav-head.vue"
 import LoadingSpinner from "../components/LoadingSpinner.vue";
-// import axios from 'axios'
 import { ElNotification } from 'element-plus'
-// import { Warning } from '@element-plus/icons-vue/dist/types';
 // import { ref } from 'vue';
 
 // const contentKey = ref(0);
@@ -157,13 +138,8 @@ export default {
             parentID: null,   // 顶级留言设为null,评论则提供id
             isPlaceholder1: true,
             isPlaceholder2: true,
-            // isFocused: false,
-            hasInput: false,
-            // focusWithoutInput: false,
             currentContent: 'content1',
             total_Messages: [],
-            top_Messages: [],
-            repay_Messages: [],
             isLoading: true,
             contentKey: 0,
         }
@@ -173,30 +149,17 @@ export default {
     },
     methods: {
         clearPlaceholder1() {
-            // this.isFocused = true;
             if (this.isPlaceholder1 || this.content1 === '有什么想说的，就在这里留下吧~') {
                 this.content1 = '';
                 this.isPlaceholder1 = false;
-                // alert(this.isPlaceholder1,this.content1);
             }
             console.log("clear1")
         },
-        // handleFocus() {
-        //     if (this.focusWithoutInput) {
-        //         this.content2 = '';
-        //         this.focusWithoutInput = false;
-        //     }
-        //     this.isFocused = true;
-        //     // this.updateMessage();
-        // },
         clearPlaceholder2() {
-            // this.isFocused = true;
-            // console.log('clear前isPlaceholder2状态', this.isPlaceholder2)
             if (this.isPlaceholder2 || this.content2 === '有什么想说的，就在这里留下吧~') {
                 this.content2 = '';
                 this.isPlaceholder2 = false;
             }
-            // console.log("clear结束isPlaceholder2状态", this.isPlaceholder2)
         },
         setPlaceholder1() {
             if (this.content1 === '') {
@@ -205,21 +168,11 @@ export default {
             }
             console.log("set1")
         },
-        // handleBlur() {
-        //     this.isFocused = false;
-        //     if (!this.hasInput) {
-        //         this.focusWithoutInput = true;
-        //     }
-
-        //     // this.updateMessage();
-        // },
         setPlaceholder2() {
-            // console.log('set前content2 isPlaceholder2 hasInput', this.content2, this.isPlaceholder2, this.hasInput)
             if (this.content2 === '') {
                 this.content2 = '有什么想说的，就在这里留下吧~';
                 this.isplaceholder2 = true;
             }
-            // console.log("set结束content2 isPlaceholder2 hasInput", this.content2, this.isPlaceholder2, this.hasInput)
         },
         cancelAndSwitch() {
             this.content2 = '有什么想说的，就在这里留下吧~';
@@ -227,21 +180,14 @@ export default {
             this.showContent('content1');
         },
         checkInput() {
-            // this.hasInput = this.content2 !== '';
-            // this.focusWithoutInput = false;  // 有输入时，重置标志位
-            // this.updateMessage();
             this.isPlaceholder1 = !(this.content1 !== '');
             this.isPlaceholder2 = !(this.content2 !== '');
-            // this.hasInput = this.content2 !== '';
-
-
         },
         showContent(content) {
             setTimeout(() =>{
                 this.currentContent = content;
                 this.contentKey++;
             }, 0);
-            // this.currentContent = content;
         },
         formateTime(time){
             if(!time) return '';
@@ -252,7 +198,6 @@ export default {
             var axios = require('axios');
             var config = {
                 method: 'get',
-                // url: 'http://127.0.0.1:4523/m1/4511878-4159176-default/bbs/',
                 // url: 'https://www.itstudio.club/bbs/',
                 url: '/api/bbs/',
                 headers: {
@@ -267,28 +212,19 @@ export default {
                         message.datetime = new Date(message.datetime).toLocaleString(); 
                     })
                     console.log('获取信息成功', response.data);
-                    // this.total_Messages.forEach(message => {
-                    //     console.log(message.datetime);
-                    // });
-
                 })
                 .catch(error => {
                     if (error.response) {
-                        // 服务器返回了状态码，但状态码不是 2xx
+                        // 服务器返回状态码不是 2xx
                         if (error.response.status === 404) {
-
-                            console.error('信息获取失败: 资源未找到', error.response.status);
+                            console.error('资源未找到', error.response.status);
                         } else {
-
                             console.error('信息获取失败', error.response.status);
                         }
                     } else if (error.request) {
                         // 请求已发出，但没有收到响应
-
                         console.error('没有收到响应', error.request);
                     } else {
-                        // 设置请求时发生错误
-                        this.errorMessage = '信息获取失败: 请求设置错误';
                         console.error('请求设置错误', error.message);
                     }
                 })
@@ -297,10 +233,6 @@ export default {
                 });
 
         },
-        // filterMessages(){
-        //     this.top_Messages = this.total_Messages.filter(item => item.id === null);
-        //     this.repay_Messages = this.total_Messages.filter(item => item.id !== null);
-        // },
         submitMessage() {
             if (this.content1.trim() === '有什么想说的，就在这里留下吧~') {
                 // ElMessage.success('还没有说点什么哇');
@@ -523,10 +455,6 @@ export default {
     display: flex;
     flex-direction: row;
     align-items: center;
-    /* margin-left: 10%; */
-    /* margin-right: 10%; */
-    /* margin-bottom: 3%; */
-    /* margin-top: -3.2%; */
 }
 
 .left_board {
@@ -534,17 +462,12 @@ export default {
     /* width: 80%; */
     height: 100%;
     width: 100%;
-    /* margin-left: 25%; */
     display: flex;
     flex-direction: row;
     border-radius: 15px;
-    /* justify-content: center; */
-    /* margin-right: 2%; */
-    /* margin-top: 25%; */
 }
 
 .board_head{
-    /* display: none; */
     /* background-color: #b01515; */
     display: flex;
     /* flex-direction: row; */
@@ -552,7 +475,6 @@ export default {
     justify-content: center;
     width: 5%;
     margin-left: 3%;
-    /* border-radius: 15px; */
     /* border: 1px, solid, #ab226f; */
 }
 
@@ -574,41 +496,22 @@ export default {
     outline: none;
     background-color: transparent;
     width: 100%;
-    /* margin-top: 2%; */
     /* border: 1px, solid, #16c461; */
     color: black;
 }
-
-/* .textarea_1::placeholder {
-    color: gray;
-} */
 
 .submitC{
     display: none;
 }
 
 .submitC_1 {
-    /* width: 28%; */
     height: 100%;
-    /* cursor: pointer; */
-    /* width: 20%; */
-    /* line-height: 3%; */
-    /* border-radius: 100px; */
-    /* margin-left: 62%; */
-    /* margin-top: 3.3%; */
-    /* text-align: center; */
-    /* border: none; */
-    /* background-color: #04132c; */
-    /* display: flex; */
-    /* justify-content: center; */
-    /* border: 1px, solid, #16c461; */
 }
 
 .submitC_1 .inner{
     height: 100%;
     /* width: 100%; */
     border: none;
-    /* text-align: center; */
     background-color: transparent;
     /* border: 1px, solid, #b016c4; */
 }
@@ -637,7 +540,6 @@ export default {
     outline: none;
     background-color: transparent;
     width: 100%;
-    /* margin-top: 2%; */
     /* border: 1px, solid, #16c461; */
     color: black;
 }
@@ -646,8 +548,6 @@ export default {
     /* border: 1px solid rebeccapurple; */
     display: flex;
     flex-direction: row;
-    /* justify-content: center; */
-    /* margin-top: 2%; */
     /* height: 10%; */
 }
 
@@ -675,7 +575,6 @@ export default {
     height: 100%;
     /* width: 100%; */
     border: none;
-    /* text-align: center; */
     background-color: transparent;
     /* border: 1px, solid, #b016c4; */
 }
@@ -699,7 +598,6 @@ export default {
     height: 100%;
     /* width: 100%; */
     border: none;
-    /* text-align: center; */
     background-color: transparent;
     /* border: 1px, solid, #b016c4; */
 }
@@ -714,16 +612,10 @@ export default {
     animation: pulsate-bck 1s ease;
 }
 
-
-/* .placeholder {
-    color: #999;
-} */
-
 .back_right {
     /* background-color: #d9d9d91a; */
     width: 100%;
     height: 82%;
-    /* margin-top: 15%; */
 }
 
 .goBack {
@@ -739,18 +631,15 @@ export default {
 
 .loading {
     color: #ffffff;
-    /* margin-left: 20%; */
     height: 88%;
     width: 85%;
     margin-left: 10%;
 }
 
 .right_board {
-    /* background-color: #ffffff; */
     /* border: 1px, solid, greenyellow; */
     height: 88%;
     width: 100%;
-    /* margin-left: 3%; */
     margin-top: 1%;
     display: flex;
     flex-wrap: wrap;
@@ -768,20 +657,13 @@ export default {
     width: 80%;
     /* height: 40%; */
     height: auto;
-    /* word-wrap: break-word; */
     border-radius: 40px;
-    /* margin-left: 1%; */
-    /* margin-right: 6%; */
     margin-top: 5%;
 }
 
 .inner_board:first-child {
     margin-top: 0;
 }
-
-/* .inner_board:nth-child(2) {
-    margin-top: 0;
-} */
 
 .author_inner {
     /* border: 1px, solid, rgb(40, 50, 26); */
@@ -817,7 +699,6 @@ export default {
     flex-direction: column;
     width: 100%;
     margin-left: 3%;
-    /* 加和为82% */
 }
 
 .author_name {
@@ -838,7 +719,6 @@ export default {
     /* height: 70%; */
     margin-top: 2%;
     font-size: 1.8vh;
-    /* font-weight: bold; */
     font-family: 'Microsoft New Tai Lue';
     overflow: auto;
 }
@@ -882,12 +762,6 @@ export default {
     height: 0;
 }
 
-/* .traveller_head_fixed { */
-/* border: 1px, solid, black; */
-/* border-image: url('../assets/traveller_head.png'); */
-/* width: 15%; */
-/* } */
-
 .traveller_head_fixed img {
     width: 100%;
 }
@@ -897,7 +771,6 @@ export default {
     flex-direction: column;
     width: 82%;
     margin-left: 4%;
-    /* 加和86% */
 }
 
 /* .traveller_right::-webkit-scrollbar {
@@ -1112,7 +985,6 @@ export default {
 .back_left {
     background-color: #04132c;
     width: 30%;
-    /* height: 100%; */
     margin-left: 0%;
     margin-right: 0%;
     margin-top: -3.2%;
@@ -1123,7 +995,6 @@ export default {
     width: 60%;
     height: 75%;
     margin-left: 25%;
-    /* margin-right: 2%; */
     margin-top: 25%;
 }
 
@@ -1131,9 +1002,7 @@ export default {
     height: 70px;
     line-height: 100px;
     margin-left: 10%;
-    /* margin-top: 20px; */
     /* border: 1px, solid, #04132c; */
-    /* margin-top: 5%; */
 }
 
 .text_1 {
@@ -1160,7 +1029,6 @@ export default {
     /* border: 1px, solid, #04132c; */
     display: flex;
     justify-content: center;
-    /* align-items: center; */
     /* height: 40%; */
     margin-left: 10%;
     margin-right: 10%;
@@ -1193,10 +1061,8 @@ textarea {
     font-size: 1.9vh;
     overflow: hidden;
     box-sizing: border-box;
-
     background: linear-gradient(to right, #d9d9d9 2px, transparent 0) 0 -4px/8px 100%,
         linear-gradient(#666 1px, transparent 0) 0 -1px/100% 2.9em;
-    /* border-bottom: 1px solid rebeccapurple; */
 }
 
 textarea::placeholder {
@@ -1256,7 +1122,6 @@ textarea:focus::placeholder {
     border: none;
     /* margin-left: 18%; */
     font-size: 1.7vh;
-    /* font-size: 12px; */
     font-weight: bold;
     font-family: "Microsoft New Tai Lue-Bold", Helvetica;
     cursor: pointer;
@@ -1329,13 +1194,11 @@ textarea:focus::placeholder {
     /* background-color: violet; */
     margin-left: 2%;
     margin-top: 1%;
-
 }
 
 .backImg {
     height: 3%;
     width: 3%;
-
 }
 
 .loading {
@@ -1348,7 +1211,6 @@ textarea:focus::placeholder {
 }
 
 .right_board {
-    /* background-color: #ffffff; */
     /* border: 1px, solid, greenyellow; */
     height: 87%;
     width: 85%;
@@ -1416,7 +1278,6 @@ textarea:focus::placeholder {
     flex-direction: column;
     width: 79%;
     margin-left: 3%;
-    /* 加和为82% */
 }
 
 .author_name {
@@ -1424,7 +1285,6 @@ textarea:focus::placeholder {
     margin-top: 1px;
     font-weight: 700;
     font-family: 'Microsoft New Tai Lue';
-    /* height: 20%; */
 }
 
 .author_time {
@@ -1437,7 +1297,6 @@ textarea:focus::placeholder {
     height: 70%;
     margin-top: 2%;
     font-size: 1.8vh;
-    /* font-weight: bold; */
     font-family: 'Microsoft New Tai Lue';
     overflow: auto;
 }
@@ -1450,7 +1309,6 @@ textarea:focus::placeholder {
     /* border: 1px, solid, greenyellow; */
     height: 49%;
     width: 90%;
-    /* margin-left: 10%; */
     margin-top: 2%;
     overflow: auto;
 
@@ -1469,7 +1327,6 @@ textarea:focus::placeholder {
     display: flex;
     flex-direction: column;
     /* overflow: auto; */
-    /* text-overflow: ellipsis; */
 }
 
 /* .traveller_inner::-webkit-scrollbar {
@@ -1477,22 +1334,11 @@ textarea:focus::placeholder {
     height: 0;
 } */
 
-/* .traveller_head_fixed { */
-/* border: 1px, solid, black; */
-/* border-image: url('../assets/traveller_head.png'); */
-/* width: 15%; */
-/* } */
-
-/* .traveller_head_fixed img {
-    width: 100%;
-} */
-
 .traveller_right {
     display: flex;
     flex-direction: column;
     width: 87%;
     margin-left: 4%;
-    /* 加和86% */
     /* overflow: auto; */
 }
 
@@ -1535,7 +1381,7 @@ textarea:focus::placeholder {
 } */
 
 /* 动画部分 */
-/* 留言板从左侧飞出（同报名） */
+/* 留言板左侧飞出 */
 .slide-in-blurred-left {
     -webkit-animation: slide-in-blurred-left 0.6s cubic-bezier(0.230, 1.000, 0.320, 1.000) both;
     animation: slide-in-blurred-left 0.6s cubic-bezier(0.230, 1.000, 0.320, 1.000) both;
