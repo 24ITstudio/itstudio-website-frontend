@@ -181,6 +181,7 @@ export default {
         background-repeat: no-repeat;
         background-size: cover;
         background-position: center;
+        z-index: 1000;
     }
 
     ::-webkit-scrollbar {
