@@ -1,6 +1,6 @@
 <template>
+    <navHead :locate="332"></navHead>
     <div class="main" @click="handleClickOutside">
-        <navHead :locate="332"></navHead>
         <div class="center">
             <deBox v-for="depart in departs" :key="depart.id" :index="depart.id" :activeIndex="activeIndex"
                 :url="depart.bgi" :title="depart.title" :intro="depart.intro" @update:activeIndex="updateActiveIndex"
@@ -106,6 +106,7 @@ export default {
         border: 1px;
         height: 170vh;
         width: 100vw;
+        padding-top: 70px;
     }
 
     .main:after {
@@ -124,9 +125,10 @@ export default {
         display: flex;
         flex-direction: column;
         justify-content: start;
-        align-items: center;
-        margin-top: 70px;
+        align-items: start;
+        padding-top: 40px;
         width: 100%;
+        margin-left: 2%;
     }
 }
 </style>
