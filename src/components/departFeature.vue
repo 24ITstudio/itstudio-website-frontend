@@ -2,9 +2,9 @@
     <navHead :locate="332"></navHead>
     <div class="main" @click="handleClickOutside">
         <div class="center">
-            <deBox v-for="depart in departs" :key="depart.id" :index="depart.id" :activeIndex="activeIndex"
-                :url="depart.bgi" :title="depart.title" :intro="depart.intro" @update:activeIndex="updateActiveIndex"
-                @click.stop="" />
+            <deBox class="debox" v-for="depart in departs" :key="depart.id" :index="depart.id"
+                :activeIndex="activeIndex" :url="depart.bgi" :title="depart.title" :intro="depart.intro"
+                @update:activeIndex="updateActiveIndex" @click.stop="" />
         </div>
     </div>
 </template>
@@ -91,6 +91,10 @@ export default {
         margin-left: 0px;
         width: auto;
     }
+
+    .debox {
+        cursor: pointer;
+    }
 }
 
 @media (max-width: 1024px) {
@@ -129,6 +133,10 @@ export default {
         padding-top: 40px;
         width: 100%;
         margin-left: 2%;
+    }
+
+    .debox {
+        cursor: pointer;
     }
 }
 </style>

@@ -1,44 +1,24 @@
 <template>
-  <navHead :locate="-4000"></navHead>
+  <navHead :locate="584"></navHead>
   <div class="department-container">
     <div class="tabs">
-      <button
-        v-for="department in departments"
-        :key="department.id"
-        @click="selectDepartment(department)"
-        :class="{ active: department.id === selectedDepartmentId }"
-      >
+      <button v-for="department in departments" :key="department.id" @click="selectDepartment(department)"
+        :class="{ active: department.id === selectedDepartmentId }">
         {{ department.name }}
       </button>
     </div>
     <div class="members-list">
       <div class="back">
-        <router-link to="/"
-          ><img src="../assets/Go Back.png" alt="" width="31px"
-        /></router-link>
+        <router-link to="/"><img src="../assets/Go Back.png" alt="" width="31px" /></router-link>
       </div>
       <div v-if="selectedDepartment" class="member-con">
-        <div
-          v-for="member in selectedDepartment.members"
-          :key="member.id"
-          class="member"
-        >
-          <img
-            :src="member.photo"
-            alt="Member Photo"
-            @click="showMemberInfo(member)"
-            class="photo"
-          />
+        <div v-for="member in selectedDepartment.members" :key="member.id" class="member">
+          <img :src="member.photo" alt="Member Photo" @click="showMemberInfo(member)" class="photo" />
           <span @click="showMemberInfo(member)">{{ member.name }}</span>
         </div>
       </div>
     </div>
-    <MemberInfo
-      class="detial"
-      v-if="showingInfo"
-      :member="infoMember"
-      @close="closeInfo"
-    />
+    <MemberInfo class="detial" v-if="showingInfo" :member="infoMember" @close="closeInfo" />
   </div>
 </template>
 
@@ -270,6 +250,7 @@ export default {
   overflow: hidden;
   background-image: url(../assets/bg.jpg);
   background-size: 100%;
+  padding-top: 70px;
 }
 
 .tabs {
@@ -277,7 +258,7 @@ export default {
   width: 31%;
   height: 100%;
   background-color: #04132d;
-  padding-top: 5%;
+  /* padding-top: 5%; */
 }
 
 .tabs button {
@@ -308,7 +289,7 @@ export default {
 
 .members-list {
   position: relative;
-  padding-top: 4.8%;
+  /* padding-top: 4.8%; */
   margin-left: 31%;
   width: 69%;
   height: 100%;
@@ -361,15 +342,19 @@ export default {
   border-radius: 20px;
   margin-bottom: 14px;
 }
+
 img {
   transition: all 0.6s;
 }
+
 img:hover {
   transform: scale(1.1);
 }
+
 .photo:hover {
   box-shadow: 10px 10px 20px 1px rgb(67, 54, 56);
 }
+
 span {
   color: #fff;
   font-family: "Microsoft New Tai Lue";
@@ -395,28 +380,33 @@ span {
 
 @media (max-width: 430px) {
   .tabs {
-    padding-top: 16%;
+    /* padding-top: 16%; */
     width: 25%;
     font-size: 15px;
     margin-right: 0;
   }
+
   .tabs button {
     font-size: 20px;
   }
+
   .members-list {
-    padding-top: 15%;
+    /* padding-top: 15%; */
     margin-left: 25%;
     width: 80%;
   }
+
   .member-con {
     margin-top: 7%;
   }
+
   .member {
     width: 60px;
     height: 60px;
     margin-left: 10%;
     margin-right: 0;
   }
+
   span {
     font-size: 15px;
   }

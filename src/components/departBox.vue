@@ -62,19 +62,21 @@ export default {
     .head {
         color: aliceblue;
         text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.9);
-        transform: rotate(-90deg);
-        transform-origin: 50% 50%;
+        /* transform: rotate(-90deg); */
+        /* transform-origin: 50% 50%; */
         font-family: "Microsoft New Tai Lue";
         font-size: 48px;
         font-style: normal;
         font-weight: 700;
         line-height: normal;
-        margin: 50px;
-        width: 400px;
+        /* margin: 50px; */
+        /* width: 400px; */
         position: absolute;
-        bottom: 180px;
-        right: -140px;
+        bottom: 100px;
+        left: 20px;
+        /* right: -140px; */
         transition: 0.1s ease-in-out;
+        writing-mode: vertical-rl;
     }
 
     .headup {
