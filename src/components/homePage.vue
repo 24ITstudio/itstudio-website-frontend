@@ -108,7 +108,7 @@ export default {
 
     .titleimg .title {
         width: 1540px;
-        margin-left: 280px;
+        margin-left: 15vw;
         padding-top: 250px;
         line-height: 20px;
         font-size: 30px;

@@ -3,6 +3,7 @@ import signUp from "../components/sign-up.vue";
 import msagPage from "../components/msagPage.vue";
 import logQuery from "../components/log-query.vue";
 import homePage from "../components/homePage.vue";
+import projectAchieve from "../components/projectAchieve.vue";
 import introPage from "../components/introPage.vue"
 import departFeature from "../components/departFeature.vue"
 import numberPage from "../components/numberPage.vue";
@@ -11,6 +12,11 @@ const routes = [
         path: '/',
         name: 'home',
         component: homePage,
+    },
+    {
+        path: '/achieve',
+        name: 'projectAchieve',
+        component: projectAchieve,
     },
     {
         path: '/signUp',
