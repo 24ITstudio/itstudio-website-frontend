@@ -203,7 +203,7 @@ export default {
                 // url: 'https://www.itstudio.club/bbs/',
                 url: 'https://www.itstudio.club/api/bbs/',
             };
-            
+
 
             axios(config)
                 .then(response => {
@@ -427,7 +427,7 @@ export default {
     .back {
         height: 100vh;
         position: relative;
-        background: url("../assets/bg.jpg") no-repeat fixed;
+        background: url("../assets/bg.webp") no-repeat fixed;
         background-size: 100% 100%;
         padding: 1px;
         box-sizing: border-box;
@@ -744,9 +744,9 @@ export default {
     }
 
 
-.traveller_total::-webkit-scrollbar {
-    /* display: none; */
-}
+    /* .traveller_total::-webkit-scrollbar {
+        display: none;
+    } */
 
 
     .traveller_inner {
@@ -761,7 +761,7 @@ export default {
         text-overflow: ellipsis;
     }
 
-/* .traveller_inner::-webkit-scrollbar {
+    /* .traveller_inner::-webkit-scrollbar {
     width: 0;
     height: 0;
 } */
@@ -809,7 +809,7 @@ export default {
         overflow: auto;
     }
 
-/* .traveller_content::-webkit-scrollbar {
+    /* .traveller_content::-webkit-scrollbar {
     width: 0;
     height: 0;
 } */
@@ -965,7 +965,7 @@ export default {
     .back {
         height: 100vh;
         position: relative;
-        background: url("../assets/bg.jpg") no-repeat fixed;
+        background: url("../assets/bg.webp") no-repeat fixed;
         background-size: 100% 100%;
         padding: 1px;
         box-sizing: border-box;
@@ -1306,9 +1306,9 @@ export default {
         overflow: auto;
     }
 
-.author_content::-webkit-scrollbar {
-    /* display: none; */
-}
+    /* .author_content::-webkit-scrollbar {
+        display: none;
+    } */
 
     .traveller_total {
         /* border: 1px, solid, greenyellow; */
@@ -1319,10 +1319,10 @@ export default {
 
     }
 
-.traveller_total::-webkit-scrollbar {
-   /* display: none;*/
-   /* width: 17px; */
-}
+    /* .traveller_total::-webkit-scrollbar {
+        display: none;
+        width: 17px;
+    } */
 
     .traveller_inner {
         /* border: 1px, solid, blue; */

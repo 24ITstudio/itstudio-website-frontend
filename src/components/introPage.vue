@@ -112,7 +112,7 @@ export default {
     .back {
         width: 100%;
         /* height: 100vh; */
-        background-image: url('../assets/bg.jpg');
+        background-image: url('../assets/bg.webp');
         background-size: 100% 100%;
         display: flex;
         flex-direction: column;
@@ -406,7 +406,7 @@ export default {
         /* background-color: beige; */
         width: 100%;
         height: 100vh;
-        background-image: url('../assets/bg.jpg');
+        background-image: url('../assets/bg.webp');
         background-size: 100% 100%;
         position: fixed;
         display: flex;

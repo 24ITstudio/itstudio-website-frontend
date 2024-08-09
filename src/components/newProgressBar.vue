@@ -126,7 +126,7 @@ if (idx.value === -4) {
         position: relative;
         width: 100vw;
         height: 100vh;
-        background: url(../assets/bg.jpg);
+        background: url(../assets/bg.webp);
         background-size: 100% 100%;
         display: flex;
         align-items: center;
@@ -286,7 +286,7 @@ if (idx.value === -4) {
         position: relative;
         width: 100vw;
         height: 100vh;
-        background: url(../assets/bg.jpg);
+        background: url(../assets/bg.webp);
         background-size: 100% 100%;
         display: flex;
         align-items: center;

@@ -93,7 +93,7 @@ export default {
     }
 
     .titleimg {
-        background-image: url(../assets/bg.jpg);
+        background-image: url(../assets/bg.webp);
         height: 100%;
         background-repeat: no-repeat;
         background-position-x: center;
@@ -423,7 +423,7 @@ export default {
     }
 
     .titleimg {
-        background-image: url(../assets/bg.jpg);
+        background-image: url(../assets/bg.webp);
         height: 100vh;
 
 

@@ -65,7 +65,7 @@ export default {
         height: 100vh;
         width: auto;
         position: relative;
-        background: url("../assets/bg.jpg") no-repeat fixed;
+        background: url("../assets/bg.webp") no-repeat fixed;
         background-size: 100% 100%;
         padding: 1px;
         box-sizing: border-box;
@@ -104,7 +104,7 @@ export default {
     }
 
     .main {
-        background: url("../assets/bg.jpg") no-repeat fixed;
+        background: url("../assets/bg.webp") no-repeat fixed;
         background-size: 100% 100%;
         position: relative;
         border: 1px;

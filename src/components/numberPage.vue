@@ -248,7 +248,7 @@ export default {
   height: 100vh;
   position: relative;
   overflow: hidden;
-  background-image: url(../assets/bg.jpg);
+  background-image: url(../assets/bg.webp);
   background-size: 100%;
   padding-top: 70px;
 }

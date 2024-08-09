@@ -119,7 +119,7 @@ async function getProgress() {
     position: relative;
     width: 100vw;
     height: 100vh;
-    background: url(../assets/bg.jpg);
+    background: url(../assets/bg.webp);
     background-size: 100%;
     overflow: hidden;
     display: flex;
@@ -424,7 +424,7 @@ async function getProgress() {
     position: relative;
     width: 100vw;
     height: 100vh;
-    background: url(../assets/bg.jpg);
+    background: url(../assets/bg.webp);
     background-size: 100% 100%;
     overflow: hidden;
     display: flex;
