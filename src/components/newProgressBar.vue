@@ -451,7 +451,7 @@ if (idx.value === -4) {
         position: relative;
         width: 100vw;
         height: 100vh;
-        background: url(../assets/bg.jpg);
+        background: url(../assets/bg.webp);
         background-size: cover;
         display: flex;
         align-items: center;

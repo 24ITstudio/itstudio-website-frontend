@@ -52,20 +52,20 @@ img {
 .name {
   /* margin-left: 33%; */
   text-align: center;
-  margin-top: 28px;
+  margin-top: 24px;
   color: black;
-  font-size: 24px;
+  font-size: 22px;
   font-family: Microsoft New Tai Lue;
   font-weight: 700;
   word-wrap: break-word;
 }
 
 .department {
-  margin-top: 12px;
+  margin-top: 10px;
   /* margin-left: 31%; */
   text-align: center;
   color: black;
-  font-size: 16px;
+  font-size: 14px;
   font-family: Microsoft New Tai Lue;
   font-weight: 700;
   word-wrap: break-word;
@@ -81,9 +81,9 @@ img {
 
 .liuyan {
   text-align: center;
-  margin-top: 15px;
+  margin-top: 13px;
   color: black;
-  font-size: 16px;
+  font-size: 13px;
   font-family: Microsoft New Tai Lue;
   font-weight: 400;
   word-wrap: break-word;
@@ -96,9 +96,11 @@ button {
   border: 1px solid rgb(178, 176, 176);
   background-color: #f1f8f885;
 }
+
 button:hover {
   background-color: rgba(217, 217, 217, 0.1);
 }
+
 @media (max-width: 430px) {
   .info {
     position: relative;
