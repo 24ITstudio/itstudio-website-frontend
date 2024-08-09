@@ -26,19 +26,19 @@
                         </div>
                         <!-- <div class="swiper_button">
                         <div class="prev">
-                            <img src="@/assets/left.png" alt="Previous" />
+                            <img src="@/assets/left.webp" alt="Previous" />
                         </div>
                         <div class="next">
-                            <img src="@/assets/right.png" alt="Next" />
+                            <img src="@/assets/right.webp" alt="Next" />
                         </div>
                     </div> -->
                     </div>
                     <div class="swiper_button">
                         <div>
-                            <img src="@/assets/left.png" alt="Previous" class="prev" />
+                            <img src="@/assets/left.webp" alt="Previous" class="prev" />
                         </div>
                         <div class="next1">
-                            <img src="@/assets/right.png" alt="Next" class="next" />
+                            <img src="@/assets/right.webp" alt="Next" class="next" />
                         </div>
                     </div>
                 </div>
@@ -77,10 +77,10 @@ export default {
     data() {
         return {
             images: [
-                require('@/assets/introTry_0.png'),
-                require('@/assets/introTry_1.png'),
-                require('@/assets/introTry_2.png'),
-                require('@/assets/introTry_3.png'),
+                require('@/assets/introTry_0.webp'),
+                require('@/assets/introTry_1.webp'),
+                require('@/assets/introTry_2.webp'),
+                require('@/assets/introTry_3.webp'),
             ],
             showIntro: false,
         };
@@ -511,7 +511,7 @@ export default {
     .next1 {
         margin-left: 4%;
         /* display: none; */
-        /* background-image: url('../assets/right.png'); */
+        /* background-image: url('../assets/right.webp'); */
     }
 
     .next {

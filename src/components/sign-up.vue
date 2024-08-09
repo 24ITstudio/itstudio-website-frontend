@@ -2,18 +2,18 @@
     <div class="body">
         <div class="putIn slide-in-blurred-left" v-if="!showResult && isOn">
             <div class="head">
-                <router-link to="/"><img src="../assets/Go Back.png" alt="" style="height: 6vh;"></router-link>
+                <router-link to="/"><img src="../assets/Go Back.webp" alt="" style="height: 6vh;"></router-link>
                 <div class="text" style="display: inline-block;">信息填报</div>
             </div>
             <form action="" @submit.prevent="submitForm">
                 <div class="name fill">
-                    <img src="../assets/User.png" alt="" style="height: 20px;">
+                    <img src="../assets/User.webp" alt="" style="height: 20px;">
                     <input type="text" v-model="name" placeholder="姓名" required>
                     <span class="required-star">*</span>
                 </div>
                 <div class="depart fill">
                     <span class="required-star">*</span>
-                    <img src="../assets/love.png" alt="" style="height: 20px;">
+                    <img src="../assets/love.webp" alt="" style="height: 20px;">
                     <select class="form-control" v-model="depart" required>
                         <option value="" selected disabled hidden style="color: #808DA5;">请选择意向部门</option>
                         <option value="程序开发">程序开发</option>
@@ -25,26 +25,26 @@
                 </div>
                 <div class="stuId fill">
                     <span class="required-star">*</span>
-                    <img src="../assets/Identification Documents.png" alt="" style="height: 20px;">
+                    <img src="../assets/Identification Documents.webp" alt="" style="height: 20px;">
                     <input type="number" v-model="stuId" placeholder="学号" required>
                 </div>
                 <div class="stuMajor fill">
                     <span class="required-star">*</span>
-                    <img src="../assets/Identification Documents.png" alt="" style="height: 20px;">
+                    <img src="../assets/Identification Documents.webp" alt="" style="height: 20px;">
                     <input type="text" v-model="stuMajor" placeholder="年级专业" required>
                 </div>
                 <div class="tele fill">
                     <span class="required-star">*</span>
-                    <img src="../assets/Phone iphone.png" alt="" style="height: 20px;">
+                    <img src="../assets/Phone iphone.webp" alt="" style="height: 20px;">
                     <input type="number" v-model="tele" placeholder="电话" required>
                 </div>
                 <div class="QQ fill">
-                    <img src="../assets/Flutter dash.png" alt="" style="height: 20px;">
+                    <img src="../assets/Flutter dash.webp" alt="" style="height: 20px;">
                     <input type="number" v-model="qq" placeholder="QQ号">
                 </div>
                 <div class="mail fill">
                     <span class="required-star">*</span>
-                    <img src="../assets/mail.png" alt="" style="height: 20px;">
+                    <img src="../assets/mail.webp" alt="" style="height: 20px;">
                     <input type="text" v-model="mail" placeholder="邮箱" required>
                 </div>
                 <div class="code fill">
@@ -60,18 +60,18 @@
         </div>
         <div class="succeed" style="z-index: 1000;" v-if="showResult && isOn">
             <div class="head">
-                <a href="#" style="position: fixed;"><img src="../assets/Go Back.png" @click='back' alt=""></a>
+                <a href="#" style="position: fixed;"><img src="../assets/Go Back.webp" @click='back' alt=""></a>
                 <div class="msg">
                     <div class="text">&nbsp;&nbsp;&nbsp;报名成功！</div>
-                    <div class="pic"><img src="../assets/happy.gif" alt="" style="height:200px;"></div>
+                    <div class="pic"><img src="../assets/happy.gif" alt=""></div>
                     <div class="tip">加群关注后续</div>
-                    <div class="QR"><img src="../assets/code.png" alt="" style="height: 200px;"></div>
+                    <div class="QR"><img src="../assets/code.webp" alt="" style="height: 30vh;"></div>
                 </div>
             </div>
         </div>
         <div class="isOver" v-if="!isOn">
             <div class="head">
-                <router-link to="/"><img src="../assets/Go Back.png" alt="" style="height: 6vh;"></router-link>
+                <router-link to="/"><img src="../assets/Go Back.webp" alt="" style="height: 6vh;"></router-link>
                 <div class="text" style="display: inline-block;">:(</div>
                 <div class="mainText">
                     <div>报名已结束</div>
@@ -283,7 +283,7 @@ onUnmounted(() => {
 
     .body {
         background-color: transparent;
-        background-image: url(../assets/background.png);
+        background-image: url(../assets/background.webp);
         background-repeat: no-repeat;
         background-size: 100% 100%;
         display: flex;
@@ -532,7 +532,7 @@ onUnmounted(() => {
         display: flex;
         flex-direction: column;
         margin: 0 auto;
-        margin-top: 60px;
+        margin-top: 4vh;
     }
 
     .succeed .head .text {
@@ -542,13 +542,17 @@ onUnmounted(() => {
         font-style: normal;
         font-weight: 400;
         margin: 0 auto;
-        margin-top: 13.07%;
+        /* margin-top: 13.07%; */
     }
 
     .succeed .head .pic {
-        height: 200px;
+        height: 10vh;
         margin: 0 auto;
         margin-top: 22px;
+    }
+
+    .pic img {
+        height: 100%;
     }
 
     .tip {

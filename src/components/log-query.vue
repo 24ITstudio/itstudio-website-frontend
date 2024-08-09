@@ -4,19 +4,19 @@
     <div class="shadow">
       <div class="back">
         <router-link to="/">
-          <img src="../assets/Arrow back.png" alt="" width="20px" />
+          <img src="../assets/Arrow back.webp" alt="" width="20px" />
           <p>返回</p>
         </router-link>
       </div>
-    </div>
-    <div class="query">
-      <div class="text">
-        <p>请输入手机号/邮箱/姓名进行查询</p>
-      </div>
-      <div class="input">
-        <div class="input2">
-          <input type="text" placeholder="请输入手机号/邮箱/姓名" placeholder-class="place" v-model="code" required />
-          <div class="search" @click="getProgress"><img src="../assets/Group.png" alt="" title="点击查询" /></div>
+      <div class="query">
+        <div class="text">
+          <p>请输入手机号/邮箱/姓名进行查询</p>
+        </div>
+        <div class="input">
+          <div class="input2">
+            <input type="text" placeholder="请输入手机号/邮箱/姓名" placeholder-class="place" v-model="code" required />
+            <div class="search" @click="getProgress"><img src="../assets/Group.webp" alt="" title="点击查询" /></div>
+          </div>
         </div>
       </div>
     </div>
@@ -122,24 +122,34 @@ async function getProgress() {
     background: url(../assets/bg.jpg);
     background-size: 100%;
     overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .shadow {
-    position: absolute;
-    left: 7.5%;
+    /* position: absolute;
+    left: 7.5%; */
     width: 85vw;
     height: 100vh;
     background-color: #04132dcc;
     transform: translateY(70px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
-  .back {
-    position: relative;
+  .back a {
+    position: absolute;
+    left: 0;
+    top: 0;
     margin: 10px;
+    display: flex;
+    align-items: center;
   }
 
   .back img {
-    position: absolute;
+    /* position: absolute; */
     width: 20px;
   }
 
@@ -150,13 +160,10 @@ async function getProgress() {
   }
 
   .query {
-    position: absolute;
-    left: 33%;
-    top: 26%;
     width: 33%;
     border-radius: 17px;
     height: 20%;
-    transform: translateY(70px);
+    transform: translateY(-70px);
   }
 
   .text p {
@@ -187,8 +194,8 @@ async function getProgress() {
   .search {
     position: absolute;
     right: 1%;
-    top: 8%;
-    width: 35px;
+    top: 6%;
+    width: 4vh;
     background-color: transparent;
     border: none;
     display: flex;
@@ -420,20 +427,30 @@ async function getProgress() {
     background: url(../assets/bg.jpg);
     background-size: 100% 100%;
     overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .shadow {
-    position: absolute;
-    left: 7.5%;
+    /* position: absolute;
+    left: 7.5%; */
     width: 85vw;
     height: 100vh;
     background-color: #04132dcc;
     transform: translateY(70px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
-  .back {
-    position: relative;
+  .back a {
+    position: absolute;
+    left: 0;
+    top: 0;
     margin: 10px;
+    display: flex;
+    align-items: center;
   }
 
   .back img {
@@ -448,13 +465,10 @@ async function getProgress() {
   }
 
   .query {
-    position: absolute;
-    left: 9%;
-    top: 26%;
     width: 350px;
     border-radius: 17px;
-    height: 20%;
-    transform: translateY(70px);
+    height: 160px;
+    transform: translateY(-70px);
   }
 
   .text p {
@@ -485,8 +499,8 @@ async function getProgress() {
   .search {
     position: absolute;
     right: 1%;
-    top: 8%;
-    width: 35px;
+    top: 3%;
+    width: 12%;
     background-color: transparent;
     border: none;
     display: flex;
