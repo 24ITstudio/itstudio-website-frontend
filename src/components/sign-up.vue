@@ -2,7 +2,7 @@
     <div class="body">
         <div class="putIn slide-in-blurred-left" v-if="!showResult && isOn">
             <div class="head">
-                <router-link to="/"><img src="../assets/Go Back.webp" alt="" style="height: 6vh;"></router-link>
+                <router-link to="/"><img src="../assets/Go Back.webp" alt="" style="height: 50px;"></router-link>
                 <div class="text" style="display: inline-block;">信息填报</div>
             </div>
             <form action="" @submit.prevent="submitForm">
@@ -760,16 +760,16 @@ onUnmounted(() => {
     .succeed .head,
     .isOver .head {
         width: 84.79%;
-        height: 5vh;
-        margin-top: 8.23%;
+        height: 50px;
+        margin-top: 40px;
         display: flex;
-        margin-bottom: 9.5%;
+        margin-bottom: 40px;
     }
 
     .putIn .head .text {
         color: var(--2, #04132D);
         font-family: "Microsoft JhengHei UI";
-        font-size: 4vh;
+        font-size: 30px;
         font-style: normal;
         font-weight: 700;
         line-height: 55px;
@@ -780,7 +780,7 @@ onUnmounted(() => {
     .isOver .head .text {
         color: var(--2, #04132D);
         font-family: "Microsoft JhengHei UI";
-        font-size: 4vh;
+        font-size: 16px;
         font-style: normal;
         font-weight: 700;
         line-height: 55px;
@@ -790,17 +790,18 @@ onUnmounted(() => {
 
     .putIn form {
         width: 84.79%;
+        height: 800px;
         display: flex;
         justify-content: space-between;
         flex-wrap: wrap;
-        transform: translateY(-30px);
+        /* transform: translateY(-30px); */
     }
 
     .putIn form .fill {
         background-color: rgba(103, 110, 123, 0.09);
         width: 100%;
-        height: 3.6vh;
-        margin-bottom: 2vh;
+        height: 40px;
+        margin-bottom: 20px;
         line-height: 45px;
         display: flex;
         align-items: center;
@@ -865,7 +866,7 @@ onUnmounted(() => {
         font-weight: bold;
         font-family: "Microsoft JhengHei UI";
         width: 90px;
-        height: 3.6vh;
+        height: 40px;
         line-height: 2.5vh;
         display: flex;
         justify-content: center;
@@ -883,7 +884,7 @@ onUnmounted(() => {
         font-weight: bold;
         font-family: "Microsoft JhengHei UI";
         width: 90px;
-        height: 3.6vh;
+        height: 40px;
         line-height: 2.5vh;
         display: flex;
         justify-content: center;
