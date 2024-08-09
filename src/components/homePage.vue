@@ -93,7 +93,7 @@ export default {
     }
 
     .titleimg {
-        background-image: url(../assets/bg.jpg);
+        background-image: url(../assets/bg.webp);
         height: 100%;
         background-repeat: no-repeat;
         background-position-x: center;
@@ -108,7 +108,7 @@ export default {
 
     .titleimg .title {
         width: 1540px;
-        margin-left: 280px;
+        margin-left: 15vw;
         padding-top: 250px;
         line-height: 20px;
         font-size: 30px;
@@ -423,7 +423,7 @@ export default {
     }
 
     .titleimg {
-        background-image: url(../assets/bg.jpg);
+        background-image: url(../assets/bg.webp);
         height: 100vh;
 
 

@@ -9,7 +9,7 @@
     </div>
     <div class="members-list">
       <div class="back">
-        <router-link to="/"><img src="../assets/Go Back.png" alt="" width="31px" /></router-link>
+        <router-link to="/"><img src="../assets/Go Back.webp" alt="" width="31px" /></router-link>
       </div>
       <div v-if="selectedDepartment" class="member-con">
         <div v-for="member in selectedDepartment.members" :key="member.id" class="member">
@@ -25,7 +25,37 @@
 <script>
 import MemberInfo from "./MemberInfo.vue";
 import navHead from "./nav-head.vue";
+<<<<<<< HEAD
 
+=======
+//import img from "../assets/introTry_0.webp";
+//程序
+import cxcqx from "../assets/cxcqx.webp";
+import cxsaq from "../assets/cxsaq.webp";
+import cxpcx from "../assets/cxpcx.webp";
+import cxyj from "../assets/cxyj.webp";
+import cxrcf from "../assets/cxrcf.webp";
+import cxlrj from "../assets/cxlrj.webp";
+import cxlcm from "../assets/cxlcm.webp";
+//web
+import webldr from "../assets/webldr.webp";
+import webljt from "../assets/webljt.webp";
+import webhmy from "../assets/webhmy.webp";
+import webhy from "../assets/webhy.webp";
+import webyjy from "../assets/webyjy.webp";
+//游戏
+//游戏
+import yxyqk from "../assets/yxyqk.webp";
+import yxlx from "../assets/yxlx.webp";
+import yxzky from "../assets/yxzky.webp";
+import yxhlx from "../assets/yxhlx.webp";
+//APP
+import appxqr from "../assets/appxqr.webp";
+import appljt from "../assets/appljt.webp";
+//UI
+import uilyy from "../assets/uilyy.webp";
+import uipyl from "../assets/uipyl.webp";
+>>>>>>> upstream/master
 export default {
   components: {
     MemberInfo,
@@ -1104,9 +1134,14 @@ export default {
   width: 100%;
   height: 100vh;
   position: relative;
+<<<<<<< HEAD
   overflow-x: hidden;
   overflow-y: hidden;
   background-image: url(../assets/bg.jpg);
+=======
+  overflow: hidden;
+  background-image: url(../assets/bg.webp);
+>>>>>>> upstream/master
   background-size: 100%;
   padding-top: 70px;
 }

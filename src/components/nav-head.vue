@@ -8,7 +8,7 @@
             <router-link to="/intro">基本概况</router-link>
             <router-link to="/feature">部门特色</router-link>
             <router-link to="/number">成员组成</router-link>
-            <a href="join.html">项目成果</a>
+            <router-link to="/achieve">项目成果</router-link>
             <div class="navanim home" :style="{ left: locate + 'px' }"></div>
         </div>
         <div class="none"></div>
