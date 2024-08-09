@@ -27,7 +27,7 @@
                             <button class="inner pulsate-bck" @click="submitMessage">发&nbsp;&nbsp;&nbsp;&nbsp;布</button>
                         </div>
                     </div>
-                    
+
                     <div v-if="currentContent === 'content2'" :key="contentKey"
                         class="left_board slide-in-blurred-left">
                         <div class="board_head">
@@ -69,7 +69,7 @@
                         </router-link>
                     </div>
                     <LoadingSpinner v-if="isLoading" />
-                    <div class="right_board slide-in-blurred-bottom" v-if="!isLoading">
+                    <div class="right_board slide-in-blurred-bottom" v-if="!isLoading" :key="submitKey">
                         <div class="inner_board" v-for="item in total_Messages" :key="item.id">
                             <!-- <div @click="showContent('content2'); clearPlaceholder1" class="author_inner"> -->
                             <div @click="() => { showContent('content2'); clearPlaceholder1; getParentID(item.id); }"
@@ -122,6 +122,7 @@
 import navHead from "./nav-head.vue"
 import LoadingSpinner from "../components/LoadingSpinner.vue";
 import { ElNotification } from 'element-plus'
+// import axios from 'axios';
 // import { ref } from 'vue';
 
 // const contentKey = ref(0);
@@ -142,6 +143,7 @@ export default {
             total_Messages: [],
             isLoading: true,
             contentKey: 0,
+            submitKey: 0,
         }
     },
     created() {
@@ -199,14 +201,13 @@ export default {
             var config = {
                 method: 'get',
                 // url: 'https://www.itstudio.club/bbs/',
-                url: '/api/bbs/',
-                headers: {
-                    // 'User-Agent': 'Apifox/1.0.0 (https://apifox.com)'
-                }
+                url: 'https://www.itstudio.club/api/bbs/',
             };
+            
 
             axios(config)
                 .then(response => {
+                    console.log(response.data);
                     this.total_Messages = response.data;
                     this.total_Messages.forEach(message => {
                         message.datetime = new Date(message.datetime).toLocaleString(); 
@@ -316,10 +317,12 @@ export default {
                         console.error('请求设置错误', error.message);
                     }
                 }).finally(() => {
-                    new Promise(resolve => setTimeout(resolve, 1500))
-                        .then(() => {
-                            window.location.reload(); // 刷新页面
-                        });
+                    // new Promise(resolve => setTimeout(resolve, 1500))
+                    //     .then(() => {
+                    //         window.location.reload(); // 刷新页面
+                    //     });
+                    // this.submitKey++;
+                    this.getMessages();
                 });
             // alert('发布成功');
         },
@@ -404,13 +407,12 @@ export default {
                         console.error('请求设置错误', error.message);
                     }
                 }).finally(() => {
-                    new Promise(resolve => setTimeout(resolve, 1500))
-                        .then(() => {
-                            window.location.reload(); // 刷新页面
-                        });
-                    // setTimeout(() => {
-                    //     window.location.reload(); // 刷新页面
-                    // }, 3000); // 设置延迟，确保消息可见
+                    // new Promise(resolve => setTimeout(resolve, 1500))
+                    //     .then(() => {
+                    //         window.location.reload(); // 刷新页面
+                    //     });
+                    // this.submitKey++;
+                    this.getMessages();
                 });
         },
 
@@ -742,7 +744,7 @@ export default {
 }
 
 .traveller_total::-webkit-scrollbar {
-    display: none;
+    /* display: none; */
 }
 
 .traveller_inner {
@@ -757,10 +759,11 @@ export default {
     text-overflow: ellipsis;
 }
 
-.traveller_inner::-webkit-scrollbar {
+
+/* .traveller_inner::-webkit-scrollbar {
     width: 0;
     height: 0;
-}
+} */
 
 .traveller_head_fixed img {
     width: 100%;
@@ -805,10 +808,10 @@ export default {
     overflow: auto;
 }
 
-.traveller_content::-webkit-scrollbar {
+/* .traveller_content::-webkit-scrollbar {
     width: 0;
     height: 0;
-}
+} */
 
 /* 动画部分 */
 /* 留言板从左侧飞出（同报名） */
@@ -1302,7 +1305,7 @@ textarea:focus::placeholder {
 }
 
 .author_content::-webkit-scrollbar {
-    display: none;
+    /* display: none; */
 }
 
 .traveller_total {
@@ -1315,7 +1318,8 @@ textarea:focus::placeholder {
 }
 
 .traveller_total::-webkit-scrollbar {
-    display: none;
+   /* display: none;*/
+   /* width: 17px; */
 }
 
 .traveller_inner {
