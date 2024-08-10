@@ -72,8 +72,10 @@
         </svg>
         <!-- 这个id=four的svg后续改成点击弹出二维码 -->
         <transition name="fade">
-            <div class="QR" v-if="showElement || showQR"><img src="../assets/code.webp" @mouseover="showElement = true"
-                    @mouseout="showElement = false" alt=""></div>
+            <div class="QR" v-if="showElement || showQR">
+                <img src="../assets/code.webp" @mouseover="showElement = true" @mouseout="showElement = false" alt="">
+                <div>不妨加个迎新群看看</div>
+            </div>
         </transition>
     </main>
 </template>
@@ -442,13 +444,29 @@ function closeQR() {
         right: 120px;
         bottom: 90px;
         width: 200px;
-        background-color: transparent;
+        background-color: white;
+        text-align: center;
+        z-index: 10;
+        border: 10px;
+        border-radius: 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding-top: 2px;
+    }
+
+    .QR div {
+        color: #4c8dae;
+        /* 这边没想好用啥颜色，先用群青吧 */
+        font-size: 16px;
+        line-height: 16px;
+        padding-bottom: 16px;
     }
 
     .QR img {
         display: block;
         width: 100%;
-        border: 10px;
         border-radius: 20px;
     }
 }
@@ -569,17 +587,32 @@ function closeQR() {
         top: 50%;
         left: 50%;
         width: 240px;
-        height: 240px;
-        margin-top: -120px;
+        height: 260px;
+        margin-top: -130px;
         margin-left: -120px;
-        background-color: transparent;
+        background-color: white;
+        text-align: center;
         z-index: 10;
+        border: 10px;
+        border-radius: 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding-top: 2px;
+    }
+
+    .QR div {
+        color: #4c8dae;
+        /* 这边没想好用啥颜色，先用群青吧 */
+        font-size: 16px;
+        line-height: 16px;
+        padding-bottom: 16px;
     }
 
     .QR img {
         display: block;
         width: 100%;
-        border: 10px;
         border-radius: 20px;
     }
 
