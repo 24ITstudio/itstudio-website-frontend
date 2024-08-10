@@ -1,24 +1,26 @@
 <template>
-  <navHead :locate="584"></navHead>
-  <div class="department-container">
-    <div class="tabs">
-      <button v-for="department in departments" :key="department.id" @click="selectDepartment(department)"
-        :class="{ active: department.id === selectedDepartmentId }">
-        {{ department.name }}
-      </button>
-    </div>
-    <div class="members-list">
-      <div class="back">
-        <router-link to="/"><img src="../assets/Go Back.webp" alt="" width="31px" /></router-link>
+  <div>
+    <navHead :locate="584"></navHead>
+    <div class="department-container">
+      <div class="tabs">
+        <button v-for="department in departments" :key="department.id" @click="selectDepartment(department)"
+          :class="{ active: department.id === selectedDepartmentId }">
+          {{ department.name }}
+        </button>
       </div>
-      <div v-if="selectedDepartment" class="member-con">
-        <div v-for="member in selectedDepartment.members" :key="member.id" class="member">
-          <img :src="member.photo" alt="Member Photo" @click="showMemberInfo(member)" class="photo" />
-          <span @click="showMemberInfo(member)">{{ member.name }}</span>
+      <div class="members-list">
+        <div class="back">
+          <router-link to="/"><img src="../assets/Go Back.webp" alt="" width="31px" /></router-link>
+        </div>
+        <div v-if="selectedDepartment" class="member-con">
+          <div v-for="member in selectedDepartment.members" :key="member.id" class="member">
+            <img :src="member.photo" alt="Member Photo" @click="showMemberInfo(member)" class="photo" />
+            <span @click="showMemberInfo(member)">{{ member.name }}</span>
+          </div>
         </div>
       </div>
+      <MemberInfo class="detial" v-if="showingInfo" :member="infoMember" @close="closeInfo" />
     </div>
-    <MemberInfo class="detial" v-if="showingInfo" :member="infoMember" @close="closeInfo" />
   </div>
 </template>
 
@@ -1248,7 +1250,7 @@ span {
   .tabs {
     /* padding-top: 16%; */
     width: 25%;
-    font-size: 15px;
+    font-size: 16px;
     margin-right: 0;
   }
 
@@ -1267,14 +1269,14 @@ span {
   }
 
   .member {
-    width: 60px;
-    height: 60px;
+    width: 56px;
+    height: 56px;
     margin-left: 10%;
     margin-right: 0;
   }
 
   span {
-    font-size: 15px;
+    font-size: 16px;
   }
 }
 </style>
