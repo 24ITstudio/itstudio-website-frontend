@@ -1106,10 +1106,10 @@ export default {
   width: 100%;
   height: 100vh;
   position: relative;
-
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  /* overflow: hidden; */
   background-image: url(../assets/bg.webp);
-
   background-size: 100%;
   padding-top: 70px;
 }

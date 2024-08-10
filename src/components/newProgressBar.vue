@@ -441,7 +441,7 @@ if (idx.value === -4) {
     }
 }
 
-@media (max-width: 430px) {
+/* @media (max-width: 430px) {
     a {
         text-decoration: none;
     }
@@ -630,5 +630,5 @@ if (idx.value === -4) {
             height: 15px;
         }
     }
-}
+} */
 </style>

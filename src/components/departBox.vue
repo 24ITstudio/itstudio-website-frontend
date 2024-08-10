@@ -48,11 +48,23 @@ export default {
         z-index: 100;
         width: 160px;
         height: 75vh;
-
         background-position: center;
         border-radius: 80px;
         transition: width 0.5s;
         margin-left: 20px;
+        background-size: auto 100%;
+    }
+
+    .container:before {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        top: 0;
+        border-radius: 80px;
+        background-color: rgba(0, 0, 0, 0.76);
+        z-index: 2;
     }
 
     .expanded {
@@ -77,6 +89,7 @@ export default {
         /* right: -140px; */
         transition: 0.1s ease-in-out;
         writing-mode: vertical-rl;
+        z-index: 3;
     }
 
     .headup {
@@ -98,6 +111,7 @@ export default {
         opacity: 1;
         opacity: 0;
         transition: 0.3s ease-in-out;
+        z-index: 3;
     }
 
     .bigup {
@@ -113,6 +127,7 @@ export default {
         left: 100px;
         margin: 0px;
         opacity: 1;
+        z-index: 3;
     }
 
     .main {
@@ -135,6 +150,7 @@ export default {
         opacity: 0;
         width: 0px;
         transition: opacity 0.5s ease-in-out;
+        z-index: 3;
     }
 
     .mainup {
@@ -157,6 +173,7 @@ export default {
         opacity: 0;
         width: 400px;
         opacity: 1;
+        z-index: 3;
     }
 }
 
@@ -170,6 +187,18 @@ export default {
         border-radius: 80px;
         transition: width 0.5s;
         margin-bottom: 20px;
+    }
+
+    .container:before {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        top: 0;
+        border-radius: 80px;
+        background-color: rgba(0, 0, 0, 0.76);
+        z-index: 2;
     }
 
     .expanded {
@@ -191,6 +220,7 @@ export default {
         top: 10px;
         left: 40px;
         transition: 0.1s ease-in-out;
+        z-index: 3;
     }
 
     .headup {
@@ -212,6 +242,7 @@ export default {
         opacity: 1;
         opacity: 0;
         transition: 0.3s ease-in-out;
+        z-index: 3;
     }
 
     .bigup {
@@ -227,6 +258,7 @@ export default {
         left: 35px;
         margin: 0px;
         opacity: 1;
+        z-index: 3;
     }
 
     .main {
@@ -250,13 +282,14 @@ export default {
         width: 90%;
         opacity: 0;
         transition: opacity 0.5s ease-in-out;
+        z-index: 3;
     }
 
     .mainup {
         color: aliceblue;
         backdrop-filter: blur(5px);
-        border: 5px solid transparent;
-        border-radius: 5px;
+        border: 12px solid transparent;
+        border-radius: 5px 5px 60px 5px;
         font-family: "Microsoft New Tai Lue";
         text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.9);
         font-size: 12px;
@@ -272,6 +305,7 @@ export default {
         opacity: 0;
         width: 90%;
         opacity: 1;
+        z-index: 3;
     }
 }
 </style>

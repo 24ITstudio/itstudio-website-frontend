@@ -103,6 +103,21 @@ let timer = null;
 const isDown = ref(false);
 const isOn = ref(true);
 
+const isEmail = computed(() => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(mail.value); // 返回布尔值而不是字符串  
+})
+
+const isPhone = computed(() => {
+    const phoneRegex = /^1[3-9]\d{9}$/;
+    return phoneRegex.test(tele.value);
+})
+
+const isName = computed(() => {
+    const nameRegex = /^[\u4e00-\u9fa5A-Za-z\s]+$/;
+    return nameRegex.test(name.value);
+})
+
 try {
     console.log('查询报名是否过期')
     const response = axios.get('/api/ddl/')
@@ -120,72 +135,110 @@ try {
 
 async function submitForm() {
     if (name.value && stuId.value && tele.value && stuMajor.value && depart.value && mail.value && code.value) {
-        try {
-            console.log('发送表单')
-            const response = await axios.post('/api/enroll/', {
-                name: name.value,
-                department: depart.value,
-                major: stuMajor.value,
-                code: code.value,
-                phone: tele.value,
-                uid: stuId.value,
-                ...qq.value ? { qq: qq.value } : {},
-                ...reason.value ? { content: reason.value } : {},
-                email: mail.value,
-            });
-            console.log(response.data);
-            if (response.status === 201) {
-                ElNotification.success({
-                    title: '提交成功！',
-                    message: '请等待后续通知~',
-                    offset: 100,
+        if (isName.value && isPhone.value && isEmail.value) {
+            try {
+                console.log('发送表单')
+                const response = await axios.post('/api/enroll/', {
+                    name: name.value,
+                    department: depart.value,
+                    major: stuMajor.value,
+                    code: code.value,
+                    phone: tele.value,
+                    uid: stuId.value,
+                    ...qq.value ? { qq: qq.value } : {},
+                    ...reason.value ? { content: reason.value } : {},
+                    email: mail.value,
                 });
+                console.log(response.data);
+                if (response.status === 201) {
+                    ElNotification.success({
+                        title: '提交成功！',
+                        message: '请等待后续通知~',
+                        offset: 100,
+                    });
+                }
+            } catch (error) {
+                console.log(error);
+                if (error.response) {
+                    if (error.response.status === 400) {
+                        ElNotification.warning({
+                            title: '重复报名',
+                            message: '邮箱/手机/学号已经存在报名信息或是验证码已失效',
+                            offset: 100,
+                        });
+                    }
+                    if (error.response.status === 404) {
+                        ElNotification.warning({
+                            title: '邮箱无效',
+                            message: '该邮箱当前没有验证码',
+                            offset: 100,
+                        });
+                    }
+                    if (error.response.status === 410) {
+                        ElNotification.warning({
+                            title: '验证码过期',
+                            message: '验证码已过期',
+                            offset: 100,
+                        });
+                    }
+                    if (error.response.status === 503) {
+                        ElNotification.error({
+                            title: '报名截止',
+                            message: '报名已结束',
+                            offset: 100,
+                        });
+                    }
+                }
+                return;
             }
-        } catch (error) {
-            console.log(error);
-            if (error.response) {
-                if (error.response.status === 400) {
-                    ElNotification.warning({
-                        title: '重复报名',
-                        message: '邮箱/手机/学号已经存在报名信息或是验证码已失效',
-                        offset: 100,
-                    });
-                }
-                if (error.response.status === 404) {
-                    ElNotification.warning({
-                        title: '邮箱无效',
-                        message: '该邮箱当前没有验证码',
-                        offset: 100,
-                    });
-                }
-                if (error.response.status === 410) {
-                    ElNotification.warning({
-                        title: '验证码过期',
-                        message: '验证码已过期',
-                        offset: 100,
-                    });
-                }
-                if (error.response.status === 503) {
-                    ElNotification.error({
-                        title: '报名截止',
-                        message: '报名已结束',
-                        offset: 100,
-                    });
-                }
-            }
+            showResult.value = true;
+            // 清空表单  
+            name.value = '';
+            stuId.value = '';
+            tele.value = '';
+            qq.value = '';
+            stuMajor.value = '';
+            mail.value = '';
+            depart.value = '';
+            code.value = '';
+            reason.value = '';
+        }
+        if (!isName.value) {
+            ElNotification.warning({
+                title: '姓名格式错误',
+                message: '请输入中文/英文名',
+                offset: 100,
+            });
+            isDown.value = true
+            setTimeout(() => {
+                isDown.value = false
+            }, 800)
             return;
         }
-        showResult.value = true;
-        // 清空表单  
-        name.value = '';
-        stuId.value = '';
-        tele.value = '';
-        qq.value = '';
-        stuMajor.value = '';
-        mail.value = '';
-        depart.value = '';
-        code.value = '';
-        reason.value = '';
+        if (!isPhone.value) {
+            ElNotification.warning({
+                title: '手机电话格式错误',
+                message: '例：138XXXXXX12',
+                offset: 100,
+            });
+            isDown.value = true
+            setTimeout(() => {
+                isDown.value = false
+            }, 800)
+            return;
+        }
+        if (!isEmail.value) {
+            ElNotification.warning({
+                title: '邮箱格式错误',
+                message: '请检查输入是否正确',
+                offset: 100,
+            });
+            isDown.value = true
+            setTimeout(() => {
+                isDown.value = false
+            }, 800)
+            return;
+        }
     }
 }
 function blank() {
@@ -453,6 +506,7 @@ onUnmounted(() => {
 
     .putIn form .button:active {
         opacity: 0.7;
+        transform: scale(0.98);
     }
 
     .name {
@@ -906,6 +960,7 @@ onUnmounted(() => {
 
     .putIn form .button:active {
         opacity: 0.7;
+        transform: scale(0.98);
     }
 
     select {
