@@ -1,11 +1,11 @@
 <template>
-  <div class="member-info" @click.stop>
+  <div class="member-info" @click.self="closeInfo">
     <div class="info">
       <div class="photo"><img :src="member.photo" alt="Member Photo" /></div>
       <div class="name">{{ member.name }}</div>
       <div class="department">{{ member.department }}</div>
       <div class="liuyan">个性留言：{{ member.message }}</div>
-      <button @click="$emit('close')" class="back">返回</button>
+      <button @click="closeInfo" class="back">返回</button>
     </div>
   </div>
 </template>
@@ -13,20 +13,27 @@
 <script>
 export default {
   props: ["member"],
+  methods: {
+    closeInfo() {
+      this.$emit('close');
+    }
+  }
 };
 </script>
 
 <style scoped>
-/* .member-info {
-  border-radius: 30px;
-  width: 240px;
-  height: 350px;
-  background-color: #d9d9d9eb;
+.member-info {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
   display: flex;
-  flex-direction: column;
   justify-content: center;
-  opacity: 0.7;
-} */
+  align-items: center;
+}
+
 .info {
   position: relative;
   width: 18%;
@@ -50,9 +57,8 @@ img {
 }
 
 .name {
-  /* margin-left: 33%; */
   text-align: center;
-  margin-top: 28px;
+  margin-top: 24px;
   color: black;
   font-size: 24px;
   font-family: Microsoft New Tai Lue;
@@ -61,8 +67,7 @@ img {
 }
 
 .department {
-  margin-top: 12px;
-  /* margin-left: 31%; */
+  margin-top: 10px;
   text-align: center;
   color: black;
   font-size: 16px;
@@ -81,7 +86,7 @@ img {
 
 .liuyan {
   text-align: center;
-  margin-top: 15px;
+  margin-top: 13px;
   color: black;
   font-size: 16px;
   font-family: Microsoft New Tai Lue;
@@ -96,9 +101,11 @@ button {
   border: 1px solid rgb(178, 176, 176);
   background-color: #f1f8f885;
 }
+
 button:hover {
   background-color: rgba(217, 217, 217, 0.1);
 }
+
 @media (max-width: 430px) {
   .info {
     position: relative;
@@ -109,6 +116,36 @@ button:hover {
     padding: 40px;
     border-radius: 18px;
     margin: 0 auto;
+  }
+
+  .name {
+    text-align: center;
+    margin-top: 24px;
+    color: black;
+    font-size: 22px;
+    font-family: Microsoft New Tai Lue;
+    font-weight: 700;
+    word-wrap: break-word;
+  }
+
+  .department {
+    margin-top: 10px;
+    text-align: center;
+    color: black;
+    font-size: 14px;
+    font-family: Microsoft New Tai Lue;
+    font-weight: 700;
+    word-wrap: break-word;
+  }
+
+  .liuyan {
+    text-align: center;
+    margin-top: 13px;
+    color: black;
+    font-size: 13px;
+    font-family: Microsoft New Tai Lue;
+    font-weight: 400;
+    word-wrap: break-word;
   }
 }
 </style>
