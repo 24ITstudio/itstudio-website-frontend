@@ -1,5 +1,4 @@
 <template>
-    <!-- bug: 横竖版切换点 "取消"和"发布"文字样式有点超出-->
     <div class="back">
         <div class="back_up">
             <div class="head">
@@ -7,60 +6,60 @@
             </div>
             <div class="content">
                 <div class="back_left">
-                    <div v-if="currentContent === 'content1'" class="left_board slide-in-blurred-left">
-                        <div class="board_head">
-                            <div class="text_1">
-                                留言
+                    <transition name="slide-left">
+                        <div v-if="currentContent === 'content1'" class="left_board slide-in-left ">
+                            <div class="board_head">
+                                <div class="text_1">
+                                    留言
+                                </div>
                             </div>
-                        </div>
-                        <div class="board_content">
-                            <textarea ref="input" :placeholder="isPlaceholder1 ? '有什么想说的，就在这里留下吧~' : ''"
-                                v-model="content1" @focus="clearPlaceholder1" @blur="setPlaceholder1"
-                                @input="checkInput" rows="9" class="textarea_1">
+                            <div class="board_content">
+                                <textarea ref="input" placeholder="有什么想说的，就在这里留下吧~" v-model="content1" rows="9"
+                                    class="textarea_1" maxlength="100">
                             </textarea>
-                        </div>
-                        <div class="submitC_1">
-                            <button class="inner pulsate-bck" @click="submitMessage"><img
-                                    src="../assets/submit.webp" /></button>
-                        </div>
-                        <div class="submitC">
-                            <button class="inner pulsate-bck" @click="submitMessage">发&nbsp;&nbsp;&nbsp;&nbsp;布</button>
-                        </div>
-                    </div>
-
-                    <div v-if="currentContent === 'content2'" :key="contentKey"
-                        class="left_board slide-in-blurred-left">
-                        <div class="board_head">
-                            <div class="text_1">
-                                回复
                             </div>
-                        </div>
-                        <div class="board_content_1">
-                            <textarea ref="input" v-model="content2" @focus="clearPlaceholder2" @blur="setPlaceholder2"
-                                @input="checkInput" rows="5">
-                            有什么想说的，就在这里留下吧~
-                            </textarea>
-                        </div>
-                        <div class="submitButton">
-                            <div class="submitA_1">
-                                <button class="inner pulsate-bck" @click="cancelAndSwitch"><img
-                                        src="../assets/Go Back.webp" /></button>
-                            </div>
-                            <div class="submitA">
-                                <button class="inner pulsate-bck"
-                                    @click="cancelAndSwitch">取&nbsp;&nbsp;&nbsp;&nbsp;消</button>
-                            </div>
-                            <div class="submitB_1">
-                                <button class="inner pulsate-bck" @click="submitTalk"><img
+                            <div class="submitC_1">
+                                <button class="inner pulsate-bck" @click="submitMessage"><img
                                         src="../assets/submit.webp" /></button>
                             </div>
-                            <div class="submitB">
+                            <div class="submitC">
                                 <button class="inner pulsate-bck"
-                                    @click="submitTalk">发&nbsp;&nbsp;&nbsp;&nbsp;布</button>
+                                    @click="submitMessage">发&nbsp;&nbsp;&nbsp;&nbsp;布</button>
                             </div>
                         </div>
-                    </div>
-
+                    </transition>
+                    <transition name="slide-left">
+                        <div v-if="currentContent === 'content2'" :key="contentKey" class="left_board slide-in-left">
+                            <div class="board_head">
+                                <div class="text_1">
+                                    回复
+                                </div>
+                            </div>
+                            <div class="board_content_1">
+                                <textarea ref="input" v-model="content2" placeholder="有什么想说的，就在这里留下吧~" maxlength="100"
+                                    rows="5">
+                            </textarea>
+                            </div>
+                            <div class="submitButton">
+                                <div class="submitA_1">
+                                    <button class="inner pulsate-bck" @click="cancelAndSwitch"><img
+                                            src="../assets/Go Back.webp" /></button>
+                                </div>
+                                <div class="submitA">
+                                    <button class="inner pulsate-bck"
+                                        @click="cancelAndSwitch">取&nbsp;&nbsp;&nbsp;&nbsp;消</button>
+                                </div>
+                                <div class="submitB_1">
+                                    <button class="inner pulsate-bck" @click="submitTalk"><img
+                                            src="../assets/submit.webp" /></button>
+                                </div>
+                                <div class="submitB">
+                                    <button class="inner pulsate-bck"
+                                        @click="submitTalk">发&nbsp;&nbsp;&nbsp;&nbsp;布</button>
+                                </div>
+                            </div>
+                        </div>
+                    </transition>
                 </div>
                 <div class="back_right">
                     <div class="goBack">
@@ -72,7 +71,7 @@
                     <div class="right_board slide-in-blurred-bottom" v-if="!isLoading" :key="submitKey">
                         <div class="inner_board" v-for="item in total_Messages" :key="item.id">
                             <!-- <div @click="showContent('content2'); clearPlaceholder1" class="author_inner"> -->
-                            <div @click="() => { showContent('content2'); clearPlaceholder1; getParentID(item.id); }"
+                            <div @click="() => { showContent('content2');  getParentID(item.id); }"
                                 class="author_inner pulsate-bck">
                                 <!-- <div class="author_head_fixed">
                                 <img src="../assets/author_head.webp" />
@@ -134,11 +133,9 @@ export default {
     },
     data() {
         return {
-            content1: '有什么想说的，就在这里留下吧~',
-            content2: '有什么想说的，就在这里留下吧~',
+            content1: '',
+            content2: '',
             parentID: null,   // 顶级留言设为null,评论则提供id
-            isPlaceholder1: true,
-            isPlaceholder2: true,
             currentContent: 'content1',
             total_Messages: [],
             isLoading: true,
@@ -150,46 +147,20 @@ export default {
         this.getMessages();
     },
     methods: {
-        clearPlaceholder1() {
-            if (this.isPlaceholder1 || this.content1 === '有什么想说的，就在这里留下吧~') {
-                this.content1 = '';
-                this.isPlaceholder1 = false;
-            }
-            console.log("clear1")
-        },
-        clearPlaceholder2() {
-            if (this.isPlaceholder2 || this.content2 === '有什么想说的，就在这里留下吧~') {
-                this.content2 = '';
-                this.isPlaceholder2 = false;
-            }
-        },
-        setPlaceholder1() {
-            if (this.content1 === '') {
-                this.content1 = '有什么想说的，就在这里留下吧~';
-                this.isplaceholder1 = true;
-            }
-            console.log("set1")
-        },
-        setPlaceholder2() {
-            if (this.content2 === '') {
-                this.content2 = '有什么想说的，就在这里留下吧~';
-                this.isplaceholder2 = true;
-            }
-        },
         cancelAndSwitch() {
-            this.content2 = '有什么想说的，就在这里留下吧~';
+            this.content2 = '';
+            this.content1 = '';
             this.isplaceholder2 = true;
             this.showContent('content1');
         },
-        checkInput() {
-            this.isPlaceholder1 = !(this.content1 !== '');
-            this.isPlaceholder2 = !(this.content2 !== '');
-        },
         showContent(content) {
+            this.content1 = '';
+            this.content2 = '';
+            this.currentContent = '';
             setTimeout(() => {
                 this.currentContent = content;
                 this.contentKey++;
-            }, 0);
+            }, 100);
         },
         formateTime(time) {
             if (!time) return '';
@@ -200,7 +171,6 @@ export default {
             var axios = require('axios');
             var config = {
                 method: 'get',
-                // url: 'https://www.itstudio.club/bbs/',
                 url: 'https://www.itstudio.club/api/bbs/',
             };
 
@@ -230,14 +200,12 @@ export default {
                     }
                 })
                 .finally(() => {
-                    this.isLoading = false;  // 确保无论请求成功或失败，都将 loading 状态设为 false
+                    this.isLoading = false;  // 无论请求成功或失败，都将 loading 状态设为 false
                 });
 
         },
         submitMessage() {
-            if (this.content1.trim() === '有什么想说的，就在这里留下吧~') {
-                // ElMessage.success('还没有说点什么哇');
-                // alert('还没有说点什么哇');
+            if (this.content1.trim() === '') {
                 ElNotification({
                     title: '嗯？',
                     message: '还没有说点什么哇',
@@ -256,12 +224,9 @@ export default {
 
             var config = {
                 method: 'post',
-                // url: 'http://127.0.0.1:4523/m1/4511878-4159176-default/bbs/',
                 // url: 'https://www.itstudio.club/bbs/',
                 url: '/api/bbs/',
-
                 headers: {
-                    // 'User-Agent': 'Apifox/1.0.0 (https://apifox.com)',
                     'Content-Type': 'application/json'
                 },
                 data: data
@@ -270,13 +235,6 @@ export default {
             axios(config)
                 .then(response => {
                     if (response.status === 200) {
-                        // console.log('消息发布成功', response.status, this.content1);
-                        // ElMessage.success({
-                        //     title: '发布成功！',
-                        //     message: '继续逛逛吧~',
-                        //     offset: 100,
-                        // });
-                        // ElMessage.success('发布成功，继续逛逛吧~')
                         ElNotification({
                             title: '发布成功',
                             message: '继续逛逛吧',
@@ -284,13 +242,9 @@ export default {
                             duration: 1500,
                             offset: 100,
                         });
-                        // alert('竟然发布成功了？?');
-                        this.content1 = '有什么想说的，就在这里留下吧~';
                     } else {
                         console.log('出错了…');
                     }
-                    // console.log(JSON.stringify(response.data));
-                    // alert(JSON.stringify(response.data));
                 })
                 .catch(error => {
                     if (error.response) {
@@ -323,22 +277,16 @@ export default {
                     //     });
                     // this.submitKey++;
                     this.getMessages();
+                    this.content1 = '';
                 });
-            // alert('发布成功');
         },
         getParentID(id) {
             this.parentID = id;
             this.parentID = parseInt(this.parentID, 10);
-            this.content2 = '有什么想说的，就在这里留下吧~';
-            this.isplaceholder2 = true;
-            // console.log('getParentID结束 ', this.parentID, typeof this.parentID, this.content2)
         },
         submitTalk() {
-            console.log('待上传回复: ', this.parentID, this.content2);
-            // console.log(typeof this.parentID);   // 返回number
 
-            if (this.content2.trim() === '有什么想说的，就在这里留下吧~') {
-                // ElMessage.success('还没有说点什么哇');
+            if (this.content2.trim() === '') {
                 ElNotification({
                     title: '嗯？',
                     message: '还没有说点什么哇',
@@ -346,25 +294,20 @@ export default {
                     duration: 2000,
                     offset: 100,
                 });
-                // alert('还没有说点什么哇');
                 return;
             }
 
             var axios = require('axios');
             var data = JSON.stringify({
                 "content": this.content2,
-                // "parent": 1
-                // "parent": null
                 "parent": parseInt(this.parentID, 10)
             });
 
             var config = {
                 method: 'post',
-                // url: 'http://127.0.0.1:4523/m1/4511878-4159176-default/bbs/',
                 // url: 'https://www.itstudio.club/bbs/',
                 url: '/api/bbs/',
                 headers: {
-                    // 'User-Agent': 'Apifox/1.0.0 (https://apifox.com)',
                     'Content-Type': 'application/json'
                 },
                 data: data
@@ -381,13 +324,11 @@ export default {
                             duration: 1500,
                             offset: 100,
                         });
-                        this.content2 = '有什么想说的，就在这里留下吧~';
                     } else {
                         console.log('状态码变为 ', response.status);
                     }
                 })
                 .catch(error => {
-                    // console.error('错误响应数据:', error.response.data);
                     if (error.response) {
                         if (error.response.status === 404) {
                             ElNotification({
@@ -413,6 +354,8 @@ export default {
                     //     });
                     // this.submitKey++;
                     this.getMessages();
+                    this.content2 = '';
+                    this.showContent('content1');
                 });
         },
 
@@ -467,6 +410,7 @@ export default {
         display: flex;
         flex-direction: row;
         border-radius: 15px;
+        /* position: fixed; */
     }
 
     .board_head {
@@ -683,19 +627,6 @@ export default {
         /* animation: slide-in-blurred-left 0.4s ease; */
     }
 
-    /* .author_head_fixed { */
-    /* border: 1px, solid, black; */
-    /* border-image: url('../assets/author_head.webp'); */
-    /* height: 20%; */
-    /* width: 17%; */
-    /* } */
-
-    /* .author_head_fixed img { */
-    /* height: 100%; */
-    /* width: 100%; */
-
-    /* } */
-
     .author_right {
         display: flex;
         flex-direction: column;
@@ -733,21 +664,12 @@ export default {
         /* border: 1px, solid, greenyellow; */
         /* height: 80%; */
         max-height: 20vh;
-        /* width: 100%; */
         width: 90%;
         margin-left: 4%;
         margin-top: 2%;
         margin-bottom: 2%;
         overflow: auto;
-
-
     }
-
-
-    /* .traveller_total::-webkit-scrollbar {
-        display: none;
-    } */
-
 
     .traveller_inner {
         /* border: 1px, solid, blue; */
@@ -761,11 +683,6 @@ export default {
         text-overflow: ellipsis;
     }
 
-    /* .traveller_inner::-webkit-scrollbar {
-    width: 0;
-    height: 0;
-} */
-
     .traveller_head_fixed img {
         width: 100%;
     }
@@ -777,10 +694,6 @@ export default {
         margin-left: 4%;
     }
 
-    /* .traveller_right::-webkit-scrollbar {
-    width: 0;
-    height: 0;
-} */
 
     .traveller_name_fixed_1 {
         /* border: 1px, solid, black; */
@@ -809,10 +722,6 @@ export default {
         overflow: auto;
     }
 
-    /* .traveller_content::-webkit-scrollbar {
-    width: 0;
-    height: 0;
-} */
 
     /* 动画部分 */
     /* 留言板从左侧飞出（同报名） */
@@ -954,11 +863,133 @@ export default {
         }
     }
 
+    .slide-in-left {
+        -webkit-animation: slide-in-left 1.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+        animation: slide-in-left 1.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+    }
+                
+    @-webkit-keyframes slide-in-left {
+        0% {    
+            -webkit-transform: translateX(-1000px);
+            transform: translateX(-1000px);
+            opacity: 0;
+        }
+                
+        100% {
+            -webkit-transform: translateX(0);
+            transform: translateX(0);
+            opacity: 1;
+        }
+    }
+                
+    @keyframes slide-in-left {
+        0% {
+            -webkit-transform: translateX(-1000px);
+            transform: translateX(-1000px);
+            opacity: 0;
+        }
+                
+        100% {
+            -webkit-transform: translateX(0);
+            transform: translateX(0);
+            opacity: 1;
+        }
+    }
+
+    .slide-left-enter-active {
+        animation: slide-in-left 1.5s ease;
+    } 
+        
+    .slide-left-leave-active {
+        animation: slide-out-left 0.6s ease;
+    }
+
+        
+    .slide-out-left {
+        -webkit-animation: slide-out-left 0.6s cubic-bezier(0.550, 0.085, 0.680, 0.530) both;
+        animation: slide-out-left 0.6s cubic-bezier(0.550, 0.085, 0.680, 0.530) both;
+    }
+
+    @-webkit-keyframes slide-out-left {
+        0% {
+            -webkit-transform: translateX(0);
+            transform: translateX(0);
+            opacity: 1;
+        }
+
+        100% {
+            -webkit-transform: translateX(-1000px);
+            transform: translateX(-1000px);
+            opacity: 0;
+        }
+    }
+
+    @keyframes slide-out-left {
+        0% {
+            -webkit-transform: translateX(0);
+            transform: translateX(0);
+            opacity: 1;
+        }
+
+        100% {
+            -webkit-transform: translateX(-1000px);
+            transform: translateX(-1000px);
+            opacity: 0;
+        }
+    }
+
+    .slide-out-blurred-left {
+        -webkit-animation: slide-out-blurred-left 0.4s cubic-bezier(0.755, 0.050, 0.855, 0.060) both;
+        animation: slide-out-blurred-left 0.4s cubic-bezier(0.755, 0.050, 0.855, 0.060) both;
+    }
+
+    @-webkit-keyframes slide-out-blurred-left {
+        0% {
+            -webkit-transform: translateX(0) scaleY(1) scaleX(1);
+            transform: translateX(0) scaleY(1) scaleX(1);
+            -webkit-transform-origin: 50% 50%;
+            transform-origin: 50% 50%;
+            -webkit-filter: blur(0);
+            filter: blur(0);
+            opacity: 1;
+        }
+
+        100% {
+            -webkit-transform: translateX(-1000px) scaleX(2) scaleY(0.2);
+            transform: translateX(-1000px) scaleX(2) scaleY(0.2);
+            -webkit-transform-origin: 100% 50%;
+            transform-origin: 100% 50%;
+            -webkit-filter: blur(40px);
+            filter: blur(40px);
+            opacity: 0;
+        }
+    }
+
+    @keyframes slide-out-blurred-left {
+        0% {
+            -webkit-transform: translateX(0) scaleY(1) scaleX(1);
+            transform: translateX(0) scaleY(1) scaleX(1);
+            -webkit-transform-origin: 50% 50%;
+            transform-origin: 50% 50%;
+            -webkit-filter: blur(0);
+            filter: blur(0);
+            opacity: 1;
+        }
+
+        100% {
+            -webkit-transform: translateX(-1000px) scaleX(2) scaleY(0.2);
+            transform: translateX(-1000px) scaleX(2) scaleY(0.2);
+            -webkit-transform-origin: 100% 50%;
+            transform-origin: 100% 50%;
+            -webkit-filter: blur(40px);
+            filter: blur(40px);
+            opacity: 0;
+        }
+    }
 }
 
 @media screen and (orientation: landscape) {
     .head {
-        /* height: 36px; */
         height: 1%;
     }
 
@@ -1001,6 +1032,7 @@ export default {
         height: 75%;
         margin-left: 25%;
         margin-top: 25%;
+        position: relative;
     }
 
     .board_head {
@@ -1306,10 +1338,6 @@ export default {
         overflow: auto;
     }
 
-    /* .author_content::-webkit-scrollbar {
-        display: none;
-    } */
-
     .traveller_total {
         /* border: 1px, solid, greenyellow; */
         height: 49%;
@@ -1319,10 +1347,7 @@ export default {
 
     }
 
-    /* .traveller_total::-webkit-scrollbar {
-        display: none;
-        width: 17px;
-    } */
+
 
     .traveller_inner {
         /* border: 1px, solid, blue; */
@@ -1335,11 +1360,6 @@ export default {
         /* overflow: auto; */
     }
 
-    /* .traveller_inner::-webkit-scrollbar {
-    width: 0;
-    height: 0;
-} */
-
     .traveller_right {
         display: flex;
         flex-direction: column;
@@ -1347,11 +1367,6 @@ export default {
         margin-left: 4%;
         /* overflow: auto; */
     }
-
-    /* .traveller_right::-webkit-scrollbar {
-    width: 0;
-    height: 0;
-} */
 
     .traveller_name_fixed_1 {
         /* border: 1px, solid, black; */
@@ -1381,13 +1396,42 @@ export default {
         /* overflow: auto; */
     }
 
-    /* .traveller_content::-webkit-scrollbar {
-    width: 0;
-    height: 0;
-} */
-
     /* 动画部分 */
     /* 留言板左侧飞出 */
+
+        .slide-in-left {
+            -webkit-animation: slide-in-left 0.6s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+            animation: slide-in-left 0.6s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+        }
+
+    @-webkit-keyframes slide-in-left {
+        0% {
+            -webkit-transform: translateX(-1000px);
+            transform: translateX(-1000px);
+            opacity: 0;
+        }
+
+        100% {
+            -webkit-transform: translateX(0);
+            transform: translateX(0);
+            opacity: 1;
+        }
+    }
+
+    @keyframes slide-in-left {
+        0% {
+            -webkit-transform: translateX(-1000px);
+            transform: translateX(-1000px);
+            opacity: 0;
+        }
+
+        100% {
+            -webkit-transform: translateX(0);
+            transform: translateX(0);
+            opacity: 1;
+        }
+    }
+
     .slide-in-blurred-left {
         -webkit-animation: slide-in-blurred-left 0.6s cubic-bezier(0.230, 1.000, 0.320, 1.000) both;
         animation: slide-in-blurred-left 0.6s cubic-bezier(0.230, 1.000, 0.320, 1.000) both;
@@ -1523,6 +1567,102 @@ export default {
             -webkit-filter: blur(0);
             filter: blur(0);
             opacity: 1;
+        }
+    }
+
+    .slide-left-enter-active {
+        animation: slide-in-left 1.5s ease;
+    }
+    .slide-left-leave-active {
+        animation: slide-out-left 0.6s ease;
+    } 
+
+        /* .slide-left-1-enter-active {
+            animation: slide-in-left 1.5s ease;
+        }
+        .slide-left-1-leave-active {
+            animation: slide-out-left 0.6s ease;
+        }  */
+
+    .slide-out-left {
+        -webkit-animation: slide-out-left 0.6s cubic-bezier(0.550, 0.085, 0.680, 0.530) both;
+        animation: slide-out-left 0.6s cubic-bezier(0.550, 0.085, 0.680, 0.530) both;
+    }
+
+    @-webkit-keyframes slide-out-left {
+        0% {
+            -webkit-transform: translateX(0);
+            transform: translateX(0);
+            opacity: 1;
+        }
+                
+        100% {
+            -webkit-transform: translateX(-1000px);
+            transform: translateX(-1000px);
+            opacity: 0;
+        }
+    }
+                
+    @keyframes slide-out-left {
+        0% {
+            -webkit-transform: translateX(0);
+            transform: translateX(0);
+            opacity: 1;
+        }
+                
+        100% {
+            -webkit-transform: translateX(-1000px);
+            transform: translateX(-1000px);
+            opacity: 0;
+        }
+    }
+
+    .slide-out-blurred-left {
+        -webkit-animation: slide-out-blurred-left 0.4s cubic-bezier(0.755, 0.050, 0.855, 0.060) both;
+        animation: slide-out-blurred-left 0.4s cubic-bezier(0.755, 0.050, 0.855, 0.060) both;
+    }
+    
+    @-webkit-keyframes slide-out-blurred-left {
+        0% {
+            -webkit-transform: translateX(0) scaleY(1) scaleX(1);
+            transform: translateX(0) scaleY(1) scaleX(1);
+            -webkit-transform-origin: 50% 50%;
+            transform-origin: 50% 50%;
+            -webkit-filter: blur(0);
+            filter: blur(0);
+            opacity: 1;
+        }
+    
+        100% {
+            -webkit-transform: translateX(-1000px) scaleX(2) scaleY(0.2);
+            transform: translateX(-1000px) scaleX(2) scaleY(0.2);
+            -webkit-transform-origin: 100% 50%;
+            transform-origin: 100% 50%;
+            -webkit-filter: blur(40px);
+            filter: blur(40px);
+            opacity: 0;
+        }
+    }
+    
+    @keyframes slide-out-blurred-left {
+        0% {
+            -webkit-transform: translateX(0) scaleY(1) scaleX(1);
+            transform: translateX(0) scaleY(1) scaleX(1);
+            -webkit-transform-origin: 50% 50%;
+            transform-origin: 50% 50%;
+            -webkit-filter: blur(0);
+            filter: blur(0);
+            opacity: 1;
+        }
+    
+        100% {
+            -webkit-transform: translateX(-1000px) scaleX(2) scaleY(0.2);
+            transform: translateX(-1000px) scaleX(2) scaleY(0.2);
+            -webkit-transform-origin: 100% 50%;
+            transform-origin: 100% 50%;
+            -webkit-filter: blur(40px);
+            filter: blur(40px);
+            opacity: 0;
         }
     }
 }
