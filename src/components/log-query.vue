@@ -425,7 +425,7 @@ async function getProgress() {
     width: 100vw;
     height: 100vh;
     background: url(../assets/bg.webp);
-    background-size: 100% 100%;
+    background-size: auto 100%;
     overflow: hidden;
     display: flex;
     align-items: center;

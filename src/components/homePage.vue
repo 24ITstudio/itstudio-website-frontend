@@ -2,7 +2,7 @@
 <template>
     <navHead :locate="-4000"></navHead>
     <main class="main">
-        <section class="sec">
+        <section :class="['sec', { 'turnGray': showQR }]" @click="closeQR">
             <div class="titleimg">
                 <div class="title3">
                     <div class="title">
@@ -56,36 +56,55 @@
                     </div>
                     <div class="title2 slide-in-blurred-bottom">爱特工作室</div>
                     <div class="title2-1 slide-in-blurred-bottom">爱特<br>工作室</div>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="55" height="32" viewBox="0 0 32 32" fill="none"
-                        id="four">
-                        <rect width="12" height="12" rx="2" fill="white" />
-                        <rect y="20" width="12" height="12" rx="2" fill="white" />
-                        <rect y="14" width="32" height="4" rx="2" fill="white" />
-                        <rect x="15" y="32" width="12" height="4" rx="2" transform="rotate(-90 15 32)" fill="white" />
-                        <rect x="22" y="32" width="12" height="4" rx="2" transform="rotate(-90 22 32)" fill="white" />
-                        <rect x="14" y="12" width="12" height="4" rx="2" transform="rotate(-90 14 12)" fill="white" />
-                        <rect x="28" y="32" width="12" height="4" rx="2" transform="rotate(-90 28 32)" fill="white" />
-                        <rect x="20" width="12" height="12" rx="2" fill="white" />
-                    </svg>
-                    <!-- 这个id=four的svg后续改成点击弹出二维码 -->
                 </div>
             </div>
         </section>
+        <svg xmlns="http://www.w3.org/2000/svg" width="55" height="32" viewBox="0 0 32 32" fill="none" id="four"
+            @mouseover="showElement = true" @mouseout="showElement = false" @click="toggleShow" title="不妨加个迎新群看看">
+            <rect width="12" height="12" rx="2" fill="white" />
+            <rect y="20" width="12" height="12" rx="2" fill="white" />
+            <rect y="14" width="32" height="4" rx="2" fill="white" />
+            <rect x="15" y="32" width="12" height="4" rx="2" transform="rotate(-90 15 32)" fill="white" />
+            <rect x="22" y="32" width="12" height="4" rx="2" transform="rotate(-90 22 32)" fill="white" />
+            <rect x="14" y="12" width="12" height="4" rx="2" transform="rotate(-90 14 12)" fill="white" />
+            <rect x="28" y="32" width="12" height="4" rx="2" transform="rotate(-90 28 32)" fill="white" />
+            <rect x="20" width="12" height="12" rx="2" fill="white" />
+        </svg>
+        <!-- 这个id=four的svg后续改成点击弹出二维码 -->
+        <transition name="fade">
+            <div class="QR" v-if="showElement || showQR"><img src="../assets/code.webp" @mouseover="showElement = true"
+                    @mouseout="showElement = false" alt=""></div>
+        </transition>
     </main>
 </template>
 
-<script>
-import navHead from './nav-head.vue'
-export default {
-    components: {
+<script setup>
+import navHead from './nav-head.vue';
+import { ref } from 'vue';
 
-        navHead
-    },
+const showElement = ref(false);
+const showQR = ref(false);
+
+function toggleShow() {
+    showQR.value = !showQR.value;
+}
+function closeQR() {
+    showQR.value = false;
 }
 </script>
 
 <style scoped>
 @media (min-width: 1025px) {
+
+    .fade-enter-active,
+    .fade-leave-active {
+        transition: opacity 0.5s;
+    }
+
+    .fade-enter-from,
+    .fade-leave-to {
+        opacity: 0;
+    }
 
     * {
         padding: 0;
@@ -134,13 +153,14 @@ export default {
     }
 
     #four {
-        z-index: none;
+        z-index: 3;
     }
 
     .title3 {
         background-color: #04132D;
         width: 30vw;
         height: 100%;
+        position: relative;
     }
 
     .button {
@@ -177,6 +197,7 @@ export default {
         overflow-x: hidden;
         height: 100vh;
         width: 100%;
+        position: relative;
     }
 
     .sec {
@@ -411,12 +432,38 @@ export default {
 
     #four {
         position: fixed;
-        bottom: 100px;
+        bottom: 80px;
         right: 50px;
+        transform: scale(1.8);
+    }
+
+    .QR {
+        position: absolute;
+        right: 120px;
+        bottom: 90px;
+        width: 200px;
+        background-color: transparent;
+    }
+
+    .QR img {
+        display: block;
+        width: 100%;
+        border: 10px;
+        border-radius: 20px;
     }
 }
 
 @media (max-width: 1024px) {
+
+    .fade-enter-active,
+    .fade-leave-active {
+        transition: opacity 0.5s;
+    }
+
+    .fade-enter-from,
+    .fade-leave-to {
+        opacity: 0;
+    }
 
     .homenavbig {
         display: none;
@@ -480,7 +527,7 @@ export default {
         font-size: 25px;
         font-weight: bolder;
         color: white;
-        z-index: 100;
+        z-index: 10;
         position: fixed;
 
     }
@@ -514,7 +561,38 @@ export default {
         bottom: 50px;
         right: 20px;
         z-index: 10;
+        transform: scale(1.6);
     }
 
+    .QR {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 240px;
+        height: 240px;
+        margin-top: -120px;
+        margin-left: -120px;
+        background-color: transparent;
+        z-index: 10;
+    }
+
+    .QR img {
+        display: block;
+        width: 100%;
+        border: 10px;
+        border-radius: 20px;
+    }
+
+    .turnGray:before {
+        transition: 0.5s;
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        top: 0;
+        background-color: rgba(0, 0, 0, 0.3);
+        z-index: 10;
+    }
 }
 </style>
