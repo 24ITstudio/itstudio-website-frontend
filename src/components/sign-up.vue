@@ -806,14 +806,17 @@ onUnmounted(() => {
         top: 0;
         left: 0;
         display: flex;
-        justify-content: center;
-        flex-wrap: wrap;
+        flex-direction: column;
+        justify-content: start;
+        align-self: center;
+        flex-wrap: nowrap;
     }
 
     .putIn .head,
     .succeed .head,
     .isOver .head {
         width: 84.79%;
+        margin: 0 auto;
         height: 50px;
         margin-top: 40px;
         display: flex;
@@ -823,7 +826,7 @@ onUnmounted(() => {
     .putIn .head .text {
         color: var(--2, #04132D);
         font-family: "Microsoft JhengHei UI";
-        font-size: 30px;
+        font-size: 40px;
         font-style: normal;
         font-weight: 700;
         line-height: 55px;
@@ -834,7 +837,7 @@ onUnmounted(() => {
     .isOver .head .text {
         color: var(--2, #04132D);
         font-family: "Microsoft JhengHei UI";
-        font-size: 16px;
+        font-size: 40px;
         font-style: normal;
         font-weight: 700;
         line-height: 55px;
@@ -844,7 +847,8 @@ onUnmounted(() => {
 
     .putIn form {
         width: 84.79%;
-        height: 800px;
+        margin: 0 auto;
+        height: 900px;
         display: flex;
         justify-content: space-between;
         flex-wrap: wrap;
@@ -879,7 +883,7 @@ onUnmounted(() => {
         line-height: 45px;
         color: var(--2, #04132D);
         font-family: "Microsoft JhengHei UI";
-        font-size: 14px;
+        font-size: 22px;
         font-style: normal;
         font-weight: 700;
     }
@@ -1008,9 +1012,12 @@ onUnmounted(() => {
 
     .mainText {
         position: absolute;
-        height: 10vh;
-        top: 45%;
-        left: 35%;
+        height: 100px;
+        width: 200px;
+        margin-left: -100px;
+        margin-top: -50px;
+        top: 50%;
+        left: 50%;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -1020,7 +1027,7 @@ onUnmounted(() => {
     .mainText div {
         color: var(--2, #04132D);
         font-family: "Microsoft JhengHei UI";
-        font-size: 24px;
+        font-size: 40px;
         font-style: normal;
         font-weight: 700;
         width: 100%;

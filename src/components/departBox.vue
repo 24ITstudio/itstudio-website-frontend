@@ -202,7 +202,7 @@ export default {
     }
 
     .expanded {
-        height: 400px;
+        height: 500px;
     }
 
     .head {
@@ -292,7 +292,7 @@ export default {
         border-radius: 5px 5px 60px 5px;
         font-family: "Microsoft New Tai Lue";
         text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.9);
-        font-size: 12px;
+        font-size: 16px;
         font-style: normal;
         font-weight: 700;
         line-height: normal;

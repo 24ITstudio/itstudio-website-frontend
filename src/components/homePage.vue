@@ -457,9 +457,10 @@ function closeQR() {
     }
 
     .QR div {
-        color: #4c8dae;
-        /* 这边没想好用啥颜色，先用群青吧 */
-        font-size: 16px;
+        background: linear-gradient(to right, #58b4f4 0%, #93b5f6 50%, #c7b2f7 100%);
+        background-clip: text;
+        color: transparent;
+        font-size: 18px;
         line-height: 16px;
         padding-bottom: 16px;
     }
@@ -603,9 +604,11 @@ function closeQR() {
     }
 
     .QR div {
-        color: #4c8dae;
+        background: linear-gradient(to right, #58b4f4 0%, #93b5f6 50%, #c7b2f7 100%);
+        background-clip: text;
+        color: transparent;
         /* 这边没想好用啥颜色，先用群青吧 */
-        font-size: 16px;
+        font-size: 18px;
         line-height: 16px;
         padding-bottom: 16px;
     }
