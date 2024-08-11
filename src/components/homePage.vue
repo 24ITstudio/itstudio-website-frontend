@@ -130,7 +130,7 @@ function closeQR() {
     .titleimg .title {
         width: 1540px;
         margin-left: 15vw;
-        padding-top: 250px;
+        padding-top: 25vh;
         line-height: 20px;
         font-size: 30px;
         font-weight: bolder;
@@ -147,7 +147,7 @@ function closeQR() {
         color: white;
         position: fixed;
         margin-left: 240px;
-        margin-top: 650px;
+        margin-top: 74vh;
     }
 
     .title2-1 {
@@ -607,7 +607,6 @@ function closeQR() {
         background: linear-gradient(to right, #58b4f4 0%, #93b5f6 50%, #c7b2f7 100%);
         background-clip: text;
         color: transparent;
-        /* 这边没想好用啥颜色，先用群青吧 */
         font-size: 18px;
         line-height: 16px;
         padding-bottom: 16px;
