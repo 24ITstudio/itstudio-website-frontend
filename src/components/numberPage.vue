@@ -1111,7 +1111,6 @@ export default {
   /* overflow: hidden; */
   background-image: url(../assets/bg.webp);
   background-size: 100%;
-  padding-top: 70px;
 }
 
 ::-webkit-scrollbar {
@@ -1122,6 +1121,7 @@ export default {
   position: absolute;
   width: 31%;
   height: 100%;
+  padding-top: 100px;
   background-color: #04132d;
   /* padding-top: 5%; */
 }
@@ -1153,6 +1153,7 @@ export default {
 }
 
 .members-list {
+  padding-top: 100px;
   position: relative;
   /* padding-top: 4.8%; */
   margin-left: 31%;

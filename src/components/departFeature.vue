@@ -110,7 +110,7 @@ export default {
         border: 1px;
         height: 170vh;
         width: 100vw;
-        padding-top: 70px;
+        padding-top: 100px;
     }
 
     .main:after {

@@ -543,6 +543,7 @@ export default {
         height: auto;
         z-index: -1;
         background-color: aliceblue;
+        padding-top: 50px;
     }
 
     .title {
@@ -553,7 +554,7 @@ export default {
         font-weight: 700;
         line-height: normal;
         position: absolute;
-        top: 90px;
+        top: 110px;
         left: 40px;
         /* transform: translate(70vw, 5vw); */
         z-index: 10;
@@ -568,7 +569,7 @@ export default {
         font-weight: 700;
         line-height: normal;
         position: absolute;
-        top: 180px;
+        top: 200px;
         left: 40px;
         z-index: 10;
         /* transform: translate(60vw, 24vh); */

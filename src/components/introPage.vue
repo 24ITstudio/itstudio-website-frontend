@@ -128,7 +128,7 @@ export default {
 
     .content {
         height: 95%;
-        margin-top: 10%;
+        margin-top: 100px;
         display: flex;
         flex-direction: column;
         width: 100%;
@@ -421,7 +421,7 @@ export default {
 
     .content {
         height: 95%;
-        margin-top: 2%;
+        margin-top: 70px;
         display: flex;
         flex-direction: row;
         width: 100%;
