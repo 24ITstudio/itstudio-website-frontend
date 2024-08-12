@@ -14,7 +14,7 @@
                                 </div>
                             </div>
                             <div class="board_content">
-                                <textarea ref="input" placeholder="有什么想说的，就在这里留下吧~" v-model="content1" rows="9"
+                                <textarea ref="input" placeholder="有什么想说的，就在这里留下吧" v-model="content1" rows="9"
                                     class="textarea_1" maxlength="100">
                             </textarea>
                             </div>
@@ -36,8 +36,8 @@
                                 </div>
                             </div>
                             <div class="board_content_1">
-                                <textarea ref="input" v-model="content2" placeholder="有什么想说的，就在这里留下吧~" maxlength="100"
-                                    rows="5">
+                                <textarea ref="input" v-model="content2" placeholder="有什么想说的，就在这里留下吧" maxlength="100"
+                                    rows="5" class="textarea_2">
                             </textarea>
                             </div>
                             <div class="submitButton">
@@ -70,12 +70,8 @@
                     <LoadingSpinner v-if="isLoading" />
                     <div class="right_board slide-in-blurred-bottom" v-if="!isLoading" :key="submitKey">
                         <div class="inner_board" v-for="item in total_Messages" :key="item.id">
-                            <!-- <div @click="showContent('content2'); clearPlaceholder1" class="author_inner"> -->
                             <div @click="() => { showContent('content2');  getParentID(item.id); }"
                                 class="author_inner pulsate-bck">
-                                <!-- <div class="author_head_fixed">
-                                <img src="../assets/author_head.webp" />
-                            </div> -->
                                 <div class="author_right">
                                     <div class="author_name">
                                         留言
@@ -92,9 +88,6 @@
                             <div class="traveller_total">
                                 <!-- // eslint-disable-next-line vue/require-v-for-key -->
                                 <div class="traveller_inner" v-for="child in item.children" :key="child">
-                                    <!-- <div class="traveller_head_fixed">
-                                    <img src="../assets/traveller_head.webp" />
-                                </div> -->
                                     <div class="traveller_right">
                                         <div class="traveller_name_fixed">
                                             <div class="traveller_name_fixed_1">回复</div>
@@ -216,6 +209,8 @@ export default {
                 return;
             }
 
+            
+
             var axios = require('axios');
             var data = JSON.stringify({
                 "content": this.content1,
@@ -239,7 +234,7 @@ export default {
                             title: '发布成功',
                             message: '继续逛逛吧',
                             type: 'success',
-                            duration: 1500,
+                            duration: 1000,
                             offset: 100,
                         });
                     } else {
@@ -253,9 +248,9 @@ export default {
                             console.error('信息获取失败: 资源未找到', error.response.status);
                             ElNotification({
                                 title: '出错了',
-                                message: '请联系前端小白or后端大佬…',
+                                message: '如果可以的话，反馈一下下',
                                 type: 'warning',
-                                duration: 3000,
+                                duration: 1000,
                                 offset: 100,
                             });
                         } else {
@@ -321,12 +316,13 @@ export default {
                             title: '回复成功！',
                             message: '继续逛逛吧~',
                             type: 'success',
-                            duration: 1500,
+                            duration: 1000,
                             offset: 100,
                         });
                     } else {
                         console.log('状态码变为 ', response.status);
                     }
+
                 })
                 .catch(error => {
                     if (error.response) {
@@ -335,13 +331,14 @@ export default {
                                 title: '出错了',
                                 message: '请联系前端小白or后端大佬…',
                                 type: 'warning',
-                                duration: 3000,
+                                duration: 1000,
                                 offset: 100,
                             });
                             console.error('parentID不存在', error.response.data);
                         } else {
                             console.error('信息获取失败', error.response.status);
                         }
+                        
                     } else if (error.request) {
                         console.error('无响应', error.request);
                     } else {
@@ -394,7 +391,6 @@ export default {
     }
 
     .back_left {
-        /* background-color: #5ed210; */
         width: 90%;
         height: 8%;
         display: flex;
@@ -404,17 +400,14 @@ export default {
 
     .left_board {
         background-color: #d9d9d9;
-        /* width: 80%; */
         height: 100%;
         width: 100%;
         display: flex;
         flex-direction: row;
         border-radius: 15px;
-        /* position: fixed; */
     }
 
     .board_head {
-        /* background-color: #b01515; */
         display: flex;
         /* flex-direction: row; */
         align-items: center;
@@ -431,12 +424,13 @@ export default {
     .board_content {
         display: flex;
         margin-left: 3%;
-        /* height: 100%; */
         width: 74%;
         /* border: 1px, solid, #2253e4; */
     }
 
     .board_content .textarea_1 {
+        margin-top: 2%;
+        margin-bottom: 2%;
         border: none;
         resize: none;
         outline: none;
@@ -444,6 +438,14 @@ export default {
         width: 100%;
         /* border: 1px, solid, #16c461; */
         color: black;
+        font-size: 4.1vw;
+        
+    }
+
+    .textarea_2{
+        font-size: 4.1vw;
+        margin-top: 2%;
+        margin-bottom: 2%;
     }
 
     .submitC {
@@ -456,7 +458,6 @@ export default {
 
     .submitC_1 .inner {
         height: 100%;
-        /* width: 100%; */
         border: none;
         background-color: transparent;
         /* border: 1px, solid, #b016c4; */
@@ -475,7 +476,6 @@ export default {
     .board_content_1 {
         display: flex;
         margin-left: 3%;
-        /* height: 100%; */
         width: 74%;
         /* border: 1px, solid, #2253e4; */
     }
@@ -494,15 +494,12 @@ export default {
         /* border: 1px solid rebeccapurple; */
         display: flex;
         flex-direction: row;
-        /* height: 10%; */
     }
 
     .submitButton {
         /* border: 1px solid rebeccapurple; */
         display: flex;
         flex-direction: row;
-        /* margin-top: 4%; */
-        /* height: 10%; */
     }
 
     .submitA {
@@ -519,7 +516,6 @@ export default {
 
     .submitA_1 .inner {
         height: 100%;
-        /* width: 100%; */
         border: none;
         background-color: transparent;
         /* border: 1px, solid, #b016c4; */
@@ -542,7 +538,6 @@ export default {
 
     .submitB_1 .inner {
         height: 100%;
-        /* width: 100%; */
         border: none;
         background-color: transparent;
         /* border: 1px, solid, #b016c4; */
@@ -567,7 +562,7 @@ export default {
     .goBack {
         /* background-color: violet; */
         margin-left: 2%;
-        margin-top: 2%;
+        margin-top: 6%;
     }
 
     .backImg {
@@ -601,7 +596,6 @@ export default {
     .inner_board {
         background-color: #ffffff;
         width: 80%;
-        /* height: 40%; */
         height: auto;
         border-radius: 40px;
         margin-top: 5%;
@@ -615,7 +609,6 @@ export default {
         /* border: 1px, solid, rgb(40, 50, 26); */
         margin-top: 3%;
         margin-left: 9%;
-        /* height: 34%; */
         width: 78%;
         display: flex;
         flex-direction: row;
@@ -624,7 +617,6 @@ export default {
 
     .author_inner:active {
         animation: pulsate-bck 0.4s ease;
-        /* animation: slide-in-blurred-left 0.4s ease; */
     }
 
     .author_right {
@@ -639,7 +631,6 @@ export default {
         margin-top: 1px;
         font-weight: 700;
         font-family: 'Microsoft New Tai Lue';
-        /* height: 20%; */
     }
 
     .author_time {
@@ -649,7 +640,6 @@ export default {
 
     .author_content {
         /* border: 1px, solid, black; */
-        /* height: 70%; */
         margin-top: 2%;
         font-size: 1.8vh;
         font-family: 'Microsoft New Tai Lue';
@@ -662,7 +652,6 @@ export default {
 
     .traveller_total {
         /* border: 1px, solid, greenyellow; */
-        /* height: 80%; */
         max-height: 20vh;
         width: 90%;
         margin-left: 4%;
@@ -673,7 +662,6 @@ export default {
 
     .traveller_inner {
         /* border: 1px, solid, blue; */
-        /* height: 45%; */
         width: 85%;
         margin-top: 2%;
         margin-left: 12%;
@@ -716,15 +704,16 @@ export default {
     .traveller_content {
         /* border: 1px, solid, black; */
         height: 80%;
-        /* width: 100%; */
         margin-top: 3%;
         font-size: 1.7vh;
-        overflow: auto;
+        overflow-y: auto;
+        overflow-x: hidden;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
     }
 
 
     /* 动画部分 */
-    /* 留言板从左侧飞出（同报名） */
     .slide-in-blurred-left {
         -webkit-animation: slide-in-blurred-left 0.6s cubic-bezier(0.230, 1.000, 0.320, 1.000) both;
         animation: slide-in-blurred-left 0.6s cubic-bezier(0.230, 1.000, 0.320, 1.000) both;
@@ -774,7 +763,6 @@ export default {
         }
     }
 
-    /* 点击效果 */
     /* .pulsate-bck {
     -webkit-animation: pulsate-bck 0.5s ease-in-out both;
     animation: pulsate-bck 0.5s ease-in-out both;
@@ -1043,18 +1031,15 @@ export default {
     }
 
     .text_1 {
-        /* margin-left: 10px; */
         font-size: 4vh;
         font-family: "Microsoft New Tai Lue-Bold", Helvetica;
         font-weight: bold;
-        /* color: #d9d9d9; */
     }
 
     .board_content {
         display: flex;
         justify-content: center;
         align-items: center;
-        /* height: 40%; */
         margin-left: 10%;
         margin-right: 10%;
         height: 73%;
@@ -1071,7 +1056,6 @@ export default {
         margin-right: 10%;
         height: 44%;
         margin-top: 6%;
-        /* margin-top: 2%; */
     }
 
     .board_content_1 textarea {
@@ -1155,9 +1139,7 @@ export default {
         background-color: transparent;
         color: #ffffff;
         height: 100%;
-        /* width: 100%; */
         border: none;
-        /* margin-left: 18%; */
         font-size: 1.7vh;
         font-weight: bold;
         font-family: "Microsoft New Tai Lue-Bold", Helvetica;
@@ -1172,9 +1154,7 @@ export default {
         background-color: transparent;
         color: #ffffff;
         height: 100%;
-        /* width: 100%; */
         border: none;
-        /* margin-left: 18%; */
         font-size: 1.7vh;
         font-weight: bold;
         font-family: "Microsoft New Tai Lue-Bold", Helvetica;
@@ -1204,7 +1184,6 @@ export default {
         height: 100%;
         width: 100%;
         border: none;
-        /* margin-left: 18%; */
         font-size: 1.7vh;
         font-weight: bold;
         font-family: "Microsoft New Tai Lue-Bold", Helvetica;
@@ -1294,18 +1273,15 @@ export default {
 
     .author_inner:active {
         animation: pulsate-bck 0.4s ease;
-        /* animation: slide-in-blurred-left 0.4s ease; */
     }
 
     .author_head_fixed {
         /* border: 1px, solid, black; */
         /* border-image: url('../assets/author_head.webp'); */
-        /* height: 20%; */
         width: 17%;
     }
 
     .author_head_fixed img {
-        /* height: 100%; */
         width: 100%;
 
     }
@@ -1351,13 +1327,11 @@ export default {
 
     .traveller_inner {
         /* border: 1px, solid, blue; */
-        /* height: 45%; */
         width: 80%;
         margin-top: 2%;
         margin-left: 20%;
         display: flex;
         flex-direction: column;
-        /* overflow: auto; */
     }
 
     .traveller_right {
@@ -1365,7 +1339,6 @@ export default {
         flex-direction: column;
         width: 87%;
         margin-left: 4%;
-        /* overflow: auto; */
     }
 
     .traveller_name_fixed_1 {
@@ -1388,21 +1361,20 @@ export default {
 
     .traveller_content {
         /* border: 1px, solid, black; */
-        /* height: 80%; */
         height: auto;
-        /* width: 100%; */
         margin-top: 2%;
         font-size: 1.7vh;
-        /* overflow: auto; */
+        overflow-y: auto;
+        overflow-x: hidden;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
     }
 
     /* 动画部分 */
-    /* 留言板左侧飞出 */
-
-        .slide-in-left {
-            -webkit-animation: slide-in-left 0.6s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
-            animation: slide-in-left 0.6s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
-        }
+    .slide-in-left {
+        -webkit-animation: slide-in-left 0.6s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+        animation: slide-in-left 0.6s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+    }
 
     @-webkit-keyframes slide-in-left {
         0% {
@@ -1485,7 +1457,7 @@ export default {
     /* .pulsate-bck {
     -webkit-animation: pulsate-bck 0.5s ease-in-out both;
     animation: pulsate-bck 0.5s ease-in-out both;
-} */
+    } */
 
     @-webkit-keyframes pulsate-bck {
         0% {
