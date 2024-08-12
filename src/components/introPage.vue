@@ -24,14 +24,6 @@
                                 <img :src="image" alt="Image Slide" />
                             </div>
                         </div>
-                        <!-- <div class="swiper_button">
-                        <div class="prev">
-                            <img src="@/assets/left.webp" alt="Previous" />
-                        </div>
-                        <div class="next">
-                            <img src="@/assets/right.webp" alt="Next" />
-                        </div>
-                    </div> -->
                     </div>
                     <div class="swiper_button">
                         <div>
@@ -102,6 +94,7 @@ export default {
                 delay: 2000, // 单位毫秒
             },
             speed: 500, // 单位毫秒
+            spaceBetween: 0,
         });
     },
 };
@@ -111,8 +104,9 @@ export default {
 @media screen and (orientation: portrait) {
     .back {
         width: 100%;
+        height: 100%;
         /* height: 100vh; */
-        background-image: url('../assets/bg.webp');
+        background: url('../assets/bg.webp') no-repeat fixed;
         background-size: 100% 100%;
         display: flex;
         flex-direction: column;
@@ -128,24 +122,17 @@ export default {
 
     .content {
         height: 95%;
-        margin-top: 100px;
+        margin-top: 20%;
         display: flex;
         flex-direction: column;
         width: 100%;
     }
 
-    .head {
-        color: white;
-        position: fixed;
-        z-index: 1000;
-    }
-
     .back_left {
+        /* border: 4px, solid, rgb(195, 179, 40); */
         width: 95%;
         margin-left: 6%;
-        margin-top: 12%;
-        display: flex;
-        flex-direction: row;
+        margin-top: 10%;
     }
 
     .left_head {
@@ -154,38 +141,14 @@ export default {
         font-size: 10vw;
     }
 
-    .intro_hidden {
-        color: aliceblue;
-        font-weight: 600;
-        font-size: 4vw;
-        height: 45%;
-        margin-top: 7%;
-        margin-left: 2%;
-        cursor: pointer;
-    }
-
-    .intro_hidden:active {
-        animation: pulsate-bck 1s ease;
-    }
-
     .left_content {
         display: none;
     }
 
-
-
-    .left_head.blur {
-        filter: blur(5px);
-    }
-
-    .intro_hidden.blur {
-        filter: blur(5px);
-    }
-
     .back_right {
-        /* border: 1px, solid, rgb(195, 179, 40); */
+        /* border: 4px, solid, rgb(195, 179, 40); */
         width: 100%;
-        /* height: 43%; */
+        height: 43%;
         margin-top: 2%;
         display: flex;
         flex-direction: column;
@@ -195,15 +158,31 @@ export default {
     .swiper-container {
         /* border: 1px, solid, rgb(122, 33, 194); */
         width: 89%;
-        /* height: 10%; */
+        border-radius: 10px;
+        height: 29vh;
+        overflow: hidden;
+        margin-top: 2%;
+    }
+
+    .swiper-wrapper{
+        /* border: 1px, solid, rgb(122, 33, 194); */
+        width: 100%;
+        height: 100%;
+        display: flex;
+    }
+
+    .swiper-slide{
+        width: 100%;
+        height: 100%;
         overflow: hidden;
     }
 
     .swiper-slide img {
         /* border: 1px, solid, rgb(95, 209, 33); */
-        border-radius: 10px;
         width: 100%;
-        /* height: 10%; */
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
     }
 
     .swiper_button {
@@ -213,42 +192,17 @@ export default {
     .mobile_intro {
         /* border: 1px, solid, rgb(194, 33, 33); */
         width: 90%;
-        height: 50vh;
+        height: 40%;
         margin-left: 5%;
+        margin-top: 4%;
+        overflow: auto;
     }
 
-    /* .mobile_intro_inner {
-    margin-left: -5%;
-    padding: 20px;
-    border-radius: 10px;
-    position: relative;
-    z-index: 10;
-    height: 70%;
-    overflow: auto;
-} */
-
-    /* .mobile_intro_inner::-webkit-scrollbar {
-    width: 0;
-    height: 0;
-} */
-
-    /* .close {
-    color: white;
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    font-size: 3.2vw;
-    cursor: pointer;
-} */
-
-    /* .close:active {
-    animation: pulsate-bck 1s ease;
-} */
-
     .mobile_content {
-        font-size: 3vw;
+        font-size: 3.9vw;
         color: white;
         margin-top: 4%;
+        margin-bottom: 5%;
     }
 
     .scale-in-bl_0 {
@@ -403,7 +357,6 @@ export default {
 
 @media screen and (orientation: landscape) {
     .back {
-        /* background-color: beige; */
         width: 100%;
         height: 100vh;
         background-image: url('../assets/bg.webp');
@@ -434,7 +387,7 @@ export default {
     .back_left {
         width: 31%;
         margin-left: 13%;
-        margin-top: 10%;
+        margin-top:6%;
     }
 
     .left_head {
@@ -444,12 +397,7 @@ export default {
         margin-left: 1%;
     }
 
-    .intro_hidden {
-        display: none;
-    }
-
     .left_content {
-        /* background-color: greenyellow; */
         margin-top: 7%;
         height: 53%;
         color: white;
@@ -458,7 +406,6 @@ export default {
         font-family: 'Microsoft New Tai Lue';
         overflow: auto;
         position: relative;
-        /* animation: scroll 10s linear infinite; */
     }
 
     .left_content::-webkit-scrollbar {
@@ -476,26 +423,31 @@ export default {
     }
 
     .swiper-container {
-        /* background-color: greenyellow; */
         width: 89%;
-        height: 65%;
-        margin-top: 23%;
+        height: 55%;
+        margin-top: 28%;
         margin-left: -20%;
         overflow: hidden;
+        border-radius: 20px;
+    }
+
+    .swiper-slide{
+        height: 100%;
+        width: 100%;
     }
 
     .swiper-slide img {
         height: 100%;
+        width: 100%;
+        object-fit: cover;
+        object-position: center;
     }
 
     .swiper_button {
-        /* background-color: greenyellow; */
         display: flex;
         flex-direction: row;
-        /* height: 5%; */
         margin-top: 4%;
         margin-left: 12%;
-        /* width: 20%; */
 
     }
 
@@ -510,7 +462,6 @@ export default {
 
     .next1 {
         margin-left: 4%;
-        /* display: none; */
         /* background-image: url('../assets/right.webp'); */
     }
 
@@ -645,7 +596,7 @@ export default {
     /* .pulsate-bck {
     -webkit-animation: pulsate-bck 0.5s ease-in-out both;
     animation: pulsate-bck 0.5s ease-in-out both;
-} */
+    } */
 
     @-webkit-keyframes pulsate-bck {
         0% {
