@@ -31,7 +31,7 @@
                 <div class="stuMajor fill">
                     <span class="required-star">*</span>
                     <img src="../assets/Identification Documents.webp" alt="" style="height: 20px;">
-                    <input type="text" v-model="stuMajor" placeholder="年级专业" required>
+                    <input type="text" v-model="stuMajor" placeholder="年级专业(例如：大一电子信息)" required>
                 </div>
                 <div class="tele fill">
                     <span class="required-star">*</span>
@@ -203,7 +203,7 @@ async function submitForm() {
             code.value = '';
             reason.value = '';
         }
-        if (!isName.value) {
+        else if (!isName.value) {
             ElNotification.warning({
                 title: '姓名格式错误',
                 message: '请输入中文/英文名',
@@ -215,7 +215,7 @@ async function submitForm() {
             }, 800)
             return;
         }
-        if (!isPhone.value) {
+        else if (!isPhone.value) {
             ElNotification.warning({
                 title: '手机电话格式错误',
                 message: '例：138XXXXXX12',
@@ -227,7 +227,7 @@ async function submitForm() {
             }, 800)
             return;
         }
-        if (!isEmail.value) {
+        else if (!isEmail.value) {
             ElNotification.warning({
                 title: '邮箱格式错误',
                 message: '请检查输入是否正确',
@@ -428,6 +428,7 @@ onUnmounted(() => {
         font-size: 18px;
         font-style: normal;
         font-weight: 700;
+        width: 95%;
     }
 
     .putIn form .fill input::placeholder {

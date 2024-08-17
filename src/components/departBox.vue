@@ -197,7 +197,7 @@ export default {
         bottom: 0;
         top: 0;
         border-radius: 80px;
-        background-color: rgba(0, 0, 0, 0.76);
+        background-color: rgba(0, 0, 0, 0.56);
         z-index: 2;
     }
 
