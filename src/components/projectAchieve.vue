@@ -1,6 +1,7 @@
 <template>
     <navHead :locate="834"></navHead>
     <div class="Main" @wheel="handleWheel">
+        <div class="mask"></div>
         <div class="scroll-container" ref="scrollContainer" style="overflow-y: scroll;">
             <p v-for="(text, index) in texts" :key="index" :class="{ 'active-text': currentIndex === index }">
                 {{ text }}
@@ -101,6 +102,23 @@ onBeforeUnmount(() => {
     /* background: transparent; */
     background-image: url(../assets/achbg.webp);
     background-size: 100% 100%;
+}
+
+.mask {
+    position: absolute;
+    right: 0px;
+    padding-right: 100px;
+    /* transform: translateY(-20px); */
+    width: 30vh;
+    height: 100vh;
+    box-sizing: border-box;
+    /* overflow: hidden; */
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    justify-content: center;
+    z-index: 1000;
+    background: transparent;
 }
 
 .scroll-container {
