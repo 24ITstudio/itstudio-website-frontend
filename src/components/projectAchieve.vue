@@ -1,9 +1,17 @@
 <template>
     <navHead :locate="834"></navHead>
     <div class="Main" @wheel="handleWheel">
-        <div class="mask"></div>
+        <div class="mask">
+            <div class="scroll-container" ref="scrollContainer" style="overflow-y: scroll;">
+                <p v-for="(text, index) in texts" :key="index" :class="{ 'active-text': currentIndex === index }"
+                    @click="setCurrentIndex(index)">
+                    {{ text }}
+                </p>
+            </div>
+        </div>
         <div class="scroll-container" ref="scrollContainer" style="overflow-y: scroll;">
-            <p v-for="(text, index) in texts" :key="index" :class="{ 'active-text': currentIndex === index }">
+            <p v-for="(text, index) in texts" :key="index" :class="{ 'active-text': currentIndex === index }"
+                @click="setCurrentIndex(index)">
                 {{ text }}
             </p>
         </div>
@@ -70,6 +78,10 @@ const handleWheel = (event) => {
     scrollContainer.value.scrollTop = scrollToPosition;
 };
 
+function setCurrentIndex(index) {
+    this.currentIndex = index;
+}
+
 onMounted(() => {
     if (scrollContainer.value) {
         scrollContainer.value.addEventListener('wheel', handleWheel);
@@ -107,7 +119,7 @@ onBeforeUnmount(() => {
 .mask {
     position: absolute;
     right: 0px;
-    padding-right: 100px;
+    /* padding-right: 100px; */
     /* transform: translateY(-20px); */
     width: 30vh;
     height: 100vh;
@@ -117,8 +129,14 @@ onBeforeUnmount(() => {
     flex-direction: column;
     align-items: end;
     justify-content: center;
-    z-index: 1000;
+    z-index: 100;
     background: transparent;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    cursor: pointer;
+    opacity: 0;
 }
 
 .scroll-container {
@@ -134,6 +152,10 @@ onBeforeUnmount(() => {
     flex-direction: column;
     align-items: end;
     justify-content: center;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 p {
