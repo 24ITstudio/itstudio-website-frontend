@@ -5,8 +5,8 @@
             <Expand />
         </el-icon>
         <div class="main" v-show="show">
-            <router-link to="/intro">基本概况</router-link>
-            <router-link to="/feature">部门特色</router-link>
+            <router-link to="/intro">关于爱特</router-link>
+            <router-link :to="'/feature?id=0'">部门特色</router-link>
             <router-link to="/number">成员组成</router-link>
             <router-link to="/achieve">项目成果</router-link>
             <div class="navanim home" :style="{ left: locate + 'px' }"></div>

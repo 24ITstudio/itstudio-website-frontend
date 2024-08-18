@@ -1,13 +1,13 @@
 <template>
     <navHead :locate="834"></navHead>
-    <div class="Main">
-        <div class="scroll-container" ref="scrollContainer" @wheel="handleWheel" style="overflow-y: scroll;">
+    <div class="Main" @wheel="handleWheel">
+        <div class="scroll-container" ref="scrollContainer" style="overflow-y: scroll;">
             <p v-for="(text, index) in texts" :key="index" :class="{ 'active-text': currentIndex === index }">
                 {{ text }}
             </p>
         </div>
         <div class="achmain">
-            <div class="slider-container" @wheel="handleWheel">
+            <div class="slider-container">
                 <div class="slide" :class="{ active: currentIndex === 0 }">
                     板块一
                 </div>

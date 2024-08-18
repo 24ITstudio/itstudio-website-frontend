@@ -28,7 +28,22 @@
                 <swiper-slide>
                     <img src="../assets/b5.webp" alt="" class="icon" />
                 </swiper-slide>
-                <div class="swiper-pagination"></div>
+                <!-- <swiper-slide>
+                    <img src="../assets/b1.webp" alt="" class="icon" />
+                </swiper-slide>
+                <swiper-slide>
+                    <img src="../assets/b2.webp" alt="" class="icon" />
+                </swiper-slide>
+                <swiper-slide>
+                    <img src="../assets/b3.webp" alt="" class="icon" />
+                </swiper-slide>
+                <swiper-slide>
+                    <img src="../assets/b4.webp" alt="" class="icon" />
+                </swiper-slide>
+                <swiper-slide>
+                    <img src="../assets/b5.webp" alt="" class="icon" />
+                </swiper-slide> -->
+                <!-- <div class="swiper-pagination"></div> -->
             </swiper>
         </div>
         <div class="feature mobile">
@@ -58,14 +73,33 @@
                 <swiper-slide>
                     <img src="../assets/s5.webp" alt="" class="icon" />
                 </swiper-slide>
-                <div class="swiper-pagination"></div>
+                <!-- <swiper-slide>
+                    <img src="../assets/s1.webp" alt="" class="icon" />
+                </swiper-slide>
+                <swiper-slide>
+                    <img src="../assets/s2.webp" alt="" class="icon" />
+                </swiper-slide>
+                <swiper-slide>
+                    <img src="../assets/s3.webp" alt="" class="icon" />
+                </swiper-slide>
+                <swiper-slide>
+                    <img src="../assets/s4.webp" alt="" class="icon" />
+                </swiper-slide>
+                <swiper-slide>
+                    <img src="../assets/s5.webp" alt="" class="icon" />
+                </swiper-slide> -->
+                <!-- <div class="swiper-pagination"></div> -->
             </swiper>
         </div>
     </div>
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
+import { useRoute } from 'vue-router';
+
+const route = useRoute()
+
 import navHead from './nav-head.vue';
 // Import Swiper Vue.js components
 import { Swiper, SwiperSlide } from "swiper/vue";
@@ -76,11 +110,18 @@ import "swiper/css/pagination";
 import "swiper/css/autoplay";
 import "swiper/css/effect-coverflow";
 const modules = [Pagination, Autoplay, EffectCoverflow];
-const onSwiper = (swiper) => {
-    swiper.activeIndex = 1;
-};
 
-const Inid = ref('1');
+const Inid = ref(0);
+
+// onMounted(() => {
+Inid.value = route.query.id
+console.log(Inid.value)
+// })
+
+// const onSwiper = (swiper) => {
+//     swiper.activeIndex = Inid;
+// };
+
 </script>
 
 <style scoped>
@@ -120,11 +161,11 @@ const Inid = ref('1');
     }
 
     .feature .swiper-slide {
-        margin-top: 140px;
-        width: 1200px !important;
+        margin-top: 15vh;
+        width: 70vw !important;
         transform: scale(0.6) !important;
         padding-top: 20px;
-
+        cursor: pointer;
     }
 
     .feature .swiper-slide img {

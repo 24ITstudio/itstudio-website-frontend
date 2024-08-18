@@ -37,8 +37,8 @@
                         </div>
                         <div class="slide-top">
                             <router-link to="/letter">
-                                <svg style="transform: translateY(6px);" xmlns="http://www.w3.org/2000/svg" width="55"
-                                    height="55" viewBox="0 0 62 62" fill="none" id="three">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="55" height="55" viewBox="0 0 62 62"
+                                    fill="none" id="three">
                                     <g clip-path="url(#clip0_15_58)">
                                         <path
                                             d="M56.8333 18.0317V41.3333C56.8333 44.175 54.5083 46.5 51.6666 46.5H15.5L5.16663 56.8333V10.3333C5.16663 7.49167 7.49163 5.16667 10.3333 5.16667H36.425C36.27 5.99333 36.1666 6.87167 36.1666 7.75C36.1666 14.88 41.9533 20.6667 49.0833 20.6667C52.0025 20.6667 54.6633 19.6592 56.8333 18.0317ZM41.3333 7.75C41.3333 12.0383 44.795 15.5 49.0833 15.5C53.3716 15.5 56.8333 12.0383 56.8333 7.75C56.8333 3.46167 53.3716 0 49.0833 0C44.795 0 41.3333 3.46167 41.3333 7.75Z"
@@ -54,7 +54,6 @@
                             </router-link>
                         </div>
                     </div>
-                    <div class="title2 slide-in-blurred-bottom">爱特工作室</div>
                     <div class="title2-1 slide-in-blurred-bottom">爱特<br>工作室</div>
                 </div>
             </div>
@@ -77,11 +76,34 @@
                 <div>不妨加个迎新群看看</div>
             </div>
         </transition>
+        <div class="slogan">
+            <div class="top">
+                <span class="big">爱特工作室</span>
+                <div class="logo"><img src="../assets/logoW.svg" alt=""></div>
+            </div>
+            <div class="next">
+                <div class="Eng"><img src="../assets/IT Studio.svg" alt=""></div>
+                <img src="../assets/follow.webp" alt="" class="follow">
+            </div>
+            <div class="about">
+                <span class="first">
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;爱特工作室成立于2002年,是一个在中国海洋大学信息科学与工程学部领导主持下,以计算机技术人才培养,网络开发为特色的技术性团体。</span>
+                <br><span></span><br><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这么说是不是看不太懂？那就简单说一下，进入这个社团后通过各个部门合作，可以制作出好看的网页，APP和游戏，进来就可以玩哦，大家都很欢迎新朋友的~</span>
+            </div>
+            <div class="linkTo">
+                <button @click="toProg"><img src="../assets/toProg.webp" alt="" class="height:100%"></button>
+                <button @click="toWeb"><img src="../assets/toWEB.webp" alt="" class="height:100%"></button>
+                <button @click="toGame"><img src="../assets/toGame.webp" alt="" class="height:100%"></button>
+                <button @click="toAPP"><img src="../assets/toAPP.webp" alt="" class="height:100%"></button>
+                <button @click="toUI"><img src="../assets/toUI.webp" alt="" class="height:100%"></button>
+            </div>
+        </div>
     </main>
 </template>
 
 <script setup>
 import navHead from './nav-head.vue';
+import router from '@/router/index.js';
 import { ref } from 'vue';
 
 const showElement = ref(false);
@@ -93,6 +115,23 @@ function toggleShow() {
 function closeQR() {
     showQR.value = false;
 }
+
+function navigateToFeature(id) {
+    router.push({
+        path: '/feature',
+        query: {
+            id: Number(id)
+        }
+    });
+}
+
+// 使用  
+const toProg = () => navigateToFeature(0);
+const toWeb = () => navigateToFeature(1);
+const toGame = () => navigateToFeature(2);
+const toAPP = () => navigateToFeature(3);
+const toUI = () => navigateToFeature(4);
+
 </script>
 
 <style scoped>
@@ -128,16 +167,21 @@ function closeQR() {
 
 
     .titleimg .title {
-        width: 1540px;
-        margin-left: 15vw;
-        padding-top: 25vh;
-        line-height: 20px;
-        font-size: 30px;
+        position: absolute;
+        left: 14vw;
+        top: 50%;
+        transform: translate(0, -60%);
+        width: 600px;
+        height: 340px;
+        line-height: 36px;
+        font-size: 36px;
         font-weight: bolder;
         color: white;
         z-index: 100;
         position: fixed;
-
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
     }
 
     .titleimg .title2 {
@@ -414,12 +458,13 @@ function closeQR() {
     }
 
     .teXt {
-        width: 150px;
+        width: 400px;
         height: 55px;
         display: flex;
         justify-content: start;
         align-items: center;
         margin-left: 10px;
+        font-family: "Microsoft New Tai Lue";
     }
 
     .slide-top a {
@@ -432,11 +477,16 @@ function closeQR() {
         margin-top: 30px;
     }
 
+    .slide-top a svg {
+        transform: scale(1.8) translateX(-5px);
+    }
+
     #four {
         position: fixed;
         bottom: 80px;
         right: 50px;
         transform: scale(1.8);
+        display: none;
     }
 
     .QR {
@@ -469,6 +519,107 @@ function closeQR() {
         display: block;
         width: 100%;
         border-radius: 20px;
+    }
+
+    .slogan {
+        width: 66vw;
+        height: 84vh;
+        position: absolute;
+        right: 2vw;
+        top: 50%;
+        transform: translate(0, -45%);
+        background-color: rgba(255, 255, 255, 0.2);
+        border: white 3px solid;
+        border-radius: 20px;
+        backdrop-filter: blur(10px);
+        display: flex;
+        flex-direction: column;
+        justify-content: start;
+    }
+
+    .slogan div {
+        width: 100%;
+        display: flex;
+        justify-content: start;
+        align-items: center;
+        margin: 0 4vh 0 4vh;
+    }
+
+    .slogan .top {
+        margin-top: 2vh;
+    }
+
+    .slogan .top .big {
+        width: 200vh;
+        color: #FFF;
+        font-family: "Microsoft New Tai Lue";
+        font-size: 14vh;
+        font-style: normal;
+        font-weight: 700;
+        line-height: normal;
+    }
+
+    .top .logo img {
+        width: 10vh;
+    }
+
+    .slogan .next {
+        margin-top: 4vh;
+        margin-bottom: 8vh;
+    }
+
+    .slogan .Eng {
+        width: 40vh !important;
+    }
+
+    .Eng img {
+        width: 40vh;
+    }
+
+    .follow {
+        height: 6vh;
+    }
+
+    .slogan .about {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center !important;
+        align-items: center;
+        margin: 0 !important;
+    }
+
+    .about span {
+        width: 90%;
+        color: #FFF;
+        font-family: Quantico;
+        font-size: 2.2vh;
+        font-style: normal;
+        font-weight: 600;
+        line-height: normal;
+    }
+
+    .about .first {
+        font-size: 2.8vh;
+    }
+
+    .slogan .linkTo {
+        margin: 0 auto;
+        margin-top: 12vh;
+        width: 90%;
+        display: flex;
+        flex-direction: row !important;
+        justify-content: space-between !important;
+        align-items: center;
+    }
+
+    .linkTo button {
+        cursor: pointer;
+        border: none;
+        background: transparent;
+    }
+
+    .linkTo button img {
+        height: 9vh;
     }
 }
 
@@ -628,6 +779,10 @@ function closeQR() {
         top: 0;
         background-color: rgba(0, 0, 0, 0.3);
         z-index: 10;
+    }
+
+    .slogan {
+        display: none;
     }
 }
 </style>
