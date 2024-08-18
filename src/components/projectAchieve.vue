@@ -135,8 +135,11 @@ onBeforeUnmount(() => {
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
-    cursor: pointer;
     opacity: 0;
+}
+
+.mask .scroll-container p {
+    cursor: pointer;
 }
 
 .scroll-container {
