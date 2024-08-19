@@ -158,8 +158,21 @@ const texts = ref(['2023', '2022', '2021', '2020', '2019', '2018', '2017', '2016
 const currentIndex = ref(0);
 const scrollContainer = ref(null);
 
+const isMobile = /Mobi|Android|iPhone/i.test(navigator.userAgent);
+
+if (!isMobile) {
+
+    console.log('这是电脑');
+} else {
+    console.log('这不是电脑');
+}
+
 const handleWheel = (event) => {
-    event.preventDefault();
+
+    if (!isMobile) {
+        // 如果不是移动设备，则阻止默认行为  
+        event.preventDefault();
+    }
 
     const delta = event.deltaY;
 
