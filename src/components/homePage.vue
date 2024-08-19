@@ -1,7 +1,7 @@
 <!-- 临时用于router的homePage页面！ -->
 <template>
     <navHead :locate="-4000"></navHead>
-    <main class="main">
+    <main class="main" v-cloak>
         <section :class="['sec', { 'turnGray': showQR }]" @click="closeQR">
             <div class="titleimg">
                 <div class="title3">
@@ -76,19 +76,25 @@
                 <div>不妨加个迎新群看看</div>
             </div>
         </transition>
-        <div class="slogan">
+        <div class="slogan scale-in-center">
             <div class="top">
                 <span class="big">爱特工作室</span>
                 <div class="logo"><img src="../assets/logoW.svg" alt=""></div>
             </div>
             <div class="next">
                 <div class="Eng"><img src="../assets/IT Studio.svg" alt=""></div>
-                <img src="../assets/follow.webp" alt="" class="follow">
+                <a target="_blank"
+                    href="https://qm.qq.com/cgi-bin/qm/qr?k=WbEsjmn_lAw5h-O060uGkSeBnZTsjF6u&jump_from=webapi&authKey=z6mTCvTU40Gh/ituMRQkuX9Y1dcX1OvX/34FZS7BKQQw+xJ2UA+dcjEsozpb7a3J"><img
+                        border="0" src="../assets/follow.webp" alt="24届爱特工作室迎新群" title="24届爱特工作室迎新群" class="follow"></a>
             </div>
             <div class="about">
                 <span class="first">
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;爱特工作室成立于2002年,是一个在中国海洋大学信息科学与工程学部领导主持下,以计算机技术人才培养,网络开发为特色的技术性团体。</span>
-                <br><span></span><br><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这么说是不是看不太懂？那就简单说一下，进入这个社团后通过各个部门合作，可以制作出好看的网页，APP和游戏，进来就可以玩哦，大家都很欢迎新朋友的~</span>
+                <br>
+                <router-link to="/intro"><img src="../assets/toIntro.webp" alt=""></router-link>
+                <span></span>
+                <br>
+                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这么说是不是看不太懂？那就简单说一下，进入这个社团后通过各个部门合作，可以制作出好看的网页，APP和游戏，进来就可以玩哦，大家都很欢迎新朋友的~</span>
             </div>
             <div class="linkTo">
                 <button @click="toProg"><img src="../assets/toProg.webp" alt="" class="height:100%"></button>
@@ -135,6 +141,10 @@ const toUI = () => navigateToFeature(4);
 </script>
 
 <style scoped>
+[v-cloak] {
+    display: none !important;
+}
+
 @media (min-width: 1025px) {
 
     .fade-enter-active,
@@ -586,6 +596,7 @@ const toUI = () => navigateToFeature(4);
         justify-content: center !important;
         align-items: center;
         margin: 0 !important;
+        position: relative;
     }
 
     .about span {
@@ -600,11 +611,22 @@ const toUI = () => navigateToFeature(4);
 
     .about .first {
         font-size: 2.8vh;
+        margin-bottom: 4vh;
+    }
+
+    .about a {
+        height: 4vh;
+        position: absolute;
+        right: 10vh;
+    }
+
+    .about a img {
+        height: 100%;
     }
 
     .slogan .linkTo {
         margin: 0 auto;
-        margin-top: 12vh;
+        margin-top: 8vh;
         width: 90%;
         display: flex;
         flex-direction: row !important;
@@ -620,6 +642,39 @@ const toUI = () => navigateToFeature(4);
 
     .linkTo button img {
         height: 9vh;
+    }
+
+    .scale-in-center {
+        -webkit-animation: scale-in-center 0.7s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+        animation: scale-in-center 0.7s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+    }
+
+    @-webkit-keyframes scale-in-center {
+        0% {
+            -webkit-transform: translate(0, -45%) scale(0);
+            transform: translate(0, -45%) scale(0);
+            opacity: 1;
+        }
+
+        100% {
+            -webkit-transform: translate(0, -45%) scale(1);
+            transform: translate(0, -45%) scale(1);
+            opacity: 1;
+        }
+    }
+
+    @keyframes scale-in-center {
+        0% {
+            -webkit-transform: translate(0, -45%) scale(0);
+            transform: translate(0, -45%) scale(0);
+            opacity: 1;
+        }
+
+        100% {
+            -webkit-transform: translate(0, -45%) scale(1);
+            transform: translate(0, -45%) scale(1);
+            opacity: 1;
+        }
     }
 }
 

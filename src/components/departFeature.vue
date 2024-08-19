@@ -209,7 +209,7 @@ console.log(Inid.value)
 
     .container {
         width: 100vw;
-        height: 100vh;
+        height: auto;
         background-image: url(../assets/bgmh.webp);
     }
 
@@ -239,7 +239,7 @@ console.log(Inid.value)
 
     .feature .swiper-slide {
         margin-top: 100px;
-        width: 350px !important;
+        width: 90vw !important;
         transform: scale(0.5) !important;
         padding-top: 20px;
     }
