@@ -1,4 +1,5 @@
 <template>
+    <!-- head随滚动消失 不固定 -->
     <div class="back">
         <div class="back_up">
             <div class="head">
@@ -6,15 +7,22 @@
             </div>
             <div class="content">
                 <div class="back_left scale-in-bl_0">
-                    <div class="left_head scale-in-bl" :class="{ 'blur': showIntro }">爱特工作室</div>
+                    <div class="left_head scale-in-bl" :class="{ 'blur': showIntro }">关于爱特</div>
                     <div class="left_content scale-in-tl">
-                        &nbsp;&nbsp;&nbsp;&nbsp;爱特工作室是中国海洋大学的校级社团，以开发为主，拥有程序设计、web开发、UI设计、app开发、游戏开发五大部门。欢迎加入爱特工作室！！！<br>
-                        &nbsp;&nbsp;&nbsp;&nbsp;中国海洋大学（Ocean University of China,
-                        OUC）位于山东省青岛市，是中华人民共和国教育部直属的综合性全国重点大学，位列国家“双一流”
-                        “985工程”
-                        “211工程”，入选“2011计划” “111计划”
-                        “强基计划”、卓越工程师教育培养计划、卓越农林人才教育培养计划、国家大学生创新性实验计划、国家建设高水平大学公派研究生项目、新工科研究与实践项目、中国政府奖学金来华留学生接收院校，为中欧精英大学联盟、北极大学、国际南极学院、国际涉海大学·联盟成员，全国首批博士、硕士学位授予单位。学校前身是创办于1924年的私立青岛大学。1930年，在省立山东大学和私立青岛大学基础上成立国立青岛大学。后历经国立山东大学、山东大学时期，1958年山东大学主体迁往济南，以留青的海洋系、水产系、地质系、生物系等为基础，于1959年3月成立山东海洋学院。1960年被国家确定为全国13所重点综合性大学之一。1988年更名为青岛海洋大学。2002年更名为中国海洋大学。
-                        截至2023年12月，学校有崂山、鱼山、浮山、西海岸4个校区，占地5200余亩；设有1个学部、20个学院和1个基础教学中心，开设本科招生专业74个；拥有博士后流动站17个、博士学位授权一级学科17个、博士专业学位授权类别4个、硕士学位授权一级学科34个、硕士专业学位授权类别25个；有教职工4048人，其中专任教师2167人；在校生35400余人，其中本科生17200余人、硕士研究生14500余人、博士研究生3400余人、外国留学生330余人。
+                        # 团队合作&nbsp;&nbsp;&nbsp;&nbsp;# 技术人才&nbsp;&nbsp;&nbsp;&nbsp;#
+                        发掘潜力&nbsp;&nbsp;&nbsp;&nbsp;#酷炫代码<br>
+                        <br>
+                        爱特工作室成立于2002年，是一个在中国海洋大学信息科学与工程学部领导主持下，以计算机技术人才培养，网络开发为特色的技术性团体。<br>
+                        <br>
+                        爱特一直以凝聚和培养计算机人才为己任，发掘技术潜力，感受合作乐趣，让代码高效执行，让大家更进一步。<br>
+                        <br>
+                        用创意打磨精巧设计，用智慧实现炫酷交互；用热情呈现高效代码，以交流触碰灵感火花；以创造激发全新想象，用双手创造改变未来。<br>
+                        <br>
+                        汇聚技术力量，解剖程序内核，研究代码本质，巧解应用难题。以逻辑洞察数据，以细节战胜漏洞。<br>
+                        <br>
+                        OUC
+                        Hackday，是中国海洋大学爱特工作室（ITStudio）举办的Hackday活动。不同于国内各大互联网公司举办的面向全社会的Hackday，OUC
+                        Hackday主要面向群体是全国各大高校在读生，为大学生极客们提供了一个展示自己、相互交流、开阔视野的平台。<br>
                     </div>
                 </div>
                 <div class="back_right" v-if="!showIntro">
@@ -36,13 +44,13 @@
                 </div>
                 <div class="mobile_intro scale-in-center" @click="hideIntro">
                     <div class="mobile_content">
-                        &nbsp;&nbsp;&nbsp;&nbsp;爱特工作室是中国海洋大学的校级社团，以开发为主，拥有程序设计、web开发、UI设计、app开发、游戏开发五大部门。欢迎加入爱特工作室！！！<br>
-                        &nbsp;&nbsp;&nbsp;&nbsp;中国海洋大学（Ocean University of China,
-                        OUC）位于山东省青岛市，是中华人民共和国教育部直属的综合性全国重点大学，位列国家“双一流”
-                        “985工程”
-                        “211工程”，入选“2011计划” “111计划”
-                        “强基计划”、卓越工程师教育培养计划、卓越农林人才教育培养计划、国家大学生创新性实验计划、国家建设高水平大学公派研究生项目、新工科研究与实践项目、中国政府奖学金来华留学生接收院校，为中欧精英大学联盟、北极大学、国际南极学院、国际涉海大学·联盟成员，全国首批博士、硕士学位授予单位。学校前身是创办于1924年的私立青岛大学。1930年，在省立山东大学和私立青岛大学基础上成立国立青岛大学。后历经国立山东大学、山东大学时期，1958年山东大学主体迁往济南，以留青的海洋系、水产系、地质系、生物系等为基础，于1959年3月成立山东海洋学院。1960年被国家确定为全国13所重点综合性大学之一。1988年更名为青岛海洋大学。2002年更名为中国海洋大学。
-                        截至2023年12月，学校有崂山、鱼山、浮山、西海岸4个校区，占地5200余亩；设有1个学部、20个学院和1个基础教学中心，开设本科招生专业74个；拥有博士后流动站17个、博士学位授权一级学科17个、博士专业学位授权类别4个、硕士学位授权一级学科34个、硕士专业学位授权类别25个；有教职工4048人，其中专任教师2167人；在校生35400余人，其中本科生17200余人、硕士研究生14500余人、博士研究生3400余人、外国留学生330余人。
+                        爱特工作室成立于2002年，是一个在中国海洋大学信息科学与工程学部领导主持下，以计算机技术人才培养，网络开发为特色的技术性团体。<br><br>
+                        爱特一直以凝聚和培养计算机人才为己任，发掘技术潜力，感受合作乐趣，让代码高效执行，让大家更进一步。<br><br>
+                        用创意打磨精巧设计，用智慧实现炫酷交互；用热情呈现高效代码，以交流触碰灵感火花；以创造激发全新想象，用双手创造改变未来。<br><br>
+                        汇聚技术力量，解剖程序内核，研究代码本质，巧解应用难题。以逻辑洞察数据，以细节战胜漏洞。<br><br>
+                        OUC
+                        Hackday，是中国海洋大学爱特工作室（ITStudio）举办的Hackday活动。不同于国内各大互联网公司举办的面向全社会的Hackday，OUC
+                        Hackday主要面向群体是全国各大高校在读生，为大学生极客们提供了一个展示自己、相互交流、开阔视野的平台。<br>
                     </div>
 
                 </div>
@@ -105,7 +113,7 @@ export default {
     .back {
         width: 100%;
         height: 100%;
-        /* height: 100vh; */
+        /* height: 99vh; */
         background: url('../assets/bg.webp') no-repeat fixed;
         background-size: 100% 100%;
         display: flex;
@@ -117,12 +125,12 @@ export default {
         height: 100%;
         width: 100%;
         backdrop-filter: blur(10px);
-        overflow-y: auto;
+        /* overflow-y: auto; */
     }
 
     .content {
-        height: 95%;
-        margin-top: 20%;
+        height: 100%;
+        margin-top: 29%;
         display: flex;
         flex-direction: column;
         width: 100%;
@@ -132,13 +140,12 @@ export default {
         /* border: 4px, solid, rgb(195, 179, 40); */
         width: 95%;
         margin-left: 6%;
-        margin-top: 10%;
     }
 
     .left_head {
         color: white;
         font-weight: 700;
-        font-size: 10vw;
+        font-size: 11vw;
     }
 
     .left_content {
@@ -148,7 +155,7 @@ export default {
     .back_right {
         /* border: 4px, solid, rgb(195, 179, 40); */
         width: 100%;
-        height: 43%;
+        /* height: 35%; */
         margin-top: 2%;
         display: flex;
         flex-direction: column;
@@ -194,15 +201,20 @@ export default {
         width: 90%;
         height: 40%;
         margin-left: 5%;
-        margin-top: 4%;
+        margin-top: 5%;
+        margin-bottom: 2%;
         overflow: auto;
     }
 
     .mobile_content {
-        font-size: 3.9vw;
+        font-size: 4.1vw;
         color: white;
-        margin-top: 4%;
-        margin-bottom: 5%;
+        /* margin-top: 4%; */
+        margin-bottom: 4%;
+    }
+
+    .mobile_content::-webkit-scrollbar {
+        display: none;
     }
 
     .scale-in-bl_0 {
@@ -385,24 +397,25 @@ export default {
     }
 
     .back_left {
-        width: 31%;
-        margin-left: 13%;
+        width: 35%;
+        margin-left: 14%;
         margin-top:6%;
     }
 
     .left_head {
         color: white;
         font-weight: 700;
-        font-size: 5vw;
+        font-size: 4vw;
         margin-left: 1%;
     }
 
     .left_content {
         margin-top: 7%;
         height: 53%;
+        width: 110%;
         color: white;
         font-weight: 400;
-        font-size: 1vw;
+        font-size: 1.11vw;
         font-family: 'Microsoft New Tai Lue';
         overflow: auto;
         position: relative;
@@ -425,8 +438,8 @@ export default {
     .swiper-container {
         width: 89%;
         height: 55%;
-        margin-top: 28%;
-        margin-left: -20%;
+        margin-top: 26%;
+        margin-left: -18%;
         overflow: hidden;
         border-radius: 20px;
     }
@@ -447,7 +460,7 @@ export default {
         display: flex;
         flex-direction: row;
         margin-top: 4%;
-        margin-left: 12%;
+        margin-left: 16%;
 
     }
 

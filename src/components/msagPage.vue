@@ -1,4 +1,6 @@
 <template>
+    <!-- change: 滚动条、 利用接口参数 分页 实现新内容-->
+    <!-- add: 考虑使用Waline 实现讨论功能 -->
     <div class="back">
         <div class="back_up">
             <div class="head">
@@ -72,40 +74,38 @@
                         <div class="inner_board" v-for="item in total_Messages" :key="item.id">
                             <div @click="() => { showContent('content2');  getParentID(item.id); }"
                                 class="author_inner pulsate-bck">
-                                <div class="author_right">
-                                    <div class="author_name">
-                                        留言
-                                    </div>
-                                    <div class="author_time">
-                                        {{ item.datetime }}
-                                    </div>
-                                    <div class="author_content">
-                                        {{ item.content }}
+                                <div class="author_info">
+                                    <div class="author_avatar"><img src="../assets/msagAvatar_0.png" /></div>
+                                    <div class="author_info_right">
+                                        <div class="author_call">联系方式</div>
+                                        <div class="author_time">{{ item.datetime }}</div>
                                     </div>
                                 </div>
+                                <div class="author_content">
+                                    {{ item.content }}
+                                </div>
                             </div>
-
+                            <div class="repay">
+                                <div class="repay_1">回复</div>
+                                <div class="repay_2"><img src="../assets/repay_logo.png" /></div>
+                            </div>
                             <div class="traveller_total">
                                 <!-- // eslint-disable-next-line vue/require-v-for-key -->
                                 <div class="traveller_inner" v-for="child in item.children" :key="child">
-                                    <div class="traveller_right">
-                                        <div class="traveller_name_fixed">
-                                            <div class="traveller_name_fixed_1">回复</div>
-                                            <div class="traveller_time">
-                                                {{ formateTime(child.datetime) }}
-                                            </div>
-                                        </div>
-                                        <div class="traveller_content">
-                                            {{ child.content }}
+                                    <div class="traveller_info">
+                                        <div class="traveller_avatar"><img src="../assets/msagAvatar_1.png" /></div>
+                                        <div class="traveller_info_right">
+                                            <div class="traveller_call">联系方式</div>
+                                            <div class="traveller_time">{{ formateTime(child.datetime) }}</div>
                                         </div>
                                     </div>
+                                    <div class="traveller_content">{{ child.content }}</div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 </template>
@@ -355,9 +355,7 @@ export default {
                     this.showContent('content1');
                 });
         },
-
     }
-
 };
 </script>
 
@@ -1245,7 +1243,7 @@ export default {
     .inner_board {
         background-color: #ffffff;
         width: 43%;
-        height: 53%;
+        height: 60%;
         border-radius: 40px;
         margin-left: 1%;
         margin-right: 6%;
@@ -1267,7 +1265,7 @@ export default {
         height: 34%;
         width: 89%;
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
         cursor: pointer;
     }
 
@@ -1275,35 +1273,50 @@ export default {
         animation: pulsate-bck 0.4s ease;
     }
 
-    .author_head_fixed {
-        /* border: 1px, solid, black; */
-        /* border-image: url('../assets/author_head.webp'); */
-        width: 17%;
+    .author_info{
+        display: flex;
+        flex-direction: row;
     }
 
-    .author_head_fixed img {
+    .author_avatar{
+        width: 15%;
+        height: 85%;
+    }
+
+    .author_avatar img{
         width: 100%;
-
+        height: 100%;
     }
 
-    .author_right {
+    .author_info_right{
+        margin-left: 2%;
+    }
+
+    .author_call{
+        font-size: 1.1vw;
+        font-weight: bold;
+    }
+
+    .author_time {
+        margin-top: 5%;
+        font-size: 1.5vh;
+        color: #8d8989;
+    }
+
+    /* .author_right {
         display: flex;
         flex-direction: column;
         width: 79%;
         margin-left: 3%;
-    }
+    } */
 
-    .author_name {
-        /* border: 1px, solid, black; */
+    /* .author_name {
         margin-top: 1px;
         font-weight: 700;
         font-family: 'Microsoft New Tai Lue';
-    }
+    } */
 
-    .author_time {
-        font-size: 1.5vh;
-        color: #8d8989;
-    }
+    
 
     .author_content {
         /* border: 1px, solid, black; */
@@ -1312,6 +1325,36 @@ export default {
         font-size: 1.8vh;
         font-family: 'Microsoft New Tai Lue';
         overflow: auto;
+        margin-right: 2%;
+    }
+
+    .repay{
+        /* border: 1px, solid, black; */
+        background-color: #d4cece;
+        margin-left: 5%;
+        margin-right: 5%;
+        border-radius: 8px;
+        height: 10%;
+        display: flex;
+        flex-direction: row;
+    }
+
+    .repay_1{
+        /* border: 1px, solid, rgb(181, 164, 164); */
+        margin-left: 3%;
+        font-size: 13px;
+    }
+
+    .repay_2{
+        margin-left: 76%;
+        margin-top: 2%;
+        width: 6%;
+        height: 60%;
+    }
+
+    .repay_2 img{
+        width: 100%;
+        height: 100%;
     }
 
     .traveller_total {
@@ -1324,7 +1367,6 @@ export default {
     }
 
 
-
     .traveller_inner {
         /* border: 1px, solid, blue; */
         width: 80%;
@@ -1334,22 +1376,45 @@ export default {
         flex-direction: column;
     }
 
-    .traveller_right {
+    .traveller_info{
+        display: flex;
+        flex-direction: row;
+    }
+
+    .traveller_avatar{
+        width: 15%;
+        height: 80%;
+    }
+
+    .traveller_avatar img{
+        width: 100%;
+        height: 100%;
+    }
+
+    .traveller_info_right{
+        margin-left: 3%;
+    }
+
+    /* .traveller_right {
         display: flex;
         flex-direction: column;
         width: 87%;
         margin-left: 4%;
-    }
+    } */
 
-    .traveller_name_fixed_1 {
-        /* border: 1px, solid, black; */
+    /* .traveller_name_fixed_1 {
         font-family: 'Microsoft New Tai Lue';
         font-weight: 700;
-    }
+    } */
 
-    .traveller_name_fixed {
+    /* .traveller_name_fixed {
         display: flex;
         flex-direction: row;
+    } */
+
+    .traveller_call{
+        font-size: 1vw;
+        font-weight: bold;
     }
 
     .traveller_time {
@@ -1357,6 +1422,7 @@ export default {
         color: #8d8989;
         margin-top: 2.6%;
         margin-left: 2%;
+        width: 100%;
     }
 
     .traveller_content {
