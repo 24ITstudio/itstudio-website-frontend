@@ -1,5 +1,5 @@
 <template>
-    <!-- change: 滚动条、 利用接口参数 分页-->
+    <!-- remain: 滚动条样式、 利用接口参数 分页-->
     <div class="back">
         <div class="back_up">
             <div class="head">
