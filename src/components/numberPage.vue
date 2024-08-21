@@ -17,10 +17,11 @@
             <img src="@/assets/下.webp" alt="" />
           </div>
         </div>
+        <div class="look">上下滑动以查看更多</div>
       </div>
       <div class="department-list">
         <div class="department">
-          <div v-for="department in departments" :key="department.name"
+          <div v-for=" department in departments" :key="department.name"
             :class="{ 'selected-department': selectedDepartment === department }" class="department-item">
             <span @click="selectDepartment(department)" class="departmentname">
               {{ department.name }}
@@ -1228,10 +1229,20 @@ export default {
     };
   },
 
+  created() {
+    // 在组件创建后立即设置selectedDepartment为第一个部门  
+    if (this.departments.length > 0) {
+      this.selectedDepartment = this.departments[0];
+    }
+  },
+
   methods: {
     selectYear(year) {
       this.selectedYear = year;
       this.selectedDepartment = "程序部"; // 默认选定部门为程序部
+      if (this.departments.length > 0) {
+        this.selectedDepartment = this.departments[0];
+      }
     },
     selectDepartment(department) {
       this.selectedDepartment = department;
@@ -1245,7 +1256,17 @@ export default {
   margin-bottom: 18%;
   margin-top: 10%;
   width: 27%;
-  overflow: scroll;
+  overflow-y: scroll;
+  position: relative;
+}
+
+.look {
+  position: absolute;
+  bottom: 20%;
+  right: 70%;
+  writing-mode: vertical-lr;
+  color: #fff;
+  font-size: 16px;
 }
 
 .year {
@@ -1287,7 +1308,7 @@ export default {
   position: relative;
   overflow: hidden;
   background-image: url(../assets/bg.webp);
-  background-size: 100%;
+  background-size: 100% 100%;
 }
 
 ::-webkit-scrollbar {
