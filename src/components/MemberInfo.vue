@@ -1,0 +1,1 @@
+<template>真服了删个组件还要报错</template>
