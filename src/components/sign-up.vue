@@ -21,6 +21,7 @@
                         <option value="游戏开发">游戏开发</option>
                         <option value="APP开发">APP开发</option>
                         <option value="UI设计">UI设计</option>
+                        <option value="ios">iOS</option>
                     </select>
                 </div>
                 <div class="stuId fill">
@@ -801,7 +802,7 @@ onUnmounted(() => {
 
     .body .putIn {
         width: 100vw;
-        height: 100vh;
+        height: auto;
         background-color: #D9D9D9;
         position: absolute;
         top: 0;
@@ -887,6 +888,7 @@ onUnmounted(() => {
         font-size: 22px;
         font-style: normal;
         font-weight: 700;
+        width: 90%;
     }
 
     .putIn form .fill input::placeholder {

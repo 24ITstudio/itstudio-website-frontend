@@ -102,6 +102,7 @@
                 <button @click="toGame"><img src="../assets/toGame.webp" alt="" class="height:100%"></button>
                 <button @click="toAPP"><img src="../assets/toAPP.webp" alt="" class="height:100%"></button>
                 <button @click="toUI"><img src="../assets/toUI.webp" alt="" class="height:100%"></button>
+                <button @click="toIOS"><img src="../assets/toIOS.webp" alt="" class="height:100%"></button>
             </div>
         </div>
     </main>
@@ -137,6 +138,7 @@ const toWeb = () => navigateToFeature(1);
 const toGame = () => navigateToFeature(2);
 const toAPP = () => navigateToFeature(3);
 const toUI = () => navigateToFeature(4);
+const toIOS = () => navigateToFeature(5);
 
 </script>
 
@@ -533,10 +535,10 @@ const toUI = () => navigateToFeature(4);
 
     .slogan {
         width: 66vw;
-        height: 84vh;
+        height: 80vh;
         position: absolute;
         right: 2vw;
-        top: 50%;
+        top: 48%;
         transform: translate(0, -45%);
         background-color: rgba(255, 255, 255, 0.2);
         border: white 3px solid;
@@ -627,7 +629,7 @@ const toUI = () => navigateToFeature(4);
     .slogan .linkTo {
         margin: 0 auto;
         margin-top: 8vh;
-        width: 90%;
+        width: 96%;
         display: flex;
         flex-direction: row !important;
         justify-content: space-between !important;
@@ -641,7 +643,7 @@ const toUI = () => navigateToFeature(4);
     }
 
     .linkTo button img {
-        height: 9vh;
+        height: 8vh;
     }
 
     .scale-in-center {

@@ -44,8 +44,8 @@ const routes = [
         component: departFeature,
     },
     {
-        path: '/number',
-        name: 'number',
+        path: '/member',
+        name: 'member',
         component: numberPage,
     }
 ]
