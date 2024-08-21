@@ -1,893 +1,824 @@
 <template>
     <navHead :locate="834"></navHead>
-    <div class="main">
-        <div class="background1" id="1">
-            <div class="title">项目展示</div>
-            <div class="title2">
-                2023
-                <img src="../assets/左.webp" alt="" style="transform: translate(-2vw,1vh);">
-                <div class="title2-1"></div>
+    <div class="Main" @wheel="handleWheel">
+        <div class="mask">
+            <div class="scroll-container" ref="scrollContainer" style="overflow-y: scroll;">
+                <p v-for="(text, index) in texts" :key="index" :class="{ 'active-text': currentIndex === index }"
+                    @click="setCurrentIndex(index)">
+                    {{ text }}
+                </p>
             </div>
-            <div class="part1">
-                <p>小说APP</p>
-                <div class="p1img">
-                    <img src="../assets/ach232.webp" alt="" style="width:100%;height: 100%;">
-
-                </div>
-            </div>
-            <div class="part2">
-                <div class="p1img">
-                    <img src="../assets/ach233.webp" alt="" style="width:100%;height: 100%;">
-                </div>
-                <p>记账APP</p>
-            </div>
-            <div class="part3">
-                <p>博客网站</p>
-                <div class="p3img">
-                    <img src="../assets/achieve2.webp" alt="" style="width:100%;height: 100%;">
-                </div>
-            </div>
-            <div class="part4"></div>
         </div>
-
-        <div class="background2" id="two">
-            <div class="title">项目展示</div>
-            <div class="title2">
-                2022
-                <img src="../assets/左.webp" alt="" style="transform: translate(-2vw,1vh);">
-                <div class="title2-1"></div>
-            </div>
-            <div class="part5">
-                <div class="p4img">
-                    <img src="../assets/ach222.webp" alt="" style="width:100%;height: 100%;">
-                </div>
-                <p>为工程学院中英海洋能研究基地制作展示网站</p>
-            </div>
-            <div class="part6">
-                <div class="p4img">
-                    <img src="../assets/ach223.webp" alt="" style="width:100%;height: 100%;">
-                </div>
-                <p>游戏部门独立完成一款横板闯关类游戏《大地之歌》</p>
-            </div>
-            <div class="part7">
-                <div class="p4img">
-                    <img src="../assets/ach224.webp" alt="" style="width:100%;height: 100%;">
-                </div>
-                <p>爱特成员为校友企业制作电商购物网站</p>
-            </div>
-            <div class="part8">
-                <div class="p4img">
-                    <img src="../assets/ach225.webp" alt="" style="width:100%;height: 100%;">
-                </div>
-                <p>为校外企业制作物联网数据实时展示平台</p>
-            </div>
-            <div class="part4"></div>
+        <div class="scroll-container" ref="scrollContainer" style="overflow-y: scroll;">
+            <p v-for="(text, index) in texts" :key="index" :class="{ 'active-text': currentIndex === index }"
+                @click="setCurrentIndex(index)">
+                {{ text }}
+            </p>
         </div>
+        <div class="achmain">
+            <div class="slider-container">
+                <div class="slide eles" :class="{ active: currentIndex === 0 }">
+                    <p id="one">中国海洋大学信息科学与工程学部百年校庆小程序</p>
+                    <div class="ima">
+                        <img src="../assets/ach237.webp" alt="" style="width:100%;border-radius: 10px;">
+                    </div>
+                    <div class="ima">
+                        <img src="../assets/ach236.webp" alt="" style="width:100%;border-radius: 10px;">
+                    </div>
+                </div>
+                <div class="slide" :class="{ active: currentIndex === 1 }" id="second">
+                    <div class="part5">
+                        <div class="p4img">
+                            <img src="../assets/ach222.webp" alt="" style="width:100%;height: 100%;">
+                        </div>
+                        <p>为工程学院中英海洋能研究基地制作展示网站</p>
+                    </div>
+                    <div class="part6">
+                        <div class="p4img">
+                            <img src="../assets/ach223.webp" alt="" style="width:100%;height: 100%;">
+                        </div>
+                        <p>游戏部门独立完成一款横板闯关类游戏《大地之歌》</p>
+                    </div>
+                    <div class="part7">
+                        <div class="p4img">
+                            <img src="../assets/ach224.webp" alt="" style="width:100%;height: 100%;">
+                        </div>
+                        <p>爱特成员为校友企业制作电商购物网站</p>
+                    </div>
+                    <div class="part8">
+                        <div class="p4img">
+                            <img src="../assets/ach225.webp" alt="" style="width:100%;height: 100%;">
+                        </div>
+                        <p>为校外企业制作物联网数据实时展示平台</p>
+                    </div>
+                </div>
+                <div class="slide" :class="{ active: currentIndex === 2 }" id="third">
+                    <div>
+                        <div class="title1">校团委网站</div>
+                        <div class="title2">由爱特制作的中国海洋大学网站成功上线运行</div>
+                        <div class="img21">
+                            <img src="../assets/ach214.webp" alt="" style="width: 100%;height: 100%;">
+                        </div>
+                    </div>
+                </div>
+                <div class="slide" :class="{ active: currentIndex === 3 }" id="fourth">
+                    <div>
+                        <div class="title1">作品展示</div>
+                        <div class="title2">游戏部门独立完成了一款PC端的2.5D游戏《幽灵骑士》。</div>
+                        <div class="title1">作品展示</div>
+                        <div class="title2">程序、APP与UI合作完成了爱特展示网、海迅APP等作品。</div>
+                    </div>
+                </div>
+                <div class="slide" :class="{ active: currentIndex === 4 }" id="fifth">
+                    <div>
+                        <div class="title1">作品展示</div>
+                        <div class="title2">19年游戏部合作完成了一个可联网、能存档的俯视角射击游戏。</div>
+                        <div class="img21">
+                            <img src="../assets/ach213.webp" alt="" style="width: 100%;height: 100%;">
+                        </div>
+                    </div>
+                    <div>
+                        <div class="title1-1">部门合作作品</div>
+                        <div class="title2-1">
+                            Ul与web开发、APP、程序合作。<br>
+                            设计了爱特读书及爱特读书APP、<br>
+                            爱特展示网、IT日程APP。
+                        </div>
+                    </div>
+                </div>
+                <div class="slide" :class="{ active: currentIndex === 5 }">
+                    <div>
+                        <div class="title1">开拓展示网</div>
+                        <div class="title2">开拓爱特展示网，成功上线运行。</div>
+                        <div class="title1">新网站上线</div>
+                        <div class="title2">制作众创空间预约系统，成功上线运行。</div>
+                    </div>
+                </div>
+                <div class="slide" :class="{ active: currentIndex === 6 }">
+                    <div>
+                        <div class="title1">开拓信院网站</div>
+                        <div class="title2">开拓信息科学与工程学院网站，成功上线运行。</div>
 
-        <div class="background3">
-            <div class="title">项目展示</div>
-            <div class="title2">
-                2021及以前
-                <img src="../assets/左.webp" alt="" style="transform: translate(-1.5vw,2vh);">
-                <div class="title2-1"></div>
-            </div>
-            <div class="part9">
-                <span class="sp1">
-                    设计信息科学与工程学部网站，成功上线运行
-                </span>
-                <p>信息科学与工程学部网站</p>
-                <span class="sp2">2017</span>
-                <div class="p5img">
-                    <img src="../assets/ach212.webp" alt="" style="width:100%;height: 100%;">
+                    </div>
+                </div>
+                <div class="slide" :class="{ active: currentIndex === 7 }" id="eighth">
+                    <div>
+                        <div class="title1">上线教育网站</div>
+                        <div class="title2">爱特为中国海洋大学国际教育学院制作的新版展示网上线运行</div>
+                        <div class="img21">
+                            <img src="../assets/ach161.webp" alt="" style="width: 100%;height: 100%;">
+                        </div>
+                    </div>
+                    <div>
+                        <div class="title1-1">上线网站</div>
+                        <div class="title2-1">
+                            由爱特制作的中国海洋大学<br>
+                            计算机系网站成功上线。
+                        </div>
+                    </div>
+                </div>
+                <div class="slide" :class="{ active: currentIndex === 8 }" id="seventh">
+                    <div>
+                        <div class="title1">制作展示页</div>
+                        <div class="title2">为中国海洋大学iGEM比赛团队制作静态展示页面</div>
+                        <div class="img21">
+                            <img src="../assets/ach151.webp" alt="" style="width: 100%;height: 100%;">
+                        </div>
+                    </div>
+                    <div>
+                        <div class="title1-1">新网站上线</div>
+                        <div class="title2-1">中国海洋大学海洋技术系网站成功上线运行</div>
+                        <div class="img22" style="">
+                            <img src="../assets/ach152.webp" alt="" style="width: 100%;height: 100%;">
+                        </div>
+                    </div>
+                </div>
+                <div class="slide" :class="{ active: currentIndex === 9 }" id="ten">
+                    <div>
+                        <div class="title1">新网站上线</div>
+                        <div class="title2">设计信息科学与工程学部网站，成功上线运行</div>
+                        <div class="img21">
+                            <img src="../assets/ach141.webp" alt="" style="width: 100%;height: 100%;">
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="part10">
-                <span class="sp1">
-                    合作完成了一个可联网、能存档的俯视角射击游戏
-                </span>
-                <p>《达拉崩吧射击游戏》</p>
-                <span class="sp2">2019</span>
-                <div class="p6img">
-                    <img src="../assets/ach213.webp" alt="" style="width:100%;height: 100%;">
-                </div>
-
-            </div>
-            <div class="part11">
-                <span class="sp1">
-                    由爱特制作的中国海洋大学委员站成功上线运行
-                </span>
-                <p>中国海洋大学委员站</p>
-                <span class="sp2">2021</span>
-                <div class="p7img">
-                    <img src="../assets/ach214.webp" alt="" style="width:100%;height: 100%;">
-                </div>
-            </div>
-            <div class="part4"></div>
         </div>
-
+        <div class="bottom">
+            <img src="../assets/cover.webp" alt="">
+        </div>
     </div>
 </template>
-<script>
-import navHead from "./nav-head.vue";
-export default {
-    components: {
 
-        navHead
-    },
+<script setup>
+import { ref, onMounted, onBeforeUnmount } from 'vue';
+import navHead from "./nav-head.vue";
+
+const texts = ref(['2023', '2022', '2021', '2020', '2019', '2018', '2017', '2016', '2015', '2014']);
+const currentIndex = ref(0);
+const scrollContainer = ref(null);
+
+const isMobile = /Mobi|Android|iPhone/i.test(navigator.userAgent);
+
+if (!isMobile) {
+
+    console.log('这是电脑');
+} else {
+    console.log('这不是电脑');
 }
+
+const handleWheel = (event) => {
+
+    if (!isMobile) {
+        // 如果不是移动设备，则阻止默认行为  
+        event.preventDefault();
+    }
+
+    const delta = event.deltaY;
+
+    if (delta > 0 && currentIndex.value < texts.value.length - 1) {
+        currentIndex.value++;
+    } else if (delta < 0 && currentIndex.value > 0) {
+        currentIndex.value--;
+    }
+
+    const itemHeight = scrollContainer.value.offsetHeight / texts.value.length;
+    const scrollToPosition = currentIndex.value * itemHeight - (scrollContainer.value.offsetHeight - itemHeight) / 2;
+    scrollContainer.value.scrollTop = scrollToPosition;
+};
+
+function setCurrentIndex(index) {
+    this.currentIndex = index;
+}
+
+onMounted(() => {
+    if (scrollContainer.value) {
+        scrollContainer.value.addEventListener('wheel', handleWheel);
+    }
+});
+
+onBeforeUnmount(() => {
+    if (scrollContainer.value) {
+        scrollContainer.value.removeEventListener('wheel', handleWheel);
+    }
+});
+
 </script>
 
 <style scoped>
-@media (min-width: 1025px) {
-
-    * {
-        margin: 0px;
-        padding: 0px;
-    }
-
-    .main {
-        margin: 0px;
-        padding: 0px;
-        height: 100vh;
-        overflow-y: scroll;
-        scroll-snap-type: y mandatory;
-    }
-
-    .background1 {
-        scroll-snap-align: start;
-        scroll-snap-stop: always;
-        display: flex;
-        position: relative;
-        width: 100%;
-        height: 100vh;
-        z-index: -1;
-        background: url('../assets/achieve231.webp') center no-repeat;
-        background-image: url('../assets/achieve231.webp');
-        background-position-x: center;
-        background-position-y: center;
-        background-color: rgba(0, 0, 0, 1);
-        background-size: cover;
-    }
-
-    .title {
-        color: rgba(0, 0, 0, 0.90);
-        font-family: "Microsoft YaHei UI";
-        font-size: 100px;
-        font-style: normal;
-        font-weight: 700;
-        line-height: normal;
-        position: absolute;
-        top: 90px;
-        right: 40px;
-        /* transform: translate(70vw, 5vw); */
-        z-index: 10;
-    }
-
-    .title2 {
-        height: 100px;
-        color: #FFF;
-        font-family: "Microsoft New Tai Lue";
-        font-size: 64px;
-        font-style: normal;
-        font-weight: 700;
-        line-height: normal;
-        position: absolute;
-        top: 220px;
-        right: 40px;
-        z-index: 10;
-        /* transform: translate(60vw, 24vh); */
-    }
-
-    .background1 .title2-1 {
-        width: 149px;
-        height: 10px;
-        flex-shrink: 0;
-        border-radius: 10px;
-        background: #39F;
-        content: "";
-        margin-top: -1.5vh;
-    }
-
-    .part1 {
-        transform: translate(6vw, 8vw);
-        height: 70vh;
-        width: 16vw;
-        overflow: hidden;
-        position: absolute;
-        z-index: 2;
-
-    }
-
-    .part2 {
-        transform: translate(25vw, 6vw);
-        position: absolute;
-        z-index: 2;
-    }
-
-    .part3 {
-        transform: translate(44vw, 10vw);
-        position: absolute;
-        z-index: 2;
-    }
-
-    .part4 {
-        width: 100%;
-        height: 15vh;
-        background: rgba(0, 0, 0, 0.50);
-        position: absolute;
-        transform: translate(0, 85vh);
-        z-index: 1;
-    }
-
-    .background1 p {
-        color: #FFF;
-        font-family: "Microsoft YaHei UI";
-        font-size: 24px;
-        font-style: normal;
-        font-weight: 400;
-        line-height: 24px;
-    }
-
-    .p1img {
-        border: 5px solid rgba(0, 0, 0, 0.25);
-        border-radius: 15px;
-        height: 65vh;
-        width: 15vw;
-        flex-shrink: 0;
-    }
-
-    .p3img {
-        border: 5px solid rgba(0, 0, 0, 0.25);
-        border-radius: 15px;
-        overflow: hidden;
-        width: 30vw;
-        height: 60vh;
-        flex-shrink: 0;
-    }
-
-    .background2 {
-        scroll-snap-align: start;
-        scroll-snap-stop: always;
-        display: flex;
-        flex-wrap: wrap;
-        position: relative;
-        /* top: 100vh; */
-        width: 100%;
-        height: 100vh;
-        z-index: -1;
-        overflow: hidden;
-        background: url('../assets/ach221.webp') center no-repeat;
-        background-image: url('../assets/ach221.webp');
-        background-position-x: center;
-        background-position-y: center;
-        background-color: rgba(0, 0, 0, 0.3);
-        background-size: cover;
-    }
-
-    .background2 .title {
-        width: 5vw;
-        color: rgba(0, 0, 0, 0.90);
-        font-family: "Microsoft YaHei UI";
-        font-size: 100px;
-        font-style: normal;
-        font-weight: 700;
-        line-height: 110px;
-        /* transform: translate(5vw, 6vw); */
-        position: absolute;
-        top: 90px;
-        left: 40px;
-    }
-
-    .background2 .title2 {
-        height: 100px;
-        color: #FFF;
-        font-family: "Microsoft New Tai Lue";
-        font-size: 64px;
-        font-style: normal;
-        font-weight: 700;
-        line-height: normal;
-        position: absolute;
-        /* transform: translate(3vw, 68vh); */
-        position: absolute;
-        top: 560px;
-        left: 40px;
-    }
-
-    .background2 .title2-1 {
-        width: 149px;
-        height: 10px;
-        flex-shrink: 0;
-        border-radius: 10px;
-        background: #E19F73;
-        content: "";
-        margin-top: -1.5vh;
-    }
-
-
-    .background2 p {
-        color: #FFF;
-        margin-top: 5px;
-        font-family: "Microsoft YaHei UI";
-        font-size: 16px;
-        font-style: normal;
-        font-weight: 400;
-        text-align: center;
-        line-height: 16px;
-    }
-
-    .part7 p,
-    .part8 p {
-        color: rgba(0, 0, 0, 0.70);
-    }
-
-    .background2 .part5 {
-        overflow: hidden;
-        margin-left: 20vw;
-        margin-right: 3vw;
-        margin-top: 10vh;
-        margin-bottom: 5vh;
-        width: 30vw;
-        height: 33vh;
-        border-radius: 10px;
-
-        background: rgba(0, 118, 204, 0.5);
-    }
-
-    .part6 {
-        overflow: hidden;
-        margin-left: 0vw;
-        margin-right: 5vw;
-        margin-top: 10vh;
-        margin-bottom: 5vh;
-        width: 30vw;
-        height: 33vh;
-        border-radius: 10px;
-
-        background: rgba(225, 159, 115, 0.5);
-    }
-
-    .part7 {
-        overflow: hidden;
-        margin-left: 26vw;
-        margin-right: 3vw;
-        margin-top: 0vh;
-        margin-bottom: 10vh;
-        width: 30vw;
-        height: 33vh;
-        border-radius: 10px;
-        z-index: 2;
-        background: rgba(193, 219, 244, 0.75);
-    }
-
-    .part8 {
-        overflow: hidden;
-        margin-left: 0vw;
-        margin-right: 5vw;
-        margin-top: 0vh;
-        margin-bottom: 0vh;
-        width: 30vw;
-        height: 33vh;
-        border-radius: 10px;
-        z-index: 2;
-        background: rgba(217, 217, 217, 0.75);
-    }
-
-    .background2 .p4img {
-        width: 100%;
-        height: 30vh;
-        opacity: 1;
-    }
-
-    .background3 {
-        scroll-snap-align: start;
-        scroll-snap-stop: always;
-        display: flex;
-        flex-wrap: wrap;
-        position: relative;
-        /* top: 200vh; */
-        width: 100%;
-        height: 100vh;
-        z-index: -1;
-
-        overflow: hidden;
-        background: url('../assets/ach211.webp') center no-repeat;
-        background-image: url('../assets/ach211.webp');
-        background-position-x: center;
-        background-position-y: center;
-        background-size: initial;
-
-        background-color: rgba(0, 0, 0, 0.3);
-        background-size: cover;
-    }
-
-    .background3 .title {
-        /* transform: translate(53vw, 63vh); */
-        height: 150px;
-        position: absolute;
-        top: 60vh;
-        right: 15vw;
-        color: white;
-        z-index: 10;
-    }
-
-    .background3 p {
-        display: none;
-    }
-
-    .background3 .title2 {
-        /* transform: translate(29vw, 77vh); */
-        position: absolute;
-        top: 74vh;
-        right: 15vw;
-        color: white;
-        z-index: 10;
-        font-size: 45px;
-    }
-
-    .background3 .title2-1 {
-        width: 235px;
-        height: 10px;
-        flex-shrink: 0;
-        border-radius: 10px;
-        background: #C1DBF4;
-        content: "";
-        margin-top: 0.5vh;
-    }
-
-    .sp1 {
-        margin-left: 20px;
-        color: #FFF;
-        font-family: "Microsoft YaHei UI";
-        font-size: 16px;
-        font-style: normal;
-        font-weight: 100;
-        line-height: 40px;
-        /* 20px */
-    }
-
-    .sp2 {
-        text-align: right;
-        margin-left: 160px;
-        color: rgba(255, 255, 255, 0.87);
-        font-family: "Microsoft YaHei UI";
-        font-size: 20px;
-        font-style: normal;
-        font-weight: 700;
-        line-height: 100%;
-        /* 32px */
-    }
-
-    .part9 {
-        overflow: hidden;
-        position: absolute;
-        margin-left: 8vw;
-        margin-right: 5vw;
-        margin-top: 10vh;
-        margin-bottom: 5vh;
-        width: 34vw;
-        height: 45vh;
-        border-radius: 10px;
-        border: 5px solid rgba(0, 0, 0, 0.01);
-        background: rgba(0, 0, 0, 0.25);
-    }
-
-    .p5img {
-        width: 100%;
-        height: 45vh;
-        opacity: 1;
-    }
-
-    .part10 {
-        overflow: hidden;
-        position: absolute;
-        margin-left: 53vw;
-        margin-right: 3vw;
-        margin-top: 10vh;
-        margin-bottom: 5vh;
-        width: 36vw;
-        height: 45vh;
-        border-radius: 10px;
-        border: 5px solid rgba(0, 0, 0, 0.01);
-        background: rgba(0, 0, 0, 0.25);
-    }
-
-    .p6img {
-        width: 100%;
-        height: 40vh;
-        opacity: 1;
-    }
-
-    .part11 {
-        z-index: 2;
-        overflow: hidden;
-        position: absolute;
-        margin-left: 8vw;
-        margin-right: 3vw;
-        margin-top: 60vh;
-        margin-bottom: 5vh;
-        width: 34vw;
-        height: 30vh;
-        border-radius: 10px;
-        border: 5px solid rgba(217, 217, 217, 0);
-
-        background: rgba(217, 217, 217, 0.10);
-    }
-
-    .p7img {
-        width: 34vw;
-        height: 26vh;
-        opacity: 1;
-    }
+* {
+    margin: 0;
+    padding: 0;
 }
 
-@media (max-width: 1024px) {
+*::-webkit-scrollbar {
+    display: none;
+}
 
-    * {
-        margin: 0px;
-        padding: 0px;
-    }
+.Main {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    /* background-color: skyblue; */
+    /* background: transparent; */
+    background-image: url(../assets/achbg.webp);
+    background-size: 100% 100%;
+}
 
-    .main {
-        margin: 0px;
-        padding: 0px;
-        height: 300vh;
-    }
+.mask {
+    position: absolute;
+    right: 0px;
+    /* padding-right: 100px; */
+    /* transform: translateY(-20px); */
+    width: 30vh;
+    height: 100vh;
+    box-sizing: border-box;
+    /* overflow: hidden; */
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    justify-content: center;
+    z-index: 100;
+    background: transparent;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    opacity: 0;
+}
 
-    .background1 {
-        display: flex;
-        align-items: start;
-        justify-content: space-around;
-        flex-wrap: wrap;
-        position: relative;
-        width: 100%;
-        height: auto;
-        z-index: -1;
-        background-color: aliceblue;
-    }
+.mask .scroll-container p {
+    cursor: pointer;
+}
 
-    .title {
-        color: rgba(0, 0, 0, 0.90);
-        font-family: "Microsoft YaHei UI";
-        font-size: 60px;
-        font-style: normal;
-        font-weight: 700;
-        line-height: normal;
-        position: absolute;
-        top: 90px;
-        left: 40px;
-        /* transform: translate(70vw, 5vw); */
-        z-index: 10;
-    }
+.scroll-container {
+    position: absolute;
+    /* right: 100px; */
+    padding-right: 100px;
+    transform: translateY(-20px);
+    width: 100vw;
+    height: 100vh;
+    box-sizing: border-box;
+    /* overflow: hidden; */
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    justify-content: center;
+}
 
-    .title2 {
-        height: 100px;
-        color: black;
-        font-family: "Microsoft New Tai Lue";
-        font-size: 40px;
-        font-style: normal;
-        font-weight: 700;
-        line-height: normal;
-        position: absolute;
-        top: 180px;
-        left: 40px;
-        z-index: 10;
-        /* transform: translate(60vw, 24vh); */
-    }
-
-    .title2 img {
-        display: none;
-    }
-
-    .background1 .title2-1 {
-        width: 90px;
-        height: 6px;
-        flex-shrink: 0;
-        border-radius: 10px;
-        background: #39F;
-        content: "";
-        margin-top: -1vh;
-    }
-
-    .part1 {
-        margin-bottom: 20px;
-        /* height: 26vh; */
-        width: 40vw;
-        position: relative;
-        overflow: hidden;
-        z-index: 2;
-        margin-top: 260px;
-    }
-
-    .part1 p {
-        position: absolute;
-        padding: 10px 0 10px 0;
-        width: 100%;
-        background-color: rgba(0, 0, 0, 0.7);
-        bottom: 0px;
-        border-radius: 0 0 10px 10px;
-        text-align: center;
-    }
-
-    .part2 {
-        margin-bottom: 20px;
-        /* height: 26vh; */
-        width: 40vw;
-        position: relative;
-        z-index: 2;
-        margin-top: 260px;
-    }
-
-    .part2 p {
-        position: absolute;
-        padding: 10px 0 10px 0;
-        width: 100%;
-        background-color: rgba(0, 0, 0, 0.7);
-        bottom: 0px;
-        border-radius: 0 0 10px 10px;
-        text-align: center;
-    }
-
-    .part3 {
-        margin-bottom: 20px;
-        width: 90vw;
-        /* height: 40vh; */
-        position: relative;
-        z-index: 2;
-    }
-
-    .part3 p {
-        position: absolute;
-        padding: 10px 0 10px 0;
-        width: 100%;
-        background-color: rgba(0, 0, 0, 0.7);
-        bottom: 0px;
-        border-radius: 0 0 10px 10px;
-        text-align: center;
-    }
-
-    .part4 {
-        display: none;
-    }
-
-    .background1 p {
-        color: #FFF;
-        font-family: "Microsoft YaHei UI";
-        font-size: 24px;
-        font-style: normal;
-        font-weight: 400;
-        line-height: 24px;
-    }
-
-    .p1img {
-        /* border: 5px solid rgba(0, 0, 0, 0.25); */
-        border-radius: 15px;
-        height: 100%;
-        width: 100%;
-        flex-shrink: 0;
-    }
-
-    .p3img {
-        border: 5px solid rgba(0, 0, 0, 0.25);
-        border-radius: 15px;
-        overflow: hidden;
-        width: 100%;
-        height: 100%;
-        flex-shrink: 0;
-    }
-
-    .background2 {
-        display: flex;
-        align-items: start;
-        justify-content: space-around;
-        flex-wrap: wrap;
-        position: relative;
-        width: 100%;
-        height: auto;
-        z-index: -1;
-        background-color: aliceblue;
-    }
-
-    .background2 .title {
-        display: none;
-    }
-
-    .background2 .title2 {
-        height: 100px;
-        color: black;
-        font-family: "Microsoft New Tai Lue";
-        font-size: 40px;
-        font-style: normal;
-        font-weight: 700;
-        line-height: normal;
-        position: absolute;
-        top: 10px;
-        left: 40px;
-    }
-
-    .background2 .title2-1 {
-        width: 90px;
-        height: 6px;
-        flex-shrink: 0;
-        border-radius: 10px;
-        background: #E19F73;
-        content: "";
-        margin-top: -1vh;
-    }
+.scroll-container p {
+    position: relative;
+    text-align: right;
+    font-size: 36px;
+    /* top: 50%; */
+    /* transform: translateY(-50%); */
+    margin: 0;
+    opacity: 0.65;
+    font-family: "HarmonyOS Sans SC";
+    transition: 0.5S;
+    background: linear-gradient(to right, #313131 0%, black 100%);
+    background-clip: text;
+    color: transparent;
+}
 
 
-    .background2 p {
-        color: #FFF;
-        margin-top: 5px;
-        font-family: "Microsoft YaHei UI";
-        font-size: 16px;
-        font-style: normal;
-        font-weight: 400;
-        text-align: center;
-        line-height: 16px;
-    }
+p:before {
+    content: "";
+    position: absolute;
+    left: -230px;
+    top: -45px;
+    display: inline-block;
+    background-image: url(../assets/左.webp);
+    width: 100px;
+    height: 100px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    margin-right: 10px;
+    vertical-align: middle;
+    transform: rotate(180deg);
+    opacity: 0;
+    transition: 0.5S;
+}
 
-    .part5 {
-        margin-top: 100px;
-        margin-bottom: 20px;
-        overflow: hidden;
-        width: 90vw;
-        /* height: 20vh; */
-        border-radius: 10px;
-        position: relative;
-        background: rgba(0, 118, 204, 0.5);
-    }
+.scroll-container .active-text {
+    font-family: "HarmonyOS Sans SC";
+    font-weight: bold;
+    font-size: 114px;
+    transform: translateX(50px);
+    position: relative;
+    opacity: 1;
+    background: linear-gradient(to right, #313131 0%, black 100%);
+    background-clip: text;
+    color: transparent;
+}
 
-    .part6 {
-        margin-bottom: 20px;
-        width: 90vw;
-        /* height: 20vh; */
-        border-radius: 10px;
-        position: relative;
-        background: rgba(225, 159, 115, 0.5);
-    }
+.active-text:before {
+    content: "";
+    position: absolute;
+    left: -80px;
+    top: 36px;
+    display: inline-block;
+    background-image: url(../assets/左.webp);
+    width: 100px;
+    height: 100px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    margin-right: 10px;
+    vertical-align: middle;
+    transform: rotate(180deg);
+    opacity: 1;
+}
 
-    .part7 {
-        margin-bottom: 20px;
-        width: 90vw;
-        /* height: 20vh; */
-        border-radius: 10px;
-        position: relative;
-        background: rgba(193, 219, 244, 0.75);
-    }
+.achmain {
+    position: absolute;
+    left: 2vw;
+    top: 50%;
+    height: 84vh;
+    margin-top: -42vh;
+    width: 70vw;
+}
 
-    .part8 {
-        margin-bottom: 20px;
-        width: 90vw;
-        /* height: 20vh; */
-        border-radius: 10px;
-        position: relative;
-        background: rgba(217, 217, 217, 0.75);
-    }
+.slider-container {
+    position: relative;
+    height: 80vh;
+    /* 或其他固定高度 */
+    overflow: hidden;
+    /* 隐藏超出容器的部分 */
+}
 
-    .part5 p,
-    .part6 p,
-    .part7 p,
-    .part8 p {
-        position: absolute;
-        padding: 10px 0 10px 0;
-        width: 100%;
-        background-color: rgba(0, 0, 0, 0.7);
-        bottom: 0px;
-        border-radius: 0 0 10px 10px;
-        text-align: center;
-    }
+.slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 70vw;
+    height: 80vh;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+    pointer-events: none;
+    /* 防止在非活动幻灯片上触发点击事件 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
-    .background2 .p4img {
-        width: 100%;
-        height: 100%;
-        opacity: 1;
-    }
+.slide.active {
+    opacity: 1;
+    pointer-events: auto;
+    /* 允许在活动幻灯片上触发点击事件 */
+}
 
-    .background3 {
-        display: flex;
-        align-items: start;
-        justify-content: space-around;
-        flex-wrap: wrap;
-        position: relative;
-        width: 100%;
-        height: auto;
-        z-index: -1;
-        background-color: aliceblue;
-    }
+.bottom {
+    position: absolute;
+    bottom: 0px;
+    width: 100vw;
+}
 
-    .background3 .title {
-        display: none;
-    }
+.bottom img {
+    width: 100%;
+    height: 70px;
+}
 
-    .background3 .title2 {
-        height: 100px;
-        color: black;
-        font-family: "Microsoft New Tai Lue";
-        font-size: 40px;
-        font-style: normal;
-        font-weight: 700;
-        line-height: normal;
-        position: absolute;
-        top: 10px;
-        left: 40px;
-    }
 
-    .background3 .title2-1 {
-        width: 215px;
-        height: 6px;
-        flex-shrink: 0;
-        border-radius: 10px;
-        background: #C1DBF4;
-        content: "";
-        margin-top: -0.5vh;
-    }
 
-    .sp1 {
-        display: none;
-    }
+.eles {
+    display: flex;
+    width: 70vw;
+    justify-content: start;
+    align-items: center;
+    position: relative;
+}
 
-    .sp2 {
-        display: none;
-    }
+.eles p {
+    height: 60vh;
+    color: black !important;
+    width: 18vw;
+    position: absolute;
+    right: -10vw;
+    opacity: 1;
+    writing-mode: vertical-lr;
+}
 
-    .background3 p {
-        position: absolute;
-        padding: 10px 0 10px 0;
-        width: 100%;
-        color: #FFF;
-        background-color: rgba(0, 0, 0, 0.7);
-        bottom: 0px;
-        border-radius: 0 0 10px 10px;
-        text-align: center;
-    }
+.slide p {
+    opacity: 1 !important;
+    font-weight: bold !important;
+}
 
-    .part9 {
-        margin-top: 100px;
-        margin-bottom: 20px;
-        width: 90vw;
-        /* height: 20vh; */
-        border-radius: 10px;
-        position: relative;
-        /* border: 5px solid rgba(0, 0, 0, 0.01); */
-        background: rgba(0, 0, 0, 0.25);
-    }
+.eles .ima {
+    /* height: 65vh; */
+    width: 20vw;
+    margin-left: 5vw;
+}
 
-    .p5img {
-        width: 100%;
-        height: 100%;
-        opacity: 1;
-    }
+.else .ima img {
+    width: 100% !important;
+    height: 100% !important;
+}
 
-    .part10 {
-        margin-bottom: 20px;
-        width: 90vw;
-        /* height: 20vh; */
-        position: relative;
-        border-radius: 10px;
-        /* border: 5px solid rgba(0, 0, 0, 0.01); */
-        background: rgba(0, 0, 0, 0.25);
-    }
 
-    .p6img {
-        width: 100%;
-        height: 100%;
-        opacity: 1;
-    }
+.part1 {
+    transform: translate(-4vw, 13vh);
+    height: 70vh;
+    width: 16vw;
+    overflow: hidden;
+    position: absolute;
+    z-index: 3;
 
-    .part11 {
-        margin-bottom: 20px;
-        width: 90vw;
-        /* height: 20vh; */
-        border-radius: 10px;
-        position: relative;
-        border: 5px solid rgba(217, 217, 217, 0);
-        background: rgba(217, 217, 217, 0.10);
-    }
+}
 
-    .p7img {
-        width: 100%;
-        height: 100%;
-        opacity: 1;
-    }
+.part2 {
+    transform: translate(-2vw, -6.5vh);
+    position: absolute;
+    z-index: 2;
+}
+
+.part4 {
+    transform: translate(-27vw, 5vh);
+    height: 70vh;
+    width: 16vw;
+    overflow: hidden;
+    position: absolute;
+    z-index: 3;
+
+}
+
+.part4-1 {
+    transform: translate(-23vw, 10vh);
+    position: absolute;
+    z-index: 3;
+}
+
+.part3 {
+    transform: translate(22vw, 4.5vh);
+    position: absolute;
+    z-index: 1005;
+}
+
+
+.p1img {
+    border: 0px solid rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+
+    width: 220px;
+    flex-shrink: 0;
+}
+
+.p1-1img {
+    border: 0px solid rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+
+    width: 220px;
+    flex-shrink: 0;
+}
+
+.p3img {
+    border: 0px solid rgba(0, 0, 0, 0.25);
+    border-radius: 15px;
+    overflow: hidden;
+    width: 420px;
+    z-index: 1006;
+    flex-shrink: 0;
+}
+
+.slide p {
+    color: white;
+    font-family: "Microsoft YaHei UI";
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 36px;
+
+}
+
+#one {
+    transform: translate(-7vw, -5px);
+}
+
+#two {
+    transform: translate(0vw, 16vh);
+}
+
+#three {
+    transform: translate(-19vw, 0vh);
+}
+
+
+
+
+
+
+#second {
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+#second p {
+
+    margin-top: 5px;
+    font-family: "Microsoft YaHei UI";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    text-align: center;
+    line-height: 16px;
+}
+
+.part7 p,
+.part8 p {
+    color: rgba(0, 0, 0, 0.70);
+}
+
+.part5 {
+    overflow: hidden;
+    margin-left: 1vw;
+    margin-right: 3vw;
+    margin-top: 5vh;
+    margin-bottom: 5vh;
+    width: 33vw;
+    ;
+    height: 34vh;
+    border-radius: 10px;
+
+    background: rgba(0, 118, 204, 0.5);
+}
+
+.part6 {
+    overflow: hidden;
+    margin-left: 0vw;
+    margin-right: 0vw;
+    margin-top: 0vh;
+    margin-bottom: 0vh;
+    width: 33vw;
+    height: 34vh;
+    border-radius: 10px;
+
+    background: rgba(225, 159, 115, 0.5);
+}
+
+.part7 {
+    overflow: hidden;
+    margin-left: 1vw;
+    margin-right: 3vw;
+    margin-top: 0vh;
+    margin-bottom: 0vh;
+    width: 33vw;
+    height: 34vh;
+    border-radius: 10px;
+    z-index: 2;
+    background: rgba(193, 219, 244, 0.75);
+}
+
+.part8 {
+    overflow: hidden;
+    margin-left: 0vw;
+    margin-right: 0vw;
+    margin-top: 0vh;
+    margin-bottom: 0vh;
+    width: 33vw;
+    height: 34vh;
+    border-radius: 10px;
+    z-index: 2;
+    background: rgba(217, 217, 217, 0.75);
+}
+
+.p4img {
+    width: 100%;
+    height: 30vh;
+    opacity: 1;
+}
+
+
+#third .title1 {
+    color: #2E1117;
+    font-family: "Microsoft YaHei UI";
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 100%;
+    /* 40px */
+    margin: 5vh 0 0 13vw;
+}
+
+#third .title2 {
+    color: #2E1117;
+    font-family: "Microsoft YaHei UI";
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 400;
+    margin: 3vh 0 3vh 35vw;
+    line-height: 100%;
+    /* 24px */
+}
+
+#third .img21 {
+    margin: 0 0 0 13vw;
+    width: 950px;
+
+    flex-shrink: 0;
+    border-radius: 10px;
+}
+
+.title1 {
+
+    color: #2E1117;
+    font-family: "Microsoft YaHei UI";
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 40px;
+    /* 40px */
+    margin: 0vh 0 3vh 13vw;
+
+}
+
+.title2 {
+
+    color: #2E1117;
+    font-family: "Microsoft YaHei UI";
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 24px;
+    /* 32px */
+    margin: 3vh 0 8vh 20vw;
+}
+
+#fifth .title1 {
+    color: #2E1117;
+    font-family: "Microsoft YaHei UI";
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 100%;
+    /* 40px */
+    margin: 5vh 0 0 -8vw;
+}
+
+#fifth .title2 {
+    color: #2E1117;
+    font-family: "Microsoft YaHei UI";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    margin: 1.5vh 0 1.5vh -7vw;
+    line-height: 100%;
+    /* 24px */
+}
+
+#fifth .img21 {
+    margin: 0 5vw 0 -8vw;
+    width: 700px;
+
+    flex-shrink: 0;
+    border-radius: 10px;
+}
+
+.title1-1 {
+    color: #2E1117;
+    font-family: "Microsoft YaHei UI";
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 100%;
+    /* 40px */
+    margin: 0vh -15vw 3vh 0vw;
+}
+
+.title2-1 {
+    color: #2E1117;
+    font-family: "Microsoft YaHei UI";
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 400;
+    margin: 0vh -15vw 3vh 0vw;
+    line-height: 48px;
+    /* 24px */
+}
+
+
+
+
+
+#eighth .title1 {
+    color: #2E1117;
+    font-family: "Microsoft YaHei UI";
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 100%;
+    /* 40px */
+    margin: 5vh 0 0 -8vw;
+}
+
+#eighth .title2 {
+    color: #2E1117;
+    font-family: "Microsoft YaHei UI";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    margin: 1.5vh 0 1.5vh -7vw;
+    line-height: 100%;
+    /* 24px */
+}
+
+#eighth .img21 {
+    margin: 0 5vw 0 -8vw;
+    width: 650px;
+
+    flex-shrink: 0;
+    border-radius: 10px;
+}
+
+
+
+#seventh .title1 {
+    color: #2E1117;
+    font-family: "Microsoft YaHei UI";
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 100%;
+    /* 40px */
+    margin: 5vh 0 0 0vw;
+}
+
+#seventh .title2 {
+    color: #2E1117;
+    font-family: "Microsoft YaHei UI";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    margin: 1.5vh 0 1.5vh 3vw;
+    line-height: 100%;
+    /* 24px */
+}
+
+#seventh .img21 {
+    margin: 0 -7.5vw 0 0vw;
+    width: 500px;
+
+    flex-shrink: 0;
+    border-radius: 10px;
+}
+
+#seventh .title1-1 {
+    color: #2E1117;
+    font-family: "Microsoft YaHei UI";
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 100%;
+    /* 40px */
+    margin: 5vh 0 0 12vw;
+}
+
+#seventh .title2-1 {
+    color: #2E1117;
+    font-family: "Microsoft YaHei UI";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    margin: 1.5vh 0 1.5vh 15vw;
+    line-height: 100%;
+    /* 24px */
+}
+
+.img22 {
+    margin: 0 0vw 0 12vw;
+    width: 500px;
+
+    flex-shrink: 0;
+    border-radius: 10px;
+}
+
+#ten .title1 {
+    color: #2E1117;
+    font-family: "Microsoft YaHei UI";
+    font-size: 36px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 100%;
+    /* 40px */
+    margin: 5vh 0 0 18vw;
+}
+
+#ten .title2 {
+    color: #2E1117;
+    font-family: "Microsoft YaHei UI";
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    margin: 1.5vh 0 1.5vh 26vw;
+    line-height: 100%;
+    /* 24px */
+}
+
+#ten .img21 {
+    margin: 0 0 0 18vw;
+    width: 700px;
+
+    flex-shrink: 0;
+    border-radius: 10px;
 }
 </style>

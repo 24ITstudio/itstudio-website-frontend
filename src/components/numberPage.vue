@@ -1296,16 +1296,53 @@ export default {
   display: none;
 }
 
+<<<<<<< HEAD
+=======
+.tabs {
+  position: absolute;
+  width: 31%;
+  height: 100%;
+  padding-top: 100px;
+  background-color: #04132d;
+  /* padding-top: 5%; */
+}
+
+.tabs button {
+  width: 100%;
+  height: 6%;
+  background-color: #04132d;
+  border: none;
+  cursor: pointer;
+  color: white;
+  font-size: 25px;
+  font-weight: 600;
+}
+
+.tabs button:hover {
+  background-color: #3399ff85;
+}
+
+.tabs button.active {
+  background-color: #3399ff;
+  color: white;
+}
+
+>>>>>>> upstream/master
 .back {
   padding-left: 14px;
   padding-top: 12px;
   position: fixed;
 }
 
+<<<<<<< HEAD
 .goBack {
   /* background-color: violet; */
   margin-left: 2%;
   margin-top: 2%;
+=======
+.members-list {
+  padding-top: 100px;
+>>>>>>> upstream/master
   position: relative;
 }
 

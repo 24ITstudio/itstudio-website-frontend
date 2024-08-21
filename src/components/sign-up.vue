@@ -31,7 +31,7 @@
                 <div class="stuMajor fill">
                     <span class="required-star">*</span>
                     <img src="../assets/Identification Documents.webp" alt="" style="height: 20px;">
-                    <input type="text" v-model="stuMajor" placeholder="年级专业" required>
+                    <input type="text" v-model="stuMajor" placeholder="年级专业(例如：大一电子信息)" required>
                 </div>
                 <div class="tele fill">
                     <span class="required-star">*</span>
@@ -203,7 +203,7 @@ async function submitForm() {
             code.value = '';
             reason.value = '';
         }
-        if (!isName.value) {
+        else if (!isName.value) {
             ElNotification.warning({
                 title: '姓名格式错误',
                 message: '请输入中文/英文名',
@@ -215,7 +215,7 @@ async function submitForm() {
             }, 800)
             return;
         }
-        if (!isPhone.value) {
+        else if (!isPhone.value) {
             ElNotification.warning({
                 title: '手机电话格式错误',
                 message: '例：138XXXXXX12',
@@ -227,7 +227,7 @@ async function submitForm() {
             }, 800)
             return;
         }
-        if (!isEmail.value) {
+        else if (!isEmail.value) {
             ElNotification.warning({
                 title: '邮箱格式错误',
                 message: '请检查输入是否正确',
@@ -428,6 +428,7 @@ onUnmounted(() => {
         font-size: 18px;
         font-style: normal;
         font-weight: 700;
+        width: 95%;
     }
 
     .putIn form .fill input::placeholder {
@@ -806,14 +807,17 @@ onUnmounted(() => {
         top: 0;
         left: 0;
         display: flex;
-        justify-content: center;
-        flex-wrap: wrap;
+        flex-direction: column;
+        justify-content: start;
+        align-self: center;
+        flex-wrap: nowrap;
     }
 
     .putIn .head,
     .succeed .head,
     .isOver .head {
         width: 84.79%;
+        margin: 0 auto;
         height: 50px;
         margin-top: 40px;
         display: flex;
@@ -823,7 +827,7 @@ onUnmounted(() => {
     .putIn .head .text {
         color: var(--2, #04132D);
         font-family: "Microsoft JhengHei UI";
-        font-size: 30px;
+        font-size: 40px;
         font-style: normal;
         font-weight: 700;
         line-height: 55px;
@@ -834,7 +838,7 @@ onUnmounted(() => {
     .isOver .head .text {
         color: var(--2, #04132D);
         font-family: "Microsoft JhengHei UI";
-        font-size: 16px;
+        font-size: 40px;
         font-style: normal;
         font-weight: 700;
         line-height: 55px;
@@ -844,7 +848,8 @@ onUnmounted(() => {
 
     .putIn form {
         width: 84.79%;
-        height: 800px;
+        margin: 0 auto;
+        height: 900px;
         display: flex;
         justify-content: space-between;
         flex-wrap: wrap;
@@ -879,7 +884,7 @@ onUnmounted(() => {
         line-height: 45px;
         color: var(--2, #04132D);
         font-family: "Microsoft JhengHei UI";
-        font-size: 14px;
+        font-size: 22px;
         font-style: normal;
         font-weight: 700;
     }
@@ -1008,9 +1013,12 @@ onUnmounted(() => {
 
     .mainText {
         position: absolute;
-        height: 10vh;
-        top: 45%;
-        left: 35%;
+        height: 100px;
+        width: 200px;
+        margin-left: -100px;
+        margin-top: -50px;
+        top: 50%;
+        left: 50%;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -1020,7 +1028,7 @@ onUnmounted(() => {
     .mainText div {
         color: var(--2, #04132D);
         font-family: "Microsoft JhengHei UI";
-        font-size: 24px;
+        font-size: 40px;
         font-style: normal;
         font-weight: 700;
         width: 100%;

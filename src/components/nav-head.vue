@@ -5,8 +5,8 @@
             <Expand />
         </el-icon>
         <div class="main" v-show="show">
-            <router-link to="/intro">基本概况</router-link>
-            <router-link to="/feature">部门特色</router-link>
+            <router-link to="/intro">关于爱特</router-link>
+            <router-link :to="'/feature?id=0'">部门特色</router-link>
             <router-link to="/number">成员组成</router-link>
             <router-link to="/achieve">项目成果</router-link>
             <div class="navanim home" :style="{ left: locate + 'px' }"></div>
@@ -202,7 +202,7 @@ export default {
         justify-content: start;
         align-items: center;
         width: 100vw;
-        height: 70px;
+        height: 100px;
         top: 0px;
         background-color: rgba(43, 51, 77, .6);
         font-size: 16px;
@@ -232,8 +232,8 @@ export default {
 
     nav .navtitle {
         display: flex;
-        width: 30px;
-        height: 30px;
+        width: 50px;
+        height: 50px;
         margin-left: 40px;
     }
 
@@ -275,7 +275,7 @@ export default {
         right: 26px;
         height: 70px;
         width: 60px;
-        font-size: 30px;
+        font-size: 50px;
         transition: 0.5s;
     }
 
