@@ -10,14 +10,8 @@
             </div>
         </div>
         <div class="main">
-            <div class="top">
-                <div :class="['words', { 'lightUp': up1 }]">未报名</div>
-                <div :class="['words', { 'lightUp': up1 && up2 }]">报名中</div>
-                <div :class="['words', { 'lightUp': up1 && up2 && up3 }]">一审中</div>
-                <div :class="['words', { 'lightUp': up1 && up2 && up3 && up4 }]">面试中</div>
-                <div :class="['words', { 'lightUp': up1 && up2 && up3 && up4 && up5 }]">二审中</div>
-                <div :class="['words', { 'lightUp': up1 && up2 && up3 && up4 && up5 && up6 }]">成功录取</div>
-            </div>
+            <div class="top1">您所处的录取阶段为</div>
+            <div class="top2">{{ resultText }}</div>
             <div class="mid">
                 <div class="highlight scale-in-hor-left" :style="{ width: locate + '%' }">
                 </div>
@@ -25,12 +19,11 @@
                 </div>
             </div>
             <div class="bottom">
-                <div class="words">&nbsp;&nbsp;&nbsp;&nbsp;</div>
-                <div class="words">&nbsp;&nbsp;&nbsp;&nbsp;</div>
-                <div :class="['words', { 'lightDown': down1 }]">一审失败</div>
-                <div :class="['words', { 'lightDown': down2 }]">面试失败</div>
-                <div :class="['words', { 'lightDown': down3 }]">二审失败</div>
-                <div :class="['words', { 'lightDown': down4 }]">未录取</div>
+                <div :class="['words', { 'lightUp': up1 }]">报名<br>成功</div>
+                <div :class="['words', { 'lightUp': up1 && up2 }]">STEP1<br>一面</div>
+                <div :class="['words', { 'lightUp': up1 && up2 && up3 }]">STEP2<br>国庆题</div>
+                <div :class="['words', { 'lightUp': up1 && up2 && up3 && up4 }]">STEP3<br>二面</div>
+                <div :class="['words', { 'lightUp': up1 && up2 && up3 && up4 && up5 }]">STEP4<br>录取<br>结果</div>
             </div>
         </div>
     </div>
@@ -38,53 +31,55 @@
 
 <script setup>
 import navHead from './nav-head.vue';
-import { defineProps, ref } from "vue";
+import { defineProps, ref, computed } from "vue";
 const props = defineProps({
     idx: Number,
 });
 const idx = ref(props.idx);
-const locate = ref(18);
+const locate = ref(5);
 const up1 = ref(0);
 const up2 = ref(0);
 const up3 = ref(0);
 const up4 = ref(0);
 const up5 = ref(0);
-const up6 = ref(0);
-const down1 = ref(0);
-const down2 = ref(0);
-const down3 = ref(0);
-const down4 = ref(0);
-console.log(idx.value);
-//18, 32, 46, 61, 76, 100
+
+// 计算属性来动态更新录取结果文本
+const resultText = computed(() => {
+    if (idx.value === 3) {
+        return "成功录取";
+    } else if (idx.value === -4) {
+        return "未被录取";
+    } else {
+        return "未录取";
+    }
+});
+
+// 根据 idx 的值更新进度条和状态
 if (idx.value > -1) {
-    locate.value = 18;
+    locate.value = 5;
     up1.value = 1;
     if (idx.value >= 0) {
-        locate.value = 32;
+        locate.value = 23;
         up2.value = 1;
         if (idx.value >= 1) {
-            locate.value = 46;
+            locate.value = 47;
             up3.value = 1;
             if (idx.value >= 2) {
-                locate.value = 61;
+                locate.value = 72;
                 up4.value = 1;
                 if (idx.value >= 3) {
-                    locate.value = 76;
+                    locate.value = 100;
                     up5.value = 1;
-                    if (idx.value >= 4) {
-                        locate.value = 100;
-                        up6.value = 1;
-                    }
                 }
             }
         }
     }
 }
+
 if (idx.value === -1) {
     locate.value = 46;
     up1.value = 1;
     up2.value = 1;
-    down1.value = 1;
 }
 
 if (idx.value === -2) {
@@ -92,7 +87,6 @@ if (idx.value === -2) {
     up1.value = 1;
     up2.value = 1;
     up3.value = 1;
-    down2.value = 1;
 }
 if (idx.value === -3) {
     locate.value = 76;
@@ -100,7 +94,6 @@ if (idx.value === -3) {
     up2.value = 1;
     up3.value = 1;
     up4.value = 1;
-    down3.value = 1;
 }
 if (idx.value === -4) {
     locate.value = 100;
@@ -109,7 +102,6 @@ if (idx.value === -4) {
     up3.value = 1;
     up4.value = 1;
     up5.value = 1;
-    down4.value = 1;
 }
 
 </script>
@@ -170,32 +162,45 @@ if (idx.value === -4) {
         margin: 10% 10%;
     }
 
-    .top {
+    .top1 {
+        color: white;
+        font-size: 24px;
+        font-family: Microsoft New Tai Lue;
+        font-weight: 400;
+        word-wrap: break-word;
+        margin-bottom: 14px;
+    }
+
+    .top2 {
+        color: white;
+        font-size: 36px;
+        font-family: Microsoft New Tai Lue;
+        font-weight: 700;
+        word-wrap: break-word;
+        margin-bottom: 61px;
+    }
+
+    .bottom {
         position: relative;
-        width: 76%;
+        width: 93%;
+        margin-top: 58px;
         justify-content: space-between;
-        align-items: flex-end;
+        align-items: flex-start;
         display: inline-flex
     }
 
     .words {
-        width: 40px;
-        color: gray;
-        font-size: 24px;
+        text-align: center;
+        color: white;
+        font-size: 36px;
         font-family: Microsoft JhengHei UI;
-        font-weight: 400;
+        font-weight: 700;
         word-wrap: break-word;
-        padding-bottom: 30px;
-        padding-top: 30px;
+        line-height: 98px;
     }
 
     .lightUp {
         color: #fff;
-        font-weight: 700;
-    }
-
-    .lightDown {
-        color: rgb(169, 3, 3);
         font-weight: 700;
     }
 
@@ -215,18 +220,9 @@ if (idx.value === -4) {
         border-radius: 15px;
     }
 
-
-    .bottom {
-        position: relative;
-        width: 76%;
-        justify-content: space-between;
-        align-items: flex-start;
-        display: inline-flex
-    }
-
     .mid {
         height: 30px;
-        width: 100%;
+        width: 90%;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -276,7 +272,6 @@ if (idx.value === -4) {
 }
 
 @media (max-width: 768px) {
-
     a {
         text-decoration: none;
     }
@@ -291,20 +286,23 @@ if (idx.value === -4) {
         display: flex;
         align-items: center;
         justify-content: center;
+
     }
 
     .shadow {
-        /* position: absolute;
-        left: 7.5%; */
-        width: 85vw;
-        height: 100vh;
-        background-color: #04132dcc;
+        width: 92vw;
+        height: 90vh;
+        background: rgba(120.72, 138.25, 168.94, 0.20);
+        border-radius: 16px;
+        overflow: hidden;
+        border: 1px rgba(120.72, 138.25, 168.94, 0.24) solid;
+        backdrop-filter: blur(25px)
     }
 
     .back {
         position: relative;
-        margin-top: 80px;
-        margin-left: 40px;
+        margin-top: 30px;
+        margin-left: 10px;
     }
 
     .back img {
@@ -318,49 +316,57 @@ if (idx.value === -4) {
         font-size: 15px;
     }
 
-    .back a {
-        text-decoration: none;
-    }
-
     .main {
         position: absolute;
-        width: 100%;
+        width: 76%;
         display: flex;
         flex-direction: column;
         align-items: center;
         margin: 10% 10%;
-        transform: rotate(-90deg);
+
     }
 
-    .top {
+    .top1 {
+        color: white;
+        font-size: 12px;
+        font-family: Microsoft New Tai Lue;
+        font-weight: 400;
+        word-wrap: break-word;
+        margin-bottom: 14px;
+    }
+
+    .top2 {
+        color: white;
+        font-size: 16px;
+        font-family: Microsoft New Tai Lue;
+        font-weight: 700;
+        word-wrap: break-word;
+        margin-bottom: 45px;
+    }
+
+    .bottom {
         position: relative;
-        width: 100%;
+        width: 120%;
+        margin-top: 24px;
+        display: flex;
+        flex-direction: row;
         justify-content: space-between;
-        align-items: flex-end;
-        display: inline-flex;
+        align-items: start;
     }
 
     .words {
-        width: 140px;
-        color: gray;
+        width: 20%;
+        text-align: center;
+        color: #fff;
         font-size: 16px;
         font-family: Microsoft JhengHei UI;
         font-weight: 400;
         word-wrap: break-word;
-        padding-bottom: 30px;
-        padding-top: 30px;
-        transform: rotate(90deg);
-        margin-left: 5px;
-        /* writing-mode: vertical-rl; */
+        line-height: 24px;
     }
 
     .lightUp {
         color: #fff;
-        font-weight: 700;
-    }
-
-    .lightDown {
-        color: rgb(169, 3, 3);
         font-weight: 700;
     }
 
@@ -380,18 +386,8 @@ if (idx.value === -4) {
         border-radius: 15px;
     }
 
-
-    .bottom {
-        position: relative;
-        transform: translateY(30px);
-        width: 100%;
-        justify-content: space-between;
-        align-items: flex-start;
-        display: inline-flex
-    }
-
     .mid {
-        height: 30px;
+        height: 15px;
         width: 100%;
         display: flex;
         align-items: center;
@@ -440,195 +436,4 @@ if (idx.value === -4) {
         }
     }
 }
-
-/* @media (max-width: 430px) {
-    a {
-        text-decoration: none;
-    }
-
-    body,
-    .box {
-        position: relative;
-        width: 100vw;
-        height: 100vh;
-        background: url(../assets/bg.webp);
-        background-size: cover;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .shadow {
-        position: absolute;
-        left: 0;
-        width: 100vw;
-        height: 100vh;
-        background-color: #04132dcc;
-    }
-
-    .back {
-        position: relative;
-        margin-top: 20px;
-        margin-left: 20px;
-    }
-
-    .back img {
-        position: absolute;
-        width: 15px;
-    }
-
-    .back p {
-        padding-left: 20px;
-        color: #808da5;
-        font-size: 12px;
-    }
-
-    .back a {
-        text-decoration: none;
-    }
-
-    .main {
-        position: absolute;
-        width: 85%;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        margin: 10% 5%;
-    }
-
-    .top {
-        position: relative;
-        width: 100%;
-        justify-content: space-between;
-        align-items: flex-end;
-        display: inline-flex;
-        flex-wrap: wrap;
-    }
-
-    .words {
-        width: 30px;
-        color: gray;
-        font-size: 24px;
-        font-family: Microsoft JhengHei UI;
-        font-weight: 400;
-        word-wrap: break-word;
-        padding-bottom: 20px;
-        padding-top: 20px;
-        text-align: center;
-    }
-
-    .lightUp {
-        color: #fff;
-        font-weight: 700;
-    }
-
-    .lightDown {
-        color: rgb(169, 3, 3);
-        font-weight: 700;
-    }
-
-    .highlight {
-        position: absolute;
-        left: 0;
-        height: 100%;
-        width: 16%;
-        background-color: #fff;
-        border-radius: 10px;
-    }
-
-    .common {
-        height: 100%;
-        width: 100%;
-        background-color: rgba(152, 152, 152, 0.3);
-        border-radius: 10px;
-    }
-
-    .bottom {
-        position: relative;
-        width: 100%;
-        justify-content: space-between;
-        align-items: flex-start;
-        display: inline-flex;
-        flex-wrap: wrap;
-    }
-
-    .mid {
-        height: 20px;
-        width: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        position: relative;
-    }
-
-    .scale-in-hor-left {
-        -webkit-animation: scale-in-hor-left 1s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
-        animation: scale-in-hor-left 1s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
-    }
-
-    @-webkit-keyframes scale-in-hor-left {
-        0% {
-            -webkit-transform: scaleX(0);
-            transform: scaleX(0);
-            -webkit-transform-origin: 0% 0%;
-            transform-origin: 0% 0%;
-            opacity: 1;
-        }
-
-        100% {
-            -webkit-transform: scaleX(1);
-            transform: scaleX(1);
-            -webkit-transform-origin: 0% 0%;
-            transform-origin: 0% 0%;
-            opacity: 1;
-        }
-    }
-
-    @keyframes scale-in-hor-left {
-        0% {
-            -webkit-transform: scaleX(0);
-            transform: scaleX(0);
-            -webkit-transform-origin: 0% 0%;
-            transform-origin: 0% 0%;
-            opacity: 1;
-        }
-
-        100% {
-            -webkit-transform: scaleX(1);
-            transform: scaleX(1);
-            -webkit-transform-origin: 0% 0%;
-            transform-origin: 0% 0%;
-            opacity: 1;
-        }
-    }
-
-    @media (max-width: 430px) {
-        .words {
-            width: 25px;
-            font-size: 18px;
-            padding-bottom: 15px;
-            padding-top: 15px;
-        }
-
-        .back img {
-            width: 12px;
-        }
-
-        .back p {
-            font-size: 10px;
-        }
-
-        .highlight {
-            border-radius: 8px;
-        }
-
-        .common {
-            border-radius: 8px;
-        }
-
-        .mid {
-            height: 15px;
-        }
-    }
-} */
 </style>
