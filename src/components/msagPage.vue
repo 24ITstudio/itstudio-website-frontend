@@ -75,10 +75,10 @@
                     <LoadingSpinner v-if="isLoading" />
                     <div class="right_board slide-in-blurred-bottom" v-if="!isLoading" :key="submitKey">
                         <div class="inner_board" v-for="item in total_Messages" :key="item.id">
-                            <div @click="() => { showContent('content2');  getParentID(item.id); }"
+                            <div @click="() => { showContent('content2'); getParentID(item.id); }"
                                 class="author_inner pulsate-bck">
                                 <div class="author_info">
-                                    <div class="author_avatar"><img src="../assets/msagAvatar_0.png" /></div>
+                                    <div class="author_avatar"><img src="../assets/msagAvatar_0.webp" /></div>
                                     <div class="author_info_right">
                                         <div class="author_call">联系方式</div>
                                         <div class="author_time">{{ item.datetime }}</div>
@@ -90,13 +90,13 @@
                             </div>
                             <div class="repay">
                                 <div class="repay_1">回复</div>
-                                <div class="repay_2"><img src="../assets/repay_logo.png" /></div>
+                                <div class="repay_2"><img src="../assets/repay_logo.webp" /></div>
                             </div>
                             <div class="traveller_total">
                                 <!-- // eslint-disable-next-line vue/require-v-for-key -->
                                 <div class="traveller_inner" v-for="child in item.children" :key="child">
                                     <div class="traveller_info">
-                                        <div class="traveller_avatar"><img src="../assets/msagAvatar_1.png" /></div>
+                                        <div class="traveller_avatar"><img src="../assets/msagAvatar_1.webp" /></div>
                                         <div class="traveller_info_right">
                                             <div class="traveller_call">联系方式</div>
                                             <div class="traveller_time">{{ formateTime(child.datetime) }}</div>
@@ -212,7 +212,7 @@ export default {
                 return;
             }
 
-            
+
 
             var axios = require('axios');
             var data = JSON.stringify({
@@ -222,7 +222,7 @@ export default {
 
             var config = {
                 method: 'post',
-                 url: 'https://www.itstudio.club/bbs/',
+                url: 'https://www.itstudio.club/bbs/',
                 // url: '/api/bbs/',
                 headers: {
                     'Content-Type': 'application/json'
@@ -303,7 +303,7 @@ export default {
 
             var config = {
                 method: 'post',
-                 url: 'https://www.itstudio.club/bbs/',
+                url: 'https://www.itstudio.club/bbs/',
                 // url: '/api/bbs/',
                 headers: {
                     'Content-Type': 'application/json'
@@ -341,7 +341,7 @@ export default {
                         } else {
                             console.error('信息获取失败', error.response.status);
                         }
-                        
+
                     } else if (error.request) {
                         console.error('无响应', error.request);
                     } else {
@@ -432,8 +432,8 @@ export default {
         width: 85%;
         margin-left: 10%;
     }
-    
-    .mobile_add{
+
+    .mobile_add {
         /* border: 1px, solid, rgb(161, 47, 255); */
         height: 10%;
         display: flex;
@@ -441,7 +441,7 @@ export default {
         align-items: center;
     }
 
-    .mobile_title{
+    .mobile_title {
         color: white;
         font-size: 5vw;
         font-weight: 700;
@@ -449,7 +449,7 @@ export default {
         margin-left: 42%;
     }
 
-    .mobile_button{
+    .mobile_button {
         height: 50%;
         margin-left: 12%;
         background-color: #FFFFFF33;
@@ -504,21 +504,21 @@ export default {
         animation: pulsate-bck 0.4s ease;
     }
 
-    .author_info{
+    .author_info {
         /* border: 1px, solid, rgb(119, 184, 27); */
         display: flex;
         flex-direction: row;
         /* height: 10%; */
     }
 
-    .author_avatar{
+    .author_avatar {
         /* border: 1px, solid, rgb(40, 50, 26); */
         height: 20%;
         width: 15%;
-        
+
     }
 
-    .author_avatar img{
+    .author_avatar img {
         width: 100%;
         height: 100%;
     }
@@ -537,14 +537,14 @@ export default {
     } */
 
     /* .author_info{ */
-        /* border: 1px, solid, rgb(40, 50, 26); */
+    /* border: 1px, solid, rgb(40, 50, 26); */
     /* } */
 
-    .author_info_right{
+    .author_info_right {
         margin-left: 4%;
     }
 
-    .author_call{
+    .author_call {
         font-size: 4vw;
     }
 
@@ -566,7 +566,7 @@ export default {
         display: none;
     }
 
-    .repay{
+    .repay {
         /* border: 1px, solid, black; */
         background-color: #d4cece;
         margin-left: 9%;
@@ -580,7 +580,7 @@ export default {
         align-items: center;
     }
 
-    .repay_1{
+    .repay_1 {
         /* border: 1px, solid, rgb(181, 164, 164); */
         margin-left: 3%;
         font-size: 3vw;
@@ -588,7 +588,7 @@ export default {
         height: 70%;
     }
 
-    .repay_2{
+    .repay_2 {
         margin-left: 2%;
         margin-right: 5%;
         /* margin-top: 2%; */
@@ -596,7 +596,7 @@ export default {
         height: 60%;
     }
 
-    .repay_2 img{
+    .repay_2 img {
         width: 100%;
         height: 100%;
     }
@@ -623,7 +623,7 @@ export default {
         text-overflow: ellipsis;
     }
 
-    .traveller_info{
+    .traveller_info {
         /* border: 1px, solid, blue; */
         /* height: ; */
         display: flex;
@@ -631,17 +631,17 @@ export default {
         height: 4.5vh;
     }
 
-    .traveller_avatar{
+    .traveller_avatar {
         width: 14%;
         height: 100%;
     }
 
-    .traveller_avatar img{
+    .traveller_avatar img {
         width: 100%;
         height: 100%;
     }
 
-    .traveller_info_right{
+    .traveller_info_right {
         /* border: 1px, solid, blue; */
         display: flex;
         flex-direction: column;
@@ -672,7 +672,7 @@ export default {
         flex-direction: row;
     } */
 
-    .traveller_call{
+    .traveller_call {
         font-size: 3.4vw;
     }
 
@@ -838,28 +838,28 @@ export default {
         -webkit-animation: slide-in-left 1.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
         animation: slide-in-left 1.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
     }
-                
+
     @-webkit-keyframes slide-in-left {
-        0% {    
+        0% {
             -webkit-transform: translateX(-1000px);
             transform: translateX(-1000px);
             opacity: 0;
         }
-                
+
         100% {
             -webkit-transform: translateX(0);
             transform: translateX(0);
             opacity: 1;
         }
     }
-                
+
     @keyframes slide-in-left {
         0% {
             -webkit-transform: translateX(-1000px);
             transform: translateX(-1000px);
             opacity: 0;
         }
-                
+
         100% {
             -webkit-transform: translateX(0);
             transform: translateX(0);
@@ -869,13 +869,13 @@ export default {
 
     .slide-left-enter-active {
         animation: slide-in-left 1.5s ease;
-    } 
-        
+    }
+
     .slide-left-leave-active {
         animation: slide-out-left 0.6s ease;
     }
 
-        
+
     .slide-out-left {
         -webkit-animation: slide-out-left 0.6s cubic-bezier(0.550, 0.085, 0.680, 0.530) both;
         animation: slide-out-left 0.6s cubic-bezier(0.550, 0.085, 0.680, 0.530) both;
@@ -1209,7 +1209,7 @@ export default {
         margin-top: 1%;
     }
 
-    .mobile_add{
+    .mobile_add {
         display: none;
     }
 
@@ -1262,26 +1262,26 @@ export default {
         animation: pulsate-bck 0.4s ease;
     }
 
-    .author_info{
+    .author_info {
         display: flex;
         flex-direction: row;
     }
 
-    .author_avatar{
+    .author_avatar {
         width: 15%;
         height: 85%;
     }
 
-    .author_avatar img{
+    .author_avatar img {
         width: 100%;
         height: 100%;
     }
 
-    .author_info_right{
+    .author_info_right {
         margin-left: 2%;
     }
 
-    .author_call{
+    .author_call {
         font-size: 1.1vw;
         font-weight: bold;
     }
@@ -1305,7 +1305,7 @@ export default {
         font-family: 'Microsoft New Tai Lue';
     } */
 
-    
+
 
     .author_content {
         /* border: 1px, solid, black; */
@@ -1318,7 +1318,7 @@ export default {
         width: 94%;
     }
 
-    .repay{
+    .repay {
         /* border: 1px, solid, black; */
         background-color: #d4cece;
         margin-left: 8%;
@@ -1332,7 +1332,7 @@ export default {
         align-items: center;
     }
 
-    .repay_1{
+    .repay_1 {
         /* border: 1px, solid, rgb(181, 164, 164); */
         margin-left: 3%;
         font-size: 1vw;
@@ -1340,14 +1340,14 @@ export default {
         height: 70%;
     }
 
-    .repay_2{
+    .repay_2 {
         margin-left: 2%;
         /* margin-top: 2%; */
         width: 6%;
         height: 60%;
     }
 
-    .repay_2 img{
+    .repay_2 img {
         width: 100%;
         height: 100%;
     }
@@ -1372,22 +1372,22 @@ export default {
         flex-direction: column;
     }
 
-    .traveller_info{
+    .traveller_info {
         display: flex;
         flex-direction: row;
     }
 
-    .traveller_avatar{
+    .traveller_avatar {
         width: 15%;
         height: 80%;
     }
 
-    .traveller_avatar img{
+    .traveller_avatar img {
         width: 100%;
         height: 100%;
     }
 
-    .traveller_info_right{
+    .traveller_info_right {
         margin-left: 3%;
     }
 
@@ -1408,7 +1408,7 @@ export default {
         flex-direction: row;
     } */
 
-    .traveller_call{
+    .traveller_call {
         font-size: 1vw;
         font-weight: bold;
     }
@@ -1607,11 +1607,12 @@ export default {
     .slide-left-enter-active {
         animation: slide-in-left 1.5s ease;
     }
+
     .slide-left-leave-active {
         animation: slide-out-left 0.6s ease;
-    } 
+    }
 
-        /* .slide-left-1-enter-active {
+    /* .slide-left-1-enter-active {
             animation: slide-in-left 1.5s ease;
         }
         .slide-left-1-leave-active {
@@ -1629,21 +1630,21 @@ export default {
             transform: translateX(0);
             opacity: 1;
         }
-                
+
         100% {
             -webkit-transform: translateX(-1000px);
             transform: translateX(-1000px);
             opacity: 0;
         }
     }
-                
+
     @keyframes slide-out-left {
         0% {
             -webkit-transform: translateX(0);
             transform: translateX(0);
             opacity: 1;
         }
-                
+
         100% {
             -webkit-transform: translateX(-1000px);
             transform: translateX(-1000px);
@@ -1655,7 +1656,7 @@ export default {
         -webkit-animation: slide-out-blurred-left 0.4s cubic-bezier(0.755, 0.050, 0.855, 0.060) both;
         animation: slide-out-blurred-left 0.4s cubic-bezier(0.755, 0.050, 0.855, 0.060) both;
     }
-    
+
     @-webkit-keyframes slide-out-blurred-left {
         0% {
             -webkit-transform: translateX(0) scaleY(1) scaleX(1);
@@ -1666,7 +1667,7 @@ export default {
             filter: blur(0);
             opacity: 1;
         }
-    
+
         100% {
             -webkit-transform: translateX(-1000px) scaleX(2) scaleY(0.2);
             transform: translateX(-1000px) scaleX(2) scaleY(0.2);
@@ -1677,7 +1678,7 @@ export default {
             opacity: 0;
         }
     }
-    
+
     @keyframes slide-out-blurred-left {
         0% {
             -webkit-transform: translateX(0) scaleY(1) scaleX(1);
@@ -1688,7 +1689,7 @@ export default {
             filter: blur(0);
             opacity: 1;
         }
-    
+
         100% {
             -webkit-transform: translateX(-1000px) scaleX(2) scaleY(0.2);
             transform: translateX(-1000px) scaleX(2) scaleY(0.2);

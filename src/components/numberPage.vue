@@ -14,7 +14,7 @@
           <div v-for="year in years" :key="year" @click="selectYear(year)"
             :class="{ 'selected-year': selectedYear === year }" class="year" tabindex="1">
             {{ year }}
-            <img src="@/assets/下.png" alt="" />
+            <img src="@/assets/下.webp" alt="" />
           </div>
         </div>
       </div>
@@ -26,7 +26,7 @@
               {{ department.name }}
             </span>
             <div v-if="selectedYear && selectedDepartment === department">
-              <img src="@/assets/左.png" alt="" />
+              <img src="@/assets/左.webp" alt="" />
             </div>
           </div>
         </div>
@@ -1241,8 +1241,6 @@ export default {
 </script>
 
 <style scoped>
-.nav {}
-
 .year-selector {
   margin-bottom: 18%;
   margin-top: 10%;
@@ -1296,8 +1294,6 @@ export default {
   display: none;
 }
 
-<<<<<<< HEAD
-=======
 .tabs {
   position: absolute;
   width: 31%;
@@ -1327,22 +1323,14 @@ export default {
   color: white;
 }
 
->>>>>>> upstream/master
 .back {
   padding-left: 14px;
   padding-top: 12px;
   position: fixed;
 }
 
-<<<<<<< HEAD
-.goBack {
-  /* background-color: violet; */
-  margin-left: 2%;
-  margin-top: 2%;
-=======
 .members-list {
   padding-top: 100px;
->>>>>>> upstream/master
   position: relative;
 }
 
