@@ -1,6 +1,5 @@
 <template>
-    <!-- change: 滚动条、 利用接口参数 分页 实现新内容-->
-    <!-- add: 考虑使用Waline 实现讨论功能 -->
+    <!-- remain: 滚动条样式、 利用接口参数 分页-->
     <div class="back">
         <div class="back_up">
             <div class="head">
@@ -68,6 +67,10 @@
                         <router-link to="/">
                             <img src="../assets/Go Back.webp" class="backImg" />
                         </router-link>
+                    </div>
+                    <div class="mobile_add">
+                        <div class="mobile_title">留言板</div>
+                        <button class="mobile_button">+ 点击留言</button>
                     </div>
                     <LoadingSpinner v-if="isLoading" />
                     <div class="right_board slide-in-blurred-bottom" v-if="!isLoading" :key="submitKey">
@@ -219,8 +222,8 @@ export default {
 
             var config = {
                 method: 'post',
-                // url: 'https://www.itstudio.club/bbs/',
-                url: '/api/bbs/',
+                 url: 'https://www.itstudio.club/bbs/',
+                // url: '/api/bbs/',
                 headers: {
                     'Content-Type': 'application/json'
                 },
@@ -300,8 +303,8 @@ export default {
 
             var config = {
                 method: 'post',
-                // url: 'https://www.itstudio.club/bbs/',
-                url: '/api/bbs/',
+                 url: 'https://www.itstudio.club/bbs/',
+                // url: '/api/bbs/',
                 headers: {
                     'Content-Type': 'application/json'
                 },
@@ -380,7 +383,7 @@ export default {
     }
 
     .content {
-        height: 95%;
+        height: 100%;
         margin-top: 2%;
         display: flex;
         flex-direction: column-reverse;
@@ -389,115 +392,15 @@ export default {
     }
 
     .back_left {
-        width: 90%;
-        height: 8%;
-        display: flex;
-        flex-direction: row;
-        align-items: center;
+        display: none;
     }
 
     .left_board {
-        background-color: #d9d9d9;
-        height: 100%;
-        width: 100%;
-        display: flex;
-        flex-direction: row;
-        border-radius: 15px;
-    }
-
-    .board_head {
-        display: flex;
-        /* flex-direction: row; */
-        align-items: center;
-        justify-content: center;
-        width: 5%;
-        margin-left: 3%;
-        /* border: 1px, solid, #ab226f; */
-    }
-
-    .text_1 {
-        text-align: center;
-    }
-
-    .board_content {
-        display: flex;
-        margin-left: 3%;
-        width: 74%;
-        /* border: 1px, solid, #2253e4; */
-    }
-
-    .board_content .textarea_1 {
-        margin-top: 2%;
-        margin-bottom: 2%;
-        border: none;
-        resize: none;
-        outline: none;
-        background-color: transparent;
-        width: 100%;
-        /* border: 1px, solid, #16c461; */
-        color: black;
-        font-size: 4.1vw;
-        
-    }
-
-    .textarea_2{
-        font-size: 4.1vw;
-        margin-top: 2%;
-        margin-bottom: 2%;
+        display: none;
     }
 
     .submitC {
         display: none;
-    }
-
-    .submitC_1 {
-        height: 100%;
-    }
-
-    .submitC_1 .inner {
-        height: 100%;
-        border: none;
-        background-color: transparent;
-        /* border: 1px, solid, #b016c4; */
-    }
-
-    .submitC_1 .inner img {
-        height: 8vw;
-        width: 8vw;
-        /* border: 1px, solid, #1fc1d6; */
-    }
-
-    .submitC_1 .inner img:active {
-        animation: pulsate-bck 1s ease;
-    }
-
-    .board_content_1 {
-        display: flex;
-        margin-left: 3%;
-        width: 74%;
-        /* border: 1px, solid, #2253e4; */
-    }
-
-    .board_content_1 textarea {
-        border: none;
-        resize: none;
-        outline: none;
-        background-color: transparent;
-        width: 100%;
-        /* border: 1px, solid, #16c461; */
-        color: black;
-    }
-
-    .submitButton {
-        /* border: 1px solid rebeccapurple; */
-        display: flex;
-        flex-direction: row;
-    }
-
-    .submitButton {
-        /* border: 1px solid rebeccapurple; */
-        display: flex;
-        flex-direction: row;
     }
 
     .submitA {
@@ -508,59 +411,14 @@ export default {
         display: none;
     }
 
-    .submitA_1 {
-        height: 100%;
-    }
-
-    .submitA_1 .inner {
-        height: 100%;
-        border: none;
-        background-color: transparent;
-        /* border: 1px, solid, #b016c4; */
-    }
-
-    .submitA_1 .inner img {
-        height: 8vw;
-        width: 8vw;
-        /* border: 1px, solid, #1fc1d6; */
-    }
-
-    .submitA_1 .inner img:active {
-        animation: pulsate-bck 1s ease;
-    }
-
-    .submitB_1 {
-        height: 100%;
-    }
-
-
-    .submitB_1 .inner {
-        height: 100%;
-        border: none;
-        background-color: transparent;
-        /* border: 1px, solid, #b016c4; */
-    }
-
-    .submitB_1 .inner img {
-        height: 8vw;
-        width: 8vw;
-        /* border: 1px, solid, #1fc1d6; */
-    }
-
-    .submitB_1 .inner img:active {
-        animation: pulsate-bck 1s ease;
-    }
-
     .back_right {
-        /* background-color: #d9d9d91a; */
+        /* border: 1px, solid, #1fc1d6; */
         width: 100%;
-        height: 82%;
+        height: 88%;
     }
 
     .goBack {
-        /* background-color: violet; */
-        margin-left: 2%;
-        margin-top: 6%;
+        display: none;
     }
 
     .backImg {
@@ -574,12 +432,40 @@ export default {
         width: 85%;
         margin-left: 10%;
     }
+    
+    .mobile_add{
+        /* border: 1px, solid, rgb(161, 47, 255); */
+        height: 10%;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+    }
+
+    .mobile_title{
+        color: white;
+        font-size: 5vw;
+        font-weight: 700;
+        font-family: Microsoft New Tai Lue;
+        margin-left: 42%;
+    }
+
+    .mobile_button{
+        height: 50%;
+        margin-left: 12%;
+        background-color: #FFFFFF33;
+        color: white;
+        border: none;
+        font-size: 3.5vw;
+        font-weight: bold;
+        border-radius: 10px;
+    }
 
     .right_board {
         /* border: 1px, solid, greenyellow; */
         height: 88%;
         width: 100%;
-        margin-top: 1%;
+        /* margin-top: 10%; */
+        margin-bottom: 2%;
         display: flex;
         flex-wrap: wrap;
         overflow: auto;
@@ -592,10 +478,11 @@ export default {
     }
 
     .inner_board {
+        /* border: 1px, solid, rgb(108, 166, 26); */
         background-color: #ffffff;
         width: 80%;
         height: auto;
-        border-radius: 40px;
+        border-radius: 30px;
         margin-top: 5%;
     }
 
@@ -607,9 +494,9 @@ export default {
         /* border: 1px, solid, rgb(40, 50, 26); */
         margin-top: 3%;
         margin-left: 9%;
-        width: 78%;
+        width: 83%;
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
         cursor: pointer;
     }
 
@@ -617,18 +504,48 @@ export default {
         animation: pulsate-bck 0.4s ease;
     }
 
-    .author_right {
+    .author_info{
+        /* border: 1px, solid, rgb(119, 184, 27); */
+        display: flex;
+        flex-direction: row;
+        /* height: 10%; */
+    }
+
+    .author_avatar{
+        /* border: 1px, solid, rgb(40, 50, 26); */
+        height: 20%;
+        width: 15%;
+        
+    }
+
+    .author_avatar img{
+        width: 100%;
+        height: 100%;
+    }
+
+    /* .author_right {
         display: flex;
         flex-direction: column;
         width: 100%;
         margin-left: 3%;
-    }
+    } */
 
-    .author_name {
-        /* border: 1px, solid, black; */
+    /* .author_name {
         margin-top: 1px;
         font-weight: 700;
         font-family: 'Microsoft New Tai Lue';
+    } */
+
+    /* .author_info{ */
+        /* border: 1px, solid, rgb(40, 50, 26); */
+    /* } */
+
+    .author_info_right{
+        margin-left: 4%;
+    }
+
+    .author_call{
+        font-size: 4vw;
     }
 
     .author_time {
@@ -639,70 +556,138 @@ export default {
     .author_content {
         /* border: 1px, solid, black; */
         margin-top: 2%;
-        font-size: 1.8vh;
+        font-size: 3.7vw;
         font-family: 'Microsoft New Tai Lue';
         overflow: auto;
+        width: 100%;
     }
 
     .author_content::-webkit-scrollbar {
         display: none;
     }
 
+    .repay{
+        /* border: 1px, solid, black; */
+        background-color: #d4cece;
+        margin-left: 9%;
+        margin-right: 5%;
+        margin-top: 2%;
+        border-radius: 8px;
+        height: 8vw;
+        width: 82%;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+    }
+
+    .repay_1{
+        /* border: 1px, solid, rgb(181, 164, 164); */
+        margin-left: 3%;
+        font-size: 3vw;
+        width: 85%;
+        height: 70%;
+    }
+
+    .repay_2{
+        margin-left: 2%;
+        margin-right: 5%;
+        /* margin-top: 2%; */
+        width: 8%;
+        height: 60%;
+    }
+
+    .repay_2 img{
+        width: 100%;
+        height: 100%;
+    }
+
     .traveller_total {
         /* border: 1px, solid, greenyellow; */
         max-height: 20vh;
-        width: 90%;
-        margin-left: 4%;
-        margin-top: 2%;
+        /* width: 70%; */
+        margin-left: 9%;
+        margin-right: 6%;
+        margin-top: 4%;
         margin-bottom: 2%;
         overflow: auto;
     }
 
     .traveller_inner {
         /* border: 1px, solid, blue; */
-        width: 85%;
-        margin-top: 2%;
-        margin-left: 12%;
+        /* width: 85%; */
+        margin-top: 4%;
+        /* margin-left: 12%; */
         display: flex;
         flex-direction: column;
         overflow: auto;
         text-overflow: ellipsis;
     }
 
-    .traveller_head_fixed img {
-        width: 100%;
+    .traveller_info{
+        /* border: 1px, solid, blue; */
+        /* height: ; */
+        display: flex;
+        flex-direction: row;
+        height: 4.5vh;
     }
 
-    .traveller_right {
+    .traveller_avatar{
+        width: 14%;
+        height: 100%;
+    }
+
+    .traveller_avatar img{
+        width: 100%;
+        height: 100%;
+    }
+
+    .traveller_info_right{
+        /* border: 1px, solid, blue; */
+        display: flex;
+        flex-direction: column;
+        width: 80%;
+        margin-left: 3%;
+
+    }
+
+    /* .traveller_head_fixed img {
+        width: 100%;
+    } */
+
+    /* .traveller_right {
         display: flex;
         flex-direction: column;
         width: 82%;
         margin-left: 4%;
-    }
+    } */
 
 
-    .traveller_name_fixed_1 {
-        /* border: 1px, solid, black; */
+    /* .traveller_name_fixed_1 {
         font-family: 'Microsoft New Tai Lue';
         font-weight: 700;
-    }
+    } */
 
-    .traveller_name_fixed {
+    /* .traveller_name_fixed {
         display: flex;
         flex-direction: row;
+    } */
+
+    .traveller_call{
+        font-size: 3.4vw;
     }
 
     .traveller_time {
         font-size: 1.5vh;
         color: #8d8989;
-        margin-top: 3.5%;
-        margin-left: 2%;
+        /* margin-top: 3%; */
+        /* margin-left: 2%; */
     }
 
     .traveller_content {
         /* border: 1px, solid, black; */
         height: 80%;
         margin-top: 3%;
+        margin-left: 2%;
         font-size: 1.7vh;
         overflow-y: auto;
         overflow-x: hidden;
@@ -1017,7 +1002,7 @@ export default {
         width: 60%;
         height: 75%;
         margin-left: 25%;
-        margin-top: 25%;
+        margin-top: 32%;
         position: relative;
     }
 
@@ -1224,6 +1209,10 @@ export default {
         margin-top: 1%;
     }
 
+    .mobile_add{
+        display: none;
+    }
+
     .right_board {
         /* border: 1px, solid, greenyellow; */
         height: 87%;
@@ -1262,7 +1251,7 @@ export default {
         /* border: 1px, solid, rgb(40, 50, 26); */
         margin-top: 3%;
         margin-left: 9%;
-        height: 34%;
+        height: 33%;
         width: 89%;
         display: flex;
         flex-direction: column;
@@ -1326,28 +1315,34 @@ export default {
         font-family: 'Microsoft New Tai Lue';
         overflow: auto;
         margin-right: 2%;
+        width: 94%;
     }
 
     .repay{
         /* border: 1px, solid, black; */
         background-color: #d4cece;
-        margin-left: 5%;
+        margin-left: 8%;
         margin-right: 5%;
+
         border-radius: 8px;
         height: 10%;
+        width: 85%;
         display: flex;
         flex-direction: row;
+        align-items: center;
     }
 
     .repay_1{
         /* border: 1px, solid, rgb(181, 164, 164); */
         margin-left: 3%;
-        font-size: 13px;
+        font-size: 1vw;
+        width: 85%;
+        height: 70%;
     }
 
     .repay_2{
-        margin-left: 76%;
-        margin-top: 2%;
+        margin-left: 2%;
+        /* margin-top: 2%; */
         width: 6%;
         height: 60%;
     }
@@ -1360,8 +1355,9 @@ export default {
     .traveller_total {
         /* border: 1px, solid, greenyellow; */
         height: 49%;
-        width: 90%;
+        width: 72%;
         margin-top: 2%;
+        margin-left: 23%;
         overflow: auto;
 
     }
@@ -1370,8 +1366,8 @@ export default {
     .traveller_inner {
         /* border: 1px, solid, blue; */
         width: 80%;
-        margin-top: 2%;
-        margin-left: 20%;
+        margin-top: 3%;
+        /* margin-left: 17%; */
         display: flex;
         flex-direction: column;
     }
