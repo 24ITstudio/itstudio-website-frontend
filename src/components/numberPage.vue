@@ -1501,6 +1501,10 @@ span {
 }
 
 @media (max-width: 430px) {
+  .look {
+    display: none;
+  }
+
   .year-selector {
     margin-bottom: 18%;
     margin-top: 30%;
@@ -1716,5 +1720,11 @@ span {
     align-items: center;
   }
 
+}
+
+@media (max-width: 1024px) {
+  .department-list {
+    padding-top: 60px;
+  }
 }
 </style>

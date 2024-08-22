@@ -3,17 +3,17 @@
         <div class="navtitle">
             <router-link to="/">
                 <img src="../assets/Home.svg" alt="">
-                <div>首页</div>
+                <div class="nochose">首页</div>
             </router-link>
         </div>
         <el-icon :class="['fold', { 'onShow': show }]" @click="unFold">
             <Expand />
         </el-icon>
         <div class="main" v-show="show">
-            <router-link to="/intro">关于爱特</router-link>
-            <router-link :to="'/feature?id=0'">部门特色</router-link>
-            <router-link to="/member">成员组成</router-link>
-            <router-link to="/achieve">项目成果</router-link>
+            <router-link to="/intro" class="nochose">关于爱特</router-link>
+            <router-link :to="'/feature?id=0'" class="nochose">部门特色</router-link>
+            <router-link to="/member" class="nochose">成员组成</router-link>
+            <router-link to="/achieve" class="nochose">项目成果</router-link>
             <div class="navanim home" :style="{ left: locate + 'px' }"></div>
         </div>
         <div class="none"></div>
@@ -42,6 +42,15 @@ export default {
 
 <style scoped>
 @media (min-width: 1301px) {
+
+    .nochose {
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
+        -khtml-user-selece: none;
+        /*上面都是兼容性问题，具体看浏览器版本或什么浏览器*/
+        user-select: none;
+    }
 
     a {
 
@@ -199,6 +208,15 @@ export default {
         background-size: cover;
         background-position: center;
         z-index: 1000;
+    }
+
+    .nochose {
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
+        -khtml-user-selece: none;
+        /*上面都是兼容性问题，具体看浏览器版本或什么浏览器*/
+        user-select: none;
     }
 
     ::-webkit-scrollbar {

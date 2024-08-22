@@ -439,7 +439,7 @@ async function getProgress() {
     width: 85vw;
     height: 100vh;
     background-color: #04132dcc;
-    transform: translateY(70px);
+    transform: translateY(100px);
     display: flex;
     align-items: center;
     justify-content: center;

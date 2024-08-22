@@ -21,7 +21,7 @@
                                         </clipPath>
                                     </defs>
                                 </svg>
-                                <div class="teXt">报名入口</div>
+                                <div class="teXt nochose">报名入口</div>
                             </router-link>
                         </div>
                         <div class="slide-top">
@@ -32,7 +32,7 @@
                                         d="M25.8727 26.4191C22.5816 26.4191 19.7643 25.2521 17.4206 22.9182C15.077 20.5843 13.9051 17.7786 13.9051 14.5012C13.9051 11.2238 15.077 8.41812 17.4206 6.0842C19.7643 3.75029 22.5816 2.58333 25.8727 2.58333C29.1638 2.58333 31.9812 3.75029 34.3249 6.0842C36.6685 8.41812 37.8404 11.2238 37.8404 14.5012C37.8404 17.7786 36.6685 20.5843 34.3249 22.9182C31.9812 25.2521 29.1638 26.4191 25.8727 26.4191ZM56.9886 58.5973L49.5088 51.1486C48.4616 51.7445 47.3397 52.2411 46.1429 52.6384C44.9461 53.0356 43.6746 53.2343 42.3282 53.2343C38.5883 53.2343 35.4089 51.9312 32.79 49.3252C30.1731 46.7172 28.8646 43.551 28.8646 39.8267C28.8646 36.1023 30.1731 32.9362 32.79 30.3281C35.4089 27.7221 38.5883 26.4191 42.3282 26.4191C46.0681 26.4191 49.2475 27.7221 51.8664 30.3281C54.4833 32.9362 55.7918 36.1023 55.7918 39.8267C55.7918 41.1674 55.5923 42.4337 55.1934 43.6255C54.7945 44.8173 54.2958 45.9346 53.6975 46.9774L61.1772 54.4261C61.7257 54.9723 62 55.6675 62 56.5117C62 57.3559 61.7257 58.0511 61.1772 58.5973C60.6287 59.1435 59.9306 59.4167 59.0829 59.4167C58.2352 59.4167 57.5371 59.1435 56.9886 58.5973ZM42.3282 47.2753C44.4226 47.2753 46.1928 46.5553 47.6389 45.1152C49.0849 43.6751 49.808 41.9123 49.808 39.8267C49.808 37.741 49.0849 35.9782 47.6389 34.5381C46.1928 33.098 44.4226 32.378 42.3282 32.378C40.2339 32.378 38.4637 33.098 37.0176 34.5381C35.5715 35.9782 34.8485 37.741 34.8485 39.8267C34.8485 41.9123 35.5715 43.6751 37.0176 45.1152C38.4637 46.5553 40.2339 47.2753 42.3282 47.2753ZM7.92131 50.2548C6.27576 50.2548 4.86657 49.6718 3.69375 48.5059C2.52292 47.3379 1.9375 45.9346 1.9375 44.2959V41.9868C1.9375 40.2984 2.36135 38.7342 3.20906 37.2941C4.05677 35.854 5.2286 34.7616 6.72455 34.0167C9.26767 32.7256 12.1349 31.6331 15.3263 30.7393C18.5176 29.8454 22.0581 29.3985 25.9475 29.3985C24.9502 30.9379 24.1893 32.5885 23.6647 34.3504C23.1421 36.1142 22.8808 37.9397 22.8808 39.8267C22.8808 41.664 23.1421 43.4636 23.6647 45.2255C24.1893 46.9893 24.9502 48.6657 25.9475 50.2548H7.92131Z"
                                         fill="white" />
                                 </svg>
-                                <div class="teXt">进度查询</div>
+                                <div class="teXt nochose">进度查询</div>
                             </router-link>
                         </div>
                         <div class="slide-top">
@@ -50,7 +50,7 @@
                                         </clipPath>
                                     </defs>
                                 </svg>
-                                <div class="teXt">留言板</div>
+                                <div class="teXt nochose">留言板</div>
                             </router-link>
                         </div>
                     </div>
@@ -78,7 +78,7 @@
         </transition>
         <div class="slogan scale-in-center">
             <div class="top">
-                <span class="big">爱特工作室</span>
+                <span class="big nochose">爱特工作室</span>
                 <div class="logo"><img src="../assets/logoW.svg" alt=""></div>
             </div>
             <div class="next">
@@ -106,6 +106,16 @@
             </div>
         </div>
     </main>
+    <div class="bottomlogo">
+        <div class="titleimg">
+            <div class="title3"></div>
+            <div class="logo"><img src="../assets/logob.webp" alt=""></div>
+            <div class="eng">IT Stuio</div>
+            <div class="text">中国海洋大学 | 信息科学与工程学院B505 | @ITStudio All Rights Reserved |
+                <a href="https://beian.miit.gov.cn/" tatget="_blank">备案号:鲁ICP备123456789号-2</a>
+            </div>
+        </div>
+    </div>
 </template>
 
 <script setup>
@@ -149,6 +159,15 @@ const toIOS = () => navigateToFeature(5);
 
 @media (min-width: 1025px) {
 
+    .nochose {
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
+        -khtml-user-selece: none;
+        /*上面都是兼容性问题，具体看浏览器版本或什么浏览器*/
+        user-select: none;
+    }
+
     .fade-enter-active,
     .fade-leave-active {
         transition: opacity 0.5s;
@@ -177,9 +196,16 @@ const toIOS = () => navigateToFeature(5);
         animation: load 1s;
     }
 
+    .title3 {
+        background-color: #04132D;
+        width: 30vw;
+        height: 100%;
+        position: relative;
+    }
+
 
     .titleimg .title {
-        position: absolute;
+        position: absolute !important;
         left: 14vw;
         top: 50%;
         transform: translate(0, -60%);
@@ -214,13 +240,6 @@ const toIOS = () => navigateToFeature(5);
         z-index: 3;
     }
 
-    .title3 {
-        background-color: #04132D;
-        width: 30vw;
-        height: 100%;
-        position: relative;
-    }
-
     .button {
         width: 10%;
         height: 5%;
@@ -253,9 +272,91 @@ const toIOS = () => navigateToFeature(5);
         /* scroll-snap-type: y mandatory;
         overflow: scroll; */
         overflow-x: hidden;
+        overflow-y: hidden;
         height: 100vh;
         width: 100%;
         position: relative;
+    }
+
+    .bottomlogo {
+        width: 100%;
+        height: 40vh;
+        position: relative;
+    }
+
+    .bottomlogo::before {
+        content: "";
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(to bottom, rgba(255, 255, 255, 0), #04132dc2, #04132D);
+        background-size: cover;
+        z-index: 1000;
+    }
+
+    .bottomlogo .titleimg {
+        background-image: url(../assets/bg.webp);
+        height: 100%;
+        background-repeat: no-repeat;
+        background-position-x: center;
+        background-position-y: center;
+        background-size: cover;
+        background-attachment: fixed;
+        width: 100%;
+    }
+
+    .bottomlogo .titleimg .title3 {
+        position: absolute;
+        left: 0;
+    }
+
+    .bottomlogo .titleimg {
+        display: flex;
+        flex-direction: column;
+        justify-content: start;
+        align-items: center;
+    }
+
+    .bottomlogo .titleimg .logo,
+    .bottomlogo .titleimg .eng,
+    .bottomlogo .titleimg .text {
+        z-index: 3000;
+    }
+
+    .bottomlogo .titleimg .logo {
+        margin-top: 110px;
+    }
+
+    .bottomlogo .titleimg .eng {
+        color: #FFF;
+        font-family: Poppins;
+        font-size: 24px;
+        font-style: normal;
+        font-weight: 800;
+        line-height: normal;
+        letter-spacing: 3.12px;
+    }
+
+
+    .bottomlogo .titleimg .text {
+        margin-bottom: 50px;
+        color: #FFF;
+        font-family: Poppins;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: normal;
+        letter-spacing: 2.08px;
+    }
+
+    .bottomlogo .titleimg .text a {
+        color: #FFF;
+        font-family: Poppins;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: normal;
+        letter-spacing: 2.08px;
     }
 
     .sec {
@@ -839,6 +940,10 @@ const toIOS = () => navigateToFeature(5);
     }
 
     .slogan {
+        display: none;
+    }
+
+    .bottomlogo {
         display: none;
     }
 }

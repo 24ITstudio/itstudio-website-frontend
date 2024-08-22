@@ -17,30 +17,19 @@
         </div>
         <div class="achmain">
             <div class="slider-container">
-
                 <div class="title">项目成果</div>
-                <div class="title3-1">
-                    2023
-                    <div class="title2-1-1"></div>
-                </div>
-
+                <div class="yeart t23">2023</div>
                 <div class="slide eles" :class="{ active: currentIndex === 0 }">
                     <p id="one">中国海洋大学信息科学与工程学部百年校庆小程序</p>
                     <p id="four">中国海洋大学百年校庆小程序</p>
-                    <div class="ima" id="two">
+                    <div class="ima">
                         <img src="../assets/ach237.webp" alt="" style="width:100%;border-radius: 10px;">
                     </div>
-                    <div class="ima" id="three">
+                    <div class="ima">
                         <img src="../assets/ach236.webp" alt="" style="width:100%;border-radius: 10px;">
                     </div>
                 </div>
-
-                <div class="title3-2">
-                    2022
-                    <div class="title2-2"></div>
-                </div>
-
-
+                <div class="yeart t22">2022</div>
                 <div class="slide y22" :class="{ active: currentIndex === 1 }">
                     <div class="box" style="background-color:#0076CC;color:azure">
                         <img src="../assets/ach222.webp" alt="" style="width:100%;height: 100%;">
@@ -63,6 +52,7 @@
                         <p class="p2">校外企业物联网数据实时展示平台</p>
                     </div>
                 </div>
+                <div class="yeart t21">2021</div>
                 <div class="slide y21" :class="{ active: currentIndex === 2 }">
                     <div class="box">
                         <div class="title1">校团委网站</div>
@@ -70,6 +60,7 @@
                         <img src="../assets/ach214.webp" alt="" style="width: 100%;height: 100%;">
                     </div>
                 </div>
+                <div class="yeart t20">2020</div>
                 <div class="slide y20" :class="{ active: currentIndex === 3 }">
                     <div class="box">
                         <div class="title1">作品展示</div>
@@ -78,12 +69,7 @@
                         <div class="title2">程序、APP与UI合作完成了爱特展示网、海迅APP等作品。</div>
                     </div>
                 </div>
-
-                <div class="title3-3">
-                    2021及以前
-                    <div class="title2-3"></div>
-                </div>
-
+                <div class="yeart t19">2019</div>
                 <div class="slide y19" :class="{ active: currentIndex === 4 }">
                     <div class="box">
                         <div class="title1">作品展示</div>
@@ -98,6 +84,7 @@
                         </div>
                     </div>
                 </div>
+                <div class="yeart t18">2018</div>
                 <div class="slide y18" :class="{ active: currentIndex === 5 }">
                     <div class="box">
                         <div class="title1">开拓展示网</div>
@@ -106,6 +93,7 @@
                         <div class="title2">制作众创空间预约系统，成功上线运行。</div>
                     </div>
                 </div>
+                <div class="yeart t17">2017</div>
                 <div class="slide y17" :class="{ active: currentIndex === 6 }">
                     <div class="box">
                         <div class="title1">开拓信院网站</div>
@@ -113,6 +101,7 @@
 
                     </div>
                 </div>
+                <div class="yeart t16">2016</div>
                 <div class="slide y16" :class="{ active: currentIndex === 7 }">
                     <div class="box">
                         <div class="title1">上线教育网站</div>
@@ -126,6 +115,7 @@
                         </div>
                     </div>
                 </div>
+                <div class="yeart t15">2015</div>
                 <div class="slide y15" :class="{ active: currentIndex === 8 }">
                     <div class="box">
                         <div class="title1">制作展示页</div>
@@ -139,6 +129,7 @@
                         <img src="../assets/ach152.webp" alt="" style="width: 100%;height: 100%;">
                     </div>
                 </div>
+                <div class="yeart t14">2014</div>
                 <div class="slide y14" :class="{ active: currentIndex === 9 }">
                     <div class="box">
                         <div class="title1">新网站上线</div>
@@ -149,10 +140,8 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="di">
-                    <p class="p3">完整列表请访问电脑端网站</p>
-                    <div class="title2-4"></div>
+                    <p class="p3">为了更加体验，建议访问网页版</p>
                 </div>
             </div>
         </div>
@@ -636,9 +625,6 @@ onBeforeUnmount(() => {
 }
 
 @media (max-width: 1024px) {
-    .bottom {
-        display: none;
-    }
 
     .mask {
         display: none;
@@ -651,262 +637,244 @@ onBeforeUnmount(() => {
     .Main {
         margin: 0px;
         padding: 0px;
-        height: 300vh;
-        background-image: url(../assets/achbg.webp);
-        height: 100%;
-        background-repeat: no-repeat;
-        background-position-x: center;
-        background-position-y: center;
-        background-size: cover;
-        background-attachment: fixed;
-        width: 100vw;
-        transition: 1s ease 0s;
-        animation: load 1s;
-        overflow: scroll;
+        margin-top: 100px;
+        height: auto;
+        background-color: aliceblue;
+        display: flex;
+        justify-content: center;
+    }
+
+    .achmain {
+        width: 90%;
     }
 
     .title {
         color: rgba(0, 0, 0, 0.90);
         font-family: "Microsoft YaHei UI";
-        font-size: 40px;
+        font-size: 34px;
         font-style: normal;
         font-weight: 700;
         line-height: normal;
-        position: absolute;
-        top: 110px;
-        left: 40px;
-        /* transform: translate(70vw, 5vw); */
-        z-index: 10;
+        margin-top: 30px;
     }
 
-    .title3-1 {
-        height: 100px;
-        color: black;
-        font-family: "Microsoft New Tai Lue";
-        font-size: 32px;
+    .yeart {
+        color: #000;
+        font-family: "Microsoft YaHei UI";
+        font-size: 22px;
         font-style: normal;
         font-weight: 700;
         line-height: normal;
-        position: absolute;
-        top: 155px;
-        left: 40px;
-        z-index: 10;
-        /* transform: translate(60vw, 24vh); */
+        margin-top: 20px;
+        margin-bottom: 20px;
+        position: relative;
     }
 
-
-    .title2-1-1 {
-        width: 72px;
-        height: 6px;
-        flex-shrink: 0;
-        border-radius: 10px;
-        background: #39F;
+    .yeart::after {
         content: "";
-        margin-top: -1vh;
+        height: 4px;
+        width: 55px;
+        border-radius: 2px;
+        background-color: #000;
+        position: absolute;
+        bottom: -4px;
+        left: 0;
     }
 
-
-
-
-    .part4 {
-        display: none;
+    .t23::after {
+        background-color: #3399FF;
     }
 
-    .part4-1 {
-        display: none;
+    .t22::after {
+        background-color: #E19F73;
     }
 
-
-    #two {
-        display: none;
+    .t21::after {
+        background-color: #C1DBF4;
     }
 
-    #three {
-        width: 80vw;
-        height: 32vh;
-        margin: 22vh 10vw 5vw 10vw;
-        border-radius: 10px;
+    .t20::after {
+        background-color: #FFB6C1;
+    }
+
+    .t19::after {
+        background-color: #BA55D3;
+    }
+
+    .t18::after {
+        background-color: #00CCAA;
+    }
+
+    .t17::after {
+        background-color: #98FB98;
+    }
+
+    .t16::after {
+        background-color: #FFA07A;
+    }
+
+    .t15::after {
+        background-color: #F0E68C;
+    }
+
+    .t14::after {
+        background-color: #ADFF2F;
+    }
+
+    .eles {
+        position: relative;
+        display: flex;
+        justify-content: space-between;
         overflow: hidden;
-        z-index: 1;
+        width: 100%;
     }
 
-    #one {
+    .eles #one {
         display: none;
-
-
     }
 
-    #four {
-        width: 80vw;
-        margin-left: 10vw;
-        border-radius: 0px 0px 10px 10px;
-        background: rgba(0, 0, 0, 0.5);
-        transform: translate(0, 54vh);
-        z-index: 5;
-        color: rgba(255, 255, 255, 0.8);
-        text-indent: 1em;
+    .eles .ima {
+        width: 49%;
     }
 
-    .title2-2 {
-        width: 72px;
-        height: 6px;
-        flex-shrink: 0;
-        border-radius: 10px;
-        background: #E19F73;
-        content: "";
-        margin-top: -1vh;
-    }
-
-    .title3-2 {
-        height: 100px;
-        color: black;
-        font-family: "Microsoft New Tai Lue";
-        font-size: 32px;
-        font-style: normal;
-        font-weight: 700;
-        line-height: normal;
+    .eles #four {
+        margin: 0;
+        height: 32px;
+        width: 100%;
+        line-height: 32px;
         position: absolute;
-        top: 450px;
-        left: 40px;
-        z-index: 10;
-        /* transform: translate(60vw, 24vh); */
-    }
-
-    .part5 {
-        width: 80vw;
-        height: 30vh;
-        margin: 8vh 10vw 0vw 10vw;
-        z-index: 1;
-    }
-
-    .p1 {
-        display: none;
-    }
-
-    .p2 {
-        border-radius: 0px 0px 5px 5px;
-        background: rgba(0, 0, 0, 0.5);
-        transform: translate(0, -5.5vh);
-        z-index: 5;
-        color: rgba(255, 255, 255, 0.8);
+        bottom: 0;
+        left: 0;
+        text-align: left;
         text-indent: 1em;
+        font-size: 16px;
+        font-weight: 600;
+        color: white;
+        background-color: rgba(0, 0, 0, 0.7);
+        border-radius: 0 0 10px 10px;
     }
 
-    .part6 {
-        width: 80vw;
-        height: 30vh;
-        margin: 0vh 10vw 0vw 10vw;
-    }
-
-    .part7 {
-        width: 80vw;
-        height: 30vh;
-        margin: 0vh 10vw 0vw 10vw;
-    }
-
-    .part8 {
-        width: 80vw;
-        height: 30vh;
-        margin: 0vh 10vw 0vw 10vw;
-    }
-
-    .four {
-        display: none;
-    }
-
-    .three {
-        display: none;
-    }
-
-    .title2-3 {
-        width: 72px;
-        height: 6px;
-        flex-shrink: 0;
+    .slide .box {
+        position: relative;
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        margin-bottom: 20px;
         border-radius: 10px;
-        background: #C1DBF4;
-        content: "";
-        margin-top: -1vh;
     }
 
-    .title3-3 {
-        height: 100px;
-        color: black;
-        font-family: "Microsoft New Tai Lue";
-        font-size: 32px;
-        font-style: normal;
-        font-weight: 700;
-        line-height: normal;
+    .y22 .box .p1 {
+        display: none;
+    }
+
+    .y22 .box .p2,
+    .y19 .box .p2 {
+        margin: 0;
+        height: 32px;
+        width: 100%;
+        line-height: 32px;
         position: absolute;
-        top: 1400px;
-        left: 40px;
-        z-index: 10;
-        /* transform: translate(60vw, 24vh); */
+        bottom: 0;
+        left: 0;
+        text-align: left;
+        text-indent: 1em;
+        font-size: 16px;
+        font-weight: 600;
+        color: white;
+        background-color: rgba(0, 0, 0, 0.7);
+        border-radius: 0 0 10px 10px;
     }
 
-    .title1 {
+    .y21 .box .title2 {
         display: none;
     }
 
-    .title2 {
+    .y21 .box .title1,
+    .y16 .box .title1,
+    .y15 .box .p2,
+    .y15 .box .title1-1,
+    .y14 .box .p2 {
+        margin: 0;
+        height: 32px;
+        width: 100%;
+        line-height: 32px;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        text-align: left;
+        text-indent: 1em;
+        font-size: 16px;
+        font-weight: 600;
+        color: white;
+        background-color: rgba(0, 0, 0, 0.7);
+        border-radius: 0 0 10px 10px;
+    }
+
+    .y20 .box,
+    .y19 .box,
+    .y18 .box,
+    .y17 .box,
+    .y16 .box {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+        height: 50%;
+        font-weight: bold;
+    }
+
+    .y20 .box .title1,
+    .y19 .box .title1-1,
+    .y18 .box .title1,
+    .y17 .box .title1,
+    .y16 .box .title1-1 {
+        font-size: 20px;
+        color: #2E1117;
+        margin-bottom: 10px;
+        width: 100%;
+    }
+
+    .y20 .box .title2,
+    .y19 .box .title2-1,
+    .y18 .box .title2,
+    .y17 .box .title2,
+    .y16 .box .title2-1 {
+        text-align: center;
+        color: #2E1117;
+        font-size: 16px;
+        margin-bottom: 15px;
+    }
+
+    .y19 .box .title1,
+    .y19 .box .title2,
+    .y16 .box .title2,
+    .y15 .box .title1,
+    .y15 .box .title2,
+    .y15 .box .title2-1,
+    .y14 .box .title1,
+    .y14 .box .title2 {
         display: none;
     }
 
-    .img21 {
-        width: 80vw;
-        height: 32vh;
-        margin: 10vh 10vw 5vw 10vw;
-        border-radius: 10px;
-        overflow: hidden;
-        z-index: 1;
-    }
-
-    .title1-1 {
-        display: none;
-    }
-
-    .title2-1 {
-        display: none;
-    }
-
-    .img22 {
-        display: none;
-    }
-
-    #five {
-        margin-top: 0;
-        display: none;
-    }
-
-    #six {
-        margin-top: 0;
-    }
-
-    #seven {
-        margin-top: 0;
-    }
-
-
-    .title2-4 {
-        width: 45.5vw;
-        height: 6px;
-        flex-shrink: 0;
-        border-radius: 10px;
-        background: #9999F1;
+    .di .p3::after {
         content: "";
-        margin-top: -1vh;
-        margin-left: 7vw;
+        height: 4px;
+        width: 230px;
+        border-radius: 2px;
+        background-color: #000;
+        position: absolute;
+        bottom: -8px;
+        left: 50%;
+        transform: translateX(-50%);
     }
 
     .di {
-        color: black;
-        font-family: "Microsoft YaHei UI";
-        font-size: 16px;
-        font-style: normal;
-        font-weight: 400;
-        line-height: normal;
+        width: 100%;
+    }
+
+    .p3 {
         text-align: center;
-        width: 60vw;
-        margin: 0 auto 3vh;
+        position: relative;
     }
 }
 </style>
