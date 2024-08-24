@@ -205,6 +205,10 @@ onBeforeUnmount(() => {
 
 <style scoped>
 @media (min-width: 1025px) {
+    .yeart {
+        display: none;
+    }
+
     .title {
         display: none;
     }
