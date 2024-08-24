@@ -81,7 +81,7 @@
                                         @click="getParentID(item.id)"></textarea>
                                 </div>
                                 <div class=" repay_2" @click="submitTalk(item.id)"><img
-                                        src="../assets/repay_logo.png" />
+                                        src="../assets/repay_logo.webp" />
                                 </div>
                             </div>
                             <div class="traveller_total">
