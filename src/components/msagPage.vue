@@ -40,7 +40,7 @@
                         <textarea v-model="content1" placeholder="" ref="inputField"></textarea>
                     </div>
 
-                    <button class="mobile_subButton" @click="submitMessage">发&nbsp;&nbsp;布</button>
+                    <button class="mobile_subButton pulsate-bck" @click="submitMessage">发&nbsp;&nbsp;布</button>
                 </div>
                 <div class="back_right">
                     <div class="goBack">
@@ -51,7 +51,7 @@
                     </div>
                     <div class="mobile_add">
                         <div class="mobile_title">留言板</div>
-                        <button class="mobile_button" @click="showInput">+ 点击留言</button>
+                        <button class="mobile_button pulsate-bck" @click="showInput">+ 点击留言</button>
 
                     </div>
                     <div class="mobile_call slide-in-left">
@@ -61,9 +61,10 @@
                     <LoadingSpinner v-if="isLoading" />
                     <div class="right_board slide-in-blurred-bottom" v-if="!isLoading" :key="submitKey">
                         <div class="inner_board" v-for="item in total_Messages" :key="item.id">
-                            <div class="author_inner pulsate-bck">
+                            <div class="author_inner ">
                                 <div class="author_info">
-                                    <div class="author_avatar"><img src="../assets/msagAvatar_0.webp" /></div>
+                                    <div class="author_avatar"><img
+                                            :src="`https://q1.qlogo.cn/g?b=qq&nk=${item.qq}&s=100`" /></div>
                                     <div class="author_info_right">
                                         <div class="author_call">{{ item.qq ? item.qq : item.email }}</div>
                                         <div class="author_time">{{ item.datetime }}</div>
@@ -87,7 +88,8 @@
                                 <!-- // eslint-disable-next-line vue/require-v-for-key -->
                                 <div class="traveller_inner" v-for="child in item.children" :key="child">
                                     <div class="traveller_info">
-                                        <div class="traveller_avatar"><img src="../assets/msagAvatar_1.webp" /></div>
+                                        <div class="traveller_avatar"><img
+                                                :src="`https://q1.qlogo.cn/g?b=qq&nk=${item.qq}&s=100`" /></div>
                                         <div class="traveller_info_right">
                                             <div class="traveller_call">{{ child.qq ? child.qq : child.email
                                                 }}
@@ -140,6 +142,11 @@ export default {
             callKey: 0,
         }
     },
+    // computed: {
+    //     imageUrl() {
+    //         return `https://q1.qlogo.cn/g?b=qq&nk=${this.qq}&s=100`;
+    //     }
+    // },
     created() {
         this.getMessages();
     },
@@ -216,7 +223,7 @@ export default {
                     title: '嗯？',
                     message: '还没有说点什么哇',
                     type: 'warning',
-                    duration: 2000,
+                    duration: 1000,
                     offset: 100,
                 });
                 return;
@@ -254,7 +261,10 @@ export default {
 
             var config = {
                 method: 'post',
-                url: 'https://www.itstudio.club/bbs/',
+                //  url: 'https://www.itstudio.club/bbs/',
+                url: 'http://10.140.33.49:10001/bbs/',
+                // 注：测试的时候交it失败，临时换一下用于测试
+
                 // url: '/api/bbs/',
                 headers: {
                     'Content-Type': 'application/json'
@@ -320,10 +330,24 @@ export default {
             this.parentID = parseInt(this.parentID, 10);
         },
         submitTalk(id) {
-            const content = this.replyContents[id];
-            console.log("content", content);
-
-            if (content.trim() === '') {
+            // const content = this.replyContents[id];
+            // console.log(typeof this.replyContents[id] === 'string' ? 1 : 0);
+            this.replyContents[id] = typeof this.replyContents[id] === 'string' ? this.replyContents[id] : String(this.replyContents[id]);
+            console.log("content", this.replyContents[id]);
+            if (this.replyContents[id] === 'undefined') {
+                this.replyContents[id] = '';
+            }
+            if (typeof this.replyContents[id] !== 'string') {
+                ElNotification({
+                    title: '嗯？',
+                    message: '字符串类型出问题了2333',
+                    type: 'warning',
+                    duration: 2000,
+                    offset: 100,
+                });
+                return;
+            }
+            if (this.replyContents[id].trim() === '') {
                 ElNotification({
                     title: '嗯？',
                     message: '还没有说点什么哇',
@@ -332,8 +356,8 @@ export default {
                     offset: 100,
                 });
                 return;
-            }
 
+            }
             if (this.call.trim() === '') {
                 ElNotification({
                     title: '嗯？',
@@ -358,7 +382,7 @@ export default {
 
             var axios = require('axios');
             var data = JSON.stringify({
-                "content": content,
+                "content": this.replyContents[id],
                 "parent": parseInt(this.parentID, 10),
                 "qq": this.qq,
                 "email": null,
@@ -366,7 +390,7 @@ export default {
 
             var config = {
                 method: 'post',
-                url: 'https://www.itstudio.club/bbs/',
+                url: 'http://10.140.33.49:10001/bbs/',
                 // url: '/api/bbs/',
                 headers: {
                     'Content-Type': 'application/json'
@@ -532,6 +556,10 @@ export default {
         border-radius: 10px;
     }
 
+    .mobile_button:active {
+        animation: pulsate-bck 10s ease;
+    }
+
     /* .mobile_inputBox{
         position: fixed;   
             top: 50%;
@@ -685,9 +713,6 @@ export default {
         cursor: pointer;
     }
 
-    .author_inner:active {
-        animation: pulsate-bck 0.4s ease;
-    }
 
     .author_info {
         /* border: 1px, solid, rgb(119, 184, 27); */
