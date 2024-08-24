@@ -80,7 +80,7 @@
                                         @click="getParentID(item.id)"></textarea>
                                 </div>
                                 <div class=" repay_2" @click=" submitTalk(item.id)"><img
-                                        src="../assets/repay_logo.png" />
+                                        src="../assets/repay_logo.webp" />
                                 </div>
                             </div>
                             <div class="traveller_total">
@@ -144,9 +144,9 @@ export default {
         this.getMessages();
     },
     methods: {
-        showInput(){
+        showInput() {
             this.inputVisible = !this.inputVisible;
-            if(this.inputVisible){
+            if (this.inputVisible) {
                 this.$nextTick(() => {
                     this.$refs.inputField.focus();
                 })
@@ -202,9 +202,9 @@ export default {
         validateInput(input) {
             const qqPattern = /^[1-9][0-9]{4,10}$/;
             // const emailPattern = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
-            if (qqPattern.test(input)){
+            if (qqPattern.test(input)) {
                 this.qq = input;
-            } 
+            }
             // else if (emailPattern.test(input)){
             //     this.email = input;
             // }
@@ -222,7 +222,7 @@ export default {
                 return;
             }
 
-            if(this.call.trim() === ''){
+            if (this.call.trim() === '') {
                 ElNotification({
                     title: '嗯？',
                     message: '还没有留下qq哇',
@@ -233,7 +233,7 @@ export default {
                 return;
             }
             this.validateInput(this.call);
-            if(!(this.qq)){
+            if (!(this.qq)) {
                 ElNotification({
                     title: '嘶…',
                     message: '联系方式好像不是qq哇',
@@ -355,7 +355,7 @@ export default {
                 });
                 return;
             }
-            
+
             var axios = require('axios');
             var data = JSON.stringify({
                 "content": content,
@@ -436,8 +436,6 @@ export default {
 
 
 <style scoped>
-
-
 @media screen and (orientation: portrait) {
     .back {
         height: 100vh;
@@ -551,43 +549,43 @@ export default {
         pointer-events: none;
     } */
 
-    .mobile_Input{
+    .mobile_Input {
         position: absolute;
-            /* 贴合底部 */
-            /* left: 50%; */
-            /* transform: translateX(-50%); */
-            background-color: #ffffff;
-            /* box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); */
-            width: 100%;
-            height: 6%;
-            bottom: 0;
-            /* 默认底部 */
-            z-index: 1000;
-            /* 确保在前端显示 */
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            /* justify-content: center; */
+        /* 贴合底部 */
+        /* left: 50%; */
+        /* transform: translateX(-50%); */
+        background-color: #ffffff;
+        /* box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); */
+        width: 100%;
+        height: 6%;
+        bottom: 0;
+        /* 默认底部 */
+        z-index: 1000;
+        /* 确保在前端显示 */
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        /* justify-content: center; */
     }
 
-    .mobile_subText{
+    .mobile_subText {
         width: 70%;
-            height: 70%;
-            /* height: calc(1.5em * 9);   */
-            
-            /* resize: none;*/
-            padding: 0;
-            /* margin: 0; */
-            margin-left: 4%;
-            /* margin-top: 1.3%; */
-            background: #6A92D966;
-            /* margin-top: -1.3%; */
-            margin-bottom: 2%;
-            
-            border-radius: 7px;
+        height: 70%;
+        /* height: calc(1.5em * 9);   */
+
+        /* resize: none;*/
+        padding: 0;
+        /* margin: 0; */
+        margin-left: 4%;
+        /* margin-top: 1.3%; */
+        background: #6A92D966;
+        /* margin-top: -1.3%; */
+        margin-bottom: 2%;
+
+        border-radius: 7px;
     }
 
-    .mobile_subText textarea{
+    .mobile_subText textarea {
         line-height: 1.4em;
         border: none;
         outline: none;
@@ -595,54 +593,55 @@ export default {
         height: 100%;
         width: 100%;
         font-family: inherit;
-            font-size: 4.7vw;
-            color: black;
-            overflow: hidden;
-            box-sizing: border-box;
-            margin-left: 2%;
-            margin-top: 1%;
+        font-size: 4.7vw;
+        color: black;
+        overflow: hidden;
+        box-sizing: border-box;
+        margin-left: 2%;
+        margin-top: 1%;
     }
 
-    .mobile_subButton{
+    .mobile_subButton {
         background-color: #04132c;
         color: #ffffff;
         width: 17%;
         height: 60%;
         margin-left: 3%;
-       margin-bottom: 2%;
-    border-radius: 7px;
+        margin-bottom: 2%;
+        border-radius: 7px;
     }
 
     .mobile_call {
         border: 1px, solid, #ffffff;
-            background-color: #6A92D966;;
+        background-color: #6A92D966;
+        ;
         /* margin-top: 23%; */
         margin-left: 11%;
         height: 5%;
         width: 77%;
         border-radius: 10px;
-        }
-    
+    }
+
     .mobile_call textarea {
-            width: 100%;
-            height: 100%;
-            /* height: calc(1.5em * 9);   */
-            line-height: 1.6em;
-            border: none;
-            outline: none;
-            resize: none;
-            background: none;
-            padding: 0;
-            /* margin: 0; */
-            margin-left: 17%;
-            margin-top: 1.4%;
-            /* margin-top: -1.3%; */
-            font-family: inherit;
-            font-size: 4.3vw;
-            color: #ffffff;
-            overflow: hidden;
-            box-sizing: border-box;
-        }
+        width: 100%;
+        height: 100%;
+        /* height: calc(1.5em * 9);   */
+        line-height: 1.6em;
+        border: none;
+        outline: none;
+        resize: none;
+        background: none;
+        padding: 0;
+        /* margin: 0; */
+        margin-left: 17%;
+        margin-top: 1.4%;
+        /* margin-top: -1.3%; */
+        font-family: inherit;
+        font-size: 4.3vw;
+        color: #ffffff;
+        overflow: hidden;
+        box-sizing: border-box;
+    }
 
 
 
@@ -774,7 +773,7 @@ export default {
         height: 70%;
     }
 
-    .repayText{
+    .repayText {
         width: 100%;
         height: 100%;
         /* height: calc(1.5em * 9);   */
@@ -792,7 +791,7 @@ export default {
         box-sizing: border-box;
     }
 
-    .repay_2{
+    .repay_2 {
         margin-left: 2%;
         margin-right: 5%;
         /* margin-top: 2%; */
@@ -1168,7 +1167,7 @@ export default {
 }
 
 @media screen and (orientation: landscape) {
-    
+
 
     .head {
         height: 1%;
@@ -1207,37 +1206,37 @@ export default {
         margin-top: -3.2%;
     }
 
-        .call {
-            border: 1px, solid, #ffffff;
-            margin-top: 23%;
-            margin-left: 25%;
-            height: 5%;
-            width: 60%;
-            border-radius: 10px;
-        }
-    
-        .call textarea {
-            width: 100%;
-            height: 100%;
-            /* height: calc(1.5em * 9);   */
-            line-height: 1.6em;
-            border: none;
-            outline: none;
-            resize: none;
-            background: none;
-            padding: 0;
-            /* margin: 0; */
-            margin-left: 9%;
-            margin-top: 1.3%;
-            /* margin-top: -1.3%; */
-            font-family: inherit;
-            font-size: 1.2vw;
-            color: #ffffff;
-            overflow: hidden;
-            box-sizing: border-box;
-        }
+    .call {
+        border: 1px, solid, #ffffff;
+        margin-top: 23%;
+        margin-left: 25%;
+        height: 5%;
+        width: 60%;
+        border-radius: 10px;
+    }
 
-    .mobile_Input{
+    .call textarea {
+        width: 100%;
+        height: 100%;
+        /* height: calc(1.5em * 9);   */
+        line-height: 1.6em;
+        border: none;
+        outline: none;
+        resize: none;
+        background: none;
+        padding: 0;
+        /* margin: 0; */
+        margin-left: 9%;
+        margin-top: 1.3%;
+        /* margin-top: -1.3%; */
+        font-family: inherit;
+        font-size: 1.2vw;
+        color: #ffffff;
+        overflow: hidden;
+        box-sizing: border-box;
+    }
+
+    .mobile_Input {
         display: none;
     }
 
@@ -1439,7 +1438,7 @@ export default {
         margin-top: 1%;
     }
 
-    
+
     .backImg {
         height: 3%;
         width: 3%;
@@ -1458,7 +1457,7 @@ export default {
         display: none;
     }
 
-    .mobile_call{
+    .mobile_call {
         display: none;
     }
 
@@ -1589,7 +1588,7 @@ export default {
         height: 70%;
     }
 
-    .repayText{
+    .repayText {
         width: 100%;
         height: 100%;
         /* height: calc(1.5em * 9);   */
@@ -1606,10 +1605,10 @@ export default {
         overflow: hidden;
         box-sizing: border-box;
         /* background: linear-gradient(to right, #d9d9d9 2px, transparent 0) 0 -4px/8px 100%, */
-            /* linear-gradient(#666 1px, transparent 0) 0 -1px/100% 2.9em; */
+        /* linear-gradient(#666 1px, transparent 0) 0 -1px/100% 2.9em; */
     }
 
-    .repay_2{
+    .repay_2 {
         margin-left: 2%;
         /* margin-top: 2%; */
         width: 6%;
