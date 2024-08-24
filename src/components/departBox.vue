@@ -108,7 +108,6 @@ export default {
         top: 50px;
         left: 100px;
         margin: 0px;
-        opacity: 1;
         opacity: 0;
         transition: 0.3s ease-in-out;
         z-index: 3;

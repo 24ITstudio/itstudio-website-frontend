@@ -23,7 +23,7 @@
         <div class="department">
           <div v-for=" department in departments" :key="department.name"
             :class="{ 'selected-department': selectedDepartment === department }" class="department-item">
-            <span @click="selectDepartment(department)" class="departmentname">
+            <span @click="selectDepartment(department)" class="departmentname" v-if="department.members[selectedYear]">
               {{ department.name }}
             </span>
             <div v-if="selectedYear && selectedDepartment === department">
@@ -49,7 +49,6 @@
           </div>
         </div>
       </div>
-      <MemberInfo class="detial" v-if="showingInfo" :member="infoMember" @close="closeInfo" />
     </div>
   </div>
 </template>
@@ -1230,6 +1229,7 @@ export default {
   },
 
   created() {
+    this.test()
     // 在组件创建后立即设置selectedDepartment为第一个部门  
     if (this.departments.length > 0) {
       this.selectedDepartment = this.departments[0];
@@ -1247,6 +1247,9 @@ export default {
     selectDepartment(department) {
       this.selectedDepartment = department;
     },
+    test() {
+      console.log(Object.keys(this.departments[0].members))
+    }
   },
 };
 </script>
@@ -1376,6 +1379,7 @@ export default {
   width: 85%;
   display: flex;
   position: sticky;
+  justify-content: start !important;
   top: 0;
   /* background: rgba(217, 217, 217, 0.1); */
   backdrop-filter: blur(20px);

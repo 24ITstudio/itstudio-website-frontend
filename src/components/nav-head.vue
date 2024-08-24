@@ -100,6 +100,7 @@ export default {
         justify-content: space-around;
         position: relative;
         width: 1000px;
+        /* overflow: hidden; */
     }
 
     .homenav {
@@ -251,7 +252,7 @@ export default {
         align-items: center;
         justify-self: center;
         position: absolute;
-        top: 70px;
+        top: 100px;
         right: 0;
         width: 160px;
         height: 300px;

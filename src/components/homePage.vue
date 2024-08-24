@@ -54,7 +54,7 @@
                             </router-link>
                         </div>
                     </div>
-                    <div class="title2-1 slide-in-blurred-bottom">爱特<br>工作室</div>
+                    <div class="title2-1 slide-in-blurred-bottom">爱特工作室</div>
                 </div>
             </div>
         </section>
@@ -91,10 +91,10 @@
                 <span class="first">
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;爱特工作室成立于2002年,是一个在中国海洋大学信息科学与工程学部领导主持下,以计算机技术人才培养,网络开发为特色的技术性团体。</span>
                 <br>
-                <router-link to="/intro"><img src="../assets/toIntro.webp" alt=""></router-link>
+                <!-- <router-link to="/intro"><img src="../assets/toIntro.webp" alt=""></router-link> -->
                 <span></span>
                 <br>
-                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这么说是不是看不太懂？那就简单说一下，进入这个社团后通过各个部门合作，可以制作出好看的网页，APP和游戏，进来就可以玩哦，大家都很欢迎新朋友的~</span>
+                <!-- <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这么说是不是看不太懂？那就简单说一下，进入这个社团后通过各个部门合作，可以制作出好看的网页，APP和游戏，进来就可以玩哦，大家都很欢迎新朋友的~</span> -->
             </div>
             <div class="linkTo">
                 <button @click="toProg"><img src="../assets/toProg.webp" alt="" class="height:100%"></button>
@@ -110,7 +110,7 @@
         <div class="titleimg">
             <div class="title3"></div>
             <div class="logo"><img src="../assets/logob.webp" alt=""></div>
-            <div class="eng">IT Stuio</div>
+            <div class="eng">IT Studio</div>
             <div class="text">中国海洋大学 | 信息科学与工程学院B505 | @ITStudio All Rights Reserved |
                 <a href="https://beian.miit.gov.cn/" tatget="_blank">备案号:鲁ICP备123456789号-2</a>
             </div>
@@ -839,7 +839,7 @@ const toIOS = () => navigateToFeature(5);
     }
 
     .title2-1 {
-        text-indent: 0.5em;
+        /* text-indent: 0.5em; */
         font-size: 50px;
         font-weight: 600;
         line-height: 70px;
