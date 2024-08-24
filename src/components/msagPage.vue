@@ -1,5 +1,4 @@
 <template>
-    <!-- remain: 滚动条样式、 利用接口参数 分页-->
     <div class="back">
         <div class="back_up">
             <div class="head">
@@ -7,17 +6,22 @@
             </div>
             <div class="content">
                 <div class="back_left">
+                    <div class="call slide-in-left">
+                        <textarea placeholder="请输入QQ号发表留言/回复" class="callText" v-model="call" ref="input"
+                            key="callKey"></textarea>
+                    </div>
                     <transition name="slide-left">
                         <div v-if="currentContent === 'content1'" class="left_board slide-in-left ">
                             <div class="board_head">
                                 <div class="text_1">
                                     留言
                                 </div>
+
                             </div>
                             <div class="board_content">
                                 <textarea ref="input" placeholder="有什么想说的，就在这里留下吧" v-model="content1" rows="9"
                                     class="textarea_1" maxlength="100">
-                            </textarea>
+                                </textarea>
                             </div>
                             <div class="submitC_1">
                                 <button class="inner pulsate-bck" @click="submitMessage"><img
@@ -29,58 +33,39 @@
                             </div>
                         </div>
                     </transition>
-                    <transition name="slide-left">
-                        <div v-if="currentContent === 'content2'" :key="contentKey" class="left_board slide-in-left">
-                            <div class="board_head">
-                                <div class="text_1">
-                                    回复
-                                </div>
-                            </div>
-                            <div class="board_content_1">
-                                <textarea ref="input" v-model="content2" placeholder="有什么想说的，就在这里留下吧" maxlength="100"
-                                    rows="5" class="textarea_2">
-                            </textarea>
-                            </div>
-                            <div class="submitButton">
-                                <div class="submitA_1">
-                                    <button class="inner pulsate-bck" @click="cancelAndSwitch"><img
-                                            src="../assets/Go Back.webp" /></button>
-                                </div>
-                                <div class="submitA">
-                                    <button class="inner pulsate-bck"
-                                        @click="cancelAndSwitch">取&nbsp;&nbsp;&nbsp;&nbsp;消</button>
-                                </div>
-                                <div class="submitB_1">
-                                    <button class="inner pulsate-bck" @click="submitTalk"><img
-                                            src="../assets/submit.webp" /></button>
-                                </div>
-                                <div class="submitB">
-                                    <button class="inner pulsate-bck"
-                                        @click="submitTalk">发&nbsp;&nbsp;&nbsp;&nbsp;布</button>
-                                </div>
-                            </div>
-                        </div>
-                    </transition>
+                </div>
+
+                <div class="mobile_Input" v-if="inputVisible" ref="mobile_Input">
+                    <div class="mobile_subText">
+                        <textarea v-model="content1" placeholder="" ref="inputField"></textarea>
+                    </div>
+
+                    <button class="mobile_subButton" @click="submitMessage">发&nbsp;&nbsp;布</button>
                 </div>
                 <div class="back_right">
                     <div class="goBack">
                         <router-link to="/">
                             <img src="../assets/Go Back.webp" class="backImg" />
                         </router-link>
+
                     </div>
                     <div class="mobile_add">
                         <div class="mobile_title">留言板</div>
-                        <button class="mobile_button">+ 点击留言</button>
+                        <button class="mobile_button" @click="showInput">+ 点击留言</button>
+
+                    </div>
+                    <div class="mobile_call slide-in-left">
+                        <textarea placeholder="请输入QQ号发表留言/回复" class="callText" v-model="call" ref="input"
+                            key="callKey"></textarea>
                     </div>
                     <LoadingSpinner v-if="isLoading" />
                     <div class="right_board slide-in-blurred-bottom" v-if="!isLoading" :key="submitKey">
                         <div class="inner_board" v-for="item in total_Messages" :key="item.id">
-                            <div @click="() => { showContent('content2');  getParentID(item.id); }"
-                                class="author_inner pulsate-bck">
+                            <div class="author_inner pulsate-bck">
                                 <div class="author_info">
                                     <div class="author_avatar"><img src="../assets/msagAvatar_0.png" /></div>
                                     <div class="author_info_right">
-                                        <div class="author_call">联系方式</div>
+                                        <div class="author_call">{{ item.qq ? item.qq : item.email }}</div>
                                         <div class="author_time">{{ item.datetime }}</div>
                                     </div>
                                 </div>
@@ -89,8 +74,14 @@
                                 </div>
                             </div>
                             <div class="repay">
-                                <div class="repay_1">回复</div>
-                                <div class="repay_2"><img src="../assets/repay_logo.png" /></div>
+                                <div class="repay_1">
+                                    <textarea placeholder="回复" v-model="replyContents[item.id]" maxlength="100"
+                                        class="repayText" ref="input" :key="item.id"
+                                        @click="getParentID(item.id)"></textarea>
+                                </div>
+                                <div class=" repay_2" @click=" submitTalk(item.id)"><img
+                                        src="../assets/repay_logo.png" />
+                                </div>
                             </div>
                             <div class="traveller_total">
                                 <!-- // eslint-disable-next-line vue/require-v-for-key -->
@@ -98,7 +89,9 @@
                                     <div class="traveller_info">
                                         <div class="traveller_avatar"><img src="../assets/msagAvatar_1.png" /></div>
                                         <div class="traveller_info_right">
-                                            <div class="traveller_call">联系方式</div>
+                                            <div class="traveller_call">{{ child.qq ? child.qq : child.email
+                                                }}
+                                            </div>
                                             <div class="traveller_time">{{ formateTime(child.datetime) }}</div>
                                         </div>
                                     </div>
@@ -117,10 +110,12 @@
 import navHead from "./nav-head.vue"
 import LoadingSpinner from "../components/LoadingSpinner.vue";
 import { ElNotification } from 'element-plus'
+// import { ref } from "vue";
 // import axios from 'axios';
 // import { ref } from 'vue';
 
 // const contentKey = ref(0);
+
 export default {
     name: "msagPage",
     components: {
@@ -137,26 +132,28 @@ export default {
             isLoading: true,
             contentKey: 0,
             submitKey: 0,
+            inputVisible: false,
+            replyContents: {},
+            call: '',
+            qq: '',
+            email: '',
+            callKey: 0,
         }
     },
     created() {
         this.getMessages();
     },
     methods: {
-        cancelAndSwitch() {
-            this.content2 = '';
-            this.content1 = '';
-            this.isplaceholder2 = true;
-            this.showContent('content1');
+        showInput(){
+            this.inputVisible = !this.inputVisible;
+            if(this.inputVisible){
+                this.$nextTick(() => {
+                    this.$refs.inputField.focus();
+                })
+            }
         },
-        showContent(content) {
-            this.content1 = '';
-            this.content2 = '';
-            this.currentContent = '';
-            setTimeout(() => {
-                this.currentContent = content;
-                this.contentKey++;
-            }, 100);
+        hideInput() {
+            this.inputVisible = false;
         },
         formateTime(time) {
             if (!time) return '';
@@ -167,7 +164,9 @@ export default {
             var axios = require('axios');
             var config = {
                 method: 'get',
-                url: 'https://www.itstudio.club/api/bbs/',
+                // url: 'https://www.itstudio.club/api/bbs/',
+                url: 'http://10.140.33.49:10001/bbs/',
+                // url: '/api/bbs'
             };
 
 
@@ -200,6 +199,17 @@ export default {
                 });
 
         },
+        validateInput(input) {
+            const qqPattern = /^[1-9][0-9]{4,10}$/;
+            // const emailPattern = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
+            if (qqPattern.test(input)){
+                this.qq = input;
+            } 
+            // else if (emailPattern.test(input)){
+            //     this.email = input;
+            // }
+            return;
+        },
         submitMessage() {
             if (this.content1.trim() === '') {
                 ElNotification({
@@ -212,17 +222,42 @@ export default {
                 return;
             }
 
-            
+            if(this.call.trim() === ''){
+                ElNotification({
+                    title: '嗯？',
+                    message: '还没有留下qq哇',
+                    type: 'warning',
+                    duration: 2000,
+                    offset: 100,
+                });
+                return;
+            }
+            this.validateInput(this.call);
+            if(!(this.qq)){
+                ElNotification({
+                    title: '嘶…',
+                    message: '联系方式好像不是qq哇',
+                    type: 'warning',
+                    duration: 2000,
+                    offset: 100,
+                });
+                return;
+            }
 
             var axios = require('axios');
             var data = JSON.stringify({
                 "content": this.content1,
-                "parent": null
+                "parent": null,
+                "qq": this.qq,
+                "email": null,
             });
 
             var config = {
                 method: 'post',
-                 url: 'https://www.itstudio.club/bbs/',
+                //  url: 'https://www.itstudio.club/bbs/',
+                url: 'http://10.140.33.49:10001/bbs/',
+                // 注：测试的时候交it失败，临时换一下用于测试
+
                 // url: '/api/bbs/',
                 headers: {
                     'Content-Type': 'application/json'
@@ -256,6 +291,14 @@ export default {
                                 duration: 1000,
                                 offset: 100,
                             });
+                        } else if (error.response.status === 400) {
+                            ElNotification({
+                                title: '出错了',
+                                message: '没有给出联系方式',
+                                type: 'warning',
+                                duration: 1000,
+                                offset: 100,
+                            });
                         } else {
                             console.error('信息获取失败', error.response.status);
                         }
@@ -269,22 +312,21 @@ export default {
                         console.error('请求设置错误', error.message);
                     }
                 }).finally(() => {
-                    // new Promise(resolve => setTimeout(resolve, 1500))
-                    //     .then(() => {
-                    //         window.location.reload(); // 刷新页面
-                    //     });
-                    // this.submitKey++;
                     this.getMessages();
                     this.content1 = '';
+                    this.call = '';
+                    this.callKey++;
                 });
         },
         getParentID(id) {
             this.parentID = id;
             this.parentID = parseInt(this.parentID, 10);
         },
-        submitTalk() {
+        submitTalk(id) {
+            const content = this.replyContents[id];
+            console.log("content", content);
 
-            if (this.content2.trim() === '') {
+            if (content.trim() === '') {
                 ElNotification({
                     title: '嗯？',
                     message: '还没有说点什么哇',
@@ -295,15 +337,39 @@ export default {
                 return;
             }
 
+            if (this.call.trim() === '') {
+                ElNotification({
+                    title: '嗯？',
+                    message: '还没有留下qq哇',
+                    type: 'warning',
+                    duration: 2000,
+                    offset: 100,
+                });
+                return;
+            }
+            this.validateInput(this.call);
+            if (!(this.qq)) {
+                ElNotification({
+                    title: '嘶…',
+                    message: '联系方式好像不是qq哇',
+                    type: 'warning',
+                    duration: 2000,
+                    offset: 100,
+                });
+                return;
+            }
+            
             var axios = require('axios');
             var data = JSON.stringify({
-                "content": this.content2,
-                "parent": parseInt(this.parentID, 10)
+                "content": content,
+                "parent": parseInt(this.parentID, 10),
+                "qq": this.qq,
+                "email": null,
             });
 
             var config = {
                 method: 'post',
-                 url: 'https://www.itstudio.club/bbs/',
+                url: 'http://10.140.33.49:10001/bbs/',
                 // url: '/api/bbs/',
                 headers: {
                     'Content-Type': 'application/json'
@@ -355,15 +421,26 @@ export default {
                     // this.submitKey++;
                     this.getMessages();
                     this.content2 = '';
-                    this.showContent('content1');
+                    this.content1 = '';
+                    this.call = '';
+                    this.replyContents[this.parentID] = '';
                 });
         },
-    }
+        handleOutsideClick(event) {
+            // 检查点击是否发生在悬浮框外部
+            const mobile_Input = this.$refs.mobile_Input;
+            if (mobile_Input && !mobile_Input.contains(event.target)) {
+                this.hideInput();
+            }
+        },
+    },
 };
 </script>
 
 
 <style scoped>
+
+
 @media screen and (orientation: portrait) {
     .back {
         height: 100vh;
@@ -460,11 +537,123 @@ export default {
         border-radius: 10px;
     }
 
+    /* .mobile_inputBox{
+        position: fixed;   
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            z-index: 1000;
+            display: flex;
+    } */
+
+    /* .blurred {
+        filter: blur(8px);
+        pointer-events: none;
+    } */
+
+    .mobile_Input{
+        position: absolute;
+            /* 贴合底部 */
+            /* left: 50%; */
+            /* transform: translateX(-50%); */
+            background-color: #ffffff;
+            /* box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); */
+            width: 100%;
+            height: 6%;
+            bottom: 0;
+            /* 默认底部 */
+            z-index: 1000;
+            /* 确保在前端显示 */
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            /* justify-content: center; */
+    }
+
+    .mobile_subText{
+        width: 70%;
+            height: 70%;
+            /* height: calc(1.5em * 9);   */
+            
+            /* resize: none;*/
+            padding: 0;
+            /* margin: 0; */
+            margin-left: 4%;
+            /* margin-top: 1.3%; */
+            background: #6A92D966;
+            /* margin-top: -1.3%; */
+            margin-bottom: 2%;
+            
+            border-radius: 7px;
+    }
+
+    .mobile_subText textarea{
+        line-height: 1.4em;
+        border: none;
+        outline: none;
+        background-color: transparent;
+        height: 100%;
+        width: 100%;
+        font-family: inherit;
+            font-size: 4.7vw;
+            color: black;
+            overflow: hidden;
+            box-sizing: border-box;
+            margin-left: 2%;
+            margin-top: 1%;
+    }
+
+    .mobile_subButton{
+        background-color: #04132c;
+        color: #ffffff;
+        width: 17%;
+        height: 60%;
+        margin-left: 3%;
+       margin-bottom: 2%;
+    border-radius: 7px;
+    }
+
+    .mobile_call {
+        border: 1px, solid, #ffffff;
+            background-color: #6A92D966;;
+        /* margin-top: 23%; */
+        margin-left: 11%;
+        height: 5%;
+        width: 77%;
+        border-radius: 10px;
+        }
+    
+    .mobile_call textarea {
+            width: 100%;
+            height: 100%;
+            /* height: calc(1.5em * 9);   */
+            line-height: 1.6em;
+            border: none;
+            outline: none;
+            resize: none;
+            background: none;
+            padding: 0;
+            /* margin: 0; */
+            margin-left: 17%;
+            margin-top: 1.4%;
+            /* margin-top: -1.3%; */
+            font-family: inherit;
+            font-size: 4.3vw;
+            color: #ffffff;
+            overflow: hidden;
+            box-sizing: border-box;
+        }
+
+
+
     .right_board {
         /* border: 1px, solid, greenyellow; */
         height: 88%;
         width: 100%;
-        /* margin-top: 10%; */
+        margin-top: 8%;
         margin-bottom: 2%;
         display: flex;
         flex-wrap: wrap;
@@ -588,6 +777,24 @@ export default {
         height: 70%;
     }
 
+    .repayText{
+        width: 100%;
+        height: 100%;
+        /* height: calc(1.5em * 9);   */
+        line-height: 1.6em;
+        border: none;
+        outline: none;
+        resize: none;
+        background: none;
+        padding: 0;
+        /* margin: 0; */
+        margin-top: -1.3%;
+        font-family: inherit;
+        font-size: 1.9vh;
+        overflow: hidden;
+        box-sizing: border-box;
+    }
+
     .repay_2{
         margin-left: 2%;
         margin-right: 5%;
@@ -606,11 +813,15 @@ export default {
         max-height: 20vh;
         /* width: 70%; */
         margin-left: 9%;
-        margin-right: 6%;
+        margin-right: 7%;
         margin-top: 4%;
         margin-bottom: 2%;
         overflow: auto;
     }
+
+    /* .traveller_total::-webkit-scrollbar {
+        
+    } */
 
     .traveller_inner {
         /* border: 1px, solid, blue; */
@@ -960,6 +1171,8 @@ export default {
 }
 
 @media screen and (orientation: landscape) {
+    
+
     .head {
         height: 1%;
     }
@@ -997,12 +1210,46 @@ export default {
         margin-top: -3.2%;
     }
 
+        .call {
+            border: 1px, solid, #ffffff;
+            margin-top: 23%;
+            margin-left: 25%;
+            height: 5%;
+            width: 60%;
+            border-radius: 10px;
+        }
+    
+        .call textarea {
+            width: 100%;
+            height: 100%;
+            /* height: calc(1.5em * 9);   */
+            line-height: 1.6em;
+            border: none;
+            outline: none;
+            resize: none;
+            background: none;
+            padding: 0;
+            /* margin: 0; */
+            margin-left: 9%;
+            margin-top: 1.3%;
+            /* margin-top: -1.3%; */
+            font-family: inherit;
+            font-size: 1.2vw;
+            color: #ffffff;
+            overflow: hidden;
+            box-sizing: border-box;
+        }
+
+    .mobile_Input{
+        display: none;
+    }
+
     .left_board {
         background-color: #d9d9d9;
         width: 60%;
         height: 75%;
         margin-left: 25%;
-        margin-top: 32%;
+        margin-top: 7%;
         position: relative;
     }
 
@@ -1195,6 +1442,7 @@ export default {
         margin-top: 1%;
     }
 
+    
     .backImg {
         height: 3%;
         width: 3%;
@@ -1210,6 +1458,10 @@ export default {
     }
 
     .mobile_add{
+        display: none;
+    }
+
+    .mobile_call{
         display: none;
     }
 
@@ -1340,6 +1592,26 @@ export default {
         height: 70%;
     }
 
+    .repayText{
+        width: 100%;
+        height: 100%;
+        /* height: calc(1.5em * 9);   */
+        line-height: 1.6em;
+        border: none;
+        outline: none;
+        resize: none;
+        background: none;
+        padding: 0;
+        /* margin: 0; */
+        /* margin-top: -1.3%; */
+        font-family: inherit;
+        font-size: 1.9vh;
+        overflow: hidden;
+        box-sizing: border-box;
+        /* background: linear-gradient(to right, #d9d9d9 2px, transparent 0) 0 -4px/8px 100%, */
+            /* linear-gradient(#666 1px, transparent 0) 0 -1px/100% 2.9em; */
+    }
+
     .repay_2{
         margin-left: 2%;
         /* margin-top: 2%; */
@@ -1350,6 +1622,7 @@ export default {
     .repay_2 img{
         width: 100%;
         height: 100%;
+        cursor: pointer;
     }
 
     .traveller_total {
@@ -1360,6 +1633,11 @@ export default {
         margin-left: 23%;
         overflow: auto;
 
+    }
+
+    .traveller_total::-webkit-scrollbar {
+        width: 0;
+        height: 0;
     }
 
 
