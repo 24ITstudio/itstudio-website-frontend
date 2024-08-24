@@ -15,7 +15,8 @@
         <div class="input">
           <div class="input2">
             <input type="text" placeholder="请输入手机号/邮箱/姓名" placeholder-class="place" v-model="code" required />
-            <div class="search" @click="getProgress"><img src="../assets/Group.webp" alt="" title="点击查询" /></div>
+            <div class="search" @click="getProgress"><img src="../assets/Group.webp" alt="" title="点击查询" />
+            </div>
           </div>
         </div>
       </div>
@@ -438,7 +439,7 @@ async function getProgress() {
     width: 85vw;
     height: 100vh;
     background-color: #04132dcc;
-    transform: translateY(70px);
+    transform: translateY(100px);
     display: flex;
     align-items: center;
     justify-content: center;

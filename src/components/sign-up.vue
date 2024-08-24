@@ -21,6 +21,7 @@
                         <option value="游戏开发">游戏开发</option>
                         <option value="APP开发">APP开发</option>
                         <option value="UI设计">UI设计</option>
+                        <option value="ios">iOS</option>
                     </select>
                 </div>
                 <div class="stuId fill">
@@ -79,13 +80,56 @@
                 </div>
             </div>
         </div>
+        <div class="swiper-container scale-in-center">
+            <div class="swiper-wrapper ">
+                <div class="swiper-slide" v-for="(image, index) in images" :key="index">
+                    <img :src="image" alt="Image Slide" />
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 
 <script setup>
-import { ref, onUnmounted, computed } from 'vue';
+import { ref, onMounted, onUnmounted, computed } from 'vue';
 import axios from 'axios';
-import { ElNotification } from 'element-plus'
+import { ElNotification } from 'element-plus';
+import Swiper from 'swiper/bundle';
+import 'swiper/swiper-bundle.css';
+
+import ab1 from "../assets/abProg.webp";
+import ab2 from "../assets/abWEB.webp";
+import ab3 from "../assets/abGame.webp";
+import ab4 from "../assets/abAPP.webp";
+import ab5 from "../assets/abUI.webp";
+import ab6 from "../assets/abIOS.webp"
+
+// 创建一个 ref 来存储 swiper 实例（可选，但有助于后续操作）  
+const swiperRef = ref(null);
+
+onMounted(() => {
+    // 初始化 swiper  
+    const swiper = new Swiper('.swiper-container', {
+        slidesPerView: 1,
+        loop: true,
+        autoplay: {
+            delay: 2000, // 2秒  
+        },
+        speed: 500, // 切换速度 500 毫秒  
+        spaceBetween: 0,
+        // 如果需要分页器  
+        pagination: {
+            el: '.swiper-pagination',
+        },
+        // 如果需要滚动条  
+        scrollbar: {
+            el: '.swiper-scrollbar',
+        },
+    });
+
+    // 如果你想要访问 swiper 实例，可以将其赋值给 swiperRef.value  
+    swiperRef.value = swiper;
+});
 
 const name = ref('');
 const stuId = ref('');
@@ -102,6 +146,15 @@ const second = ref(61);//当前秒数,开定时器，对second--
 let timer = null;
 const isDown = ref(false);
 const isOn = ref(true);
+
+const images = [
+    ab1,
+    ab2,
+    ab3,
+    ab4,
+    ab5,
+    ab6,
+];
 
 const isEmail = computed(() => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -326,6 +379,39 @@ onUnmounted(() => {
 
     body {
         margin: 0;
+    }
+
+    .swiper-container {
+        /* border: 1px, solid, rgb(122, 33, 194); */
+        width: 41%;
+        border-radius: 10px;
+        height: 81%;
+        overflow: hidden;
+        position: absolute;
+        right: 4vw;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+
+    .swiper-wrapper {
+        /* border: 1px, solid, rgb(122, 33, 194); */
+        width: 100%;
+        height: 100%;
+        display: flex;
+    }
+
+    .swiper-slide {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+    }
+
+    .swiper-slide img {
+        /* border: 1px, solid, rgb(95, 209, 33); */
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
     }
 
     input {
@@ -788,6 +874,10 @@ onUnmounted(() => {
         background-color: transparent;
     }
 
+    .swiper-container {
+        display: none;
+    }
+
     .body {
         background-color: transparent;
         background-color: #04132D;
@@ -801,7 +891,7 @@ onUnmounted(() => {
 
     .body .putIn {
         width: 100vw;
-        height: 100vh;
+        height: auto;
         background-color: #D9D9D9;
         position: absolute;
         top: 0;
@@ -887,6 +977,7 @@ onUnmounted(() => {
         font-size: 22px;
         font-style: normal;
         font-weight: 700;
+        width: 90%;
     }
 
     .putIn form .fill input::placeholder {

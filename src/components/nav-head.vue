@@ -1,14 +1,19 @@
 <template>
     <nav class="homenav">
-        <div class="navtitle"><router-link to="/"><img src="../assets/Home.svg" alt=""></router-link></div>
+        <div class="navtitle">
+            <router-link to="/">
+                <img src="../assets/Home.svg" alt="">
+                <div class="nochose">首页</div>
+            </router-link>
+        </div>
         <el-icon :class="['fold', { 'onShow': show }]" @click="unFold">
             <Expand />
         </el-icon>
         <div class="main" v-show="show">
-            <router-link to="/intro">关于爱特</router-link>
-            <router-link :to="'/feature?id=0'">部门特色</router-link>
-            <router-link to="/number">成员组成</router-link>
-            <router-link to="/achieve">项目成果</router-link>
+            <router-link to="/intro" class="nochose">关于爱特</router-link>
+            <router-link :to="'/feature?id=0'" class="nochose">部门特色</router-link>
+            <router-link to="/member" class="nochose">成员组成</router-link>
+            <router-link to="/achieve" class="nochose">项目成果</router-link>
             <div class="navanim home" :style="{ left: locate + 'px' }"></div>
         </div>
         <div class="none"></div>
@@ -37,6 +42,15 @@ export default {
 
 <style scoped>
 @media (min-width: 1301px) {
+
+    .nochose {
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
+        -khtml-user-selece: none;
+        /*上面都是兼容性问题，具体看浏览器版本或什么浏览器*/
+        user-select: none;
+    }
 
     a {
 
@@ -95,13 +109,25 @@ export default {
     nav .navtitle {
         padding-right: 50px;
         width: 25%;
+        height: 70px;
         margin-right: 1.2%;
         /* transform: translateX(-100px); */
     }
 
-    nav .navtitle strong {
-        font-size: 50px;
+    nav .navtitle div {
+        font-size: 24px;
         font-weight: bolder;
+        margin-left: 10px;
+    }
+
+    nav .navtitle a {
+        width: 100px;
+        display: flex;
+        flex-wrap: nowrap;
+        justify-content: start;
+        align-items: center;
+        padding: 0;
+        margin-left: 70px;
     }
 
     nav a {
@@ -184,6 +210,15 @@ export default {
         z-index: 1000;
     }
 
+    .nochose {
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
+        -khtml-user-selece: none;
+        /*上面都是兼容性问题，具体看浏览器版本或什么浏览器*/
+        user-select: none;
+    }
+
     ::-webkit-scrollbar {
         width: 8px;
     }
@@ -248,6 +283,29 @@ export default {
         transition: 0.5s;
         margin: 0;
         padding: 0;
+    }
+
+    .navtitle a {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        text-decoration: none;
+        z-index: 1;
+        height: inherit;
+        line-height: 70px;
+        opacity: 1;
+        transition: 0.5s;
+        margin: 0;
+        padding: 0;
+    }
+
+    .navtitle a img {
+        transform: translateY(20px);
+    }
+
+    .navtitle a div {
+        font-weight: bold;
+        font-size: 20px;
     }
 
 

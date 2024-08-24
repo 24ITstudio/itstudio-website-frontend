@@ -28,6 +28,9 @@
                 <swiper-slide>
                     <img src="../assets/b5.webp" alt="" class="icon" />
                 </swiper-slide>
+                <swiper-slide>
+                    <img src="../assets/b6.webp" alt="" class="icon" />
+                </swiper-slide>
                 <!-- <swiper-slide>
                     <img src="../assets/b1.webp" alt="" class="icon" />
                 </swiper-slide>
@@ -72,6 +75,9 @@
                 </swiper-slide>
                 <swiper-slide>
                     <img src="../assets/s5.webp" alt="" class="icon" />
+                </swiper-slide>
+                <swiper-slide>
+                    <img src="../assets/s6.webp" alt="" class="icon" />
                 </swiper-slide>
                 <!-- <swiper-slide>
                     <img src="../assets/s1.webp" alt="" class="icon" />
