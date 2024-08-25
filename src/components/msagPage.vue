@@ -271,9 +271,9 @@ export default {
         onScroll(){
             const container = this.$refs.scrollContainer;
             const currentScrollTop = container.scrollTop;
-            if (typeof this.lastScrollTop === 'undefined') {
-                this.lastScrollTop = 0;
-            }
+            // if (typeof this.lastScrollTop === 'undefined') {
+            //     this.lastScrollTop = 0;
+            // }
             // console.log('scrollTop:', container.scrollTop);
             // console.log('clientHeight:', container.clientHeight);
             // console.log('scrollHeight:', container.scrollHeight);
@@ -285,7 +285,7 @@ export default {
             // }
             if (currentScrollTop > this.lastScrollTop) {
                 // 向下滚动
-                if (container.scrollTop + container.clientHeight >= container.scrollHeight - 6) {
+                if (container.scrollTop + container.clientHeight >= container.scrollHeight - 3) {
                     if (!this.allDataLoaded) {
                         this.getMessages();
                     }
@@ -414,6 +414,7 @@ export default {
                 }).finally(() => {
                     this.startNum = 0;
                     this.total_Messages = [];
+                    // this.submitKey++;
                     this.getMessages();
                     this.content1 = '';
                     this.call = '';
@@ -535,6 +536,7 @@ export default {
                 }).finally(() => {
                     this.startNum = 0;
                     this.total_Messages = [];
+                    // this.submitKey++;
                     this.getMessages();
                     this.content2 = '';
                     this.content1 = '';
@@ -1612,6 +1614,8 @@ export default {
         overflow: auto;
         margin-right: 2%;
         width: 90%;
+        word-wrap: break-word;
+            overflow-wrap: break-word;
     }
 
     .repay {
