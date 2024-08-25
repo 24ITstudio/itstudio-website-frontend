@@ -1,6 +1,6 @@
 <!-- 临时用于router的homePage页面！ -->
 <template>
-    <navHead :locate="-4000"></navHead>
+    <navHead></navHead>
     <main class="main" v-cloak>
         <section :class="['sec', { 'turnGray': showQR }]" @click="closeQR">
             <div class="titleimg">
@@ -105,17 +105,16 @@
                 <button @click="toIOS"><img src="../assets/toIOS.webp" alt="" class="height:100%"></button>
             </div>
         </div>
-    </main>
-    <div class="bottomlogo">
-        <div class="titleimg">
-            <div class="title3"></div>
-            <div class="logo"><img src="../assets/logob.webp" alt=""></div>
-            <div class="eng">IT Studio</div>
-            <div class="text">中国海洋大学 | 信息科学与工程学院B505 | @ITStudio All Rights Reserved |
-                <a href="https://beian.miit.gov.cn/" tatget="_blank">备案号:鲁ICP备123456789号-2</a>
+        <div class="bottomlogo">
+            <div class="titleimg">
+                <!-- <div class="logo"><img src="../assets/logob.webp" alt=""></div>
+            <div class="eng">IT Studio</div> -->
+                <div class="text">中国海洋大学 | 信息科学与工程学院B505 | @ITStudio All Rights Reserved |
+                    <a href="https://beian.miit.gov.cn/" target="_blank">备案号:鲁ICP备123456789号-2</a>
+                </div>
             </div>
         </div>
-    </div>
+    </main>
 </template>
 
 <script setup>
@@ -198,18 +197,17 @@ const toIOS = () => navigateToFeature(5);
 
     .title3 {
         background-color: #04132D;
-        width: 30vw;
+        width: 24vw;
         height: 100%;
-        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 
 
     .titleimg .title {
-        position: absolute !important;
-        left: 14vw;
-        top: 50%;
-        transform: translate(0, -60%);
-        width: 600px;
+        transform: translateX(20px);
+        width: 200px;
         height: 340px;
         line-height: 36px;
         font-size: 36px;
@@ -280,11 +278,19 @@ const toIOS = () => navigateToFeature(5);
 
     .bottomlogo {
         width: 100%;
-        height: 40vh;
-        position: relative;
+        height: 10vh;
+        position: absolute;
+        bottom: 0;
+        background: transparent;
+        z-index: 100;
     }
 
-    .bottomlogo::before {
+    .bottomlogo .titleimg {
+        width: 100%;
+        background: transparent;
+    }
+
+    .bottomlogo .titleimg::before {
         content: "";
         position: absolute;
         width: 100%;
@@ -292,17 +298,6 @@ const toIOS = () => navigateToFeature(5);
         background: linear-gradient(to bottom, rgba(255, 255, 255, 0), #04132dc2, #04132D);
         background-size: cover;
         z-index: 1000;
-    }
-
-    .bottomlogo .titleimg {
-        background-image: url(../assets/bg.webp);
-        height: 100%;
-        background-repeat: no-repeat;
-        background-position-x: center;
-        background-position-y: center;
-        background-size: cover;
-        background-attachment: fixed;
-        width: 100%;
     }
 
     .bottomlogo .titleimg .title3 {
@@ -313,33 +308,16 @@ const toIOS = () => navigateToFeature(5);
     .bottomlogo .titleimg {
         display: flex;
         flex-direction: column;
-        justify-content: start;
+        justify-content: end;
         align-items: center;
     }
 
-    .bottomlogo .titleimg .logo,
-    .bottomlogo .titleimg .eng,
     .bottomlogo .titleimg .text {
         z-index: 3000;
     }
 
-    .bottomlogo .titleimg .logo {
-        margin-top: 110px;
-    }
-
-    .bottomlogo .titleimg .eng {
-        color: #FFF;
-        font-family: Poppins;
-        font-size: 24px;
-        font-style: normal;
-        font-weight: 800;
-        line-height: normal;
-        letter-spacing: 3.12px;
-    }
-
-
     .bottomlogo .titleimg .text {
-        margin-bottom: 50px;
+        margin-bottom: 10px;
         color: #FFF;
         font-family: Poppins;
         font-size: 16px;
@@ -635,15 +613,15 @@ const toIOS = () => navigateToFeature(5);
     }
 
     .slogan {
-        width: 66vw;
-        height: 80vh;
+        width: 76vw;
+        height: 100vh;
         position: absolute;
-        right: 2vw;
-        top: 48%;
-        transform: translate(0, -45%);
-        background-color: rgba(255, 255, 255, 0.2);
-        border: white 3px solid;
-        border-radius: 20px;
+        right: 0;
+        top: 45vh;
+        /* transform: translate(0, -45%); */
+        background-color: rgba(255, 255, 255, 0.1);
+        /* border: white 3px solid; */
+        /* border-radius: 20px; */
         backdrop-filter: blur(10px);
         display: flex;
         flex-direction: column;
@@ -655,15 +633,15 @@ const toIOS = () => navigateToFeature(5);
         display: flex;
         justify-content: start;
         align-items: center;
-        margin: 0 4vh 0 4vh;
+        margin: 0 4vh 0 14vh;
     }
 
     .slogan .top {
-        margin-top: 2vh;
+        margin-top: 16vh;
     }
 
     .slogan .top .big {
-        width: 200vh;
+        width: 160vh;
         color: #FFF;
         font-family: "Microsoft New Tai Lue";
         font-size: 14vh;
@@ -672,11 +650,16 @@ const toIOS = () => navigateToFeature(5);
         line-height: normal;
     }
 
+    .top .logo {
+        margin: 0;
+    }
+
     .top .logo img {
         width: 10vh;
     }
 
     .slogan .next {
+        margin: 0;
         margin-top: 4vh;
         margin-bottom: 8vh;
     }
@@ -714,7 +697,7 @@ const toIOS = () => navigateToFeature(5);
 
     .about .first {
         font-size: 2.8vh;
-        margin-bottom: 4vh;
+        margin-bottom: 2vh;
     }
 
     .about a {
@@ -729,8 +712,8 @@ const toIOS = () => navigateToFeature(5);
 
     .slogan .linkTo {
         margin: 0 auto;
-        margin-top: 8vh;
-        width: 96%;
+        margin-top: 2vh;
+        width: 90%;
         display: flex;
         flex-direction: row !important;
         justify-content: space-between !important;

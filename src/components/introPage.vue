@@ -3,7 +3,7 @@
     <div class="back">
         <div class="back_up">
             <div class="head">
-                <navHead :locate="84"></navHead>
+                <navHead></navHead>
             </div>
             <div class="content">
                 <div class="back_left scale-in-bl_0">
@@ -171,14 +171,14 @@ export default {
         margin-top: 2%;
     }
 
-    .swiper-wrapper{
+    .swiper-wrapper {
         /* border: 1px, solid, rgb(122, 33, 194); */
         width: 100%;
         height: 100%;
         display: flex;
     }
 
-    .swiper-slide{
+    .swiper-slide {
         width: 100%;
         height: 100%;
         overflow: hidden;
@@ -399,7 +399,7 @@ export default {
     .back_left {
         width: 35%;
         margin-left: 14%;
-        margin-top:6%;
+        margin-top: 6%;
     }
 
     .left_head {
@@ -444,7 +444,7 @@ export default {
         border-radius: 20px;
     }
 
-    .swiper-slide{
+    .swiper-slide {
         height: 100%;
         width: 100%;
     }

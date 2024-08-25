@@ -1,5 +1,5 @@
 <template>
-    <navHead :locate="332"></navHead>
+    <navHead></navHead>
     <div class="main" @click="handleClickOutside">
         <div class="center">
             <deBox class="debox" v-for="depart in departs" :key="depart.id" :index="depart.id"
