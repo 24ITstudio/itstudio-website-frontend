@@ -18,23 +18,34 @@
                 <div class="common">
                 </div>
             </div>
+
+
             <div class="bottom">
-                <div :class="['words', { 'lightUp': up1 }]">报名<br>成功</div>
-                <div :class="['words', { 'lightUp': up1 && up2 }]">STEP1<br>一面</div>
-                <div :class="['words', { 'lightUp': up1 && up2 && up3 }]">STEP2<br>国庆题</div>
-                <div :class="['words', { 'lightUp': up1 && up2 && up3 && up4 }]">STEP3<br>二面</div>
-                <div :class="['words', { 'lightUp': up1 && up2 && up3 && up4 && up5 }]">STEP4<br>录取<br>结果</div>
+                <div :class="['words', { 'lightUp': up1 }, { 'upUp': pUp0 }]">报名<span><br></span>成功</div>
+                <div :class="['words', { 'lightUp': up1 && up2 }, { 'upUp': pUp1 }]"><span>STEP1</span><br>一面</div>
+                <div :class="['words', { 'lightUp': up1 && up2 && up3 }, { 'upUp': pUp2 }]">
+                    <span>STEP2</span><br>国庆题
+                </div>
+                <div :class="['words', { 'lightUp': up1 && up2 && up3 && up4 }, { 'upUp': pUp3 }]">
+                    <span>STEP3</span><br>二面
+                </div>
+                <div :class="['words', { 'lightUp': up1 && up2 && up3 && up4 && up5 }]" v-if="!isMobile">
+                    STEP4<br>录取<br>结果</div>
             </div>
+
+
         </div>
     </div>
 </template>
 
 <script setup>
 import navHead from './nav-head.vue';
-import { defineProps, ref, computed } from "vue";
+import { defineProps, ref, computed, onMounted, onUnmounted } from "vue";
+
 const props = defineProps({
     idx: Number,
 });
+
 const idx = ref(props.idx);
 const locate = ref(5);
 const up1 = ref(0);
@@ -42,6 +53,7 @@ const up2 = ref(0);
 const up3 = ref(0);
 const up4 = ref(0);
 const up5 = ref(0);
+const isMobile = ref(window.innerWidth <= 768);
 
 // 计算属性来动态更新录取结果文本
 const resultText = computed(() => {
@@ -54,61 +66,94 @@ const resultText = computed(() => {
     }
 });
 
+const pUp0 = ref(false);
+const pUp1 = ref(false);
+const pUp2 = ref(false);
+const pUp3 = ref(false);
+
+if (idx.value === 0) {
+    pUp0.value = true
+}
+if (idx.value === 1) {
+    pUp1.value = true
+}
+if (idx.value === 2) {
+    pUp2.value = true
+}
+if (idx.value === 3) {
+    pUp3.value = true
+}
+
+// 定义每个阶段的进度百分比
+const progressSteps = [5, 22, 49, 77, 100];
+
 // 根据 idx 的值更新进度条和状态
-if (idx.value > -1) {
-    locate.value = 5;
-    up1.value = 1;
-    if (idx.value >= 0) {
-        locate.value = 23;
-        up2.value = 1;
-        if (idx.value >= 1) {
-            locate.value = 47;
-            up3.value = 1;
-            if (idx.value >= 2) {
-                locate.value = 72;
-                up4.value = 1;
-                if (idx.value >= 3) {
-                    locate.value = 100;
-                    up5.value = 1;
+const updateProgress = () => {
+    if (idx.value > -1) {
+        up1.value = 1;
+        if (idx.value >= 0) {
+            up2.value = 1;
+            if (idx.value >= 1) {
+                up3.value = 1;
+                if (idx.value >= 2) {
+                    up4.value = 1;
+                    if (idx.value >= 3) {
+                        up5.value = 1;
+                    }
                 }
             }
         }
     }
-}
 
-if (idx.value === -1) {
-    locate.value = 46;
-    up1.value = 1;
-    up2.value = 1;
-}
+    if (idx.value === -1) {
+        up1.value = 1;
+        up2.value = 1;
+        locate.value = 5;
+    }
 
-if (idx.value === -2) {
-    locate.value = 61;
-    up1.value = 1;
-    up2.value = 1;
-    up3.value = 1;
-}
-if (idx.value === -3) {
-    locate.value = 76;
-    up1.value = 1;
-    up2.value = 1;
-    up3.value = 1;
-    up4.value = 1;
-}
-if (idx.value === -4) {
-    locate.value = 100;
-    up1.value = 1;
-    up2.value = 1;
-    up3.value = 1;
-    up4.value = 1;
-    up5.value = 1;
-}
+    if (idx.value === -2) {
+        up1.value = 1;
+        up2.value = 1;
+        up3.value = 1;
+    }
+    if (idx.value === -3) {
+        up1.value = 1;
+        up2.value = 1;
+        up3.value = 1;
+        up4.value = 1;
+    }
+    if (idx.value === -4) {
+        up1.value = 1;
+        up2.value = 1;
+        up3.value = 1;
+        up4.value = 1;
+        up5.value = 1;
+    }
 
+    // 设置进度条位置
+    if (idx.value > -1) {
+        locate.value = progressSteps[Math.max(0, idx.value)];
+    }
+};
+
+updateProgress();
+
+// 检测窗口大小变化
+const handleResize = () => {
+    isMobile.value = window.innerWidth <= 768;
+};
+
+onMounted(() => {
+    window.addEventListener('resize', handleResize);
+});
+
+onUnmounted(() => {
+    window.removeEventListener('resize', handleResize);
+});
 </script>
 
 <style scoped>
 @media (min-width: 769px) {
-
     a {
         text-decoration: none;
     }
@@ -182,11 +227,19 @@ if (idx.value === -4) {
 
     .bottom {
         position: relative;
-        width: 93%;
+        width: 1420px;
         margin-top: 58px;
         justify-content: space-between;
         align-items: flex-start;
         display: inline-flex
+    }
+
+    .line-left {
+        display: none;
+    }
+
+    .line-right {
+        display: none;
     }
 
     .words {
@@ -286,14 +339,13 @@ if (idx.value === -4) {
         display: flex;
         align-items: center;
         justify-content: center;
-
     }
 
     .shadow {
         width: 92vw;
-        height: 90vh;
+        height: 100vh;
         background: rgba(120.72, 138.25, 168.94, 0.20);
-        border-radius: 16px;
+        /* border-radius: 16px; */
         overflow: hidden;
         border: 1px rgba(120.72, 138.25, 168.94, 0.24) solid;
         backdrop-filter: blur(25px)
@@ -323,12 +375,11 @@ if (idx.value === -4) {
         flex-direction: column;
         align-items: center;
         margin: 10% 10%;
-
     }
 
     .top1 {
         color: white;
-        font-size: 12px;
+        font-size: 17px;
         font-family: Microsoft New Tai Lue;
         font-weight: 400;
         word-wrap: break-word;
@@ -337,36 +388,44 @@ if (idx.value === -4) {
 
     .top2 {
         color: white;
-        font-size: 16px;
+        font-size: 19px;
         font-family: Microsoft New Tai Lue;
         font-weight: 700;
         word-wrap: break-word;
         margin-bottom: 45px;
     }
 
+
     .bottom {
         position: relative;
-        width: 120%;
+        width: 100%;
         margin-top: 24px;
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
         justify-content: space-between;
-        align-items: start;
+        align-items: center;
+
     }
 
     .words {
-        width: 20%;
+        width: auto;
         text-align: center;
-        color: #fff;
-        font-size: 16px;
+        color: grey;
+        font-size: 18px;
         font-family: Microsoft JhengHei UI;
         font-weight: 400;
         word-wrap: break-word;
         line-height: 24px;
+        margin-right: 10px;
     }
 
-    .lightUp {
+    .words span {
+        display: none;
+    }
+
+    .upUp {
         color: #fff;
+        font-size: 28px;
         font-weight: 700;
     }
 
@@ -387,17 +446,7 @@ if (idx.value === -4) {
     }
 
     .mid {
-        height: 15px;
-        width: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        position: relative;
-    }
-
-    .scale-in-hor-left {
-        -webkit-animation: scale-in-hor-left 1s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
-        animation: scale-in-hor-left 1s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+        display: none;
     }
 
     @-webkit-keyframes scale-in-hor-left {

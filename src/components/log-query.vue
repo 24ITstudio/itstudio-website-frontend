@@ -34,8 +34,8 @@ const email = ref('');
 const code = ref('');
 const phone = ref('');
 const name = ref('');
-const showResult = ref(false);
-const idx = ref(-5);
+const showResult = ref(true);
+const idx = ref(0);
 
 const isEmail = computed(() => {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
