@@ -3,11 +3,15 @@
         :style="{ backgroundImage: 'url(' + url + ')' }">
         <div :class="['head', { 'headup': isExpanded }]">{{ title }}</div>
         <div :class="['big', { 'bigup': isExpanded }]">{{ title }}</div>
+        <div :class="['eng', { 'engup': isExpanded }]">{{ eng }}</div>
         <div :class="['main', { 'mainup': isExpanded }]" v-html="intro"></div>
+        <div :class="['tag', { 'tagup': isExpanded }]" v-html="tag"></div>
     </div>
 </template>
 
 <script>
+import { String } from 'core-js';
+
 export default {
     props: {
         index: {
@@ -27,6 +31,12 @@ export default {
         url: {
             type: String,
         },
+        eng: {
+            type: String,
+        },
+        tag: {
+            type: String,
+        }
     },
     computed: {
         isExpanded() {
@@ -53,6 +63,10 @@ export default {
         transition: width 0.5s;
         margin-left: 20px;
         background-size: auto 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: end;
+        align-items: center;
     }
 
     .container:before {
@@ -63,12 +77,12 @@ export default {
         bottom: 0;
         top: 0;
         border-radius: 80px;
-        background-color: rgba(0, 0, 0, 0.76);
+        background-color: rgba(0, 0, 0, 0.6);
         z-index: 2;
     }
 
     .expanded {
-        width: 75vh;
+        width: 60vh;
     }
 
     .head {
@@ -90,6 +104,7 @@ export default {
         transition: 0.1s ease-in-out;
         writing-mode: vertical-rl;
         z-index: 3;
+        white-space: nowrap;
     }
 
     .headup {
@@ -97,59 +112,71 @@ export default {
     }
 
     .big {
-        color: aliceblue;
-        text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.9);
-        font-family: "Microsoft New Tai Lue";
-        font-size: 76px;
-        font-style: normal;
-        font-weight: 700;
-        line-height: normal;
-        position: absolute;
-        top: 50px;
-        left: 100px;
-        margin: 0px;
         opacity: 0;
-        transition: 0.3s ease-in-out;
-        z-index: 3;
+        transition: 0.2s ease-in-out;
     }
 
     .bigup {
         color: aliceblue;
-        text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.9);
+        text-shadow: 1vh 0.5vh 1vh rgb(0, 0, 0);
         font-family: "Microsoft New Tai Lue";
-        font-size: 76px;
+        font-size: 8vh;
         font-style: normal;
         font-weight: 700;
         line-height: normal;
         position: absolute;
-        top: 50px;
-        left: 100px;
+        top: 4vh;
+        left: 6vh;
         margin: 0px;
         opacity: 1;
+        z-index: 3;
+        white-space: nowrap;
+    }
+
+    .eng {
+        opacity: 0;
+        transition: 0.2s ease-in-out;
+    }
+
+    .engup {
+        display: block;
+        color: #FFF;
+        opacity: 1;
+        text-align: right;
+        text-shadow: 1vh 0.5vh 1vh rgba(255, 255, 255);
+        font-family: "Montserrat Alternates";
+        font-size: 4vh;
+        font-style: normal;
+        font-weight: 700;
+        line-height: normal;
+        z-index: 3;
+        position: absolute;
+        top: 16vh;
+        left: 6vh;
+        white-space: nowrap;
+    }
+
+    .tag {
+        opacity: 0;
+        transition: 0.2s ease-in-out;
+    }
+
+    .tagup {
+        opacity: 1;
+        flex: 0 0 auto;
+        margin: 10px 40px 40px 40px;
+        color: #FFF;
+        font-family: "Montserrat Alternates";
+        font-size: 3vh;
+        font-style: normal;
+        font-weight: 600;
+        line-height: normal;
         z-index: 3;
     }
 
     .main {
-        color: aliceblue;
-        backdrop-filter: blur(5px);
-        border: 10px solid transparent;
-        border-radius: 10px;
-        text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.9);
-        font-family: "Microsoft New Tai Lue";
-        font-size: 20px;
-        font-style: normal;
-        font-weight: 700;
-        line-height: normal;
-        margin: 50px;
-        position: absolute;
-        bottom: 10px;
-        right: 30px;
-        overflow: hidden;
-        display: block;
         opacity: 0;
-        width: 0px;
-        transition: opacity 0.5s ease-in-out;
-        z-index: 3;
+        transition: 0.2s;
     }
 
     .mainup {
@@ -159,20 +186,16 @@ export default {
         border-radius: 20px;
         font-family: "Microsoft New Tai Lue";
         text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.9);
-        font-size: 2vh;
+        font-size: 2.5vh;
         font-style: normal;
         font-weight: 700;
         line-height: normal;
-        margin: 50px;
-        position: absolute;
-        bottom: 10px;
-        right: 0px;
         overflow: hidden;
         display: block;
-        opacity: 0;
-        width: 400px;
         opacity: 1;
         z-index: 3;
+        flex: 0 0 auto;
+        margin: 10px 40px 10px 40px;
     }
 }
 

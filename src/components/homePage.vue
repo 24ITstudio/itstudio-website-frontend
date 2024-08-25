@@ -142,12 +142,12 @@ function navigateToFeature(id) {
 }
 
 // 使用  
-const toProg = () => navigateToFeature(0);
-const toWeb = () => navigateToFeature(1);
-const toGame = () => navigateToFeature(2);
-const toAPP = () => navigateToFeature(3);
-const toUI = () => navigateToFeature(4);
-const toIOS = () => navigateToFeature(5);
+const toProg = () => navigateToFeature(1);
+const toWeb = () => navigateToFeature(2);
+const toGame = () => navigateToFeature(3);
+const toAPP = () => navigateToFeature(4);
+const toUI = () => navigateToFeature(5);
+const toIOS = () => navigateToFeature(6);
 
 </script>
 
