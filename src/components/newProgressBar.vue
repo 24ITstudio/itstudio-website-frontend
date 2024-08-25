@@ -237,13 +237,13 @@ onUnmounted(() => {
     }
 
     .words {
-        text-align: center;
+        text-align: center;r
         color: grey;
         font-size: 36px;
         font-family: Microsoft JhengHei UI;
         font-weight: 700;
         word-wrap: break-word;
-        line-height: 98px;
+        line-height: 78px;
     }
 
     .lightUp {

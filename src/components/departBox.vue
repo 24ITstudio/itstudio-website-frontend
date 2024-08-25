@@ -67,6 +67,7 @@ export default {
         flex-direction: column;
         justify-content: end;
         align-items: center;
+        overflow: hidden;
     }
 
     .container:before {
@@ -88,19 +89,14 @@ export default {
     .head {
         color: aliceblue;
         text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.9);
-        /* transform: rotate(-90deg); */
-        /* transform-origin: 50% 50%; */
         font-family: "Microsoft New Tai Lue";
         font-size: 48px;
         font-style: normal;
         font-weight: 700;
         line-height: normal;
-        /* margin: 50px; */
-        /* width: 400px; */
         position: absolute;
         bottom: 100px;
         left: 20px;
-        /* right: -140px; */
         transition: 0.1s ease-in-out;
         writing-mode: vertical-rl;
         z-index: 3;
@@ -176,10 +172,11 @@ export default {
 
     .main {
         opacity: 0;
-        transition: 0.2s;
+        /* transition: 0.2s; */
     }
 
     .mainup {
+        /* transition-delay: 0.5s; */
         color: aliceblue;
         backdrop-filter: blur(5px);
         border: 10px solid transparent;
@@ -194,8 +191,10 @@ export default {
         display: block;
         opacity: 1;
         z-index: 3;
-        flex: 0 0 auto;
+        /* flex: 0 0 auto; */
+        width: 50vh;
         margin: 10px 40px 10px 40px;
+        transform: translateY(-5vh);
     }
 }
 
@@ -209,6 +208,10 @@ export default {
         border-radius: 80px;
         transition: width 0.5s;
         margin-bottom: 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: end;
+        align-items: center;
     }
 
     .container:before {
@@ -219,7 +222,7 @@ export default {
         bottom: 0;
         top: 0;
         border-radius: 80px;
-        background-color: rgba(0, 0, 0, 0.56);
+        background-color: rgba(0, 0, 0, 0.6);
         z-index: 2;
     }
 
@@ -250,84 +253,93 @@ export default {
     }
 
     .big {
-        color: aliceblue;
-        text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.9);
-        font-family: "Microsoft New Tai Lue";
-        font-size: 48px;
-        font-style: normal;
-        font-weight: 700;
-        line-height: normal;
-        position: absolute;
-        top: 50px;
-        left: 100px;
-        margin: 0px;
-        opacity: 1;
         opacity: 0;
-        transition: 0.3s ease-in-out;
-        z-index: 3;
+        transition: 0.2s ease-in-out;
     }
 
     .bigup {
         color: aliceblue;
-        text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.9);
+        text-shadow: 1vh 0.5vh 1vh rgb(0, 0, 0);
         font-family: "Microsoft New Tai Lue";
-        font-size: 48px;
+        font-size: 40px;
         font-style: normal;
         font-weight: 700;
         line-height: normal;
         position: absolute;
-        top: 5px;
-        left: 35px;
+        top: 20px;
+        left: 60px;
         margin: 0px;
         opacity: 1;
+        z-index: 3;
+        white-space: nowrap;
+    }
+
+    .eng {
+        opacity: 0;
+        transition: 0.2s ease-in-out;
+    }
+
+    .engup {
+        display: block;
+        color: #FFF;
+        opacity: 1;
+        text-align: right;
+        text-shadow: 1vh 0.5vh 1vh rgba(255, 255, 255);
+        font-family: "Montserrat Alternates";
+        font-size: 30px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: normal;
+        z-index: 3;
+        position: absolute;
+        top: 70px;
+        left: 60px;
+        white-space: nowrap;
+    }
+
+    .tag {
+        opacity: 0;
+        transition: 0.2s ease-in-out;
+    }
+
+    .tagup {
+        opacity: 1;
+        flex: 0 0 auto;
+        margin: 10px 40px 40px 40px;
+        color: #FFF;
+        font-family: "Montserrat Alternates";
+        font-size: 18px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: normal;
         z-index: 3;
     }
 
     .main {
-        color: aliceblue;
-        backdrop-filter: blur(5px);
-        border: 5px solid transparent;
-        border-radius: 5px;
-        font-family: "Microsoft New Tai Lue";
-        text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.9);
-        font-size: 1px;
-        font-style: normal;
-        font-weight: 700;
-        line-height: normal;
-        margin-bottom: 40px;
-        position: absolute;
-        bottom: 0px;
-        right: 0px;
-        overflow: hidden;
-        display: block;
         opacity: 0;
-        width: 90%;
-        opacity: 0;
-        transition: opacity 0.5s ease-in-out;
-        z-index: 3;
+        /* transition: 0.2s; */
     }
 
     .mainup {
+        /* transition-delay: 0.5s; */
         color: aliceblue;
         backdrop-filter: blur(5px);
-        border: 12px solid transparent;
-        border-radius: 5px 5px 60px 5px;
+        border: 10px solid transparent;
+        border-radius: 20px;
         font-family: "Microsoft New Tai Lue";
         text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.9);
-        font-size: 16px;
+        font-size: 20px;
         font-style: normal;
         font-weight: 700;
         line-height: normal;
-        margin-bottom: 40px;
-        position: absolute;
-        bottom: 0px;
-        right: 0px;
         overflow: hidden;
         display: block;
-        opacity: 0;
-        width: 90%;
         opacity: 1;
         z-index: 3;
+        /* flex: 0 0 auto; */
+        width: 80%;
+        margin: 10px 40px 10px 40px;
+        transform: translateY(-10px);
     }
 }
 </style>

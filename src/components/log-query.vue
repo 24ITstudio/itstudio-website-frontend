@@ -48,7 +48,7 @@ const isPhone = computed(() => {
 })
 
 const isName = computed(() => {
-  const nameRegex = /^[\u4e00-\u9fa5]+$/;
+  const nameRegex = /^[\u4e00-\u9fa5A-Za-z\s]+$/;
   return nameRegex.test(code.value);
 })
 

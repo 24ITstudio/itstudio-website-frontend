@@ -614,6 +614,8 @@ onUnmounted(() => {
         color: var(--2, #04132D);
         font-weight: bold;
         font-size: 18px;
+        /* background-color: rgba(103, 110, 123, 0.09); */
+        ;
     }
 
     option {
@@ -1075,6 +1077,7 @@ onUnmounted(() => {
         color: var(--2, #04132D);
         font-weight: bold;
         font-size: 12px;
+        background-color: #292929;
     }
 
     .succeed {
