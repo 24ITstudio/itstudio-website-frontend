@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="nav">
-      <navHead :locate="584"></navHead>
+      <navHead></navHead>
     </div>
     <div class="department-page">
       <!-- <div class="goBack">
@@ -9,31 +9,57 @@
           <img src="../assets/Go Back.webp" class="backImg" />
         </router-link>
       </div> -->
+      <div class="look">上下滑动以查看更多</div>
       <div class="year-selector" @wheel="handleWheel">
-        <div class="scroll-container" ref="scrollContainer" style="overflow-y: scroll">
-          <div v-for="year in years" :key="year" @click="selectYear(year)"
-            :class="{ 'selected-year': selectedYear === year }" class="year" tabindex="1">
+        <div
+          class="scroll-container"
+          ref="scrollContainer"
+          style="overflow-y: scroll"
+        >
+          <div
+            v-for="year in years"
+            :key="year"
+            @click="selectYear(year)"
+            :class="{ 'selected-year': selectedYear === year }"
+            class="year"
+            tabindex="1"
+          >
             {{ year }}
             <img src="@/assets/下.webp" alt="" />
           </div>
         </div>
-        <div class="look">上下滑动以查看更多</div>
       </div>
       <div class="department-list">
         <div class="department">
-          <div v-for=" department in departments" :key="department.name"
-            :class="{ 'selected-department': selectedDepartment === department }" class="department-item">
-            <span @click="selectDepartment(department)" class="departmentname">
+          <div
+            v-for="department in departments"
+            :key="department.name"
+            :class="{
+              'selected-department': selectedDepartment === department,
+            }"
+          >
+            <div
+              @click="selectDepartment(department)"
+              class="departmentname"
+              v-if="department.members[selectedYear]"
+            >
               {{ department.name }}
-            </span>
-            <div v-if="selectedYear && selectedDepartment === department">
-              <img src="@/assets/左.webp" alt="" />
             </div>
+            <!-- <div v-if="selectedYear && selectedDepartment === department">
+             
+            </div> -->
           </div>
         </div>
         <div v-for="department in departments" :key="department.name">
-          <div v-if="selectedYear && selectedDepartment === department" class="member-list">
-            <div class="member-con" v-for="member in department.members[selectedYear]" :key="member.name">
+          <div
+            v-if="selectedYear && selectedDepartment === department"
+            class="member-list"
+          >
+            <div
+              class="member-con"
+              v-for="member in department.members[selectedYear]"
+              :key="member.name"
+            >
               <div class="photo">
                 <img :src="member.photo" alt="" />
               </div>
@@ -49,18 +75,15 @@
           </div>
         </div>
       </div>
-      <MemberInfo class="detial" v-if="showingInfo" :member="infoMember" @close="closeInfo" />
     </div>
   </div>
 </template>
 
 <script>
-import MemberInfo from "./MemberInfo.vue";
 import navHead from "./nav-head.vue";
 
 export default {
   components: {
-    MemberInfo,
     navHead,
   },
   data() {
@@ -78,10 +101,11 @@ export default {
           members: {
             2023: [
               {
-                name: "陈祺新",
-                photo: require("@/assets/avatar/2023/cxcqx.webp"),
+                name: "蔺春名",
+                photo: require("@/assets/avatar/2023/cxlcm.webp"),
                 department: "23级程序部",
-                message: "你好",
+                message:
+                  "It is better to be Socrates dissatisfied than a fool satisfied.",
               },
               {
                 name: "孙安琪",
@@ -114,11 +138,10 @@ export default {
                 message: "技术立身",
               },
               {
-                name: "蔺春名",
-                photo: require("@/assets/avatar/2023/cxlcm.webp"),
+                name: "陈祺新",
+                photo: require("@/assets/avatar/2023/cxcqx.webp"),
                 department: "23级程序部",
-                message:
-                  "It is better to be Socrates dissatisfied than a fool satisfied.",
+                message: "你好",
               },
             ],
             2022: [
@@ -522,7 +545,7 @@ export default {
                 message: "#NAME?",
               },
             ],
-            2028: [
+            2018: [
               {
                 name: "赵有为",
                 photo: require("@/assets/avatar/2018/web1.webp"),
@@ -1230,7 +1253,8 @@ export default {
   },
 
   created() {
-    // 在组件创建后立即设置selectedDepartment为第一个部门  
+    this.test();
+    // 在组件创建后立即设置selectedDepartment为第一个部门
     if (this.departments.length > 0) {
       this.selectedDepartment = this.departments[0];
     }
@@ -1247,26 +1271,29 @@ export default {
     selectDepartment(department) {
       this.selectedDepartment = department;
     },
+    test() {
+      console.log(Object.keys(this.departments[0].members));
+    },
   },
 };
 </script>
 
 <style scoped>
+.look {
+  position: absolute;
+  top: 27%;
+  left: 5%;
+  writing-mode: vertical-lr;
+  color: #fff;
+  font-size: 16px;
+  width: 5%;
+}
 .year-selector {
-  margin-bottom: 18%;
+  margin-bottom: 12%;
   margin-top: 10%;
   width: 27%;
   overflow-y: scroll;
   position: relative;
-}
-
-.look {
-  position: absolute;
-  bottom: 20%;
-  right: 70%;
-  writing-mode: vertical-lr;
-  color: #fff;
-  font-size: 16px;
 }
 
 .year {
@@ -1289,18 +1316,20 @@ export default {
 }
 
 .year img {
-  padding-top: 10%;
+  padding-top: 11%;
   padding-right: 12%;
-  width: 50px;
+  width: 4vw;
   float: right;
   display: none;
 }
 
-.year:hover img,
+/* .year:hover img, */
 .selected-year img {
   display: block;
 }
-
+.selected-year img {
+  display: block;
+}
 .department-page {
   display: flex;
   width: 100%;
@@ -1315,88 +1344,38 @@ export default {
   display: none;
 }
 
-.tabs {
-  position: absolute;
-  width: 31%;
-  height: 100%;
-  padding-top: 100px;
-  background-color: #04132d;
-  /* padding-top: 5%; */
-}
-
-.tabs button {
-  width: 100%;
-  height: 6%;
-  background-color: #04132d;
-  border: none;
-  cursor: pointer;
-  color: white;
-  font-size: 25px;
-  font-weight: 600;
-}
-
-.tabs button:hover {
-  background-color: #3399ff85;
-}
-
-.tabs button.active {
-  background-color: #3399ff;
-  color: white;
-}
-
-.back {
-  padding-left: 14px;
-  padding-top: 12px;
-  position: fixed;
-}
-
-.members-list {
-  padding-top: 100px;
-  position: relative;
-}
-
-.backImg {
-  height: 6%;
-  width: 6%;
-}
-
 .department-list {
   position: relative;
-  padding-left: 2%;
   padding-top: 8%;
   width: 73%;
   height: 100%;
-  /* background: rgba(217, 217, 217, 0.1); */
   backdrop-filter: blur(20px);
   overflow-y: scroll;
 }
 
 .department {
-  margin: 0 auto;
-  width: 85%;
+  position: absolute;
   display: flex;
   position: sticky;
-  top: 0;
-  /* background: rgba(217, 217, 217, 0.1); */
+  justify-content: center;
   backdrop-filter: blur(20px);
   z-index: 1;
+  height: 10%;
+  text-align: center;
+  width: 90%;
 }
-
 .departmentname {
+  padding-left: 50px;
   transition: all 0.6s;
+  font-size: 27px;
+  color: white;
+  font-weight: 700;
+  cursor: pointer;
 }
-
 .departmentname:hover,
 .selected-department .departmentname {
-  color: rgba(51, 153, 255, 0.52);
+  color: rgb(114, 182, 202);
   font-size: 35px;
-}
-
-.department-item {
-  margin: 0 auto;
-  cursor: pointer;
-  height: 20%;
-  text-align: center;
 }
 
 .department-item img {
@@ -1404,22 +1383,24 @@ export default {
   margin-left: 4%;
 }
 
-.department-list span {
-  font-size: 27px;
-}
-
 .member-list {
   width: 100%;
+  position: absolute;
   overflow-y: scroll;
+  height: 60%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
 }
 
 .member-con {
   padding-top: 4%;
   padding-left: 5%;
   margin-left: 4%;
-  display: inline-block;
-  width: 36%;
-  height: 16%;
+  /* display: inline-block; */
+  width: 39%;
+  transition: all 1s;
+  height: 30%;
 }
 
 .photo {
@@ -1439,12 +1420,13 @@ export default {
 }
 
 .text {
-  width: 68%;
+  width: 59%;
   word-wrap: break-word;
   margin-top: 2%;
   float: left;
   margin-left: 7%;
   color: white;
+  margin-bottom: 5%;
 }
 
 .name {
@@ -1452,7 +1434,7 @@ export default {
   font-size: 32px;
   font-family: Microsoft New Tai Lue;
   font-weight: 700;
-  word-wrap: break-word
+  word-wrap: break-word;
 }
 
 .message {
@@ -1464,40 +1446,11 @@ export default {
   font-size: 18px;
   font-family: Microsoft New Tai Lue;
   font-weight: 400;
-  word-wrap: break-word
+  word-wrap: break-word;
 }
-
-img {
-  transition: all 0.6s;
-}
-
-img:hover {
-  transform: scale(1.1);
-}
-
 .member-con:hover {
-  box-shadow: 10px 10px 20px 1px rgb(67, 54, 56);
-}
-
-span {
-  color: #fff;
-  font-family: "Microsoft New Tai Lue";
-  font-size: 24px;
-  font-style: normal;
-  font-weight: 700;
-  line-height: normal;
-}
-
-.detial {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.3);
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  border: solid 1px rgb(28, 44, 68);
+  border-radius: 30px;
 }
 
 @media (max-width: 430px) {
@@ -1563,7 +1516,12 @@ span {
     padding-top: 12px;
     position: fixed;
   }
-
+  .departmentname {
+    height: 5%;
+    padding-left: 10px;
+    font-size: 14px;
+    line-height: 40px;
+  }
   /*.goBack {
     /* background-color: violet; */
   /* margin-left: 2%;
@@ -1588,6 +1546,7 @@ span {
   }
 
   .department {
+    padding-top: 16%;
     margin: 0 auto;
     width: 85%;
     display: flex;
@@ -1597,6 +1556,7 @@ span {
     /* background: rgba(217, 217, 217, 0.1); */
     backdrop-filter: blur(20px);
     z-index: 1;
+    height: 8%;
   }
 
   .departmentname {
@@ -1605,8 +1565,8 @@ span {
 
   .departmentname:hover,
   .selected-department .departmentname {
-    color: rgba(51, 153, 255, 0.52);
-    font-size: 10px;
+    color: rgb(114, 182, 202);
+    font-size: 15px;
   }
 
   .department-item {
@@ -1628,6 +1588,7 @@ span {
   }
 
   .member-list {
+    flex-direction: column;
     width: 100%;
     overflow-y: scroll;
   }
@@ -1672,7 +1633,7 @@ span {
     font-size: 20px;
     font-family: Microsoft New Tai Lue;
     font-weight: 700;
-    word-wrap: break-word
+    word-wrap: break-word;
   }
 
   .message {
@@ -1684,17 +1645,8 @@ span {
     font-size: 12px;
     font-family: Microsoft New Tai Lue;
     font-weight: 400;
-    word-wrap: break-word
+    word-wrap: break-word;
   }
-
-  img {
-    transition: all 0.6s;
-  }
-
-  img:hover {
-    transform: scale(1.1);
-  }
-
   .member-con:hover {
     box-shadow: 10px 10px 20px 1px rgb(67, 54, 56);
   }
@@ -1707,19 +1659,6 @@ span {
     font-weight: 700;
     line-height: normal;
   }
-
-  .detial {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.3);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
 }
 
 @media (max-width: 1024px) {

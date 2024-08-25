@@ -2,7 +2,7 @@
     <div class="back">
         <div class="back_up">
             <div class="head">
-                <navHead :locate="-4000"></navHead>
+                <navHead></navHead>
             </div>
             <div class="content">
                 <div class="back_left">
@@ -156,9 +156,9 @@ export default {
         this.getMessages();
     },
     methods: {
-        showInput(){
+        showInput() {
             this.inputVisible = !this.inputVisible;
-            if(this.inputVisible){
+            if (this.inputVisible) {
                 this.$nextTick(() => {
                     this.$refs.inputField.focus();
                 })
@@ -263,7 +263,7 @@ export default {
                 return;
             }
 
-            if(this.call.trim() === ''){
+            if (this.call.trim() === '') {
                 ElNotification({
                     title: '嗯？',
                     message: '还没有留下qq或email哇',
@@ -373,10 +373,10 @@ export default {
             // console.log(typeof this.replyContents[id] === 'string' ? 1 : 0);
             this.replyContents[id] = typeof this.replyContents[id] === 'string' ? this.replyContents[id] : String(this.replyContents[id]);
             console.log("content", this.replyContents[id]);
-            if (this.replyContents[id] === 'undefined'){
-                this.replyContents[id]='';
+            if (this.replyContents[id] === 'undefined') {
+                this.replyContents[id] = '';
             }
-            if (typeof this.replyContents[id] !== 'string'){
+            if (typeof this.replyContents[id] !== 'string') {
                 ElNotification({
                     title: '嗯？',
                     message: '字符串类型出问题了2333',
@@ -386,17 +386,17 @@ export default {
                 });
                 return;
             }
-                if (this.replyContents[id].trim() === '') {
-                    ElNotification({
-                        title: '嗯？',
-                        message: '还没有说点什么哇',
-                        type: 'warning',
-                        duration: 2000,
-                        offset: 100,
-                    });
-                    return;
-            
-                }
+            if (this.replyContents[id].trim() === '') {
+                ElNotification({
+                    title: '嗯？',
+                    message: '还没有说点什么哇',
+                    type: 'warning',
+                    duration: 2000,
+                    offset: 100,
+                });
+                return;
+
+            }
             if (this.call.trim() === '') {
                 ElNotification({
                     title: '嗯？',
@@ -418,7 +418,7 @@ export default {
                 });
                 return;
             }
-            
+
             var axios = require('axios');
             var data = JSON.stringify({
                 "content": this.replyContents[id],
@@ -467,7 +467,7 @@ export default {
                         } else {
                             console.error('信息获取失败', error.response.status);
                         }
-                        
+
                     } else if (error.request) {
                         console.error('无响应', error.request);
                     } else {
@@ -501,8 +501,6 @@ export default {
 
 
 <style scoped>
-
-
 @media screen and (orientation: portrait) {
     .back {
         height: 100vh;
@@ -571,8 +569,8 @@ export default {
         width: 85%;
         margin-left: 10%;
     }
-    
-    .mobile_add{
+
+    .mobile_add {
         /* border: 1px, solid, rgb(161, 47, 255); */
         height: 10%;
         display: flex;
@@ -580,7 +578,7 @@ export default {
         align-items: center;
     }
 
-    .mobile_title{
+    .mobile_title {
         color: white;
         font-size: 5vw;
         font-weight: 700;
@@ -588,7 +586,7 @@ export default {
         margin-left: 42%;
     }
 
-    .mobile_button{
+    .mobile_button {
         height: 50%;
         margin-left: 12%;
         background-color: #FFFFFF33;
@@ -620,43 +618,43 @@ export default {
         pointer-events: none;
     } */
 
-    .mobile_Input{
+    .mobile_Input {
         position: absolute;
-            /* 贴合底部 */
-            /* left: 50%; */
-            /* transform: translateX(-50%); */
-            background-color: #ffffff;
-            /* box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); */
-            width: 100%;
-            height: 6%;
-            bottom: 0;
-            /* 默认底部 */
-            z-index: 1000;
-            /* 确保在前端显示 */
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            /* justify-content: center; */
+        /* 贴合底部 */
+        /* left: 50%; */
+        /* transform: translateX(-50%); */
+        background-color: #ffffff;
+        /* box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); */
+        width: 100%;
+        height: 6%;
+        bottom: 0;
+        /* 默认底部 */
+        z-index: 1000;
+        /* 确保在前端显示 */
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        /* justify-content: center; */
     }
 
-    .mobile_subText{
+    .mobile_subText {
         width: 70%;
-            height: 70%;
-            /* height: calc(1.5em * 9);   */
-            
-            /* resize: none;*/
-            padding: 0;
-            /* margin: 0; */
-            margin-left: 4%;
-            /* margin-top: 1.3%; */
-            background: #6A92D966;
-            /* margin-top: -1.3%; */
-            margin-bottom: 2%;
-            
-            border-radius: 7px;
+        height: 70%;
+        /* height: calc(1.5em * 9);   */
+
+        /* resize: none;*/
+        padding: 0;
+        /* margin: 0; */
+        margin-left: 4%;
+        /* margin-top: 1.3%; */
+        background: #6A92D966;
+        /* margin-top: -1.3%; */
+        margin-bottom: 2%;
+
+        border-radius: 7px;
     }
 
-    .mobile_subText textarea{
+    .mobile_subText textarea {
         line-height: 1.4em;
         border: none;
         outline: none;
@@ -664,54 +662,55 @@ export default {
         height: 100%;
         width: 100%;
         font-family: inherit;
-            font-size: 4.7vw;
-            color: black;
-            overflow: hidden;
-            box-sizing: border-box;
-            margin-left: 2%;
-            margin-top: 1%;
+        font-size: 4.7vw;
+        color: black;
+        overflow: hidden;
+        box-sizing: border-box;
+        margin-left: 2%;
+        margin-top: 1%;
     }
 
-    .mobile_subButton{
+    .mobile_subButton {
         background-color: #04132c;
         color: #ffffff;
         width: 17%;
         height: 60%;
         margin-left: 3%;
-       margin-bottom: 2%;
-    border-radius: 7px;
+        margin-bottom: 2%;
+        border-radius: 7px;
     }
 
     .mobile_call {
         border: 1px, solid, #ffffff;
-            background-color: #6A92D966;;
+        background-color: #6A92D966;
+        ;
         /* margin-top: 23%; */
         margin-left: 11%;
         height: 5%;
         width: 77%;
         border-radius: 10px;
-        }
-    
+    }
+
     .mobile_call textarea {
-            width: 100%;
-            height: 100%;
-            /* height: calc(1.5em * 9);   */
-            line-height: 1.6em;
-            border: none;
-            outline: none;
-            resize: none;
-            background: none;
-            padding: 0;
-            /* margin: 0; */
-            margin-left: 17%;
-            margin-top: 1.4%;
-            /* margin-top: -1.3%; */
-            font-family: inherit;
-            font-size: 4.3vw;
-            color: #ffffff;
-            overflow: hidden;
-            box-sizing: border-box;
-        }
+        width: 100%;
+        height: 100%;
+        /* height: calc(1.5em * 9);   */
+        line-height: 1.6em;
+        border: none;
+        outline: none;
+        resize: none;
+        background: none;
+        padding: 0;
+        /* margin: 0; */
+        margin-left: 17%;
+        margin-top: 1.4%;
+        /* margin-top: -1.3%; */
+        font-family: inherit;
+        font-size: 4.3vw;
+        color: #ffffff;
+        overflow: hidden;
+        box-sizing: border-box;
+    }
 
 
 
@@ -756,21 +755,21 @@ export default {
     }
 
 
-    .author_info{
+    .author_info {
         /* border: 1px, solid, rgb(119, 184, 27); */
         display: flex;
         flex-direction: row;
         /* height: 10%; */
     }
 
-    .author_avatar{
+    .author_avatar {
         /* border: 1px, solid, rgb(40, 50, 26); */
         height: 20%;
         width: 15%;
-        
+
     }
 
-    .author_avatar img{
+    .author_avatar img {
         width: 100%;
         height: 100%;
     }
@@ -789,14 +788,14 @@ export default {
     } */
 
     /* .author_info{ */
-        /* border: 1px, solid, rgb(40, 50, 26); */
+    /* border: 1px, solid, rgb(40, 50, 26); */
     /* } */
 
-    .author_info_right{
+    .author_info_right {
         margin-left: 4%;
     }
 
-    .author_call{
+    .author_call {
         font-size: 4vw;
     }
 
@@ -818,7 +817,7 @@ export default {
         display: none;
     }
 
-    .repay{
+    .repay {
         /* border: 1px, solid, black; */
         background-color: #d4cece;
         margin-left: 9%;
@@ -832,7 +831,7 @@ export default {
         align-items: center;
     }
 
-    .repay_1{
+    .repay_1 {
         /* border: 1px, solid, rgb(181, 164, 164); */
         margin-left: 3%;
         font-size: 3vw;
@@ -840,7 +839,7 @@ export default {
         height: 70%;
     }
 
-    .repayText{
+    .repayText {
         width: 100%;
         height: 100%;
         /* height: calc(1.5em * 9);   */
@@ -858,7 +857,7 @@ export default {
         box-sizing: border-box;
     }
 
-    .repay_2{
+    .repay_2 {
         margin-left: 2%;
         margin-right: 5%;
         /* margin-top: 2%; */
@@ -866,7 +865,7 @@ export default {
         height: 60%;
     }
 
-    .repay_2 img{
+    .repay_2 img {
         width: 100%;
         height: 100%;
     }
@@ -897,7 +896,7 @@ export default {
         text-overflow: ellipsis;
     }
 
-    .traveller_info{
+    .traveller_info {
         /* border: 1px, solid, blue; */
         /* height: ; */
         display: flex;
@@ -905,17 +904,17 @@ export default {
         height: 4.5vh;
     }
 
-    .traveller_avatar{
+    .traveller_avatar {
         width: 14%;
         height: 100%;
     }
 
-    .traveller_avatar img{
+    .traveller_avatar img {
         width: 100%;
         height: 100%;
     }
 
-    .traveller_info_right{
+    .traveller_info_right {
         /* border: 1px, solid, blue; */
         display: flex;
         flex-direction: column;
@@ -946,7 +945,7 @@ export default {
         flex-direction: row;
     } */
 
-    .traveller_call{
+    .traveller_call {
         font-size: 3.4vw;
     }
 
@@ -1112,28 +1111,28 @@ export default {
         -webkit-animation: slide-in-left 1.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
         animation: slide-in-left 1.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
     }
-                
+
     @-webkit-keyframes slide-in-left {
-        0% {    
+        0% {
             -webkit-transform: translateX(-1000px);
             transform: translateX(-1000px);
             opacity: 0;
         }
-                
+
         100% {
             -webkit-transform: translateX(0);
             transform: translateX(0);
             opacity: 1;
         }
     }
-                
+
     @keyframes slide-in-left {
         0% {
             -webkit-transform: translateX(-1000px);
             transform: translateX(-1000px);
             opacity: 0;
         }
-                
+
         100% {
             -webkit-transform: translateX(0);
             transform: translateX(0);
@@ -1143,13 +1142,13 @@ export default {
 
     .slide-left-enter-active {
         animation: slide-in-left 1.5s ease;
-    } 
-        
+    }
+
     .slide-left-leave-active {
         animation: slide-out-left 0.6s ease;
     }
 
-        
+
     .slide-out-left {
         -webkit-animation: slide-out-left 0.6s cubic-bezier(0.550, 0.085, 0.680, 0.530) both;
         animation: slide-out-left 0.6s cubic-bezier(0.550, 0.085, 0.680, 0.530) both;
@@ -1234,7 +1233,7 @@ export default {
 }
 
 @media screen and (orientation: landscape) {
-    
+
 
     .head {
         height: 1%;
@@ -1273,37 +1272,37 @@ export default {
         margin-top: -3.2%;
     }
 
-        .call {
-            border: 1px, solid, #ffffff;
-            margin-top: 23%;
-            margin-left: 25%;
-            height: 5%;
-            width: 60%;
-            border-radius: 10px;
-        }
-    
-        .call textarea {
-            width: 100%;
-            height: 100%;
-            /* height: calc(1.5em * 9);   */
-            line-height: 1.6em;
-            border: none;
-            outline: none;
-            resize: none;
-            background: none;
-            padding: 0;
-            /* margin: 0; */
-            margin-left: 9%;
-            margin-top: 1.3%;
-            /* margin-top: -1.3%; */
-            font-family: inherit;
-            font-size: 1.2vw;
-            color: #ffffff;
-            overflow: hidden;
-            box-sizing: border-box;
-        }
+    .call {
+        border: 1px, solid, #ffffff;
+        margin-top: 23%;
+        margin-left: 25%;
+        height: 5%;
+        width: 60%;
+        border-radius: 10px;
+    }
 
-    .mobile_Input{
+    .call textarea {
+        width: 100%;
+        height: 100%;
+        /* height: calc(1.5em * 9);   */
+        line-height: 1.6em;
+        border: none;
+        outline: none;
+        resize: none;
+        background: none;
+        padding: 0;
+        /* margin: 0; */
+        margin-left: 9%;
+        margin-top: 1.3%;
+        /* margin-top: -1.3%; */
+        font-family: inherit;
+        font-size: 1.2vw;
+        color: #ffffff;
+        overflow: hidden;
+        box-sizing: border-box;
+    }
+
+    .mobile_Input {
         display: none;
     }
 
@@ -1505,7 +1504,7 @@ export default {
         margin-top: 1%;
     }
 
-    
+
     .backImg {
         height: 3%;
         width: 3%;
@@ -1520,11 +1519,11 @@ export default {
         margin-top: 1%;
     }
 
-    .mobile_add{
+    .mobile_add {
         display: none;
     }
 
-    .mobile_call{
+    .mobile_call {
         display: none;
     }
 
@@ -1577,26 +1576,26 @@ export default {
         animation: pulsate-bck 0.4s ease;
     }*/
 
-    .author_info{
+    .author_info {
         display: flex;
         flex-direction: row;
     }
 
-    .author_avatar{
+    .author_avatar {
         width: 15%;
         height: 85%;
     }
 
-    .author_avatar img{
+    .author_avatar img {
         width: 100%;
         height: 100%;
     }
 
-    .author_info_right{
+    .author_info_right {
         margin-left: 2%;
     }
 
-    .author_call{
+    .author_call {
         font-size: 1.1vw;
         font-weight: bold;
     }
@@ -1620,7 +1619,7 @@ export default {
         font-family: 'Microsoft New Tai Lue';
     } */
 
-    
+
 
     .author_content {
         /* border: 1px, solid, black; */
@@ -1633,7 +1632,7 @@ export default {
         width: 94%;
     }
 
-    .repay{
+    .repay {
         /* border: 1px, solid, black; */
         background-color: #d4cece;
         margin-left: 8%;
@@ -1647,7 +1646,7 @@ export default {
         align-items: center;
     }
 
-    .repay_1{
+    .repay_1 {
         /* border: 1px, solid, rgb(181, 164, 164); */
         margin-left: 3%;
         font-size: 1vw;
@@ -1655,7 +1654,7 @@ export default {
         height: 70%;
     }
 
-    .repayText{
+    .repayText {
         width: 100%;
         height: 100%;
         /* height: calc(1.5em * 9);   */
@@ -1672,17 +1671,17 @@ export default {
         overflow: hidden;
         box-sizing: border-box;
         /* background: linear-gradient(to right, #d9d9d9 2px, transparent 0) 0 -4px/8px 100%, */
-            /* linear-gradient(#666 1px, transparent 0) 0 -1px/100% 2.9em; */
+        /* linear-gradient(#666 1px, transparent 0) 0 -1px/100% 2.9em; */
     }
 
-    .repay_2{
+    .repay_2 {
         margin-left: 2%;
         /* margin-top: 2%; */
         width: 6%;
         height: 60%;
     }
 
-    .repay_2 img{
+    .repay_2 img {
         width: 100%;
         height: 100%;
         cursor: pointer;
@@ -1713,22 +1712,22 @@ export default {
         flex-direction: column;
     }
 
-    .traveller_info{
+    .traveller_info {
         display: flex;
         flex-direction: row;
     }
 
-    .traveller_avatar{
+    .traveller_avatar {
         width: 15%;
         height: 80%;
     }
 
-    .traveller_avatar img{
+    .traveller_avatar img {
         width: 100%;
         height: 100%;
     }
 
-    .traveller_info_right{
+    .traveller_info_right {
         margin-left: 3%;
     }
 
@@ -1749,7 +1748,7 @@ export default {
         flex-direction: row;
     } */
 
-    .traveller_call{
+    .traveller_call {
         font-size: 1vw;
         font-weight: bold;
     }
@@ -1948,11 +1947,12 @@ export default {
     .slide-left-enter-active {
         animation: slide-in-left 1.5s ease;
     }
+
     .slide-left-leave-active {
         animation: slide-out-left 0.6s ease;
-    } 
+    }
 
-        /* .slide-left-1-enter-active {
+    /* .slide-left-1-enter-active {
             animation: slide-in-left 1.5s ease;
         }
         .slide-left-1-leave-active {
@@ -1970,21 +1970,21 @@ export default {
             transform: translateX(0);
             opacity: 1;
         }
-                
+
         100% {
             -webkit-transform: translateX(-1000px);
             transform: translateX(-1000px);
             opacity: 0;
         }
     }
-                
+
     @keyframes slide-out-left {
         0% {
             -webkit-transform: translateX(0);
             transform: translateX(0);
             opacity: 1;
         }
-                
+
         100% {
             -webkit-transform: translateX(-1000px);
             transform: translateX(-1000px);
@@ -1996,7 +1996,7 @@ export default {
         -webkit-animation: slide-out-blurred-left 0.4s cubic-bezier(0.755, 0.050, 0.855, 0.060) both;
         animation: slide-out-blurred-left 0.4s cubic-bezier(0.755, 0.050, 0.855, 0.060) both;
     }
-    
+
     @-webkit-keyframes slide-out-blurred-left {
         0% {
             -webkit-transform: translateX(0) scaleY(1) scaleX(1);
@@ -2007,7 +2007,7 @@ export default {
             filter: blur(0);
             opacity: 1;
         }
-    
+
         100% {
             -webkit-transform: translateX(-1000px) scaleX(2) scaleY(0.2);
             transform: translateX(-1000px) scaleX(2) scaleY(0.2);
@@ -2018,7 +2018,7 @@ export default {
             opacity: 0;
         }
     }
-    
+
     @keyframes slide-out-blurred-left {
         0% {
             -webkit-transform: translateX(0) scaleY(1) scaleX(1);
@@ -2029,7 +2029,7 @@ export default {
             filter: blur(0);
             opacity: 1;
         }
-    
+
         100% {
             -webkit-transform: translateX(-1000px) scaleX(2) scaleY(0.2);
             transform: translateX(-1000px) scaleX(2) scaleY(0.2);
