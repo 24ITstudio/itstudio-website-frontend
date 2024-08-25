@@ -237,8 +237,8 @@ onUnmounted(() => {
     }
 
     .words {
-        text-align: center;r
-        color: grey;
+        text-align: center;
+        color: gray;
         font-size: 36px;
         font-family: Microsoft JhengHei UI;
         font-weight: 700;
