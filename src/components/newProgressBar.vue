@@ -57,7 +57,7 @@ const isMobile = ref(window.innerWidth <= 768);
 
 // 计算属性来动态更新录取结果文本
 const resultText = computed(() => {
-    if (idx.value === 3) {
+    if (idx.value === 4) {
         return "成功录取";
     } else if (idx.value === -4) {
         return "未被录取";
@@ -85,20 +85,22 @@ if (idx.value === 3) {
 }
 
 // 定义每个阶段的进度百分比
-const progressSteps = [5, 22, 49, 77, 100];
+const progressSteps = [5, 25, 49, 73.5, 100];
 
 // 根据 idx 的值更新进度条和状态
 const updateProgress = () => {
     if (idx.value > -1) {
-        up1.value = 1;
         if (idx.value >= 0) {
-            up2.value = 1;
+            up1.value = 1;
             if (idx.value >= 1) {
-                up3.value = 1;
+                up2.value = 1;
                 if (idx.value >= 2) {
-                    up4.value = 1;
+                    up3.value = 1;
                     if (idx.value >= 3) {
-                        up5.value = 1;
+                        up4.value = 1;
+                        if (idx.value >= 4) {
+                            up5.value = 1;
+                        }
                     }
                 }
             }
@@ -227,24 +229,16 @@ onUnmounted(() => {
 
     .bottom {
         position: relative;
-        width: 1420px;
+        width: 93%;
         margin-top: 58px;
         justify-content: space-between;
         align-items: flex-start;
         display: inline-flex
     }
 
-    .line-left {
-        display: none;
-    }
-
-    .line-right {
-        display: none;
-    }
-
     .words {
         text-align: center;
-        color: white;
+        color: grey;
         font-size: 36px;
         font-family: Microsoft JhengHei UI;
         font-weight: 700;
