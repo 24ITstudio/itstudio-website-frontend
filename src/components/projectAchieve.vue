@@ -159,31 +159,39 @@ const scrollContainer = ref(null);
 const isMobile = /Mobi|Android|iPhone/i.test(navigator.userAgent);
 
 if (!isMobile) {
-
     console.log('这是电脑');
 } else {
     console.log('这不是电脑');
 }
 
-const handleWheel = (event) => {
+let throttleTimeout;
 
+const handleWheel = (event) => {
     if (!isMobile) {
         // 如果不是移动设备，则阻止默认行为  
         event.preventDefault();
     }
 
-    const delta = event.deltaY;
+    // Throttle logic
+    if (!throttleTimeout) {
+        throttleTimeout = setTimeout(() => {
+            const delta = event.deltaY;
 
-    if (delta > 0 && currentIndex.value < texts.value.length - 1) {
-        currentIndex.value++;
-    } else if (delta < 0 && currentIndex.value > 0) {
-        currentIndex.value--;
+            if (delta > 0 && currentIndex.value < texts.value.length - 1) {
+                currentIndex.value++;
+            } else if (delta < 0 && currentIndex.value > 0) {
+                currentIndex.value--;
+            }
+
+            const itemHeight = scrollContainer.value.offsetHeight / texts.value.length;
+            const scrollToPosition = currentIndex.value * itemHeight - (scrollContainer.value.offsetHeight - itemHeight) / 2;
+            scrollContainer.value.scrollTop = scrollToPosition;
+
+            throttleTimeout = null; // Reset the throttle timeout
+        }, 149); // 100ms is the throttle interval, adjust as needed
     }
-
-    const itemHeight = scrollContainer.value.offsetHeight / texts.value.length;
-    const scrollToPosition = currentIndex.value * itemHeight - (scrollContainer.value.offsetHeight - itemHeight) / 2;
-    scrollContainer.value.scrollTop = scrollToPosition;
 };
+
 
 function setCurrentIndex(index) {
     this.currentIndex = index;
@@ -205,6 +213,10 @@ onBeforeUnmount(() => {
 
 <style scoped>
 @media (min-width: 1025px) {
+    body {
+        background-color: transparent !important;
+    }
+
     .yeart {
         display: none;
     }
@@ -297,13 +309,12 @@ onBeforeUnmount(() => {
         position: relative;
         text-align: right;
         font-size: 36px;
-        /* top: 50%; */
-        /* transform: translateY(-50%); */
         margin: 0;
         opacity: 0.65;
         font-family: "HarmonyOS Sans SC";
+        font-weight: 500;
         transition: 0.5S;
-        background: linear-gradient(to right, #313131 0%, black 100%);
+        background: linear-gradient(to right, #cacaca 0%, rgb(255, 255, 255) 100%);
         background-clip: text;
         color: transparent;
     }
@@ -334,7 +345,7 @@ onBeforeUnmount(() => {
         transform: translateX(50px);
         position: relative;
         opacity: 1;
-        background: linear-gradient(to right, #313131 0%, black 100%);
+        background: linear-gradient(to right, #e2e2e2 0%, rgb(255, 255, 255) 100%);
         background-clip: text;
         color: transparent;
     }
@@ -404,7 +415,7 @@ onBeforeUnmount(() => {
 
     .eles p {
         height: 60vh;
-        color: black !important;
+        color: whitesmoke !important;
         width: 18vw;
         position: absolute;
         right: -2vw;
@@ -452,13 +463,13 @@ onBeforeUnmount(() => {
 
     .y21 .box .title1 {
         font-size: 32px;
-        color: #2E1117;
+        color: white;
         margin-bottom: 10px;
     }
 
     .y21 .box .title2 {
         text-align: center;
-        color: #2E1117;
+        color: white;
         font-size: 20px;
         margin-bottom: 10px;
     }
@@ -481,14 +492,14 @@ onBeforeUnmount(() => {
 
     .y20 .box .title1 {
         font-size: 32px;
-        color: #2E1117;
+        color: white;
         margin-bottom: 10px;
         width: 100%;
     }
 
     .y20 .box .title2 {
         text-align: center;
-        color: #2E1117;
+        color: white;
         font-size: 20px;
         margin-bottom: 10px;
     }
@@ -502,7 +513,7 @@ onBeforeUnmount(() => {
     .y19 .box .title1,
     .y19 .box .title1-1 {
         font-size: 32px;
-        color: #2E1117;
+        color: white;
         margin-bottom: 20px;
         width: 100%;
         font-weight: bold;
@@ -511,7 +522,7 @@ onBeforeUnmount(() => {
     .y19 .box .title2,
     .y19 .box .title2-1 {
         font-size: 20px;
-        color: #2E1117;
+        color: white;
         margin-bottom: 10px;
         width: 100%;
         font-weight: bold;
@@ -525,13 +536,13 @@ onBeforeUnmount(() => {
 
     .y18 .box .title1 {
         font-size: 32px;
-        color: #2E1117;
+        color: white;
         margin-bottom: 40px;
     }
 
     .y18 .box .title2 {
         text-align: center;
-        color: #2E1117;
+        color: white;
         font-size: 20px;
         margin-bottom: 30px;
     }
@@ -543,13 +554,13 @@ onBeforeUnmount(() => {
 
     .y17 .box .title1 {
         font-size: 32px;
-        color: #2E1117;
+        color: white;
         margin-bottom: 40px;
     }
 
     .y17 .box .title2 {
         text-align: center;
-        color: #2E1117;
+        color: white;
         font-size: 20px;
         margin-bottom: 30px;
     }
@@ -563,7 +574,7 @@ onBeforeUnmount(() => {
     .y16 .box .title1,
     .y16 .box .title1-1 {
         font-size: 32px;
-        color: #2E1117;
+        color: white;
         margin-bottom: 20px;
         width: 100%;
         font-weight: bold;
@@ -572,7 +583,7 @@ onBeforeUnmount(() => {
     .y16 .box .title2,
     .y16 .box .title2-1 {
         font-size: 20px;
-        color: #2E1117;
+        color: white;
         margin-bottom: 10px;
         width: 100%;
         font-weight: bold;
@@ -588,7 +599,7 @@ onBeforeUnmount(() => {
     .y15 .box .title1,
     .y15 .box .title1-1 {
         font-size: 32px;
-        color: #2E1117;
+        color: white;
         margin-bottom: 20px;
         width: 100%;
         font-weight: bold;
@@ -597,7 +608,7 @@ onBeforeUnmount(() => {
     .y15 .box .title2,
     .y15 .box .title2-1 {
         font-size: 20px;
-        color: #2E1117;
+        color: white;
         margin-bottom: 10px;
         width: 100%;
         font-weight: bold;
@@ -612,7 +623,7 @@ onBeforeUnmount(() => {
 
     .y14 .box .title1 {
         font-size: 32px;
-        color: #2E1117;
+        color: white;
         margin-bottom: 20px;
         width: 100%;
         font-weight: bold;
@@ -620,7 +631,7 @@ onBeforeUnmount(() => {
 
     .y14 .box .title2 {
         font-size: 20px;
-        color: #2E1117;
+        color: white;
         margin-bottom: 10px;
         width: 100%;
         font-weight: bold;
