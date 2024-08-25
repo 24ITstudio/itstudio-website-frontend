@@ -16,7 +16,6 @@
                                 <div class="text_1">
                                     留言
                                 </div>
-
                             </div>
                             <div class="board_content">
                                 <textarea ref="input" placeholder="有什么想说的，就在这里留下吧" v-model="content1" rows="9"
@@ -47,12 +46,10 @@
                         <router-link to="/">
                             <img src="../assets/Go Back.webp" class="backImg" />
                         </router-link>
-
                     </div>
                     <div class="mobile_add">
                         <div class="mobile_title">留言板</div>
                         <button class="mobile_button pulsate-bck" @click="showInput">+ 点击留言</button>
-
                     </div>
                     <div class="mobile_call slide-in-left">
                         <textarea placeholder="请输入QQ号发表留言/回复" class="callText" v-model="call" ref="input"
@@ -64,8 +61,7 @@
                             <div class="author_inner ">
                                 <div class="author_info">
                                     <div class="author_avatar">
-                                        <img :src="`https://q1.qlogo.cn/g?b=qq&nk=${item.qq}&s=100`"
-                                            @load="confirmImageUrl" @error="changeUrl" />
+                                        <img :src="confirmImageUrl( item.qq )" />
                                     </div>
                                     <div class="author_info_right">
                                         <div class="author_call">{{ item.qq ? maskQQNumber(item.qq) :
@@ -88,11 +84,9 @@
                                 </div>
                             </div>
                             <div class="traveller_total">
-                                <!-- // eslint-disable-next-line vue/require-v-for-key -->
                                 <div class="traveller_inner" v-for="child in item.children" :key="child">
                                     <div class="traveller_info">
-                                        <div class="traveller_avatar"><img
-                                                :src="`https://q1.qlogo.cn/g?b=qq&nk=${child.qq}&s=100`" /></div>
+                                        <div class="traveller_avatar"><img :src="confirmImageUrl(child.qq)" /></div>
                                         <div class="traveller_info_right">
                                             <div class="traveller_call">{{ child.qq ? maskQQNumber(child.qq) :
                                                 maskEmail(child.email)}}
@@ -117,9 +111,6 @@ import LoadingSpinner from "../components/LoadingSpinner.vue";
 import { ElNotification } from 'element-plus'
 // import { ref } from "vue";
 // import axios from 'axios';
-// import { ref } from 'vue';
-
-// const contentKey = ref(0);
 
 export default {
     name: "msagPage",
@@ -135,7 +126,6 @@ export default {
             currentContent: 'content1',
             total_Messages: [],
             isLoading: true,
-            contentKey: 0,
             submitKey: 0,
             inputVisible: false,
             replyContents: {},
@@ -147,11 +137,6 @@ export default {
             defaultUrl: '../assets/reply_avatar.webp',
         }
     },
-    // computed: {
-    //     imageUrl() {
-    //         return `https://q1.qlogo.cn/g?b=qq&nk=${this.qq}&s=100`;
-    //     }
-    // },
     created() {
         this.getMessages();
     },
@@ -172,15 +157,15 @@ export default {
             let date = new Date(time);
             return date.toLocaleString('zh-CN', { month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' });
         },
-        confirmImageUrl(event){
-            const Url = event.target.src;
-            if (Url.includes('blob: chrome - extension://gfdjdffkieeodoojhhmbodbgmmfbnkjm/cfa9937f-85fe-48ff-a8a8-bbbb003063d8')){
-                console.log('url:', Url);
-                this.changeUrl();
+        confirmImageUrl(nowQQ){
+            console.log("nowQQ:",nowQQ);
+            if (nowQQ == null){
+                return require('@/assets/reply_avatar.webp');
             }
-        },
-        changeUrl(){
-            this.imageUrl = this.defaultUrl;
+            else{
+                return `https://q1.qlogo.cn/g?b=qq&nk=${nowQQ}&s=100`;
+            }
+
         },
         maskQQNumber(qq) {
             const qqq = String(qq);
@@ -209,7 +194,6 @@ export default {
                 url: 'http://10.140.33.49:10001/bbs/',
                 // url: '/api/bbs'
             };
-
 
             axios(config)
                 .then(response => {
@@ -285,7 +269,6 @@ export default {
                 return;
             }
 
-
             var axios = require('axios');
             var data = JSON.stringify({
                 "content": this.content1,
@@ -348,11 +331,9 @@ export default {
                         }
                     } else if (error.request) {
                         // 请求已发出，但没有收到响应
-
                         console.error('没有收到响应', error.request);
                     } else {
                         // 设置请求时发生错误
-
                         console.error('请求设置错误', error.message);
                     }
                 }).finally(() => {
@@ -474,11 +455,6 @@ export default {
                         console.error('请求设置错误', error.message);
                     }
                 }).finally(() => {
-                    // new Promise(resolve => setTimeout(resolve, 1500))
-                    //     .then(() => {
-                    //         window.location.reload(); // 刷新页面
-                    //     });
-                    // this.submitKey++;
                     this.getMessages();
                     this.content2 = '';
                     this.content1 = '';
@@ -499,10 +475,7 @@ export default {
 };
 </script>
 
-
 <style scoped>
-
-
 @media screen and (orientation: portrait) {
     .back {
         height: 100vh;
@@ -539,14 +512,6 @@ export default {
     }
 
     .submitC {
-        display: none;
-    }
-
-    .submitA {
-        display: none;
-    }
-
-    .submitB {
         display: none;
     }
 
@@ -602,23 +567,6 @@ export default {
     .mobile_button:active {
         animation: pulsate-bck 10s ease;
     }
-
-    /* .mobile_inputBox{
-        position: fixed;   
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: white;
-            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-            padding: 20px;
-            z-index: 1000;
-            display: flex;
-    } */
-
-    /* .blurred {
-        filter: blur(8px);
-        pointer-events: none;
-    } */
 
     .mobile_Input{
         position: absolute;
@@ -755,19 +703,16 @@ export default {
         cursor: pointer;
     }
 
-
     .author_info{
         /* border: 1px, solid, rgb(119, 184, 27); */
         display: flex;
         flex-direction: row;
-        /* height: 10%; */
     }
 
     .author_avatar{
         /* border: 1px, solid, rgb(40, 50, 26); */
         height: 20%;
-        width: 15%;
-        
+        width: 10%;
     }
 
     .author_avatar img{
@@ -810,6 +755,7 @@ export default {
         margin-top: 2%;
         font-size: 3.7vw;
         font-family: 'Microsoft New Tai Lue';
+        font-weight: bold;
         overflow: auto;
         width: 100%;
     }
@@ -1387,77 +1333,6 @@ export default {
         color: transparent;
     }
 
-    .submitButton {
-        /* border: 1px solid rebeccapurple; */
-        display: flex;
-        flex-direction: row;
-        margin-top: 4%;
-        height: 10%;
-    }
-
-    .submitA_1 {
-        display: none;
-    }
-
-    .submitA {
-        width: 28%;
-        height: 45%;
-        line-height: 3%;
-        border-radius: 100px;
-        margin-left: 30%;
-        margin-top: 2%;
-        background-color: #04132c;
-        display: flex;
-        justify-content: center;
-    }
-
-    .submitB_1 {
-        display: none
-    }
-
-    .submitB {
-        /* border: 1px solid rgb(216, 33, 33); */
-        width: 28%;
-        height: 45%;
-        line-height: 3%;
-        border-radius: 100px;
-        margin-left: 5%;
-        margin-top: 2%;
-        background-color: #04132c;
-        display: flex;
-        justify-content: center;
-    }
-
-    .submitA .inner {
-        background-color: transparent;
-        color: #ffffff;
-        height: 100%;
-        border: none;
-        font-size: 1.7vh;
-        font-weight: bold;
-        font-family: "Microsoft New Tai Lue-Bold", Helvetica;
-        cursor: pointer;
-    }
-
-    .submitA .inner:active {
-        animation: pulsate-bck 1s ease;
-    }
-
-    .submitB .inner {
-        background-color: transparent;
-        color: #ffffff;
-        height: 100%;
-        border: none;
-        font-size: 1.7vh;
-        font-weight: bold;
-        font-family: "Microsoft New Tai Lue-Bold", Helvetica;
-        cursor: pointer;
-
-    }
-
-    .submitB .inner:active {
-        animation: pulsate-bck 0.3s ease;
-    }
 
     .submitC {
         width: 28%;
@@ -1583,8 +1458,8 @@ export default {
     }
 
     .author_avatar{
-        width: 15%;
-        height: 85%;
+        width: 14%;
+        height: 87%;
     }
 
     .author_avatar img{
@@ -1607,30 +1482,16 @@ export default {
         color: #8d8989;
     }
 
-    /* .author_right {
-        display: flex;
-        flex-direction: column;
-        width: 79%;
-        margin-left: 3%;
-    } */
-
-    /* .author_name {
-        margin-top: 1px;
-        font-weight: 700;
-        font-family: 'Microsoft New Tai Lue';
-    } */
-
-    
-
     .author_content {
         /* border: 1px, solid, black; */
         height: 70%;
         margin-top: 2%;
         font-size: 1.8vh;
         font-family: 'Microsoft New Tai Lue';
+        font-weight: bold;
         overflow: auto;
         margin-right: 2%;
-        width: 94%;
+        width: 90%;
     }
 
     .repay{
@@ -1732,23 +1593,6 @@ export default {
         margin-left: 3%;
     }
 
-    /* .traveller_right {
-        display: flex;
-        flex-direction: column;
-        width: 87%;
-        margin-left: 4%;
-    } */
-
-    /* .traveller_name_fixed_1 {
-        font-family: 'Microsoft New Tai Lue';
-        font-weight: 700;
-    } */
-
-    /* .traveller_name_fixed {
-        display: flex;
-        flex-direction: row;
-    } */
-
     .traveller_call{
         font-size: 1vw;
         font-weight: bold;
@@ -1771,6 +1615,7 @@ export default {
         overflow-x: hidden;
         word-wrap: break-word;
         overflow-wrap: break-word;
+        font-weight: bold;
     }
 
     /* 动画部分 */
