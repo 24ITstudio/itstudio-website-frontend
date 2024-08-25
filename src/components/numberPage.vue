@@ -11,19 +11,9 @@
       </div> -->
       <div class="look">上下滑动以查看更多</div>
       <div class="year-selector" @wheel="handleWheel">
-        <div
-          class="scroll-container"
-          ref="scrollContainer"
-          style="overflow-y: scroll"
-        >
-          <div
-            v-for="year in years"
-            :key="year"
-            @click="selectYear(year)"
-            :class="{ 'selected-year': selectedYear === year }"
-            class="year"
-            tabindex="1"
-          >
+        <div class="scroll-container" ref="scrollContainer" style="overflow-y: scroll">
+          <div v-for="year in years" :key="year" @click="selectYear(year)"
+            :class="{ 'selected-year': selectedYear === year }" class="year" tabindex="1">
             {{ year }}
             <img src="@/assets/下.webp" alt="" />
           </div>
@@ -31,18 +21,10 @@
       </div>
       <div class="department-list">
         <div class="department">
-          <div
-            v-for="department in departments"
-            :key="department.name"
-            :class="{
-              'selected-department': selectedDepartment === department,
-            }"
-          >
-            <div
-              @click="selectDepartment(department)"
-              class="departmentname"
-              v-if="department.members[selectedYear]"
-            >
+          <div v-for="department in departments" :key="department.name" :class="{
+            'selected-department': selectedDepartment === department,
+          }">
+            <div @click="selectDepartment(department)" class="departmentname" v-if="department.members[selectedYear]">
               {{ department.name }}
             </div>
             <!-- <div v-if="selectedYear && selectedDepartment === department">
@@ -51,15 +33,8 @@
           </div>
         </div>
         <div v-for="department in departments" :key="department.name">
-          <div
-            v-if="selectedYear && selectedDepartment === department"
-            class="member-list"
-          >
-            <div
-              class="member-con"
-              v-for="member in department.members[selectedYear]"
-              :key="member.name"
-            >
+          <div v-if="selectedYear && selectedDepartment === department" class="member-list">
+            <div class="member-con" v-for="member in department.members[selectedYear]" :key="member.name">
               <div class="photo">
                 <img :src="member.photo" alt="" />
               </div>
@@ -1289,6 +1264,7 @@ export default {
 .nav {
   position: absolute;
 }
+
 .look {
   position: absolute;
   top: 27%;
@@ -1298,6 +1274,7 @@ export default {
   font-size: 16px;
   width: 5%;
 }
+
 .year-selector {
   margin-bottom: 12%;
   margin-top: 10%;
@@ -1337,9 +1314,11 @@ export default {
 .selected-year img {
   display: block;
 }
+
 .selected-year img {
   display: block;
 }
+
 .department-page {
   display: flex;
   width: 100%;
@@ -1374,6 +1353,7 @@ export default {
   text-align: center;
   width: 90%;
 }
+
 .departmentname {
   padding-left: 50px;
   transition: all 0.6s;
@@ -1382,6 +1362,7 @@ export default {
   font-weight: 700;
   cursor: pointer;
 }
+
 .departmentname:hover,
 .selected-department .departmentname {
   line-height: 40px;
@@ -1459,6 +1440,7 @@ export default {
   font-weight: 400;
   word-wrap: break-word;
 }
+
 .member-con:hover {
   border: solid 1px rgb(28, 44, 68);
   border-radius: 30px;
@@ -1527,12 +1509,14 @@ export default {
     padding-top: 12px;
     position: fixed;
   }
+
   .departmentname {
     height: 5%;
     padding-left: 10px;
     font-size: 17px;
     line-height: 40px;
   }
+
   /*.goBack {
     /* background-color: violet; */
   /* margin-left: 2%;
@@ -1644,6 +1628,7 @@ export default {
     font-weight: 400;
     word-wrap: break-word;
   }
+
   .member-con:hover {
     box-shadow: 10px 10px 20px 1px rgb(67, 54, 56);
   }
