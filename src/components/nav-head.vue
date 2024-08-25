@@ -27,7 +27,7 @@
             <router-link to="/achieve" class="nochose" active-class="active">
                 项目成果
             </router-link>
-            <div class="bottomlogo" v-show="isMobile">
+            <div class="bottomlogo" v-show="show">
                 <div class="logo"><img src="../assets/logob.webp" alt=""></div>
                 <div class="eng">IT Studio</div>
                 <div class="text">
@@ -46,7 +46,6 @@ export default {
     data() {
         return {
             show: false,
-            isMobile: /Mobi|Android|iPhone/i.test(navigator.userAgent),
         }
     },
     methods: {
@@ -218,6 +217,10 @@ export default {
     }
 
     .fold {
+        display: none;
+    }
+
+    .bottomlogo {
         display: none;
     }
 }
