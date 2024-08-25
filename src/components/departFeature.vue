@@ -4,7 +4,7 @@
         <div class="center">
             <deBox class="debox" v-for="depart in departs" :key="depart.id" :index="depart.id"
                 :activeIndex="activeIndex" :url="depart.bgi" :title="depart.title" :intro="depart.intro"
-                @update:activeIndex="updateActiveIndex" @click.stop="" />
+                :eng="depart.eng" :tag="depart.tag" @update:activeIndex="updateActiveIndex" @click.stop="" />
         </div>
     </div>
 </template>
@@ -12,7 +12,9 @@
 <script>
 import { ref } from 'vue';
 import deBox from './departBox.vue';
-import navHead from './nav-head.vue'
+import navHead from './nav-head.vue';
+import { useRoute } from 'vue-router';
+
 export default {
     components: {
         deBox,
@@ -21,26 +23,23 @@ export default {
     data() {
         return {
             departs: [
-                {
-                    id: 1, title: "程序部", intro: "程序部门主要职能为基于Django, ASP.NET, PHP, JSP等技术，应用Python, c#, Java， c++等语言开发应用程序，完成与SQLServer，MySQL等数据库的交互，设计对外API接口等。<br />程序部，所谓之程序，乃是后端开发的意思，并非常规意义上常见的桌面应用程序，而是更加偏向计算机网络方向的学习核心。主要能够学到的内容有后端接口、数据库以及服务器的相关一系列操作，这也是每一个互联网应用中必要的部分，会比较有挑战性喔，请做好无限学习的准备！", bgi: require('../assets/application.webp')
-                },
-                {
-                    id: 2, title: "Web部", intro: "Web开发部门利用html, CSS,JavaScript为主要语言来对网站表现层与结构层等前台部分做出完关构造，在实现设计师要带给用户上的视觉冲击以外还能保证与后台交互实现网站对用户功能，从而让网站突破实用性和吸引力。<br />Web开发可以暂时理解成写网页，例如你现在浏览的网页，你所能看到的部分（网页上的文字图片、各种动画效果）都是我们的成员在Web开发部门学习后的作品。写网页，我们这里需要用到三部分知识：Html、CSS、JavaScript。大家可以看到没有涉及到C语言、Python等，因此对零基础的同学较为友好。在进入社团前，我们期望你们预习基础的Html知识，掌握基本的标签。在进入社团后，我们每周都会组织授课，按照上述的顺序讲课，在课下我们会布置相关的练习", bgi: require('../assets/web.webp')
-                },
-                {
-                    id: 3, title: "游戏部", intro: "爱特游戏部门是2018年新成立的部门。专注于2D游戏的开发。游戏以游戏性为本，以社交性为辅，以商业性为底。他们用心为自己的理想开辟道路。<br />大一秋季学期期间会交给新生Unity的一些简单的使用，包括场景实例搭建和脚本代码编写，让新生具备自主开发简单的小游戏的能力。期间会有三次项目作业，难度逐步提升。大一春季学期期间则分组安排进行团队项目开发，每组成员在一学期内多人合作完成一个大型游戏项目的开发。", bgi: require('../assets/game.webp')
-                },
-                {
-                    id: 4, title: "APP部", intro: "爱特工作室APP应用部门是在移动端高速发展下，于2017年成立的部门。<br />Android应用开发基于Java等语言，负责编写应用客户端界面，完成客户端与服务端的信息应用开发部门扩展了社团的变量，使工作室的技术力量多样化。<br />APP部门主要负责移动APP和微信小程序的设计与制作，在一年的学习你将动手实现5个不同类型的APP，拥有自主设计开发APP的能力，加入我们让我们一起设计一款属于你自己的APP吧。", bgi: require('../assets/app.webp')
-                },
-                {
-                    id: 5, title: "UI部", intro: "UI设计部门主要使用Photoshop、Illustrator等软件,对网页、APP等界面进行设计，并负责各类视频制作、剪辑、特效制作的工作。<br />UI设计是什么？这或许是每一个萌新都好奇的问题。（不会就百——）通俗来讲，UI就是决定APP界面、网页等长啥样的部门，重在【设计】（包括人机交互、操作逻辑、界面美观的整体设计）。那就不得不说设计师们与Adobe全家桶等不得不说的故事了。（想听吗？想听就来！报！名！）来UI部门，你可以畅游在Adobe的海洋，你可以体会格式塔心理的美学，你可以c以感受设计之道......（反正来就vans加入我们吧！）", bgi: require('../assets/UI.webp')
-                }
+                { id: 1, title: "程序部", intro: "程序部主要负责社团的网站开发、应用程序设计、技术支持、技术培训等工作。在这里，你可以学习使用Python开发服务器后端，亲手打造网站。", bgi: require('../assets/application.webp'), eng: "Program", tag: "#后端开发<br>#技术支持<br>#Python" },
+                { id: 2, title: "Web部", intro: "Web部是一个致力于网页前端开发的部门，集结了对技术充满热情的开发者，在这里你可以学习前沿网页开发知识，使用HTML、CSS、JS和Vue搭建自己的网站。", bgi: require('../assets/web.webp'), eng: "Web Based", tag: "#网页开发<br>#HTML CSS JS<br>#vue2/3" },
+                { id: 3, title: "游戏部", intro: "探索游戏世界的奥秘，学习Unity游戏引擎，使用Unity2D制作简单的2D游戏，亲手打造属于自己的游戏作品。<br>如果你对软件开发充满热情或满怀好奇，渴望在实践中提升自己的技能，那么，爱特工作室就是你梦想起航的地方！", bgi: require('../assets/game.webp'), eng: "Game", tag: "#2D<br>#Unity" },
+                { id: 4, title: "APP部", intro: "APP部门是在移动端高速发展背景下成立的部门。在这里，你会使用React Native技术开发手机应用，编写应用的客户端界面。", bgi: require('../assets/app.webp'), eng: "Application", tag: "#编写应用<br>#技术开发<br>#React Native技术" },
+                { id: 5, title: "UI部", intro: "发挥创意，学习界面设计，打造美观、易用的用户界面。使用Photoshop Illustrator等软件来设计网页和APP界面，还负责视频制作，剪辑和特效，是决定界面外观和用户体验的部门，重在设计和操作逻辑。", bgi: require('../assets/UI.webp'), eng: "Design", tag: "#界面设计<br>#Ps Ai Ae<br>#交互设计<br>#设计网页，APP" },
+                { id: 6, title: "iOS部", intro: "iOS部专注于基于Swift语言的iOS APP开发。在这里，你将获得专属Mac mini的使用权（社团期间免费），有资格参加移动应用创新赛和WWDC，还有机会获得加入Apple的免试工作机会。加入我们，开启你的iOS开发之旅吧！", bgi: require('../assets/iOS.webp'), eng: "iOS Club", tag: "#Swift语言开发<br>#IOS开发" }
             ]
         };
     },
     setup() {
-        const activeIndex = ref(null);
+        const route = useRoute()
+
+        const activeIndex = ref(1)
+
+        activeIndex.value = Number(route.query.id)
+
+        console.log(activeIndex.value)
 
         const updateActiveIndex = (index) => {
             activeIndex.value = index;

@@ -18,7 +18,7 @@
             <router-link to="/intro" class="nochose" active-class="active">
                 关于爱特
             </router-link>
-            <router-link :to="'/feature?id=0'" class="nochose" active-class="active">
+            <router-link :to="'/feature?id=1'" class="nochose" active-class="active">
                 部门特色
             </router-link>
             <router-link to="/member" class="nochose" active-class="active">
@@ -27,7 +27,7 @@
             <router-link to="/achieve" class="nochose" active-class="active">
                 项目成果
             </router-link>
-            <div class="bottomlogo" v-show="show">
+            <div class="bottomlogo" v-show="isMobile">
                 <div class="logo"><img src="../assets/logob.webp" alt=""></div>
                 <div class="eng">IT Studio</div>
                 <div class="text">
@@ -45,19 +45,15 @@
 export default {
     data() {
         return {
-            show: false
+            show: false,
+            isMobile: /Mobi|Android|iPhone/i.test(navigator.userAgent),
         }
-    },
-    props: {
-        locate: {
-            type: Number,
-        },
     },
     methods: {
         unFold() {
             this.show = !this.show
         }
-    }
+    },
 };  
 </script>
 
