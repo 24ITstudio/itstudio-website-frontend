@@ -2,7 +2,7 @@
     <div class="back">
         <div class="back_up">
             <div class="head">
-                <navHead :locate="-4000"></navHead>
+                <navHead></navHead>
             </div>
             <div class="content">
                 <div class="back_left">

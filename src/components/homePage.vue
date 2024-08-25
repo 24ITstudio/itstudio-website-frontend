@@ -1,6 +1,6 @@
 <!-- 临时用于router的homePage页面！ -->
 <template>
-    <navHead :locate="-4000"></navHead>
+    <navHead></navHead>
     <main class="main" v-cloak>
         <section :class="['sec', { 'turnGray': showQR }]" @click="closeQR">
             <div class="titleimg">

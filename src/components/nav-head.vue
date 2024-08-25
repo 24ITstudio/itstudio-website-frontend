@@ -2,19 +2,31 @@
     <nav class="homenav">
         <div class="navtitle">
             <router-link to="/">
-                <img src="../assets/Home.svg" alt="">
-                <div class="nochose">首页</div>
+                <img src="../assets/Home.svg" alt="" class="default">
+                <div class="default">IT Studio</div>
+                <img src="../assets/homo.svg" title="返回主页" class="hoVer">
+                <div class="hoVer">主页</div>
             </router-link>
         </div>
-        <el-icon :class="['fold', { 'onShow': show }]" @click="unFold">
-            <Expand />
+        <el-icon class="fold" @click="unFold" v-show="!show">
+            <Menu />
         </el-icon>
-        <div class="main" v-show="show">
-            <router-link to="/intro" class="nochose">关于爱特</router-link>
-            <router-link :to="'/feature?id=0'" class="nochose">部门特色</router-link>
-            <router-link to="/member" class="nochose">成员组成</router-link>
-            <router-link to="/achieve" class="nochose">项目成果</router-link>
-            <div class="navanim home" :style="{ left: locate + 'px' }"></div>
+        <el-icon class="fold" @click="unFold" v-show="show">
+            <CloseBold />
+        </el-icon>
+        <div :class="['main', { 'close': !show }, { 'popUp': show }]">
+            <router-link to="/intro" class="nochose" active-class="active">
+                关于爱特
+            </router-link>
+            <router-link :to="'/feature?id=0'" class="nochose" active-class="active">
+                部门特色
+            </router-link>
+            <router-link to="/member" class="nochose" active-class="active">
+                成员组成
+            </router-link>
+            <router-link to="/achieve" class="nochose" active-class="active">
+                项目成果
+            </router-link>
         </div>
         <div class="none"></div>
     </nav>
@@ -112,13 +124,39 @@ export default {
         width: 25%;
         height: 70px;
         margin-right: 1.2%;
-        /* transform: translateX(-100px); */
+    }
+
+    nav .navtitle a {
+        width: 200px !important;
     }
 
     nav .navtitle div {
         font-size: 24px;
         font-weight: bolder;
         margin-left: 10px;
+        height: 70px;
+        text-align: left;
+    }
+
+    nav .navtitle img {
+        height: 40px;
+    }
+
+    nav .navtitle a .default {
+        display: block;
+    }
+
+    nav .navtitle a .hoVer {
+        display: none;
+    }
+
+    nav .navtitle a:hover .default {
+        display: none;
+    }
+
+    nav .navtitle a:hover .hoVer {
+        display: block;
+        width: 80px;
     }
 
     nav .navtitle a {
@@ -144,41 +182,30 @@ export default {
         color: white;
         opacity: 1;
         transition: 0.5s;
-        padding-right: 100px;
+        margin-right: 100px;
         transform: translateX(70px);
     }
 
-    nav .navanim {
-        position: absolute;
+    nav .main a {
+        width: 120px;
+    }
+
+    nav .main:hover .active {
+        background-color: transparent;
+    }
+
+    nav .main a:hover {
         height: inherit;
         z-index: 0;
-        background: rgb(155, 200, 240);
-        border-radius: 5px;
-        opacity: 0.5;
-        transition: all .5s ease 0s;
-        width: 120px;
-        height: 100%;
+        background: rgba(155, 200, 240, 0.7) !important;
+        border-radius: 8px;
     }
 
-
-    .main a:nth-child(1):hover~.navanim {
-        width: 120px;
-        left: 84px !important;
-    }
-
-    .main a:nth-child(2):hover~.navanim {
-        width: 120px;
-        left: 332px !important;
-    }
-
-    .main a:nth-child(3):hover~.navanim {
-        width: 120px;
-        left: 584px !important;
-    }
-
-    .main a:nth-child(4):hover~.navanim {
-        width: 120px;
-        left: 834px !important;
+    nav .main a.active {
+        height: inherit;
+        z-index: 0;
+        background: rgba(155, 200, 240, 0.7);
+        border-radius: 8px;
     }
 
     nav .none {
@@ -250,20 +277,22 @@ export default {
         display: flex;
         flex-direction: column;
         align-items: center;
-        justify-self: center;
+        justify-content: start;
         position: absolute;
         top: 100px;
         right: 0;
-        width: 160px;
-        height: 300px;
+        width: 100vw;
+        height: 100vh;
         background-color: rgba(43, 51, 77, .99);
         border-radius: 0 0 10px 10px;
         transition: 0.5s;
     }
 
     .main a {
-        font-size: 18px;
+        font-size: 28px;
         font-weight: bold;
+        height: 80px;
+        margin-top: 50px;
     }
 
     nav .navtitle {
@@ -298,17 +327,24 @@ export default {
         transition: 0.5s;
         margin: 0;
         padding: 0;
+        transform: translateX(-20px);
     }
 
     .navtitle a img {
+        height: 50px;
         transform: translateY(20px);
     }
 
     .navtitle a div {
         font-weight: bold;
         font-size: 20px;
+        width: 100px;
+        text-align: center;
     }
 
+    .navtitle .hoVer {
+        display: none;
+    }
 
     nav a {
         display: flex;
@@ -338,14 +374,12 @@ export default {
         transition: 0.5s;
     }
 
-    .onShow {
-        transition: 0.5s;
-        position: absolute;
-        right: 26px;
-        height: 70px;
-        width: 60px;
-        font-size: 30px;
-        transform: rotate3d(0, 1, 0, 180deg);
+    .close {
+        transform: translateX(100vw);
+    }
+
+    .popUp {
+        transform: translateX(0);
     }
 }
 </style>

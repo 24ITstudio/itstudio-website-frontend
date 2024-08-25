@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="nav">
-      <navHead :locate="584"></navHead>
+      <navHead></navHead>
     </div>
     <div class="department-page">
       <!-- <div class="goBack">

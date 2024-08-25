@@ -1,5 +1,5 @@
 <template>
-    <navHead :locate="834"></navHead>
+    <navHead></navHead>
     <div class="Main" @wheel="handleWheel">
         <div class="mask">
             <div class="scroll-container" ref="scrollContainer" style="overflow-y: scroll;">
