@@ -50,12 +50,11 @@
             </div> -->
           </div>
         </div>
-        <div
-          v-for="department in departments"
-          :key="department.name"
-          class="member-list"
-        >
-          <div v-if="selectedYear && selectedDepartment === department">
+        <div v-for="department in departments" :key="department.name">
+          <div
+            v-if="selectedYear && selectedDepartment === department"
+            class="member-list"
+          >
             <div
               class="member-con"
               v-for="member in department.members[selectedYear]"
@@ -1331,7 +1330,6 @@ export default {
 .selected-year img {
   display: block;
 }
-
 .department-page {
   display: flex;
   width: 100%;
@@ -1348,11 +1346,9 @@ export default {
 
 .department-list {
   position: relative;
-  /* padding-left: 2%; */
   padding-top: 8%;
   width: 73%;
   height: 100%;
-  /* background: rgba(217, 217, 217, 0.1); */
   backdrop-filter: blur(20px);
   overflow-y: scroll;
 }
@@ -1364,7 +1360,7 @@ export default {
   justify-content: center;
   backdrop-filter: blur(20px);
   z-index: 1;
-  height: 12%;
+  height: 10%;
   text-align: center;
   width: 90%;
 }
@@ -1388,18 +1384,23 @@ export default {
 }
 
 .member-list {
+  width: 100%;
   position: absolute;
   overflow-y: scroll;
   height: 60%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
 }
 
 .member-con {
   padding-top: 4%;
   padding-left: 5%;
   margin-left: 4%;
-  display: inline-block;
-  width: 400px;
+  /* display: inline-block; */
+  width: 39%;
   transition: all 1s;
+  height: 30%;
 }
 
 .photo {
@@ -1450,15 +1451,6 @@ export default {
 .member-con:hover {
   border: solid 1px rgb(28, 44, 68);
   border-radius: 30px;
-}
-
-span {
-  color: #fff;
-  font-family: "Microsoft New Tai Lue";
-  font-size: 24px;
-  font-style: normal;
-  font-weight: 700;
-  line-height: normal;
 }
 
 @media (max-width: 430px) {
@@ -1596,6 +1588,7 @@ span {
   }
 
   .member-list {
+    flex-direction: column;
     width: 100%;
     overflow-y: scroll;
   }
