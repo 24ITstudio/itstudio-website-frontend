@@ -1,5 +1,5 @@
 <template>
-  <navHead :locate="-4000"></navHead>
+  <navHead></navHead>
   <div class="box" v-if="!showResult">
     <div class="shadow">
       <div class="back">

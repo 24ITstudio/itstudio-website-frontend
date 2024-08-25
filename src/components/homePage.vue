@@ -1,6 +1,6 @@
 <!-- 临时用于router的homePage页面！ -->
 <template>
-    <navHead :locate="-4000"></navHead>
+    <navHead></navHead>
     <main class="main" v-cloak>
         <section :class="['sec', { 'turnGray': showQR }]" @click="closeQR">
             <div class="titleimg">
@@ -54,7 +54,7 @@
                             </router-link>
                         </div>
                     </div>
-                    <div class="title2-1 slide-in-blurred-bottom">爱特<br>工作室</div>
+                    <div class="title2-1 slide-in-blurred-bottom">爱特工作室</div>
                 </div>
             </div>
         </section>
@@ -91,10 +91,10 @@
                 <span class="first">
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;爱特工作室成立于2002年,是一个在中国海洋大学信息科学与工程学部领导主持下,以计算机技术人才培养,网络开发为特色的技术性团体。</span>
                 <br>
-                <router-link to="/intro"><img src="../assets/toIntro.webp" alt=""></router-link>
+                <!-- <router-link to="/intro"><img src="../assets/toIntro.webp" alt=""></router-link> -->
                 <span></span>
                 <br>
-                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这么说是不是看不太懂？那就简单说一下，进入这个社团后通过各个部门合作，可以制作出好看的网页，APP和游戏，进来就可以玩哦，大家都很欢迎新朋友的~</span>
+                <!-- <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这么说是不是看不太懂？那就简单说一下，进入这个社团后通过各个部门合作，可以制作出好看的网页，APP和游戏，进来就可以玩哦，大家都很欢迎新朋友的~</span> -->
             </div>
             <div class="linkTo">
                 <button @click="toProg"><img src="../assets/toProg.webp" alt="" class="height:100%"></button>
@@ -105,17 +105,16 @@
                 <button @click="toIOS"><img src="../assets/toIOS.webp" alt="" class="height:100%"></button>
             </div>
         </div>
-    </main>
-    <div class="bottomlogo">
-        <div class="titleimg">
-            <div class="title3"></div>
-            <div class="logo"><img src="../assets/logob.webp" alt=""></div>
-            <div class="eng">IT Stuio</div>
-            <div class="text">中国海洋大学 | 信息科学与工程学院B505 | @ITStudio All Rights Reserved |
-                <a href="https://beian.miit.gov.cn/" tatget="_blank">备案号:鲁ICP备123456789号-2</a>
+        <div class="bottomlogo">
+            <div class="titleimg">
+                <!-- <div class="logo"><img src="../assets/logob.webp" alt=""></div>
+            <div class="eng">IT Studio</div> -->
+                <div class="text">中国海洋大学 | 信息科学与工程学院B505 | @ITStudio All Rights Reserved |
+                    <a href="https://beian.miit.gov.cn/" target="_blank">备案号:鲁ICP备123456789号-2</a>
+                </div>
             </div>
         </div>
-    </div>
+    </main>
 </template>
 
 <script setup>
@@ -143,12 +142,12 @@ function navigateToFeature(id) {
 }
 
 // 使用  
-const toProg = () => navigateToFeature(0);
-const toWeb = () => navigateToFeature(1);
-const toGame = () => navigateToFeature(2);
-const toAPP = () => navigateToFeature(3);
-const toUI = () => navigateToFeature(4);
-const toIOS = () => navigateToFeature(5);
+const toProg = () => navigateToFeature(1);
+const toWeb = () => navigateToFeature(2);
+const toGame = () => navigateToFeature(3);
+const toAPP = () => navigateToFeature(4);
+const toUI = () => navigateToFeature(5);
+const toIOS = () => navigateToFeature(6);
 
 </script>
 
@@ -198,18 +197,17 @@ const toIOS = () => navigateToFeature(5);
 
     .title3 {
         background-color: #04132D;
-        width: 30vw;
+        width: 24vw;
         height: 100%;
-        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 
 
     .titleimg .title {
-        position: absolute !important;
-        left: 14vw;
-        top: 50%;
-        transform: translate(0, -60%);
-        width: 600px;
+        transform: translateX(20px);
+        width: 200px;
         height: 340px;
         line-height: 36px;
         font-size: 36px;
@@ -280,11 +278,19 @@ const toIOS = () => navigateToFeature(5);
 
     .bottomlogo {
         width: 100%;
-        height: 40vh;
-        position: relative;
+        height: 10vh;
+        position: absolute;
+        bottom: 0;
+        background: transparent;
+        z-index: 100;
     }
 
-    .bottomlogo::before {
+    .bottomlogo .titleimg {
+        width: 100%;
+        background: transparent;
+    }
+
+    .bottomlogo .titleimg::before {
         content: "";
         position: absolute;
         width: 100%;
@@ -292,17 +298,6 @@ const toIOS = () => navigateToFeature(5);
         background: linear-gradient(to bottom, rgba(255, 255, 255, 0), #04132dc2, #04132D);
         background-size: cover;
         z-index: 1000;
-    }
-
-    .bottomlogo .titleimg {
-        background-image: url(../assets/bg.webp);
-        height: 100%;
-        background-repeat: no-repeat;
-        background-position-x: center;
-        background-position-y: center;
-        background-size: cover;
-        background-attachment: fixed;
-        width: 100%;
     }
 
     .bottomlogo .titleimg .title3 {
@@ -313,33 +308,16 @@ const toIOS = () => navigateToFeature(5);
     .bottomlogo .titleimg {
         display: flex;
         flex-direction: column;
-        justify-content: start;
+        justify-content: end;
         align-items: center;
     }
 
-    .bottomlogo .titleimg .logo,
-    .bottomlogo .titleimg .eng,
     .bottomlogo .titleimg .text {
         z-index: 3000;
     }
 
-    .bottomlogo .titleimg .logo {
-        margin-top: 110px;
-    }
-
-    .bottomlogo .titleimg .eng {
-        color: #FFF;
-        font-family: Poppins;
-        font-size: 24px;
-        font-style: normal;
-        font-weight: 800;
-        line-height: normal;
-        letter-spacing: 3.12px;
-    }
-
-
     .bottomlogo .titleimg .text {
-        margin-bottom: 50px;
+        margin-bottom: 10px;
         color: #FFF;
         font-family: Poppins;
         font-size: 16px;
@@ -635,15 +613,15 @@ const toIOS = () => navigateToFeature(5);
     }
 
     .slogan {
-        width: 66vw;
-        height: 80vh;
+        width: 76vw;
+        height: 100vh;
         position: absolute;
-        right: 2vw;
-        top: 48%;
-        transform: translate(0, -45%);
-        background-color: rgba(255, 255, 255, 0.2);
-        border: white 3px solid;
-        border-radius: 20px;
+        right: 0;
+        top: 45vh;
+        /* transform: translate(0, -45%); */
+        background-color: rgba(255, 255, 255, 0.1);
+        /* border: white 3px solid; */
+        /* border-radius: 20px; */
         backdrop-filter: blur(10px);
         display: flex;
         flex-direction: column;
@@ -655,15 +633,15 @@ const toIOS = () => navigateToFeature(5);
         display: flex;
         justify-content: start;
         align-items: center;
-        margin: 0 4vh 0 4vh;
+        margin: 0 4vh 0 14vh;
     }
 
     .slogan .top {
-        margin-top: 2vh;
+        margin-top: 16vh;
     }
 
     .slogan .top .big {
-        width: 200vh;
+        width: 160vh;
         color: #FFF;
         font-family: "Microsoft New Tai Lue";
         font-size: 14vh;
@@ -672,11 +650,16 @@ const toIOS = () => navigateToFeature(5);
         line-height: normal;
     }
 
+    .top .logo {
+        margin: 0;
+    }
+
     .top .logo img {
         width: 10vh;
     }
 
     .slogan .next {
+        margin: 0;
         margin-top: 4vh;
         margin-bottom: 8vh;
     }
@@ -714,7 +697,7 @@ const toIOS = () => navigateToFeature(5);
 
     .about .first {
         font-size: 2.8vh;
-        margin-bottom: 4vh;
+        margin-bottom: 2vh;
     }
 
     .about a {
@@ -729,8 +712,8 @@ const toIOS = () => navigateToFeature(5);
 
     .slogan .linkTo {
         margin: 0 auto;
-        margin-top: 8vh;
-        width: 96%;
+        margin-top: 2vh;
+        width: 90%;
         display: flex;
         flex-direction: row !important;
         justify-content: space-between !important;
@@ -839,7 +822,7 @@ const toIOS = () => navigateToFeature(5);
     }
 
     .title2-1 {
-        text-indent: 0.5em;
+        /* text-indent: 0.5em; */
         font-size: 50px;
         font-weight: 600;
         line-height: 70px;
