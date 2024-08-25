@@ -63,10 +63,13 @@
                         <div class="inner_board" v-for="item in total_Messages" :key="item.id">
                             <div class="author_inner ">
                                 <div class="author_info">
-                                    <div class="author_avatar"><img
-                                            :src="`https://q1.qlogo.cn/g?b=qq&nk=${item.qq}&s=100`" /></div>
+                                    <div class="author_avatar">
+                                        <img :src="`https://q1.qlogo.cn/g?b=qq&nk=${item.qq}&s=100`"
+                                            @load="confirmImageUrl" @error="changeUrl" />
+                                    </div>
                                     <div class="author_info_right">
-                                        <div class="author_call">{{ item.qq ? item.qq : item.email }}</div>
+                                        <div class="author_call">{{ item.qq ? maskQQNumber(item.qq) :
+                                            maskEmail(item.email) }}</div>
                                         <div class="author_time">{{ item.datetime }}</div>
                                     </div>
                                 </div>
@@ -80,8 +83,8 @@
                                         class="repayText" ref="input" :key="item.id"
                                         @click="getParentID(item.id)"></textarea>
                                 </div>
-                                <div class=" repay_2" @click="submitTalk(item.id)"><img
-                                        src="../assets/repay_logo.webp" />
+                                <div class=" repay_2" @click="submitTalk(item.id)">
+                                    <img src="../assets/repay_logo.webp" />
                                 </div>
                             </div>
                             <div class="traveller_total">
@@ -89,10 +92,10 @@
                                 <div class="traveller_inner" v-for="child in item.children" :key="child">
                                     <div class="traveller_info">
                                         <div class="traveller_avatar"><img
-                                                :src="`https://q1.qlogo.cn/g?b=qq&nk=${item.qq}&s=100`" /></div>
+                                                :src="`https://q1.qlogo.cn/g?b=qq&nk=${child.qq}&s=100`" /></div>
                                         <div class="traveller_info_right">
-                                            <div class="traveller_call">{{ child.qq ? child.qq : child.email
-                                                }}
+                                            <div class="traveller_call">{{ child.qq ? maskQQNumber(child.qq) :
+                                                maskEmail(child.email)}}
                                             </div>
                                             <div class="traveller_time">{{ formateTime(child.datetime) }}</div>
                                         </div>
@@ -140,6 +143,8 @@ export default {
             qq: '',
             email: '',
             callKey: 0,
+            imageUrl: '',
+            defaultUrl: '../assets/reply_avatar.webp',
         }
     },
     // computed: {
@@ -166,6 +171,35 @@ export default {
             if (!time) return '';
             let date = new Date(time);
             return date.toLocaleString('zh-CN', { month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' });
+        },
+        confirmImageUrl(event){
+            const Url = event.target.src;
+            if (Url.includes('blob: chrome - extension://gfdjdffkieeodoojhhmbodbgmmfbnkjm/cfa9937f-85fe-48ff-a8a8-bbbb003063d8')){
+                console.log('url:', Url);
+                this.changeUrl();
+            }
+        },
+        changeUrl(){
+            this.imageUrl = this.defaultUrl;
+        },
+        maskQQNumber(qq) {
+            const qqq = String(qq);
+            if (qqq.length < 5) {
+                // 如果 QQ 号太短，则不进行任何处理
+                return qqq;
+            }
+            const visibleStart = qqq.slice(0, 3); // 显示前3位
+            const visibleEnd = qqq.slice(-3);     // 显示后3位
+            const maskedPart = '*'.repeat(qqq.length - 6); // 中间用*号替代
+            return `${visibleStart}${maskedPart}${visibleEnd}`;
+        },
+        maskEmail(email) {
+            const atIndex = email.indexOf('@');
+            if (atIndex > 0) {
+                const maskedPart = '*'.repeat(atIndex);
+                return `${maskedPart}${email.slice(atIndex)}`;
+            }
+            return email; // 如果没有找到 @ 则返回原始邮箱
         },
         getMessages() {
             var axios = require('axios');
@@ -208,13 +242,13 @@ export default {
         },
         validateInput(input) {
             const qqPattern = /^[1-9][0-9]{4,10}$/;
-            // const emailPattern = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
+            const emailPattern = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
             if (qqPattern.test(input)){
                 this.qq = input;
             } 
-            // else if (emailPattern.test(input)){
-            //     this.email = input;
-            // }
+            else if (emailPattern.test(input)){
+                this.email = input;
+            }
             return;
         },
         submitMessage() {
@@ -232,7 +266,7 @@ export default {
             if(this.call.trim() === ''){
                 ElNotification({
                     title: '嗯？',
-                    message: '还没有留下qq哇',
+                    message: '还没有留下qq或email哇',
                     type: 'warning',
                     duration: 2000,
                     offset: 100,
@@ -240,10 +274,10 @@ export default {
                 return;
             }
             this.validateInput(this.call);
-            if(!(this.qq)){
+            if(!(this.qq || this.email)){
                 ElNotification({
                     title: '嘶…',
-                    message: '联系方式好像不是qq哇',
+                    message: '联系方式好像不是qq或email哇',
                     type: 'warning',
                     duration: 2000,
                     offset: 100,
@@ -251,12 +285,13 @@ export default {
                 return;
             }
 
+
             var axios = require('axios');
             var data = JSON.stringify({
                 "content": this.content1,
                 "parent": null,
                 "qq": this.qq,
-                "email": null,
+                "email": String(this.email),
             });
 
             var config = {
@@ -282,6 +317,8 @@ export default {
                             duration: 1000,
                             offset: 100,
                         });
+                        console.log('发布qq为', this.qq);
+                        console.log('发布email为', this.email);
                     } else {
                         console.log('出错了…');
                     }
@@ -323,6 +360,8 @@ export default {
                     this.content1 = '';
                     this.call = '';
                     this.callKey++;
+                    this.qq = null;
+                    this.email = null;
                 });
         },
         getParentID(id) {
@@ -361,7 +400,7 @@ export default {
             if (this.call.trim() === '') {
                 ElNotification({
                     title: '嗯？',
-                    message: '还没有留下qq哇',
+                    message: '还没有留下qq或email哇',
                     type: 'warning',
                     duration: 2000,
                     offset: 100,
@@ -369,10 +408,10 @@ export default {
                 return;
             }
             this.validateInput(this.call);
-            if (!(this.qq)) {
+            if (!(this.qq || this.email)) {
                 ElNotification({
                     title: '嘶…',
-                    message: '联系方式好像不是qq哇',
+                    message: '联系方式好像不是qq或email哇',
                     type: 'warning',
                     duration: 2000,
                     offset: 100,
@@ -385,7 +424,7 @@ export default {
                 "content": this.replyContents[id],
                 "parent": parseInt(this.parentID, 10),
                 "qq": this.qq,
-                "email": null,
+                "email": this.email,
             });
 
             var config = {
@@ -445,6 +484,8 @@ export default {
                     this.content1 = '';
                     this.call = '';
                     this.replyContents[this.parentID] = '';
+                    this.qq = null;
+                    this.email = null;
                 });
         },
         handleOutsideClick(event) {
@@ -1532,9 +1573,9 @@ export default {
         cursor: pointer;
     }
 
-    .author_inner:active {
+        /*.author_inner:active {
         animation: pulsate-bck 0.4s ease;
-    }
+    }*/
 
     .author_info{
         display: flex;
