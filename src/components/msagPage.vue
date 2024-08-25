@@ -62,7 +62,7 @@
                                 <div class="author_inner ">
                                     <div class="author_info">
                                         <div class="author_avatar">
-                                            <img :src="confirmImageUrl( item.qq )" />
+                                            <img :src="confirmImageUrl(item.qq)" />
                                         </div>
                                         <div class="author_info_right">
                                             <div class="author_call">{{ item.qq ? maskQQNumber(item.qq) :
@@ -90,7 +90,7 @@
                                             <div class="traveller_avatar"><img :src="confirmImageUrl(child.qq)" /></div>
                                             <div class="traveller_info_right">
                                                 <div class="traveller_call">{{ child.qq ? maskQQNumber(child.qq) :
-                                                    maskEmail(child.email)}}
+                                                    maskEmail(child.email) }}
                                                 </div>
                                                 <div class="traveller_time">{{ formateTime(child.datetime) }}</div>
                                             </div>
@@ -170,12 +170,12 @@ export default {
             let date = new Date(time);
             return date.toLocaleString('zh-CN', { month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' });
         },
-        confirmImageUrl(nowQQ){
+        confirmImageUrl(nowQQ) {
             // console.log("nowQQ:",nowQQ);
-            if (nowQQ == null){
+            if (nowQQ == null) {
                 return require('@/assets/reply_avatar.webp');
             }
-            else{
+            else {
                 return `https://q1.qlogo.cn/g?b=qq&nk=${nowQQ}&s=100`;
             }
 
@@ -222,9 +222,9 @@ export default {
             var axios = require('axios');
             var config = {
                 method: 'get',
-                // url: 'https://www.itstudio.club/api/bbs/',
-                url: 'http://10.140.33.49:10001/bbs/',
-                params:{
+                url: '/api/bbs/',
+                // url: 'http://10.140.33.49:10001/bbs/',
+                params: {
                     start: this.startNum,
                     limit: 10,
                 }
@@ -233,7 +233,7 @@ export default {
             axios(config)
                 .then(response => {
                     // console.log(response.data);
-                    if (response.data.length > 0){
+                    if (response.data.length > 0) {
                         // this.total_Messages = response.data;
                         this.total_Messages.push(...response.data);
                         this.total_Messages.forEach(message => {
@@ -241,7 +241,7 @@ export default {
                         })
                         this.startNum += 10;
                         console.log('获取信息成功', this.total_Messages);
-                    }else{
+                    } else {
                         // setTimeout(() =>{
                         //     this.allDataLoaded = true;
                         // }, 6000);
@@ -268,7 +268,7 @@ export default {
                 });
 
         },
-        onScroll(){
+        onScroll() {
             const container = this.$refs.scrollContainer;
             const currentScrollTop = container.scrollTop;
             // if (typeof this.lastScrollTop === 'undefined') {
@@ -302,10 +302,10 @@ export default {
         validateInput(input) {
             const qqPattern = /^[1-9][0-9]{4,10}$/;
             const emailPattern = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
-            if (qqPattern.test(input)){
+            if (qqPattern.test(input)) {
                 this.qq = input;
-            } 
-            else if (emailPattern.test(input)){
+            }
+            else if (emailPattern.test(input)) {
                 this.email = input;
             }
             return;
@@ -333,7 +333,7 @@ export default {
                 return;
             }
             this.validateInput(this.call);
-            if(!(this.qq || this.email)){
+            if (!(this.qq || this.email)) {
                 ElNotification({
                     title: '嘶…',
                     message: '联系方式好像不是qq或email哇',
@@ -355,10 +355,10 @@ export default {
             var config = {
                 method: 'post',
                 //  url: 'https://www.itstudio.club/bbs/',
-                url: 'http://10.140.33.49:10001/bbs/',
+                // url: 'http://10.140.33.49:10001/bbs/',
                 // 注：测试的时候交it失败，临时换一下用于测试
 
-                // url: '/api/bbs/',
+                url: '/api/bbs/',
                 headers: {
                     'Content-Type': 'application/json'
                 },
@@ -489,8 +489,8 @@ export default {
 
             var config = {
                 method: 'post',
-                url: 'http://10.140.33.49:10001/bbs/',
-                // url: '/api/bbs/',
+                // url: 'http://10.140.33.49:10001/bbs/',
+                url: '/api/bbs/',
                 headers: {
                     'Content-Type': 'application/json'
                 },
@@ -743,11 +743,11 @@ export default {
         box-sizing: border-box;
     }
 
-    .right_board_0{
+    .right_board_0 {
         height: 74%;
-            width: 100%;
-            margin-top: 8%;
-            /* margin-bottom: 2%; */
+        width: 100%;
+        margin-top: 8%;
+        /* margin-bottom: 2%; */
     }
 
     .right_board {
@@ -769,17 +769,17 @@ export default {
         height: 0;
     }
 
-    .loaded_2{
+    .loaded_2 {
         /* border: 1px, solid, greesnyellow; */
-            position: fixed;
-            /* margin-bottom: 2%; */
-            bottom: -8%;
-            color: #ffffff;
-            /* margin-bottom: 2%; */
-            
+        position: fixed;
+        /* margin-bottom: 2%; */
+        bottom: -8%;
+        color: #ffffff;
+        /* margin-bottom: 2%; */
+
     }
 
-    .loaded_1{
+    .loaded_1 {
         display: none;
     }
 
@@ -806,7 +806,7 @@ export default {
     }
 
 
-    .author_info{
+    .author_info {
         /* border: 1px, solid, rgb(119, 184, 27); */
         display: flex;
         flex-direction: row;
@@ -816,7 +816,7 @@ export default {
         /* border: 1px, solid, rgb(40, 50, 26); */
         height: 20%;
         width: 15%;
-        
+
     }
 
     .author_avatar img {
@@ -1505,7 +1505,7 @@ export default {
         display: none;
     }
 
-    .right_board_0{
+    .right_board_0 {
         height: 87%;
         width: 85%;
         margin-left: 10%;
@@ -1530,19 +1530,19 @@ export default {
         height: 0;
     }
 
-    .loaded_1{
+    .loaded_1 {
         /* border: 1px, solid, greenyellow; */
         position: fixed;
         /* margin-bottom: 2%; */
         bottom: -7%;
         /* bottom: 0; */
-        color: #ffffff; 
-        margin-left: 40%;    
+        color: #ffffff;
+        margin-left: 40%;
         /* margin-top: -0%; */
 
     }
 
-    .loaded_2{
+    .loaded_2 {
         display: none;
     }
 
@@ -1579,7 +1579,7 @@ export default {
         flex-direction: row;
     }
 
-    .author_avatar{
+    .author_avatar {
         width: 15%;
         height: 85%;
     }
@@ -1615,7 +1615,7 @@ export default {
         margin-right: 2%;
         width: 90%;
         word-wrap: break-word;
-            overflow-wrap: break-word;
+        overflow-wrap: break-word;
     }
 
     .repay {
