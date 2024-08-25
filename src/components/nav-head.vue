@@ -18,7 +18,7 @@
             <router-link to="/intro" class="nochose" active-class="active">
                 关于爱特
             </router-link>
-            <router-link :to="'/feature?id=0'" class="nochose" active-class="active">
+            <router-link :to="'/feature?id=1'" class="nochose" active-class="active">
                 部门特色
             </router-link>
             <router-link to="/member" class="nochose" active-class="active">
@@ -27,6 +27,15 @@
             <router-link to="/achieve" class="nochose" active-class="active">
                 项目成果
             </router-link>
+            <div class="bottomlogo" v-show="isMobile">
+                <div class="logo"><img src="../assets/logob.webp" alt=""></div>
+                <div class="eng">IT Studio</div>
+                <div class="text">
+                    <span>中国海洋大学 信息科学与工程学院B505</span>
+                    <span> @ITStudio All Rights Reserved</span>
+                    <span><a href="https://beian.miit.gov.cn/" target="_blank">备案号:鲁ICP备123456789号-2</a></span>
+                </div>
+            </div>
         </div>
         <div class="none"></div>
     </nav>
@@ -36,19 +45,15 @@
 export default {
     data() {
         return {
-            show: false
+            show: false,
+            isMobile: /Mobi|Android|iPhone/i.test(navigator.userAgent),
         }
-    },
-    props: {
-        locate: {
-            type: Number,
-        },
     },
     methods: {
         unFold() {
             this.show = !this.show
         }
-    }
+    },
 };  
 </script>
 
@@ -289,10 +294,10 @@ export default {
     }
 
     .main a {
-        font-size: 28px;
+        font-size: 24px;
         font-weight: bold;
-        height: 80px;
-        margin-top: 50px;
+        height: 40px;
+        margin-top: 30px;
     }
 
     nav .navtitle {
@@ -380,6 +385,53 @@ export default {
 
     .popUp {
         transform: translateX(0);
+    }
+
+    .homenav .main .bottomlogo {
+        position: absolute;
+        bottom: 100px;
+        height: 150px;
+        display: flex;
+        flex-direction: column;
+        justify-content: end;
+        align-items: center;
+    }
+
+    .homenav .main .bottomlogo .logo {
+        height: 40px;
+    }
+
+    .homenav .main .bottomlogo .logo img {
+        height: 100%;
+    }
+
+    .homenav .main .bottomlogo .eng {
+        text-align: center;
+        font-weight: bold;
+        font-size: 24px;
+        margin-top: 10px;
+    }
+
+    .homenav .main .bottomlogo .text {
+        margin-top: 10px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+        text-align: center;
+        font-size: 14px;
+    }
+
+    .homenav .main .bottomlogo .text span {
+        margin-bottom: 6px;
+    }
+
+    .homenav .main .bottomlogo .text span a {
+        font-size: 14px;
+        margin: 0;
+        padding: 0;
+        height: 18px;
+        line-height: 14px;
     }
 }
 </style>
