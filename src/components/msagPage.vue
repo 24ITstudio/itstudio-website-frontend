@@ -56,49 +56,57 @@
                             key="callKey"></textarea>
                     </div>
                     <LoadingSpinner v-if="isLoading" />
-                    <div class="right_board slide-in-blurred-bottom" v-if="!isLoading" :key="submitKey">
-                        <div class="inner_board" v-for="item in total_Messages" :key="item.id">
-                            <div class="author_inner ">
-                                <div class="author_info">
-                                    <div class="author_avatar">
-                                        <img :src="confirmImageUrl( item.qq )" />
-                                    </div>
-                                    <div class="author_info_right">
-                                        <div class="author_call">{{ item.qq ? maskQQNumber(item.qq) :
-                                            maskEmail(item.email) }}</div>
-                                        <div class="author_time">{{ item.datetime }}</div>
-                                    </div>
-                                </div>
-                                <div class="author_content">
-                                    {{ item.content }}
-                                </div>
-                            </div>
-                            <div class="repay">
-                                <div class="repay_1">
-                                    <textarea placeholder="回复" v-model="replyContents[item.id]" maxlength="100"
-                                        class="repayText" ref="input" :key="item.id"
-                                        @click="getParentID(item.id)"></textarea>
-                                </div>
-                                <div class=" repay_2" @click="submitTalk(item.id)">
-                                    <img src="../assets/repay_logo.webp" />
-                                </div>
-                            </div>
-                            <div class="traveller_total">
-                                <div class="traveller_inner" v-for="child in item.children" :key="child">
-                                    <div class="traveller_info">
-                                        <div class="traveller_avatar"><img :src="confirmImageUrl(child.qq)" /></div>
-                                        <div class="traveller_info_right">
-                                            <div class="traveller_call">{{ child.qq ? maskQQNumber(child.qq) :
-                                                maskEmail(child.email)}}
-                                            </div>
-                                            <div class="traveller_time">{{ formateTime(child.datetime) }}</div>
+                    <div class="right_board_0 slide-in-blurred-bottom" v-if="!isLoading" :key="submitKey">
+                        <div @scroll="onScroll" ref="scrollContainer" class="right_board">
+                            <div class="inner_board" v-for="item in total_Messages" :key="item.id">
+                                <div class="author_inner ">
+                                    <div class="author_info">
+                                        <div class="author_avatar">
+                                            <img :src="confirmImageUrl( item.qq )" />
+                                        </div>
+                                        <div class="author_info_right">
+                                            <div class="author_call">{{ item.qq ? maskQQNumber(item.qq) :
+                                                maskEmail(item.email) }}</div>
+                                            <div class="author_time">{{ item.datetime }}</div>
                                         </div>
                                     </div>
-                                    <div class="traveller_content">{{ child.content }}</div>
+                                    <div class="author_content">
+                                        {{ item.content }}
+                                    </div>
                                 </div>
+                                <div class="repay">
+                                    <div class="repay_1">
+                                        <textarea placeholder="回复" v-model="replyContents[item.id]" maxlength="100"
+                                            class="repayText" ref="input" :key="item.id"
+                                            @click="getParentID(item.id)"></textarea>
+                                    </div>
+                                    <div class=" repay_2" @click="submitTalk(item.id)">
+                                        <img src="../assets/repay_logo.webp" />
+                                    </div>
+                                </div>
+                                <div class="traveller_total">
+                                    <div class="traveller_inner" v-for="child in item.children" :key="child">
+                                        <div class="traveller_info">
+                                            <div class="traveller_avatar"><img :src="confirmImageUrl(child.qq)" /></div>
+                                            <div class="traveller_info_right">
+                                                <div class="traveller_call">{{ child.qq ? maskQQNumber(child.qq) :
+                                                    maskEmail(child.email)}}
+                                                </div>
+                                                <div class="traveller_time">{{ formateTime(child.datetime) }}</div>
+                                            </div>
+                                        </div>
+                                        <div class="traveller_content">{{ child.content }}</div>
+                                    </div>
+                                </div>
+
                             </div>
+                            <p class="loaded_2" v-if="allDataLoaded">全部留言加载完毕</p>
                         </div>
+
+                        <!-- <p v-if="!allDataLoaded">加载中...</p> -->
+                        <p class="loaded_1" v-if="allDataLoaded">全部留言加载完毕</p>
                     </div>
+
                 </div>
             </div>
         </div>
@@ -133,12 +141,17 @@ export default {
             qq: '',
             email: '',
             callKey: 0,
-            imageUrl: '',
-            defaultUrl: '../assets/reply_avatar.webp',
+            allDataLoaded: false,
+            // loadNum: 20,
+            startNum: 0,
+            lastScrollTop: 0,
         }
     },
     created() {
         this.getMessages();
+    },
+    mounted() {
+        this.lastScrollTop = 0; // 初始化 lastScrollTop
     },
     methods: {
         showInput() {
@@ -158,7 +171,7 @@ export default {
             return date.toLocaleString('zh-CN', { month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' });
         },
         confirmImageUrl(nowQQ){
-            console.log("nowQQ:",nowQQ);
+            // console.log("nowQQ:",nowQQ);
             if (nowQQ == null){
                 return require('@/assets/reply_avatar.webp');
             }
@@ -180,11 +193,30 @@ export default {
         },
         maskEmail(email) {
             const atIndex = email.indexOf('@');
-            if (atIndex > 0) {
-                const maskedPart = '*'.repeat(atIndex);
-                return `${maskedPart}${email.slice(atIndex)}`;
+            if (atIndex === -1) {
+                throw new Error('Invalid email address');
             }
-            return email; // 如果没有找到 @ 则返回原始邮箱
+            const localPart = email.substring(0, atIndex);
+            const domainPart = email.substring(atIndex);
+            let le = localPart.length;
+            let sideLen = 1;
+            if (le >= 9) sideLen = 3;
+            else if (le >= 6) sideLen = 2;
+            return localPart.substr(0, sideLen) + '*'.repeat(le - sideLen * 2) + localPart.substr(-sideLen) + domainPart;
+            // if (localPart.length <= 2) {
+            //     return email;
+            // }
+
+            // const firstChar = localPart.charAt(0);
+            // const lastChar = localPart.charAt(localPart.length - 1);
+            // const obscuredMiddle = '*'.repeat(localPart.length - 2);
+            // return `${firstChar}${obscuredMiddle}${lastChar}${domainPart}`;
+            // const atIndex = email.indexOf('@');
+            // if (atIndex > 0) {
+            //     const maskedPart = '*'.repeat(atIndex);
+            //     return `${maskedPart}${email.slice(atIndex-1)}`;
+            // }
+            // return email; // 如果没有找到 @ 则返回原始邮箱
         },
         getMessages() {
             var axios = require('axios');
@@ -192,17 +224,29 @@ export default {
                 method: 'get',
                 // url: 'https://www.itstudio.club/api/bbs/',
                 url: 'http://10.140.33.49:10001/bbs/',
-                // url: '/api/bbs'
+                params:{
+                    start: this.startNum,
+                    limit: 10,
+                }
             };
 
             axios(config)
                 .then(response => {
-                    console.log(response.data);
-                    this.total_Messages = response.data;
-                    this.total_Messages.forEach(message => {
-                        message.datetime = new Date(message.datetime).toLocaleString();
-                    })
-                    console.log('获取信息成功', response.data);
+                    // console.log(response.data);
+                    if (response.data.length > 0){
+                        // this.total_Messages = response.data;
+                        this.total_Messages.push(...response.data);
+                        this.total_Messages.forEach(message => {
+                            message.datetime = new Date(message.datetime).toLocaleString();
+                        })
+                        this.startNum += 10;
+                        console.log('获取信息成功', this.total_Messages);
+                    }else{
+                        // setTimeout(() =>{
+                        //     this.allDataLoaded = true;
+                        // }, 6000);
+                        this.allDataLoaded = true;
+                    }
                 })
                 .catch(error => {
                     if (error.response) {
@@ -223,6 +267,37 @@ export default {
                     this.isLoading = false;  // 无论请求成功或失败，都将 loading 状态设为 false
                 });
 
+        },
+        onScroll(){
+            const container = this.$refs.scrollContainer;
+            const currentScrollTop = container.scrollTop;
+            // if (typeof this.lastScrollTop === 'undefined') {
+            //     this.lastScrollTop = 0;
+            // }
+            // console.log('scrollTop:', container.scrollTop);
+            // console.log('clientHeight:', container.clientHeight);
+            // console.log('scrollHeight:', container.scrollHeight);
+            // if(container.scrollTop + container.clientHeight >= container.scrollHeight -1){
+            //     if(!this.allDataLoaded){
+            //         this.getMessages();
+            //     }
+            //     console.log("已到底端")
+            // }
+            if (currentScrollTop > this.lastScrollTop) {
+                // 向下滚动
+                if (container.scrollTop + container.clientHeight >= container.scrollHeight - 3) {
+                    if (!this.allDataLoaded) {
+                        this.getMessages();
+                    }
+                    console.log("已到底端")
+                }
+            } else {
+                // 向上滚动
+                if (this.allDataLoaded) {
+                    this.allDataLoaded = false; // 隐藏“加载完毕”提示
+                }
+            }
+            this.lastScrollTop = currentScrollTop <= 0 ? 0 : currentScrollTop;
         },
         validateInput(input) {
             const qqPattern = /^[1-9][0-9]{4,10}$/;
@@ -337,12 +412,16 @@ export default {
                         console.error('请求设置错误', error.message);
                     }
                 }).finally(() => {
+                    this.startNum = 0;
+                    this.total_Messages = [];
+                    // this.submitKey++;
                     this.getMessages();
                     this.content1 = '';
                     this.call = '';
                     this.callKey++;
                     this.qq = null;
                     this.email = null;
+                    this.inputVisible = false;
                 });
         },
         getParentID(id) {
@@ -455,6 +534,9 @@ export default {
                         console.error('请求设置错误', error.message);
                     }
                 }).finally(() => {
+                    this.startNum = 0;
+                    this.total_Messages = [];
+                    // this.submitKey++;
                     this.getMessages();
                     this.content2 = '';
                     this.content1 = '';
@@ -462,6 +544,9 @@ export default {
                     this.replyContents[this.parentID] = '';
                     this.qq = null;
                     this.email = null;
+                    this.inputVisible = false;
+
+                    // this.allDataLoaded = false;
                 });
         },
         handleOutsideClick(event) {
@@ -472,6 +557,9 @@ export default {
             }
         },
     },
+    // mounted() {
+    //     this.$refs.scrollContainer.addEventListener('scroll', this.onScroll);
+    // },
 };
 </script>
 
@@ -570,21 +658,14 @@ export default {
 
     .mobile_Input {
         position: absolute;
-        /* 贴合底部 */
-        /* left: 50%; */
-        /* transform: translateX(-50%); */
         background-color: #ffffff;
-        /* box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); */
         width: 100%;
         height: 6%;
         bottom: 0;
-        /* 默认底部 */
         z-index: 1000;
-        /* 确保在前端显示 */
         display: flex;
         flex-direction: row;
         align-items: center;
-        /* justify-content: center; */
     }
 
     .mobile_subText {
@@ -662,14 +743,21 @@ export default {
         box-sizing: border-box;
     }
 
-
+    .right_board_0{
+        height: 74%;
+            width: 100%;
+            margin-top: 8%;
+            /* margin-bottom: 2%; */
+    }
 
     .right_board {
         /* border: 1px, solid, greenyellow; */
-        height: 88%;
+        /* height: 88%;
         width: 100%;
         margin-top: 8%;
-        margin-bottom: 2%;
+        margin-bottom: 2%; */
+        width: 100%;
+        height: 100%;
         display: flex;
         flex-wrap: wrap;
         overflow: auto;
@@ -679,6 +767,20 @@ export default {
     .right_board::-webkit-scrollbar {
         width: 0;
         height: 0;
+    }
+
+    .loaded_2{
+        /* border: 1px, solid, greesnyellow; */
+            position: fixed;
+            /* margin-bottom: 2%; */
+            bottom: -8%;
+            color: #ffffff;
+            /* margin-bottom: 2%; */
+            
+    }
+
+    .loaded_1{
+        display: none;
     }
 
     .inner_board {
@@ -701,7 +803,6 @@ export default {
         width: 83%;
         display: flex;
         flex-direction: column;
-        /* cursor: pointer; */
     }
 
 
@@ -1183,8 +1284,6 @@ export default {
 }
 
 @media screen and (orientation: landscape) {
-
-
     .head {
         height: 1%;
     }
@@ -1406,12 +1505,21 @@ export default {
         display: none;
     }
 
-    .right_board {
-        /* border: 1px, solid, greenyellow; */
+    .right_board_0{
         height: 87%;
         width: 85%;
         margin-left: 10%;
         margin-top: 1%;
+    }
+
+    .right_board {
+        /* border: 1px, solid, greenyellow; */
+        /* height: 87%; */
+        /* width: 85%; */
+        height: 100%;
+        width: 100%;
+        /* margin-left: 10%;
+        margin-top: 1%; */
         display: flex;
         flex-wrap: wrap;
         overflow: auto;
@@ -1420,6 +1528,22 @@ export default {
     .right_board::-webkit-scrollbar {
         width: 0;
         height: 0;
+    }
+
+    .loaded_1{
+        /* border: 1px, solid, greenyellow; */
+        position: fixed;
+        /* margin-bottom: 2%; */
+        bottom: -7%;
+        /* bottom: 0; */
+        color: #ffffff; 
+        margin-left: 40%;    
+        /* margin-top: -0%; */
+
+    }
+
+    .loaded_2{
+        display: none;
     }
 
     .inner_board {
@@ -1448,12 +1572,7 @@ export default {
         width: 89%;
         display: flex;
         flex-direction: column;
-        /* cursor: pointer; */
     }
-
-        /*.author_inner:active {
-        animation: pulsate-bck 0.4s ease;
-    }*/
 
     .author_info {
         display: flex;
@@ -1495,6 +1614,8 @@ export default {
         overflow: auto;
         margin-right: 2%;
         width: 90%;
+        word-wrap: break-word;
+            overflow-wrap: break-word;
     }
 
     .repay {
