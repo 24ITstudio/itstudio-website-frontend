@@ -57,7 +57,7 @@ const isMobile = ref(window.innerWidth <= 768);
 
 // 计算属性来动态更新录取结果文本
 const resultText = computed(() => {
-    if (idx.value === 3) {
+    if (idx.value === 4) {
         return "成功录取";
     } else if (idx.value === -4) {
         return "未被录取";
@@ -98,6 +98,9 @@ const updateProgress = () => {
                     up3.value = 1;
                     if (idx.value >= 3) {
                         up4.value = 1;
+                        if (idx.value >= 4) {
+                            up5.value = 1;
+                        }
                     }
                 }
             }
@@ -233,17 +236,9 @@ onUnmounted(() => {
         display: inline-flex
     }
 
-    .line-left {
-        display: none;
-    }
-
-    .line-right {
-        display: none;
-    }
-
     .words {
-        text-align: center;
-        color: gray;
+        text-align: center;r
+        color: grey;
         font-size: 36px;
         font-family: Microsoft JhengHei UI;
         font-weight: 700;
