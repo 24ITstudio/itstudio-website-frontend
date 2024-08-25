@@ -89,7 +89,7 @@ export default {
   data() {
     return {
       selectedYear: 2023,
-      selectedDepartment: "程序部",
+      selectedDepartment: null,
       years: [
         2023, 2022, 2021, 2020, 2019, 2018, 2017, 2016, 2015, 2014, 2013, 2012,
         2011,
@@ -1263,11 +1263,18 @@ export default {
   methods: {
     selectYear(year) {
       this.selectedYear = year;
-      this.selectedDepartment = "程序部"; // 默认选定部门为程序部
-      if (this.departments.length > 0) {
-        this.selectedDepartment = this.departments[0];
+      // this.selectedDepartment = "程序部"; // 默认选定部门为程序部
+      // if (this.selectdepartment.length < 0) {
+      //   this.selectedDepartment = this.departments[0];
+      // }
+      const firstDepartmentWithMembers = this.departments.find(
+        (department) => department.members[year]
+      );
+      if (firstDepartmentWithMembers) {
+        this.selectedDepartment = firstDepartmentWithMembers;
       }
     },
+
     selectDepartment(department) {
       this.selectedDepartment = department;
     },
@@ -1279,6 +1286,9 @@ export default {
 </script>
 
 <style scoped>
+.nav {
+  position: absolute;
+}
 .look {
   position: absolute;
   top: 27%;
@@ -1374,6 +1384,7 @@ export default {
 }
 .departmentname:hover,
 .selected-department .departmentname {
+  line-height: 40px;
   color: rgb(114, 182, 202);
   font-size: 35px;
 }
@@ -1391,13 +1402,13 @@ export default {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  align-content: flex-start;
 }
 
 .member-con {
   padding-top: 4%;
   padding-left: 5%;
   margin-left: 4%;
-  /* display: inline-block; */
   width: 39%;
   transition: all 1s;
   height: 30%;
@@ -1431,16 +1442,16 @@ export default {
 
 .name {
   color: white;
-  font-size: 32px;
+  font-size: 30px;
   font-family: Microsoft New Tai Lue;
-  font-weight: 700;
+  /* font-weight: 700; */
   word-wrap: break-word;
 }
 
 .message {
-  height: 55px;
+  height: 80px;
   margin-top: 10px;
-  padding-left: 5px;
+  padding-left: 8px;
   overflow: scroll;
   color: white;
   font-size: 18px;
@@ -1467,7 +1478,7 @@ export default {
 
   .year {
     margin-bottom: 12.5%;
-    padding-left: 12%;
+    padding-left: 19%;
     cursor: pointer;
     font-size: 20px;
     color: #fff;
@@ -1519,7 +1530,7 @@ export default {
   .departmentname {
     height: 5%;
     padding-left: 10px;
-    font-size: 14px;
+    font-size: 17px;
     line-height: 40px;
   }
   /*.goBack {
@@ -1547,8 +1558,8 @@ export default {
 
   .department {
     padding-top: 16%;
-    margin: 0 auto;
-    width: 85%;
+    margin: 0;
+    width: 99%;
     display: flex;
     flex-direction: row;
     position: sticky;
@@ -1566,14 +1577,7 @@ export default {
   .departmentname:hover,
   .selected-department .departmentname {
     color: rgb(114, 182, 202);
-    font-size: 15px;
-  }
-
-  .department-item {
-    margin: 0 auto;
-    cursor: pointer;
-    height: 20%;
-    text-align: center;
+    font-size: 20px;
   }
 
   .department-item img {
@@ -1581,24 +1585,17 @@ export default {
     margin-left: 4%;
   }
 
-  .department-list span {
-    display: inline-block;
-    margin-top: 60px;
-    font-size: 12px;
-  }
-
   .member-list {
-    flex-direction: column;
-    width: 100%;
+    width: 95%;
     overflow-y: scroll;
+    height: 74%;
   }
 
   .member-con {
     padding-top: 4%;
     padding-left: 5%;
     margin-left: 4%;
-    display: inline-block;
-    width: 250px;
+    width: 100%;
     height: 16%;
   }
 
@@ -1619,7 +1616,7 @@ export default {
   }
 
   .text {
-    width: 68%;
+    width: 60%;
     word-wrap: break-word;
     margin-top: -20%;
     float: left;
