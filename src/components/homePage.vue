@@ -156,7 +156,7 @@ const toIOS = () => navigateToFeature(6);
     display: none !important;
 }
 
-@media (min-width: 1025px) {
+@media (min-width: 1301px) {
 
     .nochose {
         -moz-user-select: none;
@@ -764,7 +764,7 @@ const toIOS = () => navigateToFeature(6);
     }
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 1300px) {
 
     .fade-enter-active,
     .fade-leave-active {
@@ -783,14 +783,11 @@ const toIOS = () => navigateToFeature(6);
     .titleimg {
         background-image: url(../assets/bg.webp);
         height: 100vh;
-
-
         background-repeat: no-repeat;
         background-position-x: -20vh;
         background-position-y: center;
         background-size: cover;
         background-attachment: fixed;
-
         background-color: rgba(43, 51, 77, 0.6);
         width: 100vw;
     }
