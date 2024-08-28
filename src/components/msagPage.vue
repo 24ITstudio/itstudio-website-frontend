@@ -79,13 +79,14 @@
                                 <div class="reply_new" v-if="isVisible">
                                     <div :class="['reply_call', {shake: shouldShake}]">
                                         <textarea placeholder="请输入QQ号或邮箱发布回复" v-model="call_reply" ref="input"
-                                            key="callKey" maxlength="30" type="text"></textarea>
-                                        
+                                            maxlength="27" type="text" key="callKey" ></textarea>
+                                        <!-- </input> -->
+
                                     </div>
 
                                     <div class="reply_content">
                                         <textarea placeholder="回复点什么吧~" v-model="replyContents[item.id]" maxlength="100"
-                                            ref="input" :key="item.id" >
+                                            ref="input" :key="item.id">
                                         </textarea>
                                     </div>
 
@@ -745,14 +746,14 @@ export default {
     }
 
     .mobile_subText textarea {
-        line-height: 1.4em;
+        line-height: 1.5em;
         border: none;
         outline: none;
         background-color: transparent;
         height: 100%;
         width: 100%;
         font-family: inherit;
-        font-size: 4.7vw;
+        font-size: 4.9vw;
         color: black;
         overflow: hidden;
         box-sizing: border-box;
@@ -934,14 +935,14 @@ export default {
         position: fixed;
             top: 0;
             left: 0;
-            width: 84%;
-            height: 40%;
-            margin-left: 8%;
+            width: 87%;
+            height: 50%;
+            margin-left: 5%;
             margin-top: 23%;
             /* padding: 30px; */
             /* background-color: rgba(103, 110, 123, 0.09); */
-            background-color: #e7e2e23a;
-
+            background-color: #e7e2e2c2;
+            /* background-color: #ffffff; */
             /* color: #6A92D966; */
             text-align: center;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
@@ -953,11 +954,11 @@ export default {
                 .reply_call {
                     border: 2px, solid, rgb(160, 155, 155);
                     /* border: 1px, solid, black; */
-                    width: 80%;
-                    /* height: 20%; */
-                    height: 8vw;
-                    margin-top: 10%;
-                    margin-left: 10%;
+                    width: 90%;
+                    height: 13%;
+                    /* height: 8vw; */
+                    margin-top: 7%;
+                    margin-left: 5%;
                     border-radius: 20px;
                 }
         
@@ -969,7 +970,7 @@ export default {
                     height: 100%;
                     width: 94%;
                     font-family: inherit;
-                    font-size: 4.7vw;
+                    font-size: 4vw;
                     color: black;
                     overflow: hidden;
                     /* box-sizing: border-box; */
@@ -981,16 +982,17 @@ export default {
                 .reply_content {
                     border: 2px,solid,  rgb(160, 155, 155);
                     /* border: 1px, solid, black; */
-                    height: 8vw;
-                    width: 80%;
+                    /* height: 8vw; */
+                    height: 40%;
+                    width: 90%;
                     margin-top: 7%;
-                    margin-left: 10%;
-                    border-radius: 20px;
+                    margin-left: 5%;
+                    border-radius: 10px;
                 }
         
                 .reply_content textarea {
-                    /* line-height: 1.8em; */
-                    line-height: 8vw;
+                    line-height: 1.2em;
+                    /* line-height: 8vw; */
                     /* line-height: normal; */
                     border: none;
                     outline: none;
@@ -998,16 +1000,22 @@ export default {
                     height: 96%;
                     width: 94%;
                     font-family: inherit;
-                    font-size: 4.7vw;
+                    font-size: 4vw;
                     color: black;
                     overflow: hidden;
                     box-sizing: border-box;
                     resize: none;
-                    margin-left: 3%;
-                    margin-right: 3%;
-                    /* margin-top: 1%; */
+                    margin-left: 1%;
+                    /* margin-right: 3%; */
+                    margin-top: 1%;
                     /* margin-bottom: 3%; */
                 }
+
+                /* .reply_content textarea::placeholder {
+                    color: #aaa;
+                    opacity: 1;
+                    
+                } */
         
                 .reply_button {
                     height: 15%;
@@ -1807,10 +1815,10 @@ export default {
             top: 0;
             left: 0;
             width: 50%;
-            height: 40%;
+            height: 50%;
             margin-left:23% ;
             margin-top: 20%;
-            background-color: #e7e2e250;
+            background-color: #f4f1f1ef;
             text-align: center;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
             z-index: 1000;
@@ -1821,7 +1829,7 @@ export default {
     .reply_call{
         border: 2px, solid, rgb(160, 155, 155);
         width: 80%;
-        height: 17%;
+        height: 13%;
             margin-top: 8%;
             margin-left: 10%;
             border-radius: 20px;
@@ -1846,7 +1854,7 @@ export default {
     .reply_content{
         border: 2px, solid, rgb(160, 155, 155);
         /* border: 1px, solid, black; */
-        height: 17%;
+        height: 40%;
             width: 80%;
             margin-top: 5%;
             margin-left: 10%;
@@ -1854,24 +1862,36 @@ export default {
     }
 
     .reply_content textarea{
-        line-height: 1.9em;
+        /* line-height: 1.9em;*/
+            line-height: 20px;
             border: none;
             outline: none;
+            /* align-items: center; */
             background-color: transparent;
-            height: 100%;
+            height: 98%;
+            /* height: auto; */
             width: 97%;
             font-family: inherit;
             font-size: 1.2vw;
             color: black;
-            overflow: hidden;
+            /* overflow: auto; */
+            /* overflow: hidden; */
             box-sizing: border-box;
             resize: none;
-            margin-left: 2%;
+            margin-left: 3%;
+            /* margin-top: 2%; */
     }
 
+    .reply_content textarea::-webkit-scrollbar {
+        width: 0;
+        height: 0;
+    }
+
+
+
     .reply_button{
-        height: 15%;
-        margin-left: -5%;
+        height: 13%;
+        margin-left: -3%;
     }
 
     .reply_button button{
@@ -1880,7 +1900,7 @@ export default {
             width: 15%;
             height: 100%;
             /* margin-bottom: 2%; */
-            margin-top: 5%;
+            margin-top: 3%;
             border-radius: 9px;
             cursor: pointer;
             margin-left: 7%;
