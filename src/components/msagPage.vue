@@ -6,12 +6,12 @@
             </div>
             <div class="content">
                 <div class="back_left">
-                    <div class="call slide-in-left">
-                        <textarea placeholder="请输入QQ号发表留言/回复" class="callText" v-model="call" ref="input"
+                    <div :class="['call', {slideinleft: shouldEnter}, {shake: shouldShake}]">
+                        <textarea placeholder="请输入QQ号或邮箱发表留言" class="callText" v-model="call_liu" ref="input"
                             key="callKey"></textarea>
                     </div>
                     <transition name="slide-left">
-                        <div v-if="currentContent === 'content1'" class="left_board slide-in-left ">
+                        <div v-if="currentContent === 'content1'" class="left_board slideinleft ">
                             <div class="board_head">
                                 <div class="text_1">
                                     留言
@@ -51,11 +51,12 @@
                         <div class="mobile_title">留言板</div>
                         <button class="mobile_button pulsate-bck" @click="showInput">+ 点击留言</button>
                     </div>
-                    <div class="mobile_call slide-in-left">
-                        <textarea placeholder="请输入QQ号发表留言/回复" class="callText" v-model="call" ref="input"
+                    <div :class="['mobile_call', { slideinleft: shouldEnter }, { shake: shouldShake }]">
+                        <textarea placeholder="请输入QQ号或邮箱发表留言" class="callText" v-model="call_liu" ref="input"
                             key="callKey"></textarea>
                     </div>
                     <LoadingSpinner v-if="isLoading" />
+
                     <div class="right_board_0 slide-in-blurred-bottom" v-if="!isLoading" :key="submitKey">
                         <div @scroll="onScroll" ref="scrollContainer" class="right_board">
                             <div class="inner_board" v-for="item in total_Messages" :key="item.id">
@@ -74,13 +75,46 @@
                                         {{ item.content }}
                                     </div>
                                 </div>
-                                <div class="repay">
-                                    <div class="repay_1">
-                                        <textarea placeholder="回复" v-model="replyContents[item.id]" maxlength="100"
-                                            class="repayText" ref="input" :key="item.id"
-                                            @click="getParentID(item.id)"></textarea>
+
+                                <div class="reply_new" v-if="isVisible">
+                                    <div :class="['reply_call', {shake: shouldShake}]">
+                                        <textarea placeholder="请输入QQ号或邮箱发布回复" v-model="call_reply" ref="input"
+                                            maxlength="27" type="text" key="callKey" ></textarea>
+                                        <!-- </input> -->
+
                                     </div>
-                                    <div class=" repay_2" @click="submitTalk(item.id)">
+
+                                    <div class="reply_content">
+                                        <textarea placeholder="回复点什么吧~" v-model="replyContents[item.id]" maxlength="100"
+                                            ref="input" :key="item.id">
+                                        </textarea>
+                                    </div>
+
+                                    <div class="reply_button">
+                                        <button @click="hideReply">退&nbsp;出</button>
+                                        <button @click="submitTalk(item.id)">发&nbsp;布</button>
+                                    </div>
+                                </div>
+
+                                <div class="repay_mobile" @click="showReply(); getParentID(item.id)">
+                                    <div class="repay_1">
+                                        <!-- <textarea placeholder="回复" v-model="replyContents[item.id]" maxlength="100"
+                                            class="repayText" ref="input" :key="item.id"
+                                            @click="getParentID(item.id)"></textarea> -->
+                                        <div class="repayText">回复</div>
+                                    </div>
+                                    <div class=" repay_2">
+                                        <img src="../assets/repay_logo.webp" />
+                                    </div>
+                                </div>
+                                <div class="repay_pc" @click="showReply(); getParentID(item.id)">
+                                    <div class="repay_1">
+                                        <!-- <textarea placeholder="回复" v-model="replyContents[item.id]" maxlength="100"
+                                            class="repayText" ref="input" :key="item.id"
+                                            @click="getParentID(item.id)"></textarea> -->
+                                        <div class="repayText">回复</div>
+                                    </div>
+                                    <div class=" repay_2">
                                         <img src="../assets/repay_logo.webp" />
                                     </div>
                                 </div>
@@ -137,7 +171,8 @@ export default {
             submitKey: 0,
             inputVisible: false,
             replyContents: {},
-            call: '',
+            call_liu: '',
+            call_reply: '',
             qq: '',
             email: '',
             callKey: 0,
@@ -145,6 +180,8 @@ export default {
             // loadNum: 20,
             startNum: 0,
             lastScrollTop: 0,
+            shouldShake: false,
+            isVisible: false,
         }
     },
     created() {
@@ -152,8 +189,21 @@ export default {
     },
     mounted() {
         this.lastScrollTop = 0; // 初始化 lastScrollTop
+        this.$nextTick(() => {
+            this.shouldEnter = true;
+        });
+        setTimeout(() => {
+            this.shouldEnter = false;
+        }, 500);
     },
     methods: {
+        showReply(){
+            this.isVisible = true;
+        },
+        hideReply(){
+            this.isVisible = false;
+            this.replyContents = {};
+        },
         showInput() {
             this.inputVisible = !this.inputVisible;
             if (this.inputVisible) {
@@ -322,7 +372,7 @@ export default {
                 return;
             }
 
-            if (this.call.trim() === '') {
+            if (this.call_liu.trim() === '') {
                 ElNotification({
                     title: '嗯？',
                     message: '还没有留下qq或email哇',
@@ -330,9 +380,13 @@ export default {
                     duration: 2000,
                     offset: 100,
                 });
+                this.shouldShake = true;
+                setTimeout(() => {
+                    this.shouldShake = false;
+                }, 500);
                 return;
             }
-            this.validateInput(this.call);
+            this.validateInput(this.call_liu);
             if (!(this.qq || this.email)) {
                 ElNotification({
                     title: '嘶…',
@@ -417,16 +471,18 @@ export default {
                     // this.submitKey++;
                     this.getMessages();
                     this.content1 = '';
-                    this.call = '';
+                    // this.call_liu = '';
                     this.callKey++;
                     this.qq = null;
                     this.email = null;
                     this.inputVisible = false;
+                    this.hideReply();
                 });
         },
         getParentID(id) {
             this.parentID = id;
             this.parentID = parseInt(this.parentID, 10);
+            // console.log("ID: ", this.parentID);
         },
         submitTalk(id) {
             // const content = this.replyContents[id];
@@ -457,7 +513,7 @@ export default {
                 return;
 
             }
-            if (this.call.trim() === '') {
+            if (this.call_reply.trim() === '') {
                 ElNotification({
                     title: '嗯？',
                     message: '还没有留下qq或email哇',
@@ -467,7 +523,7 @@ export default {
                 });
                 return;
             }
-            this.validateInput(this.call);
+            this.validateInput(this.call_reply);
             if (!(this.qq || this.email)) {
                 ElNotification({
                     title: '嘶…',
@@ -540,12 +596,16 @@ export default {
                     this.getMessages();
                     this.content2 = '';
                     this.content1 = '';
-                    this.call = '';
-                    this.replyContents[this.parentID] = '';
+                    // this.call_reply = '';
+                    // console.log("要删除的内容", this.replyContents[this.parentID]);
+                    // this.replyContents[this.parentID] = '';
+                    this.replyContents = {},
+                    // console.log("id为这个的内容清除了、清除后", this.parentID, this.replyContents[this.parentID]);
+                    this.parentID = '';
                     this.qq = null;
                     this.email = null;
                     this.inputVisible = false;
-
+                    this.hideReply();
                     // this.allDataLoaded = false;
                 });
         },
@@ -686,19 +746,20 @@ export default {
     }
 
     .mobile_subText textarea {
-        line-height: 1.4em;
+        line-height: 1.5em;
         border: none;
         outline: none;
         background-color: transparent;
         height: 100%;
         width: 100%;
         font-family: inherit;
-        font-size: 4.7vw;
+        font-size: 4.9vw;
         color: black;
         overflow: hidden;
         box-sizing: border-box;
         margin-left: 2%;
         margin-top: 1%;
+        resize: none;
     }
 
     .mobile_subButton {
@@ -710,6 +771,8 @@ export default {
         margin-bottom: 2%;
         border-radius: 7px;
     }
+
+        
 
     .mobile_call {
         border: 1px, solid, #ffffff;
@@ -733,7 +796,7 @@ export default {
         background: none;
         padding: 0;
         /* margin: 0; */
-        margin-left: 17%;
+        margin-left: 14%;
         margin-top: 1.4%;
         /* margin-top: -1.3%; */
         font-family: inherit;
@@ -868,7 +931,120 @@ export default {
         display: none;
     }
 
-    .repay {
+    .reply_new{
+        position: fixed;
+            top: 0;
+            left: 0;
+            width: 87%;
+            height: 50%;
+            margin-left: 5%;
+            margin-top: 23%;
+            /* padding: 30px; */
+            /* background-color: rgba(103, 110, 123, 0.09); */
+            background-color: #e7e2e2c2;
+            /* background-color: #ffffff; */
+            /* color: #6A92D966; */
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            /* z-index: 1000; */
+            border-radius: 20px;
+            
+    }
+
+                .reply_call {
+                    border: 2px, solid, rgb(160, 155, 155);
+                    /* border: 1px, solid, black; */
+                    width: 90%;
+                    height: 13%;
+                    /* height: 8vw; */
+                    margin-top: 7%;
+                    margin-left: 5%;
+                    border-radius: 20px;
+                }
+        
+                .reply_call textarea {
+                    line-height: 8vw;
+                    border: none;
+                    outline: none;
+                    background-color: transparent;
+                    height: 100%;
+                    width: 94%;
+                    font-family: inherit;
+                    font-size: 4vw;
+                    color: black;
+                    overflow: hidden;
+                    /* box-sizing: border-box; */
+                    resize: none;
+                    margin-left: 3%;
+                    /* margin-right: 3%; */
+                }
+        
+                .reply_content {
+                    border: 2px,solid,  rgb(160, 155, 155);
+                    /* border: 1px, solid, black; */
+                    /* height: 8vw; */
+                    height: 40%;
+                    width: 90%;
+                    margin-top: 7%;
+                    margin-left: 5%;
+                    border-radius: 10px;
+                }
+        
+                .reply_content textarea {
+                    line-height: 1.2em;
+                    /* line-height: 8vw; */
+                    /* line-height: normal; */
+                    border: none;
+                    outline: none;
+                    background-color: transparent;
+                    height: 96%;
+                    width: 94%;
+                    font-family: inherit;
+                    font-size: 4vw;
+                    color: black;
+                    overflow: hidden;
+                    box-sizing: border-box;
+                    resize: none;
+                    margin-left: 1%;
+                    /* margin-right: 3%; */
+                    margin-top: 1%;
+                    /* margin-bottom: 3%; */
+                }
+
+                /* .reply_content textarea::placeholder {
+                    color: #aaa;
+                    opacity: 1;
+                    
+                } */
+        
+                .reply_button {
+                    height: 15%;
+        
+                    margin-left: -5%;
+                }
+        
+                .reply_button button {
+                    background-color: #04132c;
+                    color: #ffffff;
+                    width: 18%;
+                    height: 100%;
+                    /* margin-bottom: 2%; */
+                    margin-top: 5%;
+                    border-radius: 9px;
+                    cursor: pointer;
+                    margin-left: 5%;
+                    font-size: 4vw;
+                }
+        
+                .reply_button button:active {
+                    animation: pulsate-bck 1s ease;
+                }
+
+    .repay_pc{
+        display: none;
+    }
+
+    .repay_mobile {
         /* border: 1px, solid, black; */
         background-color: #d4cece;
         margin-left: 9%;
@@ -880,6 +1056,11 @@ export default {
         display: flex;
         flex-direction: row;
         align-items: center;
+        cursor: pointer;
+    }
+
+    .repay_mobile:active {
+        animation: pulsate-bck 1s ease;
     }
 
     .repay_1 {
@@ -906,6 +1087,9 @@ export default {
         font-size: 1.9vh;
         overflow: hidden;
         box-sizing: border-box;
+            font-weight: bold;
+        color: #9d9ea0ef;
+
     }
 
     .repay_2 {
@@ -1158,12 +1342,12 @@ export default {
         }
     }
 
-    .slide-in-left {
-        -webkit-animation: slide-in-left 1.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
-        animation: slide-in-left 1.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+    .slideinleft {
+        -webkit-animation: slideinleft 1.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+        animation: slideinleft 1.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
     }
 
-    @-webkit-keyframes slide-in-left {
+    @-webkit-keyframes slideinleft {
         0% {
             -webkit-transform: translateX(-1000px);
             transform: translateX(-1000px);
@@ -1177,7 +1361,7 @@ export default {
         }
     }
 
-    @keyframes slide-in-left {
+    @keyframes slideinleft {
         0% {
             -webkit-transform: translateX(-1000px);
             transform: translateX(-1000px);
@@ -1192,7 +1376,7 @@ export default {
     }
 
     .slide-left-enter-active {
-        animation: slide-in-left 1.5s ease;
+        animation: slideinleft 1.5s ease;
     }
 
     .slide-left-leave-active {
@@ -1281,6 +1465,28 @@ export default {
             opacity: 0;
         }
     }
+
+        @keyframes shake {
+    
+            0%,
+            100% {
+                transform: translateX(0);
+            }
+    
+            20%,
+            60% {
+                transform: translateX(-10px);
+            }
+    
+            40%,
+            80% {
+                transform: translateX(10px);
+            }
+        }
+        .shake {
+            animation: shake 0.5s;
+        }
+        
 }
 
 @media screen and (orientation: landscape) {
@@ -1341,7 +1547,7 @@ export default {
         background: none;
         padding: 0;
         /* margin: 0; */
-        margin-left: 9%;
+        margin-left: 7%;
         margin-top: 1.3%;
         /* margin-top: -1.3%; */
         font-family: inherit;
@@ -1350,6 +1556,8 @@ export default {
         overflow: hidden;
         box-sizing: border-box;
     }
+
+        
 
     .mobile_Input {
         display: none;
@@ -1388,27 +1596,11 @@ export default {
         /* border: 1px, solid, #04132c; */
     }
 
-    .board_content_1 {
-        /* border: 1px, solid, #04132c; */
-        display: flex;
-        justify-content: center;
-        /* height: 40%; */
-        margin-left: 10%;
-        margin-right: 10%;
-        height: 44%;
-        margin-top: 6%;
-    }
-
-    .board_content_1 textarea {
-        width: 100%;
-        height: 100%;
-    }
-
     .placeholder {
         color: #999;
     }
 
-    textarea {
+    .board_content textarea {
         width: 100%;
         height: 100%;
         /* height: calc(1.5em * 9);   */
@@ -1618,7 +1810,113 @@ export default {
         overflow-wrap: break-word;
     }
 
-    .repay {
+    .reply_new{
+        position: fixed;
+            top: 0;
+            left: 0;
+            width: 50%;
+            height: 50%;
+            margin-left:23% ;
+            margin-top: 20%;
+            background-color: #f4f1f1ef;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            border-radius: 10px;
+            resize: none;
+    }
+
+    .reply_call{
+        border: 2px, solid, rgb(160, 155, 155);
+        width: 80%;
+        height: 13%;
+            margin-top: 8%;
+            margin-left: 10%;
+            border-radius: 20px;
+    }
+
+    .reply_call textarea{
+        line-height: 1.9em;
+            border: none;
+            outline: none;
+            background-color: transparent;
+            height: 100%;
+            width: 100%;
+            font-family: inherit;
+            font-size: 1.2vw;
+            color: black;
+            overflow: hidden;
+            box-sizing: border-box;
+            resize: none;
+            margin-left: 2%;
+    }
+
+    .reply_content{
+        border: 2px, solid, rgb(160, 155, 155);
+        /* border: 1px, solid, black; */
+        height: 40%;
+            width: 80%;
+            margin-top: 5%;
+            margin-left: 10%;
+            border-radius: 20px;
+    }
+
+    .reply_content textarea{
+        /* line-height: 1.9em;*/
+            line-height: 20px;
+            border: none;
+            outline: none;
+            /* align-items: center; */
+            background-color: transparent;
+            height: 98%;
+            /* height: auto; */
+            width: 97%;
+            font-family: inherit;
+            font-size: 1.2vw;
+            color: black;
+            /* overflow: auto; */
+            /* overflow: hidden; */
+            box-sizing: border-box;
+            resize: none;
+            margin-left: 3%;
+            /* margin-top: 2%; */
+    }
+
+    .reply_content textarea::-webkit-scrollbar {
+        width: 0;
+        height: 0;
+    }
+
+
+
+    .reply_button{
+        height: 13%;
+        margin-left: -3%;
+    }
+
+    .reply_button button{
+        background-color: #04132c;
+            color: #ffffff;
+            width: 15%;
+            height: 100%;
+            /* margin-bottom: 2%; */
+            margin-top: 3%;
+            border-radius: 9px;
+            cursor: pointer;
+            margin-left: 7%;
+            border: none;
+            
+    }
+
+        .reply_button button:active{
+            animation: pulsate-bck 1s ease;
+        }
+    
+    .repay_mobile{
+        display: none;
+    }
+
+    .repay_pc {
         /* border: 1px, solid, black; */
         background-color: #d4cece;
         margin-left: 8%;
@@ -1630,6 +1928,11 @@ export default {
         display: flex;
         flex-direction: row;
         align-items: center;
+        cursor: pointer;
+    }
+
+    .repay_pc:active {
+        animation: pulsate-bck 1s ease;
     }
 
     .repay_1 {
@@ -1656,6 +1959,8 @@ export default {
         font-size: 1.9vh;
         overflow: hidden;
         box-sizing: border-box;
+        color: #9d9ea0ef;
+        font-weight: bold;
         /* background: linear-gradient(to right, #d9d9d9 2px, transparent 0) 0 -4px/8px 100%, */
         /* linear-gradient(#666 1px, transparent 0) 0 -1px/100% 2.9em; */
     }
@@ -1743,12 +2048,12 @@ export default {
     }
 
     /* 动画部分 */
-    .slide-in-left {
-        -webkit-animation: slide-in-left 0.6s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
-        animation: slide-in-left 0.6s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+    .slideinleft {
+        -webkit-animation: slideinleft 0.6s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+        animation: slideinleft 0.6s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
     }
 
-    @-webkit-keyframes slide-in-left {
+    @-webkit-keyframes slideinleft {
         0% {
             -webkit-transform: translateX(-1000px);
             transform: translateX(-1000px);
@@ -1762,7 +2067,7 @@ export default {
         }
     }
 
-    @keyframes slide-in-left {
+    @keyframes slideinleft {
         0% {
             -webkit-transform: translateX(-1000px);
             transform: translateX(-1000px);
@@ -1915,7 +2220,7 @@ export default {
     }
 
     .slide-left-enter-active {
-        animation: slide-in-left 1.5s ease;
+        animation: slideinleft 1.5s ease;
     }
 
     .slide-left-leave-active {
@@ -1923,7 +2228,7 @@ export default {
     }
 
     /* .slide-left-1-enter-active {
-            animation: slide-in-left 1.5s ease;
+            animation: slideinleft 1.5s ease;
         }
         .slide-left-1-leave-active {
             animation: slide-out-left 0.6s ease;
@@ -2010,5 +2315,29 @@ export default {
             opacity: 0;
         }
     }
+
+        @keyframes shake {
+    
+            0%,
+            100% {
+                transform: translateX(0);
+            }
+    
+            20%,
+            60% {
+                transform: translateX(-10px);
+            }
+    
+            40%,
+            80% {
+                transform: translateX(10px);
+            }
+        }
+
+                .shake {
+                    animation: shake 0.5s;
+                }
+    
+        
 }
 </style>
