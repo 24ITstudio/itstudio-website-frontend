@@ -6,7 +6,7 @@
             </div>
             <div class="content">
                 <div class="back_left">
-                    <div :class="['call', {slideinleft: shouldEnter}, {shake: shouldShake}]">
+                    <div :class="['call', { slideinleft: shouldEnter }, { shake: shouldShake }]">
                         <textarea placeholder="请输入QQ号或邮箱发表留言" class="callText" v-model="call_liu" ref="input"
                             key="callKey"></textarea>
                     </div>
@@ -77,9 +77,9 @@
                                 </div>
 
                                 <div class="reply_new" v-if="isVisible">
-                                    <div :class="['reply_call', {shake: shouldShake}]">
+                                    <div :class="['reply_call', { shake: shouldShake }]">
                                         <textarea placeholder="请输入QQ号或邮箱发布回复" v-model="call_reply" ref="input"
-                                            maxlength="27" type="text" key="callKey" ></textarea>
+                                            maxlength="27" type="text" key="callKey"></textarea>
                                         <!-- </input> -->
 
                                     </div>
@@ -197,10 +197,10 @@ export default {
         }, 500);
     },
     methods: {
-        showReply(){
+        showReply() {
             this.isVisible = true;
         },
-        hideReply(){
+        hideReply() {
             this.isVisible = false;
             this.replyContents = {};
         },
@@ -232,7 +232,7 @@ export default {
         },
         maskQQNumber(qq) {
             const qqq = String(qq);
-            if (qqq.length < 5) {
+            if (qqq.length <= 5) {
                 // 如果 QQ 号太短，则不进行任何处理
                 return qqq;
             }
@@ -600,8 +600,8 @@ export default {
                     // console.log("要删除的内容", this.replyContents[this.parentID]);
                     // this.replyContents[this.parentID] = '';
                     this.replyContents = {},
-                    // console.log("id为这个的内容清除了、清除后", this.parentID, this.replyContents[this.parentID]);
-                    this.parentID = '';
+                        // console.log("id为这个的内容清除了、清除后", this.parentID, this.replyContents[this.parentID]);
+                        this.parentID = '';
                     this.qq = null;
                     this.email = null;
                     this.inputVisible = false;
@@ -772,7 +772,7 @@ export default {
         border-radius: 7px;
     }
 
-        
+
 
     .mobile_call {
         border: 1px, solid, #ffffff;
@@ -931,116 +931,116 @@ export default {
         display: none;
     }
 
-    .reply_new{
+    .reply_new {
         position: fixed;
-            top: 0;
-            left: 0;
-            width: 87%;
-            height: 50%;
-            margin-left: 5%;
-            margin-top: 23%;
-            /* padding: 30px; */
-            /* background-color: rgba(103, 110, 123, 0.09); */
-            background-color: #e7e2e2c2;
-            /* background-color: #ffffff; */
-            /* color: #6A92D966; */
-            text-align: center;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            /* z-index: 1000; */
-            border-radius: 20px;
-            
+        top: 0;
+        left: 0;
+        width: 87%;
+        height: 50%;
+        margin-left: 5%;
+        margin-top: 23%;
+        /* padding: 30px; */
+        /* background-color: rgba(103, 110, 123, 0.09); */
+        background-color: #e7e2e2c2;
+        /* background-color: #ffffff; */
+        /* color: #6A92D966; */
+        text-align: center;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        /* z-index: 1000; */
+        border-radius: 20px;
+
     }
 
-                .reply_call {
-                    border: 2px, solid, rgb(160, 155, 155);
-                    /* border: 1px, solid, black; */
-                    width: 90%;
-                    height: 13%;
-                    /* height: 8vw; */
-                    margin-top: 7%;
-                    margin-left: 5%;
-                    border-radius: 20px;
-                }
-        
-                .reply_call textarea {
-                    line-height: 8vw;
-                    border: none;
-                    outline: none;
-                    background-color: transparent;
-                    height: 100%;
-                    width: 94%;
-                    font-family: inherit;
-                    font-size: 4vw;
-                    color: black;
-                    overflow: hidden;
-                    /* box-sizing: border-box; */
-                    resize: none;
-                    margin-left: 3%;
-                    /* margin-right: 3%; */
-                }
-        
-                .reply_content {
-                    border: 2px,solid,  rgb(160, 155, 155);
-                    /* border: 1px, solid, black; */
-                    /* height: 8vw; */
-                    height: 40%;
-                    width: 90%;
-                    margin-top: 7%;
-                    margin-left: 5%;
-                    border-radius: 10px;
-                }
-        
-                .reply_content textarea {
-                    line-height: 1.2em;
-                    /* line-height: 8vw; */
-                    /* line-height: normal; */
-                    border: none;
-                    outline: none;
-                    background-color: transparent;
-                    height: 96%;
-                    width: 94%;
-                    font-family: inherit;
-                    font-size: 4vw;
-                    color: black;
-                    overflow: hidden;
-                    box-sizing: border-box;
-                    resize: none;
-                    margin-left: 1%;
-                    /* margin-right: 3%; */
-                    margin-top: 1%;
-                    /* margin-bottom: 3%; */
-                }
+    .reply_call {
+        border: 2px, solid, rgb(160, 155, 155);
+        /* border: 1px, solid, black; */
+        width: 90%;
+        height: 13%;
+        /* height: 8vw; */
+        margin-top: 7%;
+        margin-left: 5%;
+        border-radius: 20px;
+    }
 
-                /* .reply_content textarea::placeholder {
+    .reply_call textarea {
+        line-height: 8vw;
+        border: none;
+        outline: none;
+        background-color: transparent;
+        height: 100%;
+        width: 94%;
+        font-family: inherit;
+        font-size: 4vw;
+        color: black;
+        overflow: hidden;
+        /* box-sizing: border-box; */
+        resize: none;
+        margin-left: 3%;
+        /* margin-right: 3%; */
+    }
+
+    .reply_content {
+        border: 2px, solid, rgb(160, 155, 155);
+        /* border: 1px, solid, black; */
+        /* height: 8vw; */
+        height: 40%;
+        width: 90%;
+        margin-top: 7%;
+        margin-left: 5%;
+        border-radius: 10px;
+    }
+
+    .reply_content textarea {
+        line-height: 1.2em;
+        /* line-height: 8vw; */
+        /* line-height: normal; */
+        border: none;
+        outline: none;
+        background-color: transparent;
+        height: 96%;
+        width: 94%;
+        font-family: inherit;
+        font-size: 4vw;
+        color: black;
+        overflow: hidden;
+        box-sizing: border-box;
+        resize: none;
+        margin-left: 1%;
+        /* margin-right: 3%; */
+        margin-top: 1%;
+        /* margin-bottom: 3%; */
+    }
+
+    /* .reply_content textarea::placeholder {
                     color: #aaa;
                     opacity: 1;
                     
                 } */
-        
-                .reply_button {
-                    height: 15%;
-        
-                    margin-left: -5%;
-                }
-        
-                .reply_button button {
-                    background-color: #04132c;
-                    color: #ffffff;
-                    width: 18%;
-                    height: 100%;
-                    /* margin-bottom: 2%; */
-                    margin-top: 5%;
-                    border-radius: 9px;
-                    cursor: pointer;
-                    margin-left: 5%;
-                    font-size: 4vw;
-                }
-        
-                .reply_button button:active {
-                    animation: pulsate-bck 1s ease;
-                }
 
-    .repay_pc{
+    .reply_button {
+        height: 15%;
+
+        margin-left: -5%;
+    }
+
+    .reply_button button {
+        background-color: #04132c;
+        color: #ffffff;
+        width: 18%;
+        height: 100%;
+        /* margin-bottom: 2%; */
+        margin-top: 5%;
+        border-radius: 9px;
+        cursor: pointer;
+        margin-left: 5%;
+        font-size: 4vw;
+    }
+
+    .reply_button button:active {
+        animation: pulsate-bck 1s ease;
+    }
+
+    .repay_pc {
         display: none;
     }
 
@@ -1087,7 +1087,7 @@ export default {
         font-size: 1.9vh;
         overflow: hidden;
         box-sizing: border-box;
-            font-weight: bold;
+        font-weight: bold;
         color: #9d9ea0ef;
 
     }
@@ -1466,27 +1466,28 @@ export default {
         }
     }
 
-        @keyframes shake {
-    
-            0%,
-            100% {
-                transform: translateX(0);
-            }
-    
-            20%,
-            60% {
-                transform: translateX(-10px);
-            }
-    
-            40%,
-            80% {
-                transform: translateX(10px);
-            }
+    @keyframes shake {
+
+        0%,
+        100% {
+            transform: translateX(0);
         }
-        .shake {
-            animation: shake 0.5s;
+
+        20%,
+        60% {
+            transform: translateX(-10px);
         }
-        
+
+        40%,
+        80% {
+            transform: translateX(10px);
+        }
+    }
+
+    .shake {
+        animation: shake 0.5s;
+    }
+
 }
 
 @media screen and (orientation: landscape) {
@@ -1557,7 +1558,7 @@ export default {
         box-sizing: border-box;
     }
 
-        
+
 
     .mobile_Input {
         display: none;
@@ -1810,76 +1811,76 @@ export default {
         overflow-wrap: break-word;
     }
 
-    .reply_new{
+    .reply_new {
         position: fixed;
-            top: 0;
-            left: 0;
-            width: 50%;
-            height: 50%;
-            margin-left:23% ;
-            margin-top: 20%;
-            background-color: #f4f1f1ef;
-            text-align: center;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            z-index: 1000;
-            border-radius: 10px;
-            resize: none;
+        top: 0;
+        left: 0;
+        width: 50%;
+        height: 50%;
+        margin-left: 23%;
+        margin-top: 20%;
+        background-color: #f4f1f1ef;
+        text-align: center;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        z-index: 1000;
+        border-radius: 10px;
+        resize: none;
     }
 
-    .reply_call{
+    .reply_call {
         border: 2px, solid, rgb(160, 155, 155);
         width: 80%;
         height: 13%;
-            margin-top: 8%;
-            margin-left: 10%;
-            border-radius: 20px;
+        margin-top: 8%;
+        margin-left: 10%;
+        border-radius: 20px;
     }
 
-    .reply_call textarea{
+    .reply_call textarea {
         line-height: 1.9em;
-            border: none;
-            outline: none;
-            background-color: transparent;
-            height: 100%;
-            width: 100%;
-            font-family: inherit;
-            font-size: 1.2vw;
-            color: black;
-            overflow: hidden;
-            box-sizing: border-box;
-            resize: none;
-            margin-left: 2%;
+        border: none;
+        outline: none;
+        background-color: transparent;
+        height: 100%;
+        width: 100%;
+        font-family: inherit;
+        font-size: 1.2vw;
+        color: black;
+        overflow: hidden;
+        box-sizing: border-box;
+        resize: none;
+        margin-left: 2%;
     }
 
-    .reply_content{
+    .reply_content {
         border: 2px, solid, rgb(160, 155, 155);
         /* border: 1px, solid, black; */
         height: 40%;
-            width: 80%;
-            margin-top: 5%;
-            margin-left: 10%;
-            border-radius: 20px;
+        width: 80%;
+        margin-top: 5%;
+        margin-left: 10%;
+        border-radius: 20px;
     }
 
-    .reply_content textarea{
+    .reply_content textarea {
         /* line-height: 1.9em;*/
-            line-height: 20px;
-            border: none;
-            outline: none;
-            /* align-items: center; */
-            background-color: transparent;
-            height: 98%;
-            /* height: auto; */
-            width: 97%;
-            font-family: inherit;
-            font-size: 1.2vw;
-            color: black;
-            /* overflow: auto; */
-            /* overflow: hidden; */
-            box-sizing: border-box;
-            resize: none;
-            margin-left: 3%;
-            /* margin-top: 2%; */
+        line-height: 20px;
+        border: none;
+        outline: none;
+        /* align-items: center; */
+        background-color: transparent;
+        height: 98%;
+        /* height: auto; */
+        width: 97%;
+        font-family: inherit;
+        font-size: 1.2vw;
+        color: black;
+        /* overflow: auto; */
+        /* overflow: hidden; */
+        box-sizing: border-box;
+        resize: none;
+        margin-left: 3%;
+        /* margin-top: 2%; */
     }
 
     .reply_content textarea::-webkit-scrollbar {
@@ -1889,30 +1890,30 @@ export default {
 
 
 
-    .reply_button{
+    .reply_button {
         height: 13%;
         margin-left: -3%;
     }
 
-    .reply_button button{
+    .reply_button button {
         background-color: #04132c;
-            color: #ffffff;
-            width: 15%;
-            height: 100%;
-            /* margin-bottom: 2%; */
-            margin-top: 3%;
-            border-radius: 9px;
-            cursor: pointer;
-            margin-left: 7%;
-            border: none;
-            
+        color: #ffffff;
+        width: 15%;
+        height: 100%;
+        /* margin-bottom: 2%; */
+        margin-top: 3%;
+        border-radius: 9px;
+        cursor: pointer;
+        margin-left: 7%;
+        border: none;
+
     }
 
-        .reply_button button:active{
-            animation: pulsate-bck 1s ease;
-        }
-    
-    .repay_mobile{
+    .reply_button button:active {
+        animation: pulsate-bck 1s ease;
+    }
+
+    .repay_mobile {
         display: none;
     }
 
@@ -2316,28 +2317,28 @@ export default {
         }
     }
 
-        @keyframes shake {
-    
-            0%,
-            100% {
-                transform: translateX(0);
-            }
-    
-            20%,
-            60% {
-                transform: translateX(-10px);
-            }
-    
-            40%,
-            80% {
-                transform: translateX(10px);
-            }
+    @keyframes shake {
+
+        0%,
+        100% {
+            transform: translateX(0);
         }
 
-                .shake {
-                    animation: shake 0.5s;
-                }
-    
-        
+        20%,
+        60% {
+            transform: translateX(-10px);
+        }
+
+        40%,
+        80% {
+            transform: translateX(10px);
+        }
+    }
+
+    .shake {
+        animation: shake 0.5s;
+    }
+
+
 }
 </style>
