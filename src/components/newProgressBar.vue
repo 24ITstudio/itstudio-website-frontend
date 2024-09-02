@@ -62,7 +62,7 @@ const resultText = computed(() => {
     } else if (idx.value === -4) {
         return "未被录取";
     } else {
-        return "未录取";
+        return "等待一面";
     }
 });
 
