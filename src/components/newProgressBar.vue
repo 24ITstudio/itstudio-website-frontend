@@ -59,11 +59,29 @@ const isMobile = ref(window.innerWidth <= 768);
 const resultText = computed(() => {
     if (idx.value === 4) {
         return "成功录取";
-    } else if (idx.value === -4) {
-        return "未被录取";
-    } else {
-        return "等待一面";
     }
+    if (idx.value === -4) {
+        return "未被录取";
+    }
+    if (idx.value === -3) {
+        return "二面失败";
+    }
+    if (idx.value === -2) {
+        return "国庆题未通过";
+    }
+    if (idx.value === -1) {
+        return "一面失败";
+    }
+    if (idx.value === 1) {
+        return "一面通过";
+    }
+    if (idx.value === 2) {
+        return "国庆题通过";
+    }
+    if (idx.value === 3) {
+        return "二面成功";
+    }
+    return "加载中";
 });
 
 const pUp0 = ref(false);
