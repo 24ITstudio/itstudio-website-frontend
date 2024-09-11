@@ -81,7 +81,7 @@ const resultText = computed(() => {
     if (idx.value === 3) {
         return "二面成功";
     }
-    return "加载中";
+    return "已报名";
 });
 
 const pUp0 = ref(false);
