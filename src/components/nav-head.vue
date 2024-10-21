@@ -33,7 +33,7 @@
                 <div class="text">
                     <span>中国海洋大学 信息科学与工程学院B505</span>
                     <span> @ITStudio All Rights Reserved</span>
-                    <span><a href="https://beian.miit.gov.cn/" target="_blank">备案号:鲁ICP备123456789号-2</a></span>
+                    <span><a href="https://beian.miit.gov.cn/" target="_blank">备案号:桂ICP备2022004639号-2</a></span>
                 </div>
             </div>
         </div>

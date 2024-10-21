@@ -166,6 +166,24 @@ if (!isMobile) {
 
 let throttleTimeout;
 
+/* const throttle = (fn, delay) => {
+    let timer = null;
+    return function (...args) {
+        if (!timer) {
+            fn.apply(this, args)
+            timer = setTimeout(() => {
+                clearTimeout(timer)
+                timer = null
+            }, delay);
+        }
+    }
+}
+
+
+const onScrolled = (e) => {
+    throttle(handleWheel, 300)
+}
+ */
 const handleWheel = (event) => {
     if (!isMobile) {
         // 如果不是移动设备，则阻止默认行为  
